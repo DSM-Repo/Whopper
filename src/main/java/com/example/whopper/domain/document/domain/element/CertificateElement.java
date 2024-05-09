@@ -1,4 +1,10 @@
 package com.example.whopper.domain.document.domain.element;
 
-public class CertificateElement {
+import java.util.Date;
+
+public record CertificateElement(
+        String name,
+        String issuingInstitution,
+        Date issueDate
+) {
 }
