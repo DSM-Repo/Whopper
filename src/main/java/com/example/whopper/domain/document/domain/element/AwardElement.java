@@ -1,4 +1,11 @@
 package com.example.whopper.domain.document.domain.element;
 
-public class AwardElement {
+import java.util.Date;
+
+public record AwardElement(
+        String name,
+        String awardingInstitution,
+        Date awardsDate,
+        String description
+) {
 }

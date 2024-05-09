@@ -1,8 +1,10 @@
 package com.example.whopper.domain.document.domain;
 
 import com.example.whopper.domain.document.domain.element.*;
+import com.example.whopper.domain.student.domain.StudentEntity;
 import lombok.Getter;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;
@@ -18,7 +20,8 @@ public class DocumentEntity {
 
     private DocumentStatus status;
 
-    private WriterElement writer;
+    @DBRef(lazy = true)
+    private StudentEntity writer;
 
     private IntroduceElement introduce;
 
