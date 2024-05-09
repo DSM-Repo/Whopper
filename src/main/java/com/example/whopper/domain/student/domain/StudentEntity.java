@@ -6,7 +6,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 @Getter
 @Document(collection = "user_repo")
-public class UserEntity {
+public class StudentEntity {
     @Id
     private String id;
 
@@ -19,4 +19,7 @@ public class UserEntity {
     private Integer number;
 
     private String profileImagePath;
+
+    protected StudentEntity() {}
+
 }
