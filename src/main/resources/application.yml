@@ -1,1 +1,10 @@
 spring:
+  data:
+    mongodb:
+      database: ${MONGO_DB}
+      uri: ${MONGO_URI}
+      password: ${MONGO_PW}
+
+  threads:
+    virtual:
+      enabled: true
