@@ -20,8 +20,7 @@ public class DocumentEntity {
 
     private DocumentStatus status;
 
-    @DBRef(lazy = true)
-    private StudentEntity writer;
+    private WriterInfoElement writer;
 
     private IntroduceElement introduce;
 
@@ -34,6 +33,9 @@ public class DocumentEntity {
     private List<CertificateElement> certificateList; // 자격증 목록
 
     private List<ActivityElement> activityList; // 활동 목록
+
+    @DBRef(lazy = true)
+    private StudentEntity entity;
 
     protected DocumentEntity() {}
 
