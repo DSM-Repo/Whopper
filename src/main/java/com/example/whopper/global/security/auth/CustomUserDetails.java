@@ -8,20 +8,20 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 
-public record CustomUserDetails(String id) implements UserDetails {
+public record CustomUserDetails(String accountId) implements UserDetails {
 
     @Override
     public String getUsername() {
-        return id;
+        return accountId;
     }
 
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return new ArrayList<>(Collections.singleton(new SimpleGrantedAuthority("ROLE_"+ id)));
+        return new ArrayList<>(Collections.singleton(new SimpleGrantedAuthority("ROLE_"+ accountId)));
     }
 
     @Override
     public String getPassword() {
-        return id;
+        return accountId;
     }
 
     @Override
