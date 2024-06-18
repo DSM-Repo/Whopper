@@ -8,6 +8,18 @@ spring:
   threads:
     virtual:
       enabled: true
+jwt:
+  header: Authorization
+  prefix: Bearer
+  secret: ${SECRET}
+  accessExpiration: 271000
+  refreshExpiration: 604800
+redis:
+  host: ${REDIS_HOST}
+  port: 6379
+
+key:
+  login-api-url: ${LOGIN_URL}
 
 redis:
   host: ${REDIS_HOST}
