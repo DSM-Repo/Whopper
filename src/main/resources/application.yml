@@ -20,3 +20,7 @@ redis:
 
 key:
   login-api-url: ${LOGIN_URL}
+
+redis:
+  host: ${REDIS_HOST}
+  port: 6379
