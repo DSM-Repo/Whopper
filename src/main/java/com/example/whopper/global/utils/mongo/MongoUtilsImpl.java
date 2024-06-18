@@ -9,7 +9,7 @@ import java.util.List;
 
 @Component
 @RequiredArgsConstructor
-public class MongoUtilsImpl {
+public class MongoUtilsImpl implements MongoUtils {
     private final MongoTemplate mongoTemplate;
 
     public <T> List<T> find(Query query, Class<T> targetClass) {
