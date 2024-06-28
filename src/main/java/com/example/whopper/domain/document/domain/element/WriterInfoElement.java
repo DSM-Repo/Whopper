@@ -1,7 +1,10 @@
 package com.example.whopper.domain.document.domain.element;
 
+import lombok.Builder;
+
 import java.util.Set;
 
+@Builder
 public record WriterInfoElement(
         String studentId,
         String name,
