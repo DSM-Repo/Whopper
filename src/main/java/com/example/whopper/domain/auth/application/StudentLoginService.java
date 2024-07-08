@@ -36,7 +36,7 @@ public class StudentLoginService {
 
             return jwtTokenProvider.receiveToken(request.getAccount_id());
         }
-        XquareUserResponse xquareUserResponse = xquareClient.xquareUser(request.getAccount_id(), request.getPassword());
+        XquareUserResponse xquareUserResponse = xquareClient.xquareUser(request);
 
         studentMongoRepository.save(
                 StudentEntity.builder()
@@ -51,4 +51,5 @@ public class StudentLoginService {
 
         return jwtTokenProvider.receiveToken(xquareUserResponse.getAccount_id());
     }
+
 }
