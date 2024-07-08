@@ -5,9 +5,6 @@ import com.example.whopper.domain.auth.domain.RefreshTokenEntity;
 import com.example.whopper.domain.auth.dto.response.TokenResponse;
 import com.example.whopper.domain.auth.exception.ExpiredTokenException;
 import com.example.whopper.domain.auth.exception.InvalidTokenException;
-import com.example.whopper.domain.student.dao.StudentMongoRepository;
-import com.example.whopper.domain.student.domain.StudentEntity;
-import com.example.whopper.domain.student.exception.StudentNotFoundException;
 import com.example.whopper.global.security.auth.CustomUserDetailsService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
@@ -29,8 +26,6 @@ public class JwtTokenProvider {
 
     private final JwtProperties jwtProperties;
 
-    private final StudentMongoRepository studentMongoRepository;
-
     private final CustomUserDetailsService customUserDetailsService;
 
     private final RefreshTokenRepository refreshTokenRepository;
@@ -49,7 +44,7 @@ public class JwtTokenProvider {
                 .compact();
     }
 
-    public String createRefreshToken(String id) {
+    public String createRefreshToken(String accountId) {
 
         Date now = new Date();
 
@@ -62,7 +57,7 @@ public class JwtTokenProvider {
 
         refreshTokenRepository.save(
                 RefreshTokenEntity.builder()
-                        .id(id)
+                        .id(accountId)
                         .token(refreshToken)
                         .timeToLive(jwtProperties.refreshExpiration())
                         .build());
@@ -91,18 +86,16 @@ public class JwtTokenProvider {
         }
     }
 
-    public TokenResponse receiveToken(String id) {
-        Date  now = new Date();
+    public TokenResponse receiveToken(String accountId) {
 
-        StudentEntity student = studentMongoRepository.findById(id)
-                .orElseThrow(() -> StudentNotFoundException.EXCEPTION);
+        Date now = new Date();
 
         return TokenResponse
                 .builder()
-                .accessToken(createAccessToken(id))
-                .refreshToken(createRefreshToken(id))
-                .accessExpiredAt(new Date(now.getTime() + jwtProperties.accessExpiration()))
-                .refreshExpiredAt(new Date(now.getTime() + jwtProperties.refreshExpiration()))
+                .accessToken(createAccessToken(accountId))
+                .refreshToken(createRefreshToken(accountId))
+                .accessExpiredAt(new Date(now.getTime() + jwtProperties.getAccessExpiration()))
+                .refreshExpiredAt(new Date(now.getTime() + jwtProperties.getRefreshExpiration()))
                 .build();
     }
 

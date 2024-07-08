@@ -15,8 +15,8 @@ public class CustomUserDetailsService implements UserDetailsService {
     private final StudentMongoRepository studentMongoRepository;
 
     @Override
-    public UserDetails loadUserByUsername(String id) {
-        StudentEntity student = studentMongoRepository.findById(id)
+    public UserDetails loadUserByUsername(String accountId) {
+        StudentEntity student = studentMongoRepository.findFirstByAccountId(accountId)
                 .orElseThrow(()-> StudentNotFoundException.EXCEPTION);
 
         return new CustomUserDetails(student.getId());
