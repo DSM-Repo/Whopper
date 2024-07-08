@@ -2,6 +2,7 @@ package com.example.whopper.domain.document.domain;
 
 import com.example.whopper.domain.document.domain.element.*;
 import com.example.whopper.domain.student.domain.StudentEntity;
+import lombok.Builder;
 import lombok.Getter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
@@ -37,6 +38,23 @@ public class DocumentEntity {
     @DBRef(lazy = true)
     private StudentEntity entity;
 
+    public void updateWriterInfo(WriterInfoElement writer) {
+        this.writer = writer;
+    }
+
     protected DocumentEntity() {}
 
+    @Builder
+    public DocumentEntity(Integer year, DocumentStatus status, WriterInfoElement writer, IntroduceElement introduce, Set<String> skillSet, List<ProjectElement> projectList, List<AwardElement> awardList, List<CertificateElement> certificateList, List<ActivityElement> activityList, StudentEntity entity) {
+        this.year = year;
+        this.status = status;
+        this.writer = writer;
+        this.introduce = introduce;
+        this.skillSet = skillSet;
+        this.projectList = projectList;
+        this.awardList = awardList;
+        this.certificateList = certificateList;
+        this.activityList = activityList;
+        this.entity = entity;
+    }
 }

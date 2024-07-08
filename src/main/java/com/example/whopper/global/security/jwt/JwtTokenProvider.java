@@ -39,8 +39,8 @@ public class JwtTokenProvider {
                 .setSubject(accountId)
                 .claim("type", "access")
                 .setIssuedAt(now)
-                .setExpiration(new Date(now.getTime() + jwtProperties.getAccessExpiration() * 1000))
-                .signWith(SignatureAlgorithm.HS256, jwtProperties.getSecret())
+                .setExpiration(new Date(now.getTime() + jwtProperties.accessExpiration() * 1000))
+                .signWith(SignatureAlgorithm.HS256, jwtProperties.secret())
                 .compact();
     }
 
@@ -51,15 +51,15 @@ public class JwtTokenProvider {
         String refreshToken = Jwts.builder()
                 .claim("type", "refresh")
                 .setIssuedAt(now)
-                .setExpiration(new Date(now.getTime() + jwtProperties.getRefreshExpiration() * 1000))
-                .signWith(SignatureAlgorithm.HS256, jwtProperties.getSecret())
+                .setExpiration(new Date(now.getTime() + jwtProperties.refreshExpiration() * 1000))
+                .signWith(SignatureAlgorithm.HS256, jwtProperties.secret())
                 .compact();
 
         refreshTokenRepository.save(
                 RefreshTokenEntity.builder()
                         .id(accountId)
                         .token(refreshToken)
-                        .timeToLive(jwtProperties.getRefreshExpiration())
+                        .timeToLive(jwtProperties.refreshExpiration())
                         .build());
 
         return refreshToken;
@@ -76,7 +76,7 @@ public class JwtTokenProvider {
         try {
             return Jwts
                     .parser()
-                    .setSigningKey(jwtProperties.getSecret())
+                    .setSigningKey(jwtProperties.secret())
                     .parseClaimsJws(token)
                     .getBody();
         } catch (ExpiredJwtException e) {
@@ -101,10 +101,10 @@ public class JwtTokenProvider {
 
     // HTTP 요청 헤더에서 토큰을 가져오는 메서드
     public String resolveToken(HttpServletRequest request) {
-        String bearerToken = request.getHeader(jwtProperties.getHeader());
+        String bearerToken = request.getHeader(jwtProperties.header());
 
-        if (StringUtils.hasText(bearerToken) && bearerToken.startsWith(jwtProperties.getPrefix())
-                && bearerToken.length() > jwtProperties.getPrefix().length() + 1) {
+        if (StringUtils.hasText(bearerToken) && bearerToken.startsWith(jwtProperties.prefix())
+                && bearerToken.length() > jwtProperties.prefix().length() + 1) {
             return bearerToken.substring(7);
         }
         return null;

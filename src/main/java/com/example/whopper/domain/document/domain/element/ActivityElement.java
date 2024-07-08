@@ -6,7 +6,7 @@ public record ActivityElement(
         String name,
         Date date,
         Date endDate,
-        Boolean isPeriod,
+        boolean isPeriod,
         String description
 ) {
 }
