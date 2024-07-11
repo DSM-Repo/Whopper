@@ -1,4 +1,4 @@
-package com.example.whopper.domain.document.application.component.impl.component;
+package com.example.whopper.domain.document.application.component.impl;
 
 import com.example.whopper.domain.document.application.component.CreateDocumentComponent;
 import com.example.whopper.domain.document.dao.DocumentRepository;
