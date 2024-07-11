@@ -20,7 +20,7 @@ public abstract class AbstractDocumentRepository implements DocumentRepository {
     }
 
     @Override
-    public void save(DocumentEntity document) {
-        documentMongoRepository.save(document);
+    public DocumentEntity save(DocumentEntity document) {
+        return documentMongoRepository.save(document);
     }
 }

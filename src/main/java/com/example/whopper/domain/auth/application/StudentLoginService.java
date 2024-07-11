@@ -4,6 +4,7 @@ import com.example.whopper.domain.auth.dto.request.StudentLoginRequest;
 import com.example.whopper.domain.auth.dto.response.TokenResponse;
 import com.example.whopper.domain.auth.exception.PasswordMismatchException;
 import com.example.whopper.domain.student.dao.StudentMongoRepository;
+import com.example.whopper.domain.student.domain.ClassInfo;
 import com.example.whopper.domain.student.domain.StudentEntity;
 import com.example.whopper.domain.student.exception.StudentNotFoundException;
 import com.example.whopper.global.security.jwt.JwtTokenProvider;
@@ -36,20 +37,22 @@ public class StudentLoginService {
 
             return jwtTokenProvider.receiveToken(request.getAccount_id());
         }
-        XquareUserResponse xquareUserResponse = xquareClient.xquareUser(request);
+        XquareUserResponse xquareUserResponse = xquareClient.xquareUser(request); // 타임 아웃이 일어날 가능성?
 
-        studentMongoRepository.save(
+        var user = studentMongoRepository.save(
                 StudentEntity.builder()
                         .accountId(xquareUserResponse.getAccount_id())
                         .password(xquareUserResponse.getPassword())
                         .name(xquareUserResponse.getName())
-                        .grade(xquareUserResponse.getGrade())
-                        .classNum(xquareUserResponse.getClass_num())
-                        .number(xquareUserResponse.getNum())
+                        .classInfo(ClassInfo.of(
+                                xquareUserResponse.getGrade(),
+                                xquareUserResponse.getClass_num(),
+                                xquareUserResponse.getNum()
+                        ))
                         .profileImagePath(xquareUserResponse.getProfileImgUrl())
                         .build());
 
-        return jwtTokenProvider.receiveToken(xquareUserResponse.getAccount_id());
+        return jwtTokenProvider.receiveToken(user.getId());
     }
 
 }
