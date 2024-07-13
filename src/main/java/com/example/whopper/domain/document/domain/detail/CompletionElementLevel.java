@@ -11,9 +11,13 @@ public record CompletionElementLevel(
         boolean project
 ) {
     public static CompletionElementLevel of(DocumentEntity document) {
+        var introduce = document.getIntroduce();
+        var writerInfo = document.getWriter();
+
         return new CompletionElementLevel(
-                document.getWriter() != null,
-                document.getIntroduce() != null,
+                (!writerInfo.email().isBlank() && !writerInfo.major().isBlank() &&
+                !writerInfo.skillSet().isEmpty() && writerInfo.generation() != null),
+                (!introduce.introduce().isBlank() && !introduce.heading().isBlank()),
                 !document.getCertificateList().isEmpty(),
                 !document.getAwardList().isEmpty(),
                 !document.getActivityList().isEmpty(),

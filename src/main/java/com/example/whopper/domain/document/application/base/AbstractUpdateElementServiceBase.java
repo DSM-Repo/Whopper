@@ -6,11 +6,10 @@ import com.example.whopper.global.utils.current.CurrentUser;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-public abstract class AbstractUpdateElementServiceBase<T> implements UpdateElementUseCase<T> {
+public abstract class AbstractUpdateElementServiceBase<T> {
     protected final DocumentRepository documentRepository;
     protected final CurrentUser currentUser;
 
-    @Override
     public void update(T request) {
         var document = currentUser.getDocument();
         updateDocument(document, request);

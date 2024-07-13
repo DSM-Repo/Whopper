@@ -1,5 +1,5 @@
 package com.example.whopper.domain.document.application.base;
 
-public interface UpdateElementUseCase<T> {
+public interface UpdateElementUseCaseBase<T> {
     void update(T request);
 }
