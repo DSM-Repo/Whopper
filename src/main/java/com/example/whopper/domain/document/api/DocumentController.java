@@ -1,7 +1,5 @@
 package com.example.whopper.domain.document.api;
 
-import com.example.whopper.domain.document.application.base.UpdateElementUseCaseBase;
-import com.example.whopper.domain.document.application.impl.*;
 import com.example.whopper.domain.document.application.usecase.*;
 import com.example.whopper.domain.document.domain.element.*;
 import com.example.whopper.domain.document.dto.request.UpdateListRequest;
@@ -11,8 +9,6 @@ import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
