@@ -15,8 +15,10 @@ jwt:
   accessExpiration: 271000
   refreshExpiration: 604800
 redis:
-  host: ${REDIS_HOST}
   port: 6379
 
 key:
   login-api-url: ${LOGIN_URL}
+
+generation:
+  one: 2015
