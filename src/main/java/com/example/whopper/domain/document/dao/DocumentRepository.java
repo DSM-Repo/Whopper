@@ -10,6 +10,6 @@ public interface DocumentRepository {
     Optional<DocumentEntity> findById(String id);
     Optional<DocumentEntity> findByWriterId(String id);
     List<DocumentEntity> findByDetails(FindDocumentDto dto);
-    void save(DocumentEntity document);
+    DocumentEntity save(DocumentEntity document);
 
 }

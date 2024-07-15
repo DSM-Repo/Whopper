@@ -8,53 +8,73 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.time.Year;
+import java.util.Collections;
 import java.util.List;
-import java.util.Set;
 
 @Getter
 @Document(collection = "document_repo")
 public class DocumentEntity {
     @Id
     private String id;
-
     private Integer year;
-
     private DocumentStatus status;
-
     private WriterInfoElement writer;
-
     private IntroduceElement introduce;
-
-    private Set<String> skillSet;
-
-    private List<ProjectElement> projectList; // 프로젝트 목록
-
-    private List<AwardElement> awardList; // 수상 목록
-
-    private List<CertificateElement> certificateList; // 자격증 목록
-
-    private List<ActivityElement> activityList; // 활동 목록
+    private List<ProjectElement> projectList;
+    private List<AwardElement> awardList;
+    private List<CertificateElement> certificateList;
+    private List<ActivityElement> activityList;
 
     @DBRef(lazy = true)
-    private StudentEntity entity;
+    private StudentEntity student;
+
+    @Builder
+    public DocumentEntity(DocumentStatus status, WriterInfoElement writer, StudentEntity student) {
+        this.year = Year.now().getValue();
+        this.status = status;
+        this.writer = writer;
+        this.introduce = IntroduceElement.createEmptyElement();
+        this.projectList = Collections.emptyList();
+        this.awardList = Collections.emptyList();
+        this.certificateList = Collections.emptyList();
+        this.activityList = Collections.emptyList();
+        this.student = student;
+    }
+
+    public static DocumentEntity createForNewStudent(StudentEntity student) {
+        return DocumentEntity.builder()
+                .status(DocumentStatus.CREATED)
+                .writer(WriterInfoElement.createEmptyElement(student))
+                .student(student)
+                .build();
+    }
+
+    public void updateDocumentStatus(DocumentStatus status) {
+        this.status = status;
+    }
 
     public void updateWriterInfo(WriterInfoElement writer) {
         this.writer = writer;
     }
 
-    protected DocumentEntity() {}
-
-    @Builder
-    public DocumentEntity(Integer year, DocumentStatus status, WriterInfoElement writer, IntroduceElement introduce, Set<String> skillSet, List<ProjectElement> projectList, List<AwardElement> awardList, List<CertificateElement> certificateList, List<ActivityElement> activityList, StudentEntity entity) {
-        this.year = year;
-        this.status = status;
-        this.writer = writer;
-        this.introduce = introduce;
-        this.skillSet = skillSet;
+    public void updateProjectList(List<ProjectElement> projectList) {
         this.projectList = projectList;
+    }
+
+    public void updateIntroduceElement(IntroduceElement introduce) {
+        this.introduce = introduce;
+    }
+
+    public void updateAwardList(List<AwardElement> awardList) {
         this.awardList = awardList;
+    }
+
+    public void updateCertificateElement(List<CertificateElement> certificateList) {
         this.certificateList = certificateList;
+    }
+
+    public void updateActivityElement(List<ActivityElement> activityList) {
         this.activityList = activityList;
-        this.entity = entity;
     }
 }
