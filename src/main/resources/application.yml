@@ -15,6 +15,7 @@ jwt:
   accessExpiration: 271000
   refreshExpiration: 604800
 redis:
+  host: ${REDIS_HOST}
   port: 6379
 
 key:
