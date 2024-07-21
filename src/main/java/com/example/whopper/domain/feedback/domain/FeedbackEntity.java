@@ -9,7 +9,7 @@ import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Getter
-@Document(collection = "document_repo")
+@Document(collection = "feedback_repo")
 public class FeedbackEntity {
     @Id
     private String id;
