@@ -10,7 +10,6 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Builder
 @AllArgsConstructor
 public class TeacherEntity {
-
     private String id;
 
     private String name;
