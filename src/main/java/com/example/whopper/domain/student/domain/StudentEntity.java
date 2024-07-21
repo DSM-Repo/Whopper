@@ -12,19 +12,15 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @AllArgsConstructor
 public class StudentEntity {
     @Id
-    private String id;
+    private String id; // ?
 
-    private String accountId;
+    private String accountId; // ?
 
     private String password;
 
     private String name;
 
-    private Integer grade;
-
-    private Integer classNum;
-
-    private Integer number;
+    private ClassInfo classInfo;
 
     private String profileImagePath;
 

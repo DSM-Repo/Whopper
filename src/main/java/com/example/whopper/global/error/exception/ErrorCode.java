@@ -23,6 +23,9 @@ public enum ErrorCode {
     // tag
     DUPLICATED_TAG(409, "중복되는 태그가 존재합니다."),
 
+    // document
+    DOCUMENT_NOT_FOUND(404, "요청하신 문서를 찾지 못했습니다."),
+
     // general
     BAD_REQUEST(400, "프론트 탓..."),
     INTERNAL_SERVER_ERROR(500, "서버 탓...");

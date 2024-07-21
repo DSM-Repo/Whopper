@@ -4,6 +4,8 @@ import com.example.whopper.domain.auth.application.usecase.StudentLoginUseCase;
 import com.example.whopper.domain.auth.dto.request.StudentLoginRequest;
 import com.example.whopper.domain.auth.dto.response.TokenResponse;
 import com.example.whopper.domain.auth.exception.PasswordMismatchException;
+import com.example.whopper.domain.document.dao.DocumentRepository;
+import com.example.whopper.domain.document.domain.DocumentEntity;
 import com.example.whopper.domain.student.dao.StudentMongoRepository;
 import com.example.whopper.domain.student.domain.StudentEntity;
 import com.example.whopper.domain.student.exception.StudentNotFoundException;
@@ -20,11 +22,9 @@ import org.springframework.transaction.annotation.Transactional;
 public class StudentLoginService implements StudentLoginUseCase {
 
     private final StudentMongoRepository studentMongoRepository;
-
+    private final DocumentRepository documentRepository;
     private final JwtTokenProvider jwtTokenProvider;
-
     private final XquareClient xquareClient;
-
     private final PasswordEncoder passwordEncoder;
 
     @Transactional
@@ -56,19 +56,19 @@ public class StudentLoginService implements StudentLoginUseCase {
 
     private TokenResponse registerAndLoginNewStudent(StudentLoginRequest request) {
         XquareUserResponse xquareUserResponse = xquareClient.xquareUser(request);
+        StudentEntity newStudent = createAndSaveNewStudent(xquareUserResponse);
+        documentRepository.save(DocumentEntity.createForNewStudent(newStudent));
+        return jwtTokenProvider.receiveToken(newStudent.getId());
+    }
 
-        studentMongoRepository.save(
+    private StudentEntity createAndSaveNewStudent(XquareUserResponse xquareUserResponse) {
+        return studentMongoRepository.save(
                 StudentEntity.builder()
                         .accountId(xquareUserResponse.getAccount_id())
                         .password(xquareUserResponse.getPassword())
                         .name(xquareUserResponse.getName())
-                        .grade(xquareUserResponse.getGrade())
-                        .classNum(xquareUserResponse.getClass_num())
-                        .number(xquareUserResponse.getNum())
+                        .classInfo(xquareUserResponse.toClassInfo())
                         .profileImagePath(xquareUserResponse.getProfileImgUrl())
                         .build());
-
-        return jwtTokenProvider.receiveToken(xquareUserResponse.getAccount_id());
     }
-
 }

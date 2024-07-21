@@ -16,11 +16,11 @@ public abstract class AbstractDocumentRepository implements DocumentRepository {
 
     @Override
     public Optional<DocumentEntity> findByWriterId(String id) {
-        return documentMongoRepository.findByWriter_StudentId(id);
+        return documentMongoRepository.findByStudent_Id(id);
     }
 
     @Override
-    public void save(DocumentEntity document) {
-        documentMongoRepository.save(document);
+    public DocumentEntity save(DocumentEntity document) {
+        return documentMongoRepository.save(document);
     }
 }

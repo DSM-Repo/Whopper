@@ -1,5 +1,6 @@
 package com.example.whopper.infra.feign.dto.response;
 
+import com.example.whopper.domain.student.domain.ClassInfo;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -28,4 +29,8 @@ public class XquareUserResponse {
     private String profileImgUrl;
 
     private String clubName;
+
+    public ClassInfo toClassInfo() {
+        return ClassInfo.of(this.getGrade(), this.getClass_num(), this.getNum());
+    }
 }
