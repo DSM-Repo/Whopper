@@ -1,5 +1,6 @@
-package com.example.whopper.domain.auth.application;
+package com.example.whopper.domain.auth.application.impl;
 
+import com.example.whopper.domain.auth.application.usecase.StudentLoginUseCase;
 import com.example.whopper.domain.auth.dto.request.StudentLoginRequest;
 import com.example.whopper.domain.auth.dto.response.TokenResponse;
 import com.example.whopper.domain.auth.exception.PasswordMismatchException;
@@ -16,7 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
-public class StudentLoginService {
+public class StudentLoginService implements StudentLoginUseCase {
 
     private final StudentMongoRepository studentMongoRepository;
 
@@ -28,6 +29,7 @@ public class StudentLoginService {
 
     @Transactional
     public TokenResponse studentLogin(StudentLoginRequest request) {
+<<<<<<< Updated upstream:src/main/java/com/example/whopper/domain/auth/application/StudentLoginService.java
         if(studentMongoRepository.existsByAccountId(request.getAccount_id())) {
             StudentEntity student = studentMongoRepository.findFirstByAccountId(request.getAccount_id())
                     .orElseThrow(()->StudentNotFoundException.EXCEPTION);
@@ -36,6 +38,25 @@ public class StudentLoginService {
 
             return jwtTokenProvider.receiveToken(request.getAccount_id());
         }
+=======
+        return studentMongoRepository.existsByAccountId(request.accountId()) ?
+                loginExistingStudent(request) :
+                registerAndLoginNewStudent(request);
+    }
+
+    private TokenResponse loginExistingStudent(StudentLoginRequest request) {
+        StudentEntity student = studentMongoRepository.findFirstByAccountId(request.accountId())
+                .orElseThrow(() -> StudentNotFoundException.EXCEPTION);
+
+        if (!passwordEncoder.matches(request.password(), student.getPassword())) {
+            throw PasswordMismatchException.EXCEPTION;
+        }
+
+        return jwtTokenProvider.receiveToken(request.accountId());
+    }
+
+    private TokenResponse registerAndLoginNewStudent(StudentLoginRequest request) {
+>>>>>>> Stashed changes:src/main/java/com/example/whopper/domain/auth/application/impl/StudentLoginService.java
         XquareUserResponse xquareUserResponse = xquareClient.xquareUser(request);
 
         studentMongoRepository.save(
