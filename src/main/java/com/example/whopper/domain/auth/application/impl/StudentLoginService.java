@@ -1,5 +1,6 @@
-package com.example.whopper.domain.auth.application;
+package com.example.whopper.domain.auth.application.impl;
 
+import com.example.whopper.domain.auth.application.usecase.StudentLoginUseCase;
 import com.example.whopper.domain.auth.dto.request.StudentLoginRequest;
 import com.example.whopper.domain.auth.dto.response.TokenResponse;
 import com.example.whopper.domain.auth.exception.PasswordMismatchException;
@@ -18,7 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
-public class StudentLoginService {
+public class StudentLoginService implements StudentLoginUseCase {
 
     private final StudentMongoRepository studentMongoRepository;
     private final DocumentRepository documentRepository;
@@ -28,20 +29,29 @@ public class StudentLoginService {
 
     @Transactional
     public TokenResponse studentLogin(StudentLoginRequest request) {
-        return studentMongoRepository.existsByAccountId(request.getAccount_id()) ?
+        if(studentMongoRepository.existsByAccountId(request.accountId())) {
+            StudentEntity student = studentMongoRepository.findFirstByAccountId(request.accountId())
+                    .orElseThrow(()->StudentNotFoundException.EXCEPTION);
+
+            if(!passwordEncoder.matches(request.password(), student.getPassword())) throw PasswordMismatchException.EXCEPTION;
+
+            return jwtTokenProvider.receiveToken(request.accountId());
+        }
+
+        return studentMongoRepository.existsByAccountId(request.accountId()) ?
                 loginExistingStudent(request) :
                 registerAndLoginNewStudent(request);
     }
 
     private TokenResponse loginExistingStudent(StudentLoginRequest request) {
-        StudentEntity student = studentMongoRepository.findFirstByAccountId(request.getAccount_id())
+        StudentEntity student = studentMongoRepository.findFirstByAccountId(request.accountId())
                 .orElseThrow(() -> StudentNotFoundException.EXCEPTION);
 
-        if (!passwordEncoder.matches(request.getPassword(), student.getPassword())) {
+        if (!passwordEncoder.matches(request.password(), student.getPassword())) {
             throw PasswordMismatchException.EXCEPTION;
         }
 
-        return jwtTokenProvider.receiveToken(request.getAccount_id());
+        return jwtTokenProvider.receiveToken(request.accountId());
     }
 
     private TokenResponse registerAndLoginNewStudent(StudentLoginRequest request) {
