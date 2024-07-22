@@ -21,7 +21,9 @@ public record FullDocumentResponse(
         List<CertificateElement> certificateList,
         List<ActivityElement> activityList
 ) {
-    public static FullDocumentResponse of(StudentEntity student, DocumentEntity document) {
+    public static FullDocumentResponse of(DocumentEntity document) {
+        var student = document.getStudent();
+
         return new FullDocumentResponse(
                 document.getId(),
                 DocumentWriterResponse.of(student, document),

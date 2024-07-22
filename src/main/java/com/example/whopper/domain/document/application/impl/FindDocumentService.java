@@ -29,8 +29,7 @@ public class FindDocumentService implements FindDocumentUseCase {
     @Override
     public FullDocumentResponse getFullDocument() {
         var currentStudentDocument = currentUser.getDocument();
-        var currentStudent = currentStudentDocument.getStudent();
 
-        return FullDocumentResponse.of(currentStudent, currentStudentDocument);
+        return FullDocumentResponse.of(currentStudentDocument);
     }
 }
