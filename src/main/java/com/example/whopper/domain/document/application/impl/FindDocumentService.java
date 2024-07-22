@@ -3,6 +3,7 @@ package com.example.whopper.domain.document.application.impl;
 import com.example.whopper.domain.document.application.usecase.FindDocumentUseCase;
 import com.example.whopper.domain.document.domain.detail.CompletionElementLevel;
 import com.example.whopper.domain.document.dto.response.DocumentResponse;
+import com.example.whopper.domain.document.dto.response.FullDocumentResponse;
 import com.example.whopper.global.utils.current.CurrentUser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -20,13 +21,17 @@ public class FindDocumentService implements FindDocumentUseCase {
         var currentStudent = currentStudentDocument.getStudent();
 
         return DocumentResponse.of(
-                currentStudent.getName(),
-                currentStudent.getClassInfo(),
-                currentStudentDocument.getWriter().major(),
-                currentStudent.getProfileImagePath(),
-                currentStudentDocument.getIntroduce(),
-                CompletionElementLevel.of(currentStudentDocument),
+                currentStudent,
+                currentStudentDocument,
                 List.of() // 최근 공유된 document
         );
+    }
+
+    @Override
+    public FullDocumentResponse getFullDocument() {
+        var currentStudentDocument = currentUser.getDocument();
+        var currentStudent = currentStudentDocument.getStudent();
+
+        return FullDocumentResponse.of(currentStudent, currentStudentDocument);
     }
 }
