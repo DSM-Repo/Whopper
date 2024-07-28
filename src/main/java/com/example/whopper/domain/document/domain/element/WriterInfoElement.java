@@ -15,7 +15,7 @@ public record WriterInfoElement(
         String profileImagePath,
         String major,
         Set<String> skillSet,
-        String url
+        Set<String> url
 ) {
     @Value("${generation.one}")
     private static Integer oneGenYear; // 1gen 2015year 9 2023
@@ -26,7 +26,7 @@ public record WriterInfoElement(
                 .email("")
                 .profileImagePath(student.getProfileImagePath())
                 .skillSet(Collections.emptySet())
-                .url("")
+                .url(Collections.emptySet())
                 .build();
     }
 }
