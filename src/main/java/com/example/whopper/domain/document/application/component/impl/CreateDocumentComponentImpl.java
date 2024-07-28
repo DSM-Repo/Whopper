@@ -9,8 +9,6 @@ import com.example.whopper.domain.student.domain.StudentEntity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import java.util.Collections;
-
 @Component
 @RequiredArgsConstructor
 public class CreateDocumentComponentImpl implements CreateDocumentComponent {
@@ -25,14 +23,8 @@ public class CreateDocumentComponentImpl implements CreateDocumentComponent {
 
     private static DocumentEntity createEntity(StudentEntity student) {
         return DocumentEntity.builder()
-                .status(DocumentStatus.CREATED)
-                .writer(WriterInfoElement.builder()
-                        .email("")
-                        .profileImagePath(student.getProfileImagePath())
-                        .major("전공 미정")
-                        .skillSet(Collections.emptySet())
-                        .url("")
-                        .build())
+                .status(DocumentStatus.ONGOING)
+                .writer(WriterInfoElement.createEmptyElement(student))
                 .student(student)
                 .build();
     }

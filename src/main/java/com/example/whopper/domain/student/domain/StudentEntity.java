@@ -1,9 +1,11 @@
 package com.example.whopper.domain.student.domain;
 
+import com.example.whopper.domain.major.domain.MajorEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Getter
@@ -12,9 +14,9 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @AllArgsConstructor
 public class StudentEntity {
     @Id
-    private String id; // ?
+    private String id;
 
-    private String accountId; // ?
+    private String accountId;
 
     private String password;
 
@@ -24,6 +26,9 @@ public class StudentEntity {
 
     private String profileImagePath;
 
-    protected StudentEntity() {}
+    private String majorId;
 
+    public void updateMajor(String majorId) {
+        this.majorId = majorId;
+    }
 }
