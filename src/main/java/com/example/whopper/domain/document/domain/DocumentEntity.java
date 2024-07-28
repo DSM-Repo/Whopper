@@ -40,6 +40,8 @@ public class DocumentEntity {
         this.student = student;
     }
 
+    protected DocumentEntity() {}
+
     public static DocumentEntity createForNewStudent(StudentEntity student) {
         return DocumentEntity.builder()
                 .status(DocumentStatus.ONGOING)
