@@ -1,0 +1,45 @@
+name: gradle-whopper
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    permissions:
+      id-token: write
+      contents: read
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Java
+        uses: actions/setup-java@v2
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+
+      - name: Build Gradle
+        uses: gradle/gradle-build-action@v2
+        with:
+          arguments: |
+            build
+            --build-cache
+            --no-daemon
+            -x test
+
+      - name: Deploy to xquare
+        uses: team-xquare/xquare-deployment-action@master
+        with:
+          environment: prod
+          access_key: ${{ secrets.XQUARE_ACCESS_KEY }}
+          buildargs: |
+            PROFILE=prod
+            MONGO_DB=${{ secrets.MONGO_DB }}
+            MONGO_URI=${{ secrets.MONGO_URI }}
+            DB_USERNAME=${{ secrets.DB_USERNAME }}
+            DB_PASSWORD=${{ secrets.DB_PASSWORD }}
+            LOGIN_URL=${{ secrets.LOGIN_URL }}
+            REDIS_HOST=${{ secrets.DB_URL }}
+            SECRET=${{ secrets.DB_URL }}
