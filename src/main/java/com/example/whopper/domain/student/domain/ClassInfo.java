@@ -8,4 +8,11 @@ public record ClassInfo(
     public static ClassInfo of(Integer grade, Integer classNumber, Integer number) {
         return new ClassInfo(grade, classNumber, number);
     }
+
+    public String getFormattedSchoolNumber() {
+        return String.format("%1d%1d%02d",
+                grade,
+                classNumber,
+                number);
+    }
 }
