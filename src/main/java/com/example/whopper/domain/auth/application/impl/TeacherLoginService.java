@@ -42,7 +42,7 @@ public class TeacherLoginService implements TeacherLoginUseCase {
     }
 
     private TokenResponse loginExistingTeacher(LoginRequest request) {
-       TeacherEntity teacher = teacherMongoRepository.findFirstByAccountId(request.account_id())
+        TeacherEntity teacher = teacherMongoRepository.findFirstByAccountId(request.account_id())
                 .orElseThrow(() -> StudentNotFoundException.EXCEPTION);
 
         if (!passwordEncoder.matches(request.password(), teacher.getPassword())) {
