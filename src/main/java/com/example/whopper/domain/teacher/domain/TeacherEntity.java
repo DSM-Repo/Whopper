@@ -6,7 +6,6 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 @Getter
 @Document(collection = "teacher_repo")
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class TeacherEntity {
@@ -21,4 +20,5 @@ public class TeacherEntity {
         this.accountId = account_id;
         this.password = password;
     }
+    protected TeacherEntity() {}
 }

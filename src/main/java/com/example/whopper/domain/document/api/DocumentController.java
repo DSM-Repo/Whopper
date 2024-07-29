@@ -1,25 +1,64 @@
 package com.example.whopper.domain.document.api;
 
 import com.example.whopper.domain.document.application.usecase.*;
+import com.example.whopper.domain.document.domain.detail.CompletionElementLevel;
 import com.example.whopper.domain.document.domain.element.*;
+import com.example.whopper.domain.document.dto.request.ProjectElementRequest;
+import com.example.whopper.domain.document.dto.request.SearchDocumentRequest;
 import com.example.whopper.domain.document.dto.request.UpdateListRequest;
 import com.example.whopper.domain.document.dto.request.UpdateWriterInfoRequest;
+import com.example.whopper.domain.document.dto.response.DocumentResponse;
+import com.example.whopper.domain.document.dto.response.FullDocumentResponse;
+import com.example.whopper.domain.document.dto.response.SearchDocumentResponse;
+import com.example.whopper.global.utils.DataResponseInfo;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/document")
+@RequestMapping("/document")
 public class DocumentController {
     private final UpdateActivityListUseCase updateActivityListUseCase;
-    private final UpdateAwardListUseCase updateAwardListUseCase;
-    private final UpdateCertificateListUseCase updateCertificateListUseCase;
+    private final UpdateAchievementListUseCase updateAchievementListUseCase;
     private final UpdateProjectListUseCase updateProjectListUseCase;
     private final UpdateIntroduceUseCase updateIntroduceUseCase;
     private final UpdateWriterInfoUseCase updateWriterInfoUseCase;
+    private final FindDocumentUseCase findDocumentUseCase;
+    private final SubmitMyDocumentUseCase submitMyDocumentUseCase;
+    private final CancelSubmitMyDocumentUseCase cancelSubmitMyDocumentUseCase;
+
+    @PatchMapping("/submit")
+    public void submit() {
+        submitMyDocumentUseCase.submit();
+    }
+
+    @PatchMapping("/submit/cancel")
+    public void cancelSubmit() {
+        cancelSubmitMyDocumentUseCase.cancel();
+    }
+
+    @GetMapping("/student")
+    public DataResponseInfo<SearchDocumentResponse> search(@ModelAttribute SearchDocumentRequest request) {
+        return findDocumentUseCase.searchDocument(request);
+    }
+
+    @GetMapping("/completion")
+    public CompletionElementLevel getCompletionLevel() {
+        return findDocumentUseCase.getCurrentStudentDocumentCompletionLevel();
+    }
+
+    @GetMapping
+    public DocumentResponse getMainPageResponse() {
+        return findDocumentUseCase.getCurrentStudentDocumentMainPageResponse();
+    }
+
+    @GetMapping("/detail")
+    public FullDocumentResponse getCurrentDocument() {
+        return findDocumentUseCase.getCurrentStudentDocument();
+    }
 
     @PatchMapping("/writer-info")
     public void updateWriterInfo(@RequestBody UpdateWriterInfoRequest request) {
@@ -32,18 +71,16 @@ public class DocumentController {
     }
 
     @PatchMapping("/project")
-    public void updateProjectList(@RequestBody UpdateListRequest<ProjectElement> request) {
-        updateProjectListUseCase.update(request.list());
+    public void updateProjectList(
+            @RequestPart("projectList") UpdateListRequest<ProjectElementRequest> request,
+            @RequestPart("images") List<MultipartFile> images
+    ) {
+        updateProjectListUseCase.update(request.list(), images);
     }
 
-    @PatchMapping("/award")
-    public void updateAwardList(@RequestBody UpdateListRequest<AwardElement> request) {
-        updateAwardListUseCase.update(request.list());
-    }
-
-    @PatchMapping("/certificate")
-    public void updateCertificateList(@RequestBody UpdateListRequest<CertificateElement> request) {
-        updateCertificateListUseCase.update(request.list());
+    @PatchMapping("/achievement")
+    public void updateAchievementList(@RequestBody UpdateListRequest<AchievementElement> request) {
+        updateAchievementListUseCase.update(request.list());
     }
 
     @PatchMapping("/activity")

@@ -1,14 +1,18 @@
 package com.example.whopper.global.error;
 
 import com.example.whopper.global.error.exception.ErrorCode;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Builder;
 
 import java.time.LocalDateTime;
+
+import static com.fasterxml.jackson.annotation.JsonFormat.Shape.STRING;
 
 @Builder
 public record ErrorResponse(
         String message,
         int status,
+        @JsonFormat(shape = STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
         LocalDateTime timestamp,
         String description
 ) {
