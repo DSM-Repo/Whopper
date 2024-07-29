@@ -61,7 +61,7 @@ public class TeacherLoginService implements TeacherLoginUseCase {
     private TeacherEntity createAndSaveNewStudent(XquareUserResponse xquareUserResponse) {
         return teacherMongoRepository.save(
                 TeacherEntity.builder()
-                        .accountId(xquareUserResponse.getAccount_id())
+                        .account_id(xquareUserResponse.getAccount_id())
                         .password(xquareUserResponse.getPassword())
                         .name(xquareUserResponse.getName())
                         .build());
