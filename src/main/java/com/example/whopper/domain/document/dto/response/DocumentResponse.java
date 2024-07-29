@@ -11,13 +11,11 @@ import java.util.List;
 
 public record DocumentResponse(
         IntroduceElement introduce,
-        CompletionElementLevel levelOfCompletion,
         List<ShardDocument> recentlyShared
 ) {
-    public static DocumentResponse of(StudentEntity student, DocumentEntity document, List<ShardDocument> recentlyShared) {
+    public static DocumentResponse of(DocumentEntity document, List<ShardDocument> recentlyShared) {
         return new DocumentResponse(
                 document.getIntroduce(),
-                CompletionElementLevel.of(document),
                 recentlyShared
         );
     }

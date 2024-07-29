@@ -5,7 +5,7 @@ import com.example.whopper.domain.student.domain.ClassInfo;
 import java.util.Set;
 
 public record UpdateWriterInfoRequest(
-        String major,
+        String majorId,
         String email,
         ClassInfo classInfo,
         String url,

@@ -11,4 +11,6 @@ public class TeacherEntity {
     private String name;
     private String accountId;
     private String password;
+
+    protected TeacherEntity() {}
 }

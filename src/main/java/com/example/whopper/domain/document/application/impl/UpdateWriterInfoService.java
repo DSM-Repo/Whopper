@@ -6,27 +6,40 @@ import com.example.whopper.domain.document.dao.DocumentRepository;
 import com.example.whopper.domain.document.domain.DocumentEntity;
 import com.example.whopper.domain.document.domain.element.WriterInfoElement;
 import com.example.whopper.domain.document.dto.request.UpdateWriterInfoRequest;
+import com.example.whopper.domain.student.dao.StudentMongoRepository;
 import com.example.whopper.global.utils.current.CurrentUser;
 import org.springframework.stereotype.Service;
 
 @Service
 public class UpdateWriterInfoService extends AbstractUpdateElementServiceBase<UpdateWriterInfoRequest> implements UpdateWriterInfoUseCase {
-    public UpdateWriterInfoService(DocumentRepository documentRepository, CurrentUser currentUser) {
+    private final StudentMongoRepository studentMongoRepository;
+
+    public UpdateWriterInfoService(DocumentRepository documentRepository, CurrentUser currentUser, StudentMongoRepository studentMongoRepository) {
         super(documentRepository, currentUser);
+        this.studentMongoRepository = studentMongoRepository;
     }
 
     @Override
     protected void updateDocument(DocumentEntity document, UpdateWriterInfoRequest request) {
         WriterInfoElement updatedWriterInfo = updateWriterInfo(document.getWriter(), request);
         document.updateWriterInfo(updatedWriterInfo);
+        updateStudentEntityMajor(request.majorId());
     }
 
     private WriterInfoElement updateWriterInfo(WriterInfoElement writerInfo, UpdateWriterInfoRequest request) {
         return WriterInfoElement.builder()
+                .elementId(writerInfo.elementId())
                 .email(request.email())
                 .profileImagePath(writerInfo.profileImagePath())
-                .major(request.major())
+                //.major(request.majorId())
                 .skillSet(request.skillSet())
                 .build();
+    }
+
+    private void updateStudentEntityMajor(String majorId) {
+        var user = currentUser.getUser();
+        user.updateMajor(majorId);
+
+        studentMongoRepository.save(user);
     }
 }

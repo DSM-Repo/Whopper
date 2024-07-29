@@ -12,9 +12,9 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @AllArgsConstructor
 public class StudentEntity {
     @Id
-    private String id; // ?
+    private String id;
 
-    private String accountId; // ?
+    private String accountId;
 
     private String password;
 
@@ -24,6 +24,11 @@ public class StudentEntity {
 
     private String profileImagePath;
 
+    private String majorId;
+
     protected StudentEntity() {}
 
+    public void updateMajor(String majorId) {
+        this.majorId = majorId;
+    }
 }

@@ -2,8 +2,9 @@ package com.example.whopper.domain.document.dto.response;
 
 import com.example.whopper.domain.document.domain.DocumentEntity;
 import com.example.whopper.domain.document.domain.element.*;
+import com.example.whopper.domain.document.domain.element.type.AchievementType;
+import com.example.whopper.domain.document.domain.element.type.ProjectType;
 import com.example.whopper.domain.student.domain.StudentEntity;
-import lombok.Getter;
 
 import java.time.Year;
 import java.util.List;
@@ -13,53 +14,134 @@ public record FullDocumentResponse(
         String id,
         DocumentWriterResponse writer,
         DocumentStatus status,
-        IntroduceElement introduce,
+        IntroduceElementResponse introduce,
         Set<String> skillSet,
         Set<String> links,
-        List<ProjectElement>projectList,
-        List<AwardElement> awardList,
-        List<CertificateElement> certificateList,
-        List<ActivityElement> activityList
+        List<ProjectElementResponse>projectList,
+        List<AchievementElementResponse> awardList,
+        List<ActivityElementResponse> activityList
 ) {
-    public static FullDocumentResponse of(DocumentEntity document) {
-        var student = document.getStudent();
-
+    public static FullDocumentResponse of(DocumentEntity document, StudentEntity student, String majorName) {
         return new FullDocumentResponse(
                 document.getId(),
-                DocumentWriterResponse.of(student, document),
+                DocumentWriterResponse.of(student, document, majorName),
                 document.getStatus(),
-                document.getIntroduce(),
+                IntroduceElementResponse.of(document.getIntroduce()),
                 document.getWriter().skillSet(),
                 document.getWriter().url(),
-                document.getProjectList(),
-                document.getAwardList(),
-                document.getCertificateList(),
-                document.getActivityList()
+                document.getProjectList().stream().map(ProjectElementResponse::of).toList(),
+                document.getAchievementList().stream().map(AchievementElementResponse::of).toList(),
+                document.getActivityList().stream().map(ActivityElementResponse::of).toList()
         );
+    }
+
+    record IntroduceElementResponse(
+            String elementId,
+            String heading,
+            String introduce,
+            List<String> feedback
+    ) {
+        public static IntroduceElementResponse of(IntroduceElement element) {
+            return new IntroduceElementResponse(
+                    element.elementId(),
+                    element.heading(),
+                    element.introduce(),
+                    List.of()
+            );
+        }
+    }
+
+    record ProjectElementResponse(
+            String elementId,
+            String name,
+            String imagePath,
+            ProjectType type,
+            String startDate,
+            String endDate,
+            Set<String> skillSet,
+            String description,
+            Set<String> urls,
+            List<String> feedback
+    ) {
+        public static ProjectElementResponse of(ProjectElement element) {
+            return new ProjectElementResponse(
+                    element.elementId(),
+                    element.name(),
+                    element.imagePath(),
+                    element.type(),
+                    element.startDate(),
+                    element.endDate(),
+                    element.skillSet(),
+                    element.description(),
+                    element.urls(),
+                    List.of()
+            );
+        }
+    }
+
+    record AchievementElementResponse(
+            String elementId,
+            String name,
+            String institution,
+            String date,
+            AchievementType type,
+            List<String> feedback
+    ) {
+        public static AchievementElementResponse of(AchievementElement element) {
+            return new AchievementElementResponse(
+                    element.elementId(),
+                    element.name(),
+                    element.institution(),
+                    element.date(),
+                    element.type(),
+                    List.of()
+            );
+        }
+    }
+
+    record ActivityElementResponse(
+            String elementId,
+            String name,
+            String date,
+            String endDate,
+            boolean isPeriod,
+            String description,
+            List<String> feedback
+    ) {
+        public static ActivityElementResponse of(ActivityElement element) {
+            return new ActivityElementResponse(
+                    element.elementId(),
+                    element.name(),
+                    element.date(),
+                    element.endDate(),
+                    element.isPeriod(),
+                    element.description(),
+                    List.of()
+            );
+        }
     }
 
     record DocumentWriterResponse(
             String name,
             String email,
-            String major,
+            String majorName,
             String schoolNumber,
             String department,
             String profileImage
     ) {
-        public static DocumentWriterResponse of(StudentEntity student, DocumentEntity document) {
-            final var schoolNumber = student.getClassInfo().getFormattedSchoolNumber();
+        public static DocumentWriterResponse of(StudentEntity student, DocumentEntity document, String majorName) {
+            final var schoolNumber = student.getClassInfo().schoolNumber();
 
             return new DocumentWriterResponse(
                     student.getName(),
                     document.getWriter().email(),
-                    student.getMajor(),
+                    majorName,
                     schoolNumber,
                     SchoolDepartmentEnum.getBySchoolNumber(schoolNumber),
                     student.getProfileImagePath()
             );
         }
 
-        @Getter
         enum SchoolDepartmentEnum {
             SW("소프트웨어개발과"),
             EM("임베디드소프트웨어과"),
@@ -68,6 +150,10 @@ public record FullDocumentResponse(
             DE("보통교육과정"); // 1학년
 
             private final String department;
+
+            public String getDepartment() {
+                return department;
+            }
 
             SchoolDepartmentEnum(String department) {
                 this.department = department;
