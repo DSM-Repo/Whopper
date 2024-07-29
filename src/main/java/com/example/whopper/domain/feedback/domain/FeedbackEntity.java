@@ -1,7 +1,6 @@
 package com.example.whopper.domain.feedback.domain;
 
 import com.example.whopper.domain.document.domain.DocumentEntity;
-import com.example.whopper.domain.feedback.domain.element.FeedbackType;
 import lombok.Builder;
 import lombok.Getter;
 import org.springframework.data.annotation.Id;
@@ -13,7 +12,6 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class FeedbackEntity {
     @Id
     private String id;
-    private FeedbackType type;
     private String content;
     private String writerName;
     private String elementId;
@@ -22,8 +20,7 @@ public class FeedbackEntity {
     private DocumentEntity document;
 
     @Builder
-    public FeedbackEntity(FeedbackType type, String content, String writerName, String elementId, DocumentEntity document) {
-        this.type = type;
+    public FeedbackEntity(String content, String writerName, String elementId, DocumentEntity document) {
         this.content = content;
         this.writerName = writerName;
         this.elementId = elementId;

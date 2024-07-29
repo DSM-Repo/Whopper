@@ -24,7 +24,6 @@ public class AddFeedbackService implements AddFeedbackUseCase {
 
         feedbackMongoRepository.save(
                 FeedbackEntity.builder()
-                        .type(request.type())
                         .content(request.content())
                         .writerName(request.writer_name())
                         .elementId(request.element_id())
