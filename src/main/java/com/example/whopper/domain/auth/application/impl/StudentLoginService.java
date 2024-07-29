@@ -1,7 +1,7 @@
 package com.example.whopper.domain.auth.application.impl;
 
 import com.example.whopper.domain.auth.application.usecase.StudentLoginUseCase;
-import com.example.whopper.domain.auth.dto.request.StudentLoginRequest;
+import com.example.whopper.domain.auth.dto.request.LoginRequest;
 import com.example.whopper.domain.auth.dto.response.TokenResponse;
 import com.example.whopper.domain.auth.exception.PasswordMismatchException;
 import com.example.whopper.domain.document.dao.DocumentRepository;
@@ -28,33 +28,33 @@ public class StudentLoginService implements StudentLoginUseCase {
     private final PasswordEncoder passwordEncoder;
 
     @Transactional
-    public TokenResponse studentLogin(StudentLoginRequest request) {
-        if(studentMongoRepository.existsByAccountId(request.accountId())) {
-            StudentEntity student = studentMongoRepository.findFirstByAccountId(request.accountId())
+    public TokenResponse studentLogin(LoginRequest request) {
+        if(studentMongoRepository.existsByAccountId(request.account_id())) {
+            StudentEntity student = studentMongoRepository.findFirstByAccountId(request.account_id())
                     .orElseThrow(()->StudentNotFoundException.EXCEPTION);
 
             if(!passwordEncoder.matches(request.password(), student.getPassword())) throw PasswordMismatchException.EXCEPTION;
 
-            return jwtTokenProvider.receiveToken(request.accountId());
+            return jwtTokenProvider.receiveToken(request.account_id());
         }
 
-        return studentMongoRepository.existsByAccountId(request.accountId()) ?
+        return studentMongoRepository.existsByAccountId(request.account_id()) ?
                 loginExistingStudent(request) :
                 registerAndLoginNewStudent(request);
     }
 
-    private TokenResponse loginExistingStudent(StudentLoginRequest request) {
-        StudentEntity student = studentMongoRepository.findFirstByAccountId(request.accountId())
+    private TokenResponse loginExistingStudent(LoginRequest request) {
+        StudentEntity student = studentMongoRepository.findFirstByAccountId(request.account_id())
                 .orElseThrow(() -> StudentNotFoundException.EXCEPTION);
 
         if (!passwordEncoder.matches(request.password(), student.getPassword())) {
             throw PasswordMismatchException.EXCEPTION;
         }
 
-        return jwtTokenProvider.receiveToken(request.accountId());
+        return jwtTokenProvider.receiveToken(request.account_id());
     }
 
-    private TokenResponse registerAndLoginNewStudent(StudentLoginRequest request) {
+    private TokenResponse registerAndLoginNewStudent(LoginRequest request) {
         XquareUserResponse xquareUserResponse = xquareClient.xquareUser(request);
         StudentEntity newStudent = createAndSaveNewStudent(xquareUserResponse);
         documentRepository.save(DocumentEntity.createForNewStudent(newStudent));

@@ -4,6 +4,8 @@ spring:
       database: ${MONGO_DB}
       uri: ${MONGO_URI}
       auto-index-creation: true
+      password: ${DB_PASSWORD}
+      username: ${DB_USERNAME}
 
   threads:
     virtual:
