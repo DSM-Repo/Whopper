@@ -19,14 +19,15 @@ public class AddFeedbackService implements AddFeedbackUseCase {
     private final DocumentRepository documentRepository;
 
     public void addFeedback(FeedbackRequest request) {
-        DocumentEntity document = documentRepository.findById(request.documentId())
+        DocumentEntity document = documentRepository.findById(request.document_id())
                         .orElseThrow(()-> DocumentNotFoundException.EXCEPTION);
 
         feedbackMongoRepository.save(
                 FeedbackEntity.builder()
                         .type(request.type())
                         .content(request.content())
-                        .writerName(request.writerName())
+                        .writerName(request.writer_name())
+                        .elementId(request.element_id())
                         .document(document)
                         .build());
     }
