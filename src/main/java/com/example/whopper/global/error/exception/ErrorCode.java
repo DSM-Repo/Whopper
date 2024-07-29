@@ -20,8 +20,8 @@ public enum ErrorCode {
     // student
     STUDENT_NOT_FOUND(404, "일치하는 학생을 찾을 수 없습니다."),
 
-    // tag
-    DUPLICATED_TAG(409, "중복되는 태그가 존재합니다."),
+    // teacher
+    TEACHER_NOT_FOUND(404, "일치하는 학생을 찾을 수 없습니다."),
 
     // document
     DOCUMENT_NOT_FOUND(404, "요청하신 문서를 찾지 못했습니다."),
