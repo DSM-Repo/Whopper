@@ -23,3 +23,8 @@ key:
 
 generation:
   one: 2015
+
+server:
+  servlet:
+    context-path: /whopper
+  port: 8080
