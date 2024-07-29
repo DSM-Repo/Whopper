@@ -1,7 +1,5 @@
 package com.example.whopper.global.security.jwt;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 @ConfigurationProperties(prefix = "jwt")
