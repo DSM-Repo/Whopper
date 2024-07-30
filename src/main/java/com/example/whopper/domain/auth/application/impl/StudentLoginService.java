@@ -48,6 +48,7 @@ public class StudentLoginService implements StudentLoginUseCase {
     private TokenResponse registerAndLoginNewStudent(LoginRequest request) {
         XquareUserResponse xquareUserResponse = xquareClient.xquareUser(request);
         StudentEntity newStudent = createAndSaveNewStudent(xquareUserResponse);
+
         documentRepository.save(DocumentEntity.createForNewStudent(newStudent));
         return jwtTokenProvider.receiveToken(newStudent.getId());
     }

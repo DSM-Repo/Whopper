@@ -22,8 +22,6 @@ public class CurrentUserImpl implements CurrentUser {
                 .getAuthentication()
                 .getName();
 
-        System.out.println(id);
-
         return studentMongoRepository.findById(id)
                 .orElseThrow(() -> StudentNotFoundException.EXCEPTION);
     }
