@@ -29,15 +29,6 @@ public class StudentLoginService implements StudentLoginUseCase {
 
     @Transactional
     public TokenResponse studentLogin(LoginRequest request) {
-        if(studentMongoRepository.existsByAccountId(request.account_id())) {
-            StudentEntity student = studentMongoRepository.findFirstByAccountId(request.account_id())
-                    .orElseThrow(()->StudentNotFoundException.EXCEPTION);
-
-            if(!passwordEncoder.matches(request.password(), student.getPassword())) throw PasswordMismatchException.EXCEPTION;
-
-            return jwtTokenProvider.receiveToken(request.account_id());
-        }
-
         return studentMongoRepository.existsByAccountId(request.account_id()) ?
                 loginExistingStudent(request) :
                 registerAndLoginNewStudent(request);
@@ -51,7 +42,7 @@ public class StudentLoginService implements StudentLoginUseCase {
             throw PasswordMismatchException.EXCEPTION;
         }
 
-        return jwtTokenProvider.receiveToken(request.account_id());
+        return jwtTokenProvider.receiveToken(student.getId());
     }
 
     private TokenResponse registerAndLoginNewStudent(LoginRequest request) {
