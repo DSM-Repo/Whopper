@@ -41,5 +41,5 @@ jobs:
             DB_USERNAME=${{ secrets.DB_USERNAME }}
             DB_PASSWORD=${{ secrets.DB_PASSWORD }}
             LOGIN_URL=${{ secrets.LOGIN_URL }}
-            REDIS_HOST=${{ secrets.DB_URL }}
+            REDIS_HOST=${{ secrets.REDIS_HOST }}
             SECRET=${{ secrets.DB_URL }}
