@@ -18,7 +18,7 @@ redis:
   port: 6379
 
 key:
-  login-api-url: sadasdasd
+  login-api-url: ${LOGIN_URL}
 
 generation:
   one: 2015
