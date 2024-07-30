@@ -1,11 +1,11 @@
 spring:
   data:
     mongodb:
-      database: ${MONGO_DB}
+#      database: ${MONGO_DB}
       uri: ${MONGO_URI}
       auto-index-creation: true
-      password: ${DB_PASSWORD}
-      username: ${DB_USERNAME}
+#      password: ${DB_PASSWORD}
+#      username: ${DB_USERNAME}
 
   threads:
     virtual:
