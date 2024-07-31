@@ -1,4 +1,4 @@
-package com.example.whopper.domain.teacher.application.facade;
+package com.example.whopper.domain.teacher.application.component;
 
 import com.example.whopper.domain.auth.exception.NotAuthenticatedException;
 import com.example.whopper.domain.teacher.dao.TeacherMongoRepository;
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-public class TeacherFacade {
+public class TeacherComponent {
 
     private final TeacherMongoRepository teacherMongoRepository;
 
