@@ -27,4 +27,3 @@ server:
   servlet:
     context-path: /whopper
   port: 8080
-  
