@@ -16,10 +16,10 @@ public record CompletionElementLevel(
         var introduce = document.getIntroduce();
         var writerInfo = document.getWriter();
 
-        boolean isWriterInfoCompleted = !writerInfo.email().isBlank() && !writerInfo.major().isBlank() &&
+        boolean isWriterInfoCompleted = !writerInfo.email().isBlank() &&
                 !writerInfo.skillSet().isEmpty() && writerInfo.generation() != null;
         boolean isIntroduceCompleted = !introduce.introduce().isBlank() && !introduce.heading().isBlank();
-        boolean isCertificateAndAwardCompleted = !document.getCertificateList().isEmpty() && !document.getAwardList().isEmpty();
+        boolean isCertificateAndAwardCompleted = !document.getAchievementList().isEmpty();
         boolean isActivityCompleted = !document.getActivityList().isEmpty();
         boolean isProjectCompleted = !document.getProjectList().isEmpty();
 

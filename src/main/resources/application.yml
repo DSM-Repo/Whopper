@@ -17,11 +17,11 @@ jwt:
   accessExpiration: 271000
   refreshExpiration: 604800
 redis:
-  host: ${REDIS_HOST}
+  host: 127.0.0.1
   port: 6379
 
 key:
-  login-api-url: ${LOGIN_URL}
+  login-api-url: sadasdasd
 
 generation:
   one: 2015

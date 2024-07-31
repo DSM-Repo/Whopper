@@ -31,6 +31,6 @@ public class XquareUserResponse {
     private String clubName;
 
     public ClassInfo toClassInfo() {
-        return ClassInfo.of(this.getGrade(), this.getClass_num(), this.getNum());
+        return ClassInfo.of(grade, class_num, num);
     }
 }
