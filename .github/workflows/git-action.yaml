@@ -40,3 +40,5 @@ jobs:
             LOGIN_URL=${{ secrets.LOGIN_URL }}
             REDIS_HOST=${{ secrets.REDIS_HOST }}
             SECRET=${{ secrets.SECRET }}
+            TEACHER_SECRET=${{ secrets.TEACHER_SECRET }}
+            STUDENT_SECRET=${{ secrets.STUDENT_SECRET }}

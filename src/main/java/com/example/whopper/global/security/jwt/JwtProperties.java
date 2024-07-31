@@ -8,6 +8,8 @@ public record JwtProperties(
         String prefix,
         String secret,
         Long accessExpiration,
-        Long refreshExpiration
+        Long refreshExpiration,
+        String teacherSecret,
+        String studentSecret
 ) {
 }
