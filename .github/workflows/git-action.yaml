@@ -36,10 +36,7 @@ jobs:
           access_key: ${{ secrets.XQUARE_ACCESS_KEY }}
           buildargs: |
             PROFILE=prod
-            MONGO_DB=${{ secrets.MONGO_DB }}
             MONGO_URI=${{ secrets.MONGO_URI }}
-            DB_USERNAME=${{ secrets.DB_USERNAME }}
-            DB_PASSWORD=${{ secrets.DB_PASSWORD }}
             LOGIN_URL=${{ secrets.LOGIN_URL }}
             REDIS_HOST=${{ secrets.REDIS_HOST }}
             SECRET=${{ secrets.DB_URL }}
