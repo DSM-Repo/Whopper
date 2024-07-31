@@ -1,7 +1,6 @@
 spring:
   data:
     mongodb:
-      database: ${MONGO_DB}
       uri: ${MONGO_URI}
       auto-index-creation: true
 
@@ -23,3 +22,8 @@ key:
 
 generation:
   one: 2015
+
+server:
+  servlet:
+    context-path: /whopper
+  port: 8080

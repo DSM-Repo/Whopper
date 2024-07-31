@@ -31,12 +31,12 @@ public class JwtTokenProvider {
     private final RefreshTokenRepository refreshTokenRepository;
 
     // access token 생성
-    public String createAccessToken(String accountId) {
+    public String createAccessToken(String account_id) {
 
         Date now = new Date();
 
         return Jwts.builder()
-                .setSubject(accountId)
+                .setSubject(account_id)
                 .claim("type", "access")
                 .setIssuedAt(now)
                 .setExpiration(new Date(now.getTime() + jwtProperties.accessExpiration() * 1000))
@@ -44,7 +44,7 @@ public class JwtTokenProvider {
                 .compact();
     }
 
-    public String createRefreshToken(String accountId) {
+    public String createRefreshToken(String account_id) {
 
         Date now = new Date();
 
@@ -57,7 +57,7 @@ public class JwtTokenProvider {
 
         refreshTokenRepository.save(
                 RefreshTokenEntity.builder()
-                        .id(accountId)
+                        .id(account_id)
                         .token(refreshToken)
                         .timeToLive(jwtProperties.refreshExpiration())
                         .build());
@@ -86,14 +86,14 @@ public class JwtTokenProvider {
         }
     }
 
-    public TokenResponse receiveToken(String accountId) {
+    public TokenResponse receiveToken(String account_id) {
 
         Date now = new Date();
 
         return TokenResponse
                 .builder()
-                .accessToken(createAccessToken(accountId))
-                .refreshToken(createRefreshToken(accountId))
+                .accessToken(createAccessToken(account_id))
+                .refreshToken(createRefreshToken(account_id))
                 .accessExpiredAt(new Date(now.getTime() + jwtProperties.accessExpiration()))
                 .refreshExpiredAt(new Date(now.getTime() + jwtProperties.refreshExpiration()))
                 .build();

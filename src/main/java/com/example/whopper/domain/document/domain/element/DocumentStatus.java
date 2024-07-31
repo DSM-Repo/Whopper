@@ -1,7 +1,7 @@
 package com.example.whopper.domain.document.domain.element;
 
 public enum DocumentStatus {
-    CREATED,
+    ONGOING,
     DELETED,
     SUBMITTED,
     SHARED
