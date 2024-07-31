@@ -43,7 +43,7 @@ public class StudentLoginService implements StudentLoginUseCase {
             throw PasswordMismatchException.EXCEPTION;
         }
 
-        return getTokenResponse(student.getId(), LoginType.STUDENT);
+        return getTokenResponse(student.getId());
     }
 
     private TokenResponse registerAndLoginNewStudent(LoginRequest request) {
@@ -51,11 +51,11 @@ public class StudentLoginService implements StudentLoginUseCase {
         StudentEntity newStudent = createAndSaveNewStudent(xquareUserResponse);
 
         documentRepository.save(DocumentEntity.createForNewStudent(newStudent));
-        return getTokenResponse(newStudent.getId(), LoginType.STUDENT);
+        return getTokenResponse(newStudent.getId());
     }
 
-    private TokenResponse getTokenResponse(String id, LoginType loginType) {
-        return jwtTokenProvider.receiveToken(id, loginType);
+    private TokenResponse getTokenResponse(String id) {
+        return jwtTokenProvider.receiveToken(id, LoginType.STUDENT);
     }
 
     private StudentEntity createAndSaveNewStudent(XquareUserResponse xquareUserResponse) {

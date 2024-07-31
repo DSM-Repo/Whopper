@@ -1,6 +1,7 @@
 package com.example.whopper.domain.auth.application.impl;
 
 import com.example.whopper.domain.auth.application.usecase.TeacherLoginUseCase;
+import com.example.whopper.domain.auth.domain.type.LoginType;
 import com.example.whopper.domain.auth.dto.request.LoginRequest;
 import com.example.whopper.domain.auth.dto.response.TokenResponse;
 import com.example.whopper.domain.auth.exception.PasswordMismatchException;
@@ -26,18 +27,9 @@ public class TeacherLoginService implements TeacherLoginUseCase {
 
     @Transactional
     public TokenResponse teacherLogin(LoginRequest request) {
-        if(teacherMongoRepository.existsByAccountId(request.account_id())) {
-            TeacherEntity teacher = teacherMongoRepository.findFirstByAccountId(request.account_id())
-                    .orElseThrow(()-> TeacherNotFoundException.EXCEPTION);
-
-            if(!passwordEncoder.matches(request.password(), teacher.getPassword())) throw PasswordMismatchException.EXCEPTION;
-
-            return jwtTokenProvider.receiveToken(request.account_id());
-        }
-
-        return teacherMongoRepository.existsByAccountId(request.account_id()) ?
-                loginExistingTeacher(request) :
-                registerAndLoginNewTeacher(request);
+        return teacherMongoRepository.existsByAccountId(request.account_id())
+                ? loginExistingTeacher(request)
+                : registerAndLoginNewTeacher(request);
     }
 
     private TokenResponse loginExistingTeacher(LoginRequest request) {
@@ -48,13 +40,13 @@ public class TeacherLoginService implements TeacherLoginUseCase {
             throw PasswordMismatchException.EXCEPTION;
         }
 
-        return jwtTokenProvider.receiveToken(request.account_id());
+        return jwtTokenProvider.receiveToken(teacher.getId(), LoginType.TEACHER);
     }
 
     private TokenResponse registerAndLoginNewTeacher(LoginRequest request) {
         XquareUserResponse xquareUserResponse = xquareClient.xquareUser(request);
         TeacherEntity newTeacher = createAndSaveNewTeacher(xquareUserResponse);
-        return jwtTokenProvider.receiveToken(newTeacher.getId());
+        return jwtTokenProvider.receiveToken(newTeacher.getId(), LoginType.TEACHER);
     }
 
     private TeacherEntity createAndSaveNewTeacher(XquareUserResponse xquareUserResponse) {
