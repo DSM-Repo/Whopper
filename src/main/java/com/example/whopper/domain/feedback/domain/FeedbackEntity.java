@@ -12,7 +12,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class FeedbackEntity {
     @Id
     private String id;
-    private String content;
+    private String comment;
     private String writerName;
     private String elementId;
 
@@ -20,10 +20,14 @@ public class FeedbackEntity {
     private DocumentEntity document;
 
     @Builder
-    public FeedbackEntity(String content, String writerName, String elementId, DocumentEntity document) {
-        this.content = content;
+    public FeedbackEntity(String comment, String writerName, String elementId, DocumentEntity document) {
+        this.comment = comment;
         this.writerName = writerName;
         this.elementId = elementId;
         this.document = document;
+    }
+
+    public void updateFeedback(String comment) {
+        this.comment = comment;
     }
 }
