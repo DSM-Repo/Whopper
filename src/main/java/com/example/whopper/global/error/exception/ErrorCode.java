@@ -32,6 +32,9 @@ public enum ErrorCode {
     DOCUMENT_ILLEGAL_STATUS(400, "해당 문서에 접근할 수 없는 상태입니다."),
     DOCUMENT_MODIFICATION_NOT_ALLOWED(403, "제출된 문서는 수정이 불가능합니다."),
 
+    // feedback
+    FEEDBACK_NOT_FOUND(404, "요청하신 피드백을 찾지 못했습니다."),
+
     IMAGE_REQUEST_SIZE_MISMATCH(422, "프로젝트의 갯수와, 이미지 갯수가 맞지 않습니다."),
 
     // general
