@@ -9,6 +9,7 @@ import com.example.whopper.domain.feedback.application.usecase.AddFeedbackUseCas
 import com.example.whopper.domain.feedback.dao.FeedbackMongoRepository;
 import com.example.whopper.domain.feedback.domain.FeedbackEntity;
 import com.example.whopper.domain.feedback.dto.FeedbackRequest;
+import com.example.whopper.domain.teacher.application.facade.TeacherFacade;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +21,8 @@ public class AddFeedbackService implements AddFeedbackUseCase {
 
     private final DocumentRepository documentRepository;
 
+    private final TeacherFacade teacherFacade;
+
     public void addFeedback(FeedbackRequest request) {
         DocumentEntity document = documentRepository.findById(request.document_id())
                         .orElseThrow(()-> DocumentNotFoundException.EXCEPTION);
@@ -28,8 +31,8 @@ public class AddFeedbackService implements AddFeedbackUseCase {
 
         feedbackMongoRepository.save(
                 FeedbackEntity.builder()
-                        .content(request.content())
-                        .writerName(request.writer_name())
+                        .comment(request.comment())
+                        .writerName(teacherFacade.currentTeacher().getName())
                         .elementId(request.element_id())
                         .document(document)
                         .build());
