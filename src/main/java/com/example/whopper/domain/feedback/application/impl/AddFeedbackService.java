@@ -2,6 +2,8 @@ package com.example.whopper.domain.feedback.application.impl;
 
 import com.example.whopper.domain.document.dao.DocumentRepository;
 import com.example.whopper.domain.document.domain.DocumentEntity;
+import com.example.whopper.domain.document.domain.element.DocumentStatus;
+import com.example.whopper.domain.document.exception.DocumentIllegalStatusException;
 import com.example.whopper.domain.document.exception.DocumentNotFoundException;
 import com.example.whopper.domain.feedback.application.usecase.AddFeedbackUseCase;
 import com.example.whopper.domain.feedback.dao.FeedbackMongoRepository;
@@ -21,6 +23,8 @@ public class AddFeedbackService implements AddFeedbackUseCase {
     public void addFeedback(FeedbackRequest request) {
         DocumentEntity document = documentRepository.findById(request.document_id())
                         .orElseThrow(()-> DocumentNotFoundException.EXCEPTION);
+
+        if(document.getStatus() != DocumentStatus.SUBMITTED) throw DocumentIllegalStatusException.EXCEPTION;
 
         feedbackMongoRepository.save(
                 FeedbackEntity.builder()
