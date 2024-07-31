@@ -4,7 +4,6 @@ import com.example.whopper.domain.auth.application.usecase.TeacherLoginUseCase;
 import com.example.whopper.domain.auth.dto.request.LoginRequest;
 import com.example.whopper.domain.auth.dto.response.TokenResponse;
 import com.example.whopper.domain.auth.exception.PasswordMismatchException;
-import com.example.whopper.domain.student.exception.StudentNotFoundException;
 import com.example.whopper.domain.teacher.dao.TeacherMongoRepository;
 import com.example.whopper.domain.teacher.domain.TeacherEntity;
 import com.example.whopper.domain.teacher.exception.TeacherNotFoundException;
@@ -43,7 +42,7 @@ public class TeacherLoginService implements TeacherLoginUseCase {
 
     private TokenResponse loginExistingTeacher(LoginRequest request) {
         TeacherEntity teacher = teacherMongoRepository.findFirstByAccountId(request.account_id())
-                .orElseThrow(() -> StudentNotFoundException.EXCEPTION);
+                .orElseThrow(() -> TeacherNotFoundException.EXCEPTION);
 
         if (!passwordEncoder.matches(request.password(), teacher.getPassword())) {
             throw PasswordMismatchException.EXCEPTION;
@@ -54,11 +53,11 @@ public class TeacherLoginService implements TeacherLoginUseCase {
 
     private TokenResponse registerAndLoginNewTeacher(LoginRequest request) {
         XquareUserResponse xquareUserResponse = xquareClient.xquareUser(request);
-        TeacherEntity newTeacher = createAndSaveNewStudent(xquareUserResponse);
+        TeacherEntity newTeacher = createAndSaveNewTeacher(xquareUserResponse);
         return jwtTokenProvider.receiveToken(newTeacher.getId());
     }
 
-    private TeacherEntity createAndSaveNewStudent(XquareUserResponse xquareUserResponse) {
+    private TeacherEntity createAndSaveNewTeacher(XquareUserResponse xquareUserResponse) {
         return teacherMongoRepository.save(
                 TeacherEntity.builder()
                         .account_id(xquareUserResponse.getAccount_id())
