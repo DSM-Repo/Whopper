@@ -26,4 +26,8 @@ public class FeedbackEntity {
         this.elementId = elementId;
         this.document = document;
     }
+
+    public void updateFeedback(String comment) {
+        this.comment = comment;
+    }
 }
