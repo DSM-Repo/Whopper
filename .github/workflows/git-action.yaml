@@ -34,11 +34,3 @@ jobs:
         with:
           environment: prod
           access_key: ${{ secrets.XQUARE_ACCESS_KEY }}
-          buildargs: |
-            PROFILE=prod
-            MONGO_URI=${{ secrets.MONGO_URI }}
-            LOGIN_URL=${{ secrets.LOGIN_URL }}
-            REDIS_HOST=${{ secrets.REDIS_HOST }}
-            SECRET=${{ secrets.SECRET }}
-            TEACHER_SECRET=${{ secrets.TEACHER_SECRET }}
-            STUDENT_SECRET=${{ secrets.STUDENT_SECRET }}
