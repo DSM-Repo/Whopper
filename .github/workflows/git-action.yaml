@@ -39,4 +39,4 @@ jobs:
             MONGO_URI=${{ secrets.MONGO_URI }}
             LOGIN_URL=${{ secrets.LOGIN_URL }}
             REDIS_HOST=${{ secrets.REDIS_HOST }}
-            SECRET=${{ secrets.DB_URL }}
+            SECRET=${{ secrets.SECRET }}
