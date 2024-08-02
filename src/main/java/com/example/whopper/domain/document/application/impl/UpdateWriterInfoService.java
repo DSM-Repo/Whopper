@@ -27,13 +27,14 @@ public class UpdateWriterInfoService extends AbstractUpdateElementServiceBase<Up
     }
 
     private WriterInfoElement updateWriterInfo(WriterInfoElement writerInfo, UpdateWriterInfoRequest request) {
-        return WriterInfoElement.builder()
-                .elementId(writerInfo.elementId())
-                .email(request.email())
-                .profileImagePath(writerInfo.profileImagePath())
-                //.major(request.majorId())
-                .skillSet(request.skillSet())
-                .build();
+        return new WriterInfoElement(
+                writerInfo.getElementId(),
+                writerInfo.getGeneration(),
+                request.email(),
+                writerInfo.getProfileImagePath(),
+                request.skillSet(),
+                writerInfo.getUrl()
+        );
     }
 
     private void updateStudentEntityMajor(String majorId) {

@@ -1,6 +1,8 @@
 package com.example.whopper.domain.document.domain;
 
 import com.example.whopper.domain.document.domain.element.*;
+import com.example.whopper.domain.document.domain.element.base.AbstractElement;
+import com.example.whopper.domain.document.domain.element.base.NamedElement;
 import com.example.whopper.domain.student.domain.StudentEntity;
 import lombok.Builder;
 import lombok.Getter;
@@ -11,6 +13,9 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import java.time.Year;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Getter
 @Document(collection = "document_repo")
@@ -54,6 +59,24 @@ public class DocumentEntity {
         this.projectList = projectList;
     }
 
+    private List<? extends AbstractElement> getElementList() {
+        return Stream.of(
+                        Stream.of(writer, introduce),
+                        projectList.stream(),
+                        achievementList.stream(),
+                        activityList.stream()
+                )
+                .flatMap(stream -> stream)
+                .toList();
+    }
+
+    public Map<String, String> getElementNameMap() {
+        return getElementList().stream()
+                .collect(Collectors.toMap(
+                        AbstractElement::getElementId,
+                        NamedElement::getName
+                ));
+    }
 
     public static DocumentEntity createForNewStudent(StudentEntity student) {
         return DocumentEntity.builder()

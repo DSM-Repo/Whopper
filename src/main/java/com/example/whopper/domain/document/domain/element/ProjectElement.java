@@ -1,30 +1,35 @@
 package com.example.whopper.domain.document.domain.element;
 
+import com.example.whopper.domain.document.domain.element.base.AbstractElement;
 import com.example.whopper.domain.document.domain.element.type.ProjectType;
 import com.example.whopper.domain.document.dto.request.ProjectElementRequest;
-import com.fasterxml.jackson.annotation.JsonFormat;
-import org.bson.types.ObjectId;
+import lombok.Getter;
 
-import java.util.Date;
-import java.util.List;
 import java.util.Set;
 
-public record ProjectElement(
-        String elementId,
-        String name,
-        String imagePath,
-        ProjectType type,
-        String startDate,
-        String endDate,
-        Set<String> skillSet,
-        String description,
-        Set<String> urls
-) {
-        public ProjectElement {
-                if (elementId == null) {
-                        elementId = new ObjectId().toHexString();
-                }
+@Getter
+public class ProjectElement extends AbstractElement {
+        private final String name;
+        private final String imagePath;
+        private final ProjectType type;
+        private final String startDate;
+        private final String endDate;
+        private final Set<String> skillSet;
+        private final String description;
+        private final Set<String> urls;
+
+        public ProjectElement(String elementId, String name, String imagePath, ProjectType type, String startDate, String endDate, Set<String> skillSet, String description, Set<String> urls) {
+                super(elementId);
+                this.name = name;
+                this.imagePath = imagePath;
+                this.type = type;
+                this.startDate = startDate;
+                this.endDate = endDate;
+                this.skillSet = skillSet;
+                this.description = description;
+                this.urls = urls;
         }
+
         public static ProjectElement fromProjectElementRequest(ProjectElementRequest request, String imagePath) {
                 return new ProjectElement(
                         request.elementId(),
@@ -39,3 +44,4 @@ public record ProjectElement(
                 );
         }
 }
+

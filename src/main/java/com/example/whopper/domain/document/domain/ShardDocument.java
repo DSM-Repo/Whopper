@@ -19,7 +19,7 @@ public record ShardDocument(
         var student = document.getStudent();
         return new ShardDocument(
                 Year.now().getValue(),
-                document.getWriter().generation(),
+                document.getWriter().getGeneration(),
                 student.getClassInfo(),
                 student.getName(),
                 document.getId()

@@ -27,8 +27,8 @@ public record FullDocumentResponse(
                 DocumentWriterResponse.of(student, document, majorName),
                 document.getStatus(),
                 IntroduceElementResponse.of(document.getIntroduce()),
-                document.getWriter().skillSet(),
-                document.getWriter().url(),
+                document.getWriter().getSkillSet(),
+                document.getWriter().getUrl(),
                 document.getProjectList().stream().map(ProjectElementResponse::of).toList(),
                 document.getAchievementList().stream().map(AchievementElementResponse::of).toList(),
                 document.getActivityList().stream().map(ActivityElementResponse::of).toList()
@@ -43,9 +43,9 @@ public record FullDocumentResponse(
     ) {
         public static IntroduceElementResponse of(IntroduceElement element) {
             return new IntroduceElementResponse(
-                    element.elementId(),
-                    element.heading(),
-                    element.introduce(),
+                    element.getElementId(),
+                    element.getHeading(),
+                    element.getIntroduce(),
                     List.of()
             );
         }
@@ -65,15 +65,15 @@ public record FullDocumentResponse(
     ) {
         public static ProjectElementResponse of(ProjectElement element) {
             return new ProjectElementResponse(
-                    element.elementId(),
-                    element.name(),
-                    element.imagePath(),
-                    element.type(),
-                    element.startDate(),
-                    element.endDate(),
-                    element.skillSet(),
-                    element.description(),
-                    element.urls(),
+                    element.getElementId(),
+                    element.getName(),
+                    element.getImagePath(),
+                    element.getType(),
+                    element.getStartDate(),
+                    element.getEndDate(),
+                    element.getSkillSet(),
+                    element.getDescription(),
+                    element.getUrls(),
                     List.of()
             );
         }
@@ -89,11 +89,11 @@ public record FullDocumentResponse(
     ) {
         public static AchievementElementResponse of(AchievementElement element) {
             return new AchievementElementResponse(
-                    element.elementId(),
-                    element.name(),
-                    element.institution(),
-                    element.date(),
-                    element.type(),
+                    element.getElementId(),
+                    element.getName(),
+                    element.getInstitution(),
+                    element.getDate(),
+                    element.getType(),
                     List.of()
             );
         }
@@ -110,12 +110,12 @@ public record FullDocumentResponse(
     ) {
         public static ActivityElementResponse of(ActivityElement element) {
             return new ActivityElementResponse(
-                    element.elementId(),
-                    element.name(),
-                    element.date(),
-                    element.endDate(),
+                    element.getElementId(),
+                    element.getName(),
+                    element.getDate(),
+                    element.getEndDate(),
                     element.isPeriod(),
-                    element.description(),
+                    element.getDescription(),
                     List.of()
             );
         }
@@ -134,7 +134,7 @@ public record FullDocumentResponse(
 
             return new DocumentWriterResponse(
                     student.getName(),
-                    document.getWriter().email(),
+                    document.getWriter().getEmail(),
                     majorName,
                     schoolNumber,
                     SchoolDepartmentEnum.getBySchoolNumber(schoolNumber),

@@ -1,30 +1,33 @@
 package com.example.whopper.domain.document.domain.element;
 
+import com.example.whopper.domain.document.domain.element.base.AbstractElement;
 import com.example.whopper.domain.student.domain.StudentEntity;
 import lombok.Builder;
-import org.bson.types.ObjectId;
+import lombok.Getter;
 
 import java.time.Year;
 import java.util.Collections;
 import java.util.Set;
 
-@Builder
-public record WriterInfoElement(
-        String elementId,
-        Integer generation,
-        String email,
-        String profileImagePath,
-        //String major,
-        Set<String> skillSet,
-        Set<String> url
-) {
-    public WriterInfoElement {
-        if (elementId == null) {
-            elementId = new ObjectId().toHexString();
-        }
-    }
+@Getter
+public class WriterInfoElement extends AbstractElement {
+    private final Integer generation;
+    private final String email;
+    private final String profileImagePath;
+    private final Set<String> skillSet;
+    private final Set<String> url;
 
     private static final int ONE_GEN_YEAR = 2015;
+
+    @Builder
+    public WriterInfoElement(String elementId, Integer generation, String email, String profileImagePath, Set<String> skillSet, Set<String> url) {
+        super(elementId);
+        this.generation = generation;
+        this.email = email;
+        this.profileImagePath = profileImagePath;
+        this.skillSet = skillSet;
+        this.url = url;
+    }
 
     public static WriterInfoElement createEmptyElement(StudentEntity student) {
         return new WriterInfoElement(
@@ -32,9 +35,13 @@ public record WriterInfoElement(
                 Year.now().getValue() - ONE_GEN_YEAR + 2 - student.getClassInfo().grade(),
                 "",
                 student.getProfileImagePath(),
-                //"",
                 Collections.emptySet(),
                 Collections.emptySet()
         );
+    }
+
+    @Override
+    public String getName() {
+        return "기본 정보";
     }
 }
