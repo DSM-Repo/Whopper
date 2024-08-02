@@ -7,12 +7,17 @@ spring:
   threads:
     virtual:
       enabled: true
+
 jwt:
   header: Authorization
   prefix: Bearer
   secret: ${SECRET}
   accessExpiration: 271000
   refreshExpiration: 604800
+  teacherSecret: ${TEACHER_SECRET}
+  studentSecret: ${STUDENT_SECRET}
+
+
 redis:
   host: ${REDIS_HOST}
   port: 6379
@@ -27,3 +32,4 @@ server:
   servlet:
     context-path: /whopper
   port: 8080
+  

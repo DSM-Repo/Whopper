@@ -8,6 +8,8 @@ import com.example.whopper.global.utils.DataResponseInfo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/major")
@@ -17,8 +19,8 @@ public class MajorController {
     private final DeleteMajorUseCase deleteMajorUseCase;
 
     @PostMapping
-    public void add(@RequestParam String input) {
-        addMajorUseCase.add(input);
+    public void add(@RequestBody AddMajorRequest request) {
+        addMajorUseCase.add(request.majors());
     }
 
     @GetMapping
@@ -30,4 +32,6 @@ public class MajorController {
     public void delete(@PathVariable String majorId) {
         deleteMajorUseCase.delete(majorId);
     }
+
+    private record AddMajorRequest(List<String> majors) {}
 }
