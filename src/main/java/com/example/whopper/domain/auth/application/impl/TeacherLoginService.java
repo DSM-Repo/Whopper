@@ -1,7 +1,7 @@
 package com.example.whopper.domain.auth.application.impl;
 
 import com.example.whopper.domain.auth.application.usecase.TeacherLoginUseCase;
-import com.example.whopper.domain.auth.domain.type.LoginType;
+import com.example.whopper.domain.auth.domain.type.UserRole;
 import com.example.whopper.domain.auth.dto.request.LoginRequest;
 import com.example.whopper.domain.auth.dto.response.TokenResponse;
 import com.example.whopper.domain.auth.exception.PasswordMismatchException;
@@ -40,13 +40,13 @@ public class TeacherLoginService implements TeacherLoginUseCase {
             throw PasswordMismatchException.EXCEPTION;
         }
 
-        return jwtTokenProvider.receiveToken(teacher.getId(), LoginType.TEACHER);
+        return jwtTokenProvider.receiveToken(teacher.getId(), UserRole.TEACHER);
     }
 
     private TokenResponse registerAndLoginNewTeacher(LoginRequest request) {
         XquareUserResponse xquareUserResponse = xquareClient.xquareUser(request);
         TeacherEntity newTeacher = createAndSaveNewTeacher(xquareUserResponse);
-        return jwtTokenProvider.receiveToken(newTeacher.getId(), LoginType.TEACHER);
+        return jwtTokenProvider.receiveToken(newTeacher.getId(), UserRole.TEACHER);
     }
 
     private TeacherEntity createAndSaveNewTeacher(XquareUserResponse xquareUserResponse) {
