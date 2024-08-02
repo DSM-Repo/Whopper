@@ -42,14 +42,6 @@ public class DocumentEntity {
 
     protected DocumentEntity() {}
 
-    public static DocumentEntity createForNewStudent(StudentEntity student) {
-        return DocumentEntity.builder()
-                .status(DocumentStatus.ONGOING)
-                .writer(WriterInfoElement.createEmptyElement(student))
-                .student(student)
-                .build();
-    }
-
     public void updateDocumentStatus(DocumentStatus status) {
         this.status = status;
     }
@@ -62,11 +54,20 @@ public class DocumentEntity {
         this.projectList = projectList;
     }
 
+
+    public static DocumentEntity createForNewStudent(StudentEntity student) {
+        return DocumentEntity.builder()
+                .status(DocumentStatus.ONGOING)
+                .writer(WriterInfoElement.createEmptyElement(student))
+                .student(student)
+                .build();
+    }
+
     public void updateIntroduceElement(IntroduceElement introduce) {
         this.introduce = introduce;
     }
 
-    public void updateArchievementList(List<AchievementElement> achievementList) {
+    public void updateAchievementList(List<AchievementElement> achievementList) {
         this.achievementList = achievementList;
     }
 
@@ -75,3 +76,4 @@ public class DocumentEntity {
         this.activityList = activityList;
     }
 }
+

@@ -18,6 +18,6 @@ public class UpdateAchievementListService extends AbstractUpdateElementServiceBa
 
     @Override
     protected void updateDocument(DocumentEntity document, List<AchievementElement> list) {
-        document.updateArchievementList(list);
+        document.updateAchievementList(list);
     }
 }
