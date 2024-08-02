@@ -1,16 +1,16 @@
 package com.example.whopper.domain.document.dao;
 
 import com.example.whopper.domain.document.domain.DocumentEntity;
-import com.example.whopper.domain.document.dto.FindDocumentDto;
-import com.example.whopper.global.utils.SortDirection;
+import com.example.whopper.domain.document.domain.element.DocumentStatus;
+import com.example.whopper.domain.document.dto.request.SearchDocumentRequest;
 import com.example.whopper.global.utils.mongo.MongoUtils;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 @Repository
 public class DocumentRepositoryImpl extends AbstractDocumentRepository {
@@ -22,43 +22,38 @@ public class DocumentRepositoryImpl extends AbstractDocumentRepository {
     }
 
     @Override
-    public List<DocumentEntity> findByDetails(FindDocumentDto dto) {
-        Query query = findByDetailsQuery(dto);
-        query.with(Sort.by(getSortDirection(dto.direction()), getSortBy(dto.sortBy())));
+    public Stream<DocumentEntity> searchDocument(SearchDocumentRequest request) {
+        Query query = searchQuery(request);
+        query.with(getSort());
 
         return mongoUtils.find(query, DocumentEntity.class);
     }
 
-    private Query findByDetailsQuery(FindDocumentDto dto) {
+    private Query searchQuery(SearchDocumentRequest request) {
         Query query = new Query();
 
-        if (isNotBlank(dto.name())) {
-            query.addCriteria(where("writer.name", dto.name()));
+        if (isNotBlank(request.name())) {
+            query.addCriteria(where("writer.name", request.name()));
         }
-        if (isNotBlank(dto.major())) {
-            query.addCriteria(where("writer.major", dto.major()));
+        if (isNotBlank(request.majorId())) {
+            query.addCriteria(where("student.majorId", request.majorId()));
         }
 
-        Optional.ofNullable(dto.classNumber())
-                .ifPresent(classNumber -> query.addCriteria(where("writer.classNumber", classNumber)));
+        Optional.ofNullable(request.classNumber())
+                .ifPresent(classNumber -> query.addCriteria(where("student.classInfo.classNumber", classNumber)));
 
-        Optional.ofNullable(dto.grade())
-                .ifPresent(grade -> query.addCriteria(where("writer.grade", grade)));
+        Optional.ofNullable(request.grade())
+                .ifPresent(grade -> query.addCriteria(where("student.classInfo.grade", grade)));
 
-        Optional.ofNullable(dto.status())
-                .ifPresent(status -> query.addCriteria(where("status", status.name())));
+        if (isNotBlank(request.status())) {
+            query.addCriteria(where("status", DocumentStatus.valueOf(request.status().toUpperCase()).name()));
+        }
 
         return query;
     }
 
-    private String getSortBy(String sortBy) {
-        return isNotBlank(sortBy) ? sortBy : "writer.name";
-    }
-
-    private String getSortDirection(SortDirection direction) {
-        return Optional.ofNullable(direction)
-                .map(Enum::name)
-                .orElseGet(SortDirection::getDefault);
+    private Sort getSort() {
+        return Sort.by(Sort.DEFAULT_DIRECTION, "student.classInfo.schoolNumber");
     }
 
     private Criteria where(String key, Object checkValue) {
@@ -66,6 +61,6 @@ public class DocumentRepositoryImpl extends AbstractDocumentRepository {
     }
 
     private boolean isNotBlank(String str) {
-        return !str.isBlank();
+        return str != null && !str.trim().isEmpty();
     }
 }

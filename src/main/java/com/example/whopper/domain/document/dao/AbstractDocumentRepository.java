@@ -1,9 +1,11 @@
 package com.example.whopper.domain.document.dao;
 
 import com.example.whopper.domain.document.domain.DocumentEntity;
+import com.example.whopper.domain.document.domain.element.DocumentStatus;
 import lombok.RequiredArgsConstructor;
 
 import java.util.Optional;
+import java.util.stream.Stream;
 
 @RequiredArgsConstructor
 public abstract class AbstractDocumentRepository implements DocumentRepository {
@@ -16,11 +18,16 @@ public abstract class AbstractDocumentRepository implements DocumentRepository {
 
     @Override
     public Optional<DocumentEntity> findByWriterId(String id) {
-        return documentMongoRepository.findByWriter_StudentId(id);
+        return documentMongoRepository.findByStudent_Id(id);
     }
 
     @Override
-    public void save(DocumentEntity document) {
-        documentMongoRepository.save(document);
+    public Stream<DocumentEntity> getNotSubmittedDocuments() {
+        return documentMongoRepository.findAllByStatus(DocumentStatus.ONGOING);
+    }
+
+    @Override
+    public DocumentEntity save(DocumentEntity document) {
+        return documentMongoRepository.save(document);
     }
 }
