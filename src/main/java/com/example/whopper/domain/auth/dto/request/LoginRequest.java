@@ -1,7 +1,7 @@
 package com.example.whopper.domain.auth.dto.request;
 
-public record StudentLoginRequest(
-        String accountId,
+public record LoginRequest(
+        String account_id,
         String password
 ) {
 }

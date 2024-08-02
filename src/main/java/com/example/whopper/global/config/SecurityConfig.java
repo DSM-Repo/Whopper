@@ -55,9 +55,8 @@ public class SecurityConfig {
                 )
 
                 .authorizeHttpRequests(authorize -> authorize
-
-                        .anyRequest()
-                        .permitAll()
+                        .requestMatchers("/auth/**").permitAll()
+                        .anyRequest().authenticated()
                 )
 
                 .with(new FilterConfig(jwtTokenProvider, objectMapper), Customizer.withDefaults());

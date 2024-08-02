@@ -22,8 +22,7 @@ public class DocumentEntity {
     private WriterInfoElement writer;
     private IntroduceElement introduce;
     private List<ProjectElement> projectList;
-    private List<AwardElement> awardList;
-    private List<CertificateElement> certificateList;
+    private List<AchievementElement> achievementList;
     private List<ActivityElement> activityList;
 
     @DBRef(lazy = true)
@@ -36,19 +35,12 @@ public class DocumentEntity {
         this.writer = writer;
         this.introduce = IntroduceElement.createEmptyElement();
         this.projectList = Collections.emptyList();
-        this.awardList = Collections.emptyList();
-        this.certificateList = Collections.emptyList();
+        this.achievementList = Collections.emptyList();
         this.activityList = Collections.emptyList();
         this.student = student;
     }
 
-    public static DocumentEntity createForNewStudent(StudentEntity student) {
-        return DocumentEntity.builder()
-                .status(DocumentStatus.CREATED)
-                .writer(WriterInfoElement.createEmptyElement(student))
-                .student(student)
-                .build();
-    }
+    protected DocumentEntity() {}
 
     public void updateDocumentStatus(DocumentStatus status) {
         this.status = status;
@@ -62,19 +54,26 @@ public class DocumentEntity {
         this.projectList = projectList;
     }
 
+
+    public static DocumentEntity createForNewStudent(StudentEntity student) {
+        return DocumentEntity.builder()
+                .status(DocumentStatus.ONGOING)
+                .writer(WriterInfoElement.createEmptyElement(student))
+                .student(student)
+                .build();
+    }
+
     public void updateIntroduceElement(IntroduceElement introduce) {
         this.introduce = introduce;
     }
 
-    public void updateAwardList(List<AwardElement> awardList) {
-        this.awardList = awardList;
+    public void updateAchievementList(List<AchievementElement> achievementList) {
+        this.achievementList = achievementList;
     }
 
-    public void updateCertificateElement(List<CertificateElement> certificateList) {
-        this.certificateList = certificateList;
-    }
 
     public void updateActivityElement(List<ActivityElement> activityList) {
         this.activityList = activityList;
     }
 }
+
