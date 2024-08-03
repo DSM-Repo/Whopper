@@ -4,10 +4,13 @@ import com.example.whopper.domain.document.domain.DocumentEntity;
 import com.example.whopper.domain.document.domain.element.*;
 import com.example.whopper.domain.document.domain.element.type.AchievementType;
 import com.example.whopper.domain.document.domain.element.type.ProjectType;
+import com.example.whopper.domain.feedback.domain.FeedbackEntity;
 import com.example.whopper.domain.student.domain.StudentEntity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.time.Year;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 public record FullDocumentResponse(
@@ -21,32 +24,40 @@ public record FullDocumentResponse(
         List<AchievementElementResponse> awardList,
         List<ActivityElementResponse> activityList
 ) {
-    public static FullDocumentResponse of(DocumentEntity document, StudentEntity student, String majorName) {
+    public static FullDocumentResponse of(DocumentEntity document, StudentEntity student, String majorName, Map<String, List<FeedbackResponse>> feedbackMap) {
+        final var introduce = document.getIntroduce();
+
         return new FullDocumentResponse(
                 document.getId(),
                 DocumentWriterResponse.of(student, document, majorName),
                 document.getStatus(),
-                IntroduceElementResponse.of(document.getIntroduce()),
+                IntroduceElementResponse.of(introduce, feedbackMap.get(introduce.getElementId())),
                 document.getWriter().getSkillSet(),
                 document.getWriter().getUrl(),
-                document.getProjectList().stream().map(ProjectElementResponse::of).toList(),
-                document.getAchievementList().stream().map(AchievementElementResponse::of).toList(),
-                document.getActivityList().stream().map(ActivityElementResponse::of).toList()
+                document.getProjectList().stream().map(project -> ProjectElementResponse.of(project, feedbackMap.get(project.getElementId()))).toList(),
+                document.getAchievementList().stream().map(achievement -> AchievementElementResponse.of(achievement, feedbackMap.get(achievement.getElementId()))).toList(),
+                document.getActivityList().stream().map(activity -> ActivityElementResponse.of(activity, feedbackMap.get(activity.getElementId()))).toList()
         );
+    }
+
+    public record FeedbackResponse(@JsonIgnore String elementId, String comment, String writerName) {
+        public static FeedbackResponse of(FeedbackEntity entity) {
+            return new FeedbackResponse(entity.getElementId(), entity.getComment(), entity.getWriterName());
+        }
     }
 
     record IntroduceElementResponse(
             String elementId,
             String heading,
             String introduce,
-            List<String> feedback
+            List<FeedbackResponse> feedback
     ) {
-        public static IntroduceElementResponse of(IntroduceElement element) {
+        public static IntroduceElementResponse of(IntroduceElement element, List<FeedbackResponse> feedbackList) {
             return new IntroduceElementResponse(
                     element.getElementId(),
                     element.getHeading(),
                     element.getIntroduce(),
-                    List.of()
+                    feedbackList
             );
         }
     }
@@ -61,9 +72,9 @@ public record FullDocumentResponse(
             Set<String> skillSet,
             String description,
             Set<String> urls,
-            List<String> feedback
+            List<FeedbackResponse> feedback
     ) {
-        public static ProjectElementResponse of(ProjectElement element) {
+        public static ProjectElementResponse of(ProjectElement element, List<FeedbackResponse> feedbackList) {
             return new ProjectElementResponse(
                     element.getElementId(),
                     element.getName(),
@@ -74,7 +85,7 @@ public record FullDocumentResponse(
                     element.getSkillSet(),
                     element.getDescription(),
                     element.getUrls(),
-                    List.of()
+                    feedbackList
             );
         }
     }
@@ -85,16 +96,16 @@ public record FullDocumentResponse(
             String institution,
             String date,
             AchievementType type,
-            List<String> feedback
+            List<FeedbackResponse> feedback
     ) {
-        public static AchievementElementResponse of(AchievementElement element) {
+        public static AchievementElementResponse of(AchievementElement element, List<FeedbackResponse> feedbackList) {
             return new AchievementElementResponse(
                     element.getElementId(),
                     element.getName(),
                     element.getInstitution(),
                     element.getDate(),
                     element.getType(),
-                    List.of()
+                    feedbackList
             );
         }
     }
@@ -106,9 +117,9 @@ public record FullDocumentResponse(
             String endDate,
             boolean isPeriod,
             String description,
-            List<String> feedback
+            List<FeedbackResponse> feedback
     ) {
-        public static ActivityElementResponse of(ActivityElement element) {
+        public static ActivityElementResponse of(ActivityElement element, List<FeedbackResponse> feedbackList) {
             return new ActivityElementResponse(
                     element.getElementId(),
                     element.getName(),
@@ -116,7 +127,7 @@ public record FullDocumentResponse(
                     element.getEndDate(),
                     element.isPeriod(),
                     element.getDescription(),
-                    List.of()
+                    feedbackList
             );
         }
     }
