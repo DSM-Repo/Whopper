@@ -9,7 +9,7 @@ import com.example.whopper.domain.document.dto.response.FullDocumentResponse;
 import com.example.whopper.domain.document.dto.response.SearchDocumentResponse;
 import com.example.whopper.domain.document.exception.DocumentNotFoundException;
 import com.example.whopper.domain.major.dao.MajorRepository;
-import com.example.whopper.global.utils.current.CurrentUser;
+import com.example.whopper.global.utils.current.CurrentStudent;
 import com.example.whopper.global.utils.DataResponseInfo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -21,11 +21,11 @@ import java.util.List;
 public class FindDocumentService implements FindDocumentUseCase {
     private final DocumentRepository documentRepository;
     private final MajorRepository majorRepository;
-    private final CurrentUser currentUser;
+    private final CurrentStudent currentStudent;
 
     @Override
     public DocumentResponse getCurrentStudentDocumentMainPageResponse() {
-        var currentStudentDocument = currentUser.getDocument();
+        var currentStudentDocument = currentStudent.getDocument();
 
         return DocumentResponse.of(
                 currentStudentDocument,
@@ -35,7 +35,7 @@ public class FindDocumentService implements FindDocumentUseCase {
 
     @Override
     public FullDocumentResponse getCurrentStudentDocument() {
-        var currentStudentDocument = currentUser.getDocument();
+        var currentStudentDocument = currentStudent.getDocument();
         var currentStudent = currentStudentDocument.getStudent();
         var major = majorRepository.getById(currentStudent.getMajorId());
 
@@ -64,7 +64,7 @@ public class FindDocumentService implements FindDocumentUseCase {
 
     @Override
     public CompletionElementLevel getCurrentStudentDocumentCompletionLevel() {
-        var currentStudentDocument = currentUser.getDocument();
+        var currentStudentDocument = currentStudent.getDocument();
 
         return CompletionElementLevel.of(currentStudentDocument);
     }

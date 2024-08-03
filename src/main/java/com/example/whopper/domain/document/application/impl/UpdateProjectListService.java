@@ -8,12 +8,11 @@ import com.example.whopper.domain.document.domain.element.ProjectElement;
 import com.example.whopper.domain.document.dto.request.ProjectElementRequest;
 import com.example.whopper.domain.document.exception.DocumentModificationException;
 import com.example.whopper.domain.document.exception.ImageRequestSizeMismatchException;
-import com.example.whopper.global.utils.current.CurrentUser;
+import com.example.whopper.global.utils.current.CurrentStudent;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.IntStream;
 
@@ -21,7 +20,7 @@ import java.util.stream.IntStream;
 @RequiredArgsConstructor
 public class UpdateProjectListService implements UpdateProjectListUseCase {
     private final DocumentRepository documentRepository;
-    private final CurrentUser currentUser;
+    private final CurrentStudent currentStudent;
 
     private void updateDocument(DocumentEntity document, List<ProjectElement> list) {
         document.updateProjectList(list);
@@ -33,7 +32,7 @@ public class UpdateProjectListService implements UpdateProjectListUseCase {
             throw ImageRequestSizeMismatchException.EXCEPTION;
         }
 
-        var document = currentUser.getDocument();
+        var document = currentStudent.getDocument();
 
         if (!document.getStatus().equals(DocumentStatus.ONGOING)) {
             throw DocumentModificationException.EXCEPTION;

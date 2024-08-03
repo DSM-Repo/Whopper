@@ -4,7 +4,7 @@ import com.example.whopper.domain.document.application.usecase.CancelSubmitMyDoc
 import com.example.whopper.domain.document.dao.DocumentRepository;
 import com.example.whopper.domain.document.domain.DocumentEntity;
 import com.example.whopper.domain.document.domain.element.DocumentStatus;
-import com.example.whopper.global.utils.current.CurrentUser;
+import com.example.whopper.global.utils.current.CurrentStudent;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -12,11 +12,11 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class CancelSubmitMyDocumentService implements CancelSubmitMyDocumentUseCase {
     private final DocumentRepository documentRepository;
-    private final CurrentUser currentUser;
+    private final CurrentStudent currentStudent;
 
     @Override
     public void cancel() {
-        updateDocumentStatusAndSave(currentUser.getDocument());
+        updateDocumentStatusAndSave(currentStudent.getDocument());
     }
 
     private void updateDocumentStatusAndSave(DocumentEntity document) {
