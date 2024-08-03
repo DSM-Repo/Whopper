@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 
-public record CustomUserDetails(String account_id) implements UserDetails {
+public record CustomUserDetails(String account_id, String role) implements UserDetails {
 
     @Override
     public String getUsername() {
@@ -16,7 +16,7 @@ public record CustomUserDetails(String account_id) implements UserDetails {
     }
 
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return new ArrayList<>(Collections.singleton(new SimpleGrantedAuthority("ROLE_"+ account_id)));
+        return new ArrayList<>(Collections.singleton(new SimpleGrantedAuthority("ROLE_" + role)));
     }
 
     @Override

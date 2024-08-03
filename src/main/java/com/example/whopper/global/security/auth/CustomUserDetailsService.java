@@ -35,7 +35,7 @@ public class CustomUserDetailsService implements UserDetailsService {
             throw new RuntimeException();
         }
 
-        return new CustomUserDetails(type);
+        return new CustomUserDetails(userId, type);
     }
 
     private String handleTeacher(String id) {
