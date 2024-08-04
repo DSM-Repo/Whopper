@@ -15,12 +15,12 @@ public class WriterInfoElement extends AbstractElement {
     private final String email;
     private final String profileImagePath;
     private final Set<String> skillSet;
-    private final Set<String> url;
+    private final String url;
 
     private static final int ONE_GEN_YEAR = 2015;
 
     @Builder
-    public WriterInfoElement(String elementId, Integer generation, String email, String profileImagePath, Set<String> skillSet, Set<String> url) {
+    public WriterInfoElement(String elementId, Integer generation, String email, String profileImagePath, Set<String> skillSet, String url) {
         super(elementId);
         this.generation = generation;
         this.email = email;
@@ -36,7 +36,7 @@ public class WriterInfoElement extends AbstractElement {
                 "",
                 student.getProfileImagePath(),
                 Collections.emptySet(),
-                Collections.emptySet()
+                ""
         );
     }
 

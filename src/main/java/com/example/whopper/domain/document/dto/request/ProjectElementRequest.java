@@ -12,6 +12,6 @@ public record ProjectElementRequest(
         String endDate,
         Set<String> skillSet,
         String description,
-        Set<String> urls
+        String url
 ) {
 }
