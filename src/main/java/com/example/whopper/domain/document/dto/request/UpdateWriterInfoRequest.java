@@ -7,7 +7,6 @@ import java.util.Set;
 public record UpdateWriterInfoRequest(
         String majorId,
         String email,
-        ClassInfo classInfo,
         String url,
         Set<String> skillSet
 ) {
