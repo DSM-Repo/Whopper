@@ -7,14 +7,14 @@ import com.example.whopper.domain.document.domain.DocumentEntity;
 import com.example.whopper.domain.document.domain.element.WriterInfoElement;
 import com.example.whopper.domain.document.dto.request.UpdateWriterInfoRequest;
 import com.example.whopper.domain.student.dao.StudentMongoRepository;
-import com.example.whopper.global.utils.current.CurrentUser;
+import com.example.whopper.global.utils.current.CurrentStudent;
 import org.springframework.stereotype.Service;
 
 @Service
 public class UpdateWriterInfoService extends AbstractUpdateElementServiceBase<UpdateWriterInfoRequest> implements UpdateWriterInfoUseCase {
     private final StudentMongoRepository studentMongoRepository;
 
-    public UpdateWriterInfoService(DocumentRepository documentRepository, CurrentUser currentUser, StudentMongoRepository studentMongoRepository) {
+    public UpdateWriterInfoService(DocumentRepository documentRepository, CurrentStudent currentUser, StudentMongoRepository studentMongoRepository) {
         super(documentRepository, currentUser);
         this.studentMongoRepository = studentMongoRepository;
     }
@@ -38,7 +38,7 @@ public class UpdateWriterInfoService extends AbstractUpdateElementServiceBase<Up
     }
 
     private void updateStudentEntityMajor(String majorId) {
-        var user = currentUser.getUser();
+        var user = currentStudent.getStudent();
         user.updateMajor(majorId);
 
         studentMongoRepository.save(user);

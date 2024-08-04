@@ -5,14 +5,14 @@ import com.example.whopper.domain.document.application.usecase.UpdateAchievement
 import com.example.whopper.domain.document.dao.DocumentRepository;
 import com.example.whopper.domain.document.domain.DocumentEntity;
 import com.example.whopper.domain.document.domain.element.AchievementElement;
-import com.example.whopper.global.utils.current.CurrentUser;
+import com.example.whopper.global.utils.current.CurrentStudent;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 public class UpdateAchievementListService extends AbstractUpdateElementServiceBase<List<AchievementElement>> implements UpdateAchievementListUseCase {
-    public UpdateAchievementListService(DocumentRepository documentRepository, CurrentUser currentUser) {
+    public UpdateAchievementListService(DocumentRepository documentRepository, CurrentStudent currentUser) {
         super(documentRepository, currentUser);
     }
 

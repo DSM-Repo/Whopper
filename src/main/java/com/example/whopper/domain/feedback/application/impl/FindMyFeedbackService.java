@@ -5,7 +5,7 @@ import com.example.whopper.domain.feedback.application.usecase.FindMyFeedbackUse
 import com.example.whopper.domain.feedback.dao.FeedbackMongoRepository;
 import com.example.whopper.domain.feedback.dto.FeedbackResponse;
 import com.example.whopper.domain.feedback.dto.MyFeedbackResponse;
-import com.example.whopper.global.utils.current.CurrentUser;
+import com.example.whopper.global.utils.current.CurrentStudent;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -16,12 +16,12 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class FindMyFeedbackService implements FindMyFeedbackUseCase {
 
-    private final CurrentUser currentUser;
+    private final CurrentStudent currentStudent;
     private final FeedbackMongoRepository feedbackMongoRepository;
 
     @Override
     public MyFeedbackResponse findMyFeedback() {
-        DocumentEntity document = currentUser.getDocument();
+        DocumentEntity document = currentStudent.getDocument();
         Map<String, String> elementNameMap = document.getElementNameMap();
 
         List<FeedbackResponse> feedbackList = feedbackMongoRepository.findAllByDocument(document)

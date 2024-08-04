@@ -5,14 +5,14 @@ import com.example.whopper.domain.document.application.usecase.UpdateActivityLis
 import com.example.whopper.domain.document.dao.DocumentRepository;
 import com.example.whopper.domain.document.domain.DocumentEntity;
 import com.example.whopper.domain.document.domain.element.ActivityElement;
-import com.example.whopper.global.utils.current.CurrentUser;
+import com.example.whopper.global.utils.current.CurrentStudent;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 public class UpdateActivityListService extends AbstractUpdateElementServiceBase<List<ActivityElement>> implements UpdateActivityListUseCase {
-    public UpdateActivityListService(DocumentRepository documentRepository, CurrentUser currentUser) {
+    public UpdateActivityListService(DocumentRepository documentRepository, CurrentStudent currentUser) {
         super(documentRepository, currentUser);
     }
 

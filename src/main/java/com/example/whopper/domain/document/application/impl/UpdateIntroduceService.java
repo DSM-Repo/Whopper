@@ -5,12 +5,12 @@ import com.example.whopper.domain.document.application.usecase.UpdateIntroduceUs
 import com.example.whopper.domain.document.dao.DocumentRepository;
 import com.example.whopper.domain.document.domain.DocumentEntity;
 import com.example.whopper.domain.document.domain.element.IntroduceElement;
-import com.example.whopper.global.utils.current.CurrentUser;
+import com.example.whopper.global.utils.current.CurrentStudent;
 import org.springframework.stereotype.Service;
 
 @Service
 public class UpdateIntroduceService extends AbstractUpdateElementServiceBase<IntroduceElement> implements UpdateIntroduceUseCase {
-    public UpdateIntroduceService(DocumentRepository documentRepository, CurrentUser currentUser) {
+    public UpdateIntroduceService(DocumentRepository documentRepository, CurrentStudent currentUser) {
         super(documentRepository, currentUser);
     }
 

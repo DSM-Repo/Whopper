@@ -12,12 +12,12 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-public class CurrentUserImpl implements CurrentUser {
+public class CurrentStudentImpl implements CurrentStudent {
     private final StudentMongoRepository studentMongoRepository;
     private final DocumentRepository documentRepository;
 
     @Override
-    public StudentEntity getUser() {
+    public StudentEntity getStudent() {
         var id = SecurityContextHolder.getContext()
                 .getAuthentication()
                 .getName();
@@ -28,7 +28,7 @@ public class CurrentUserImpl implements CurrentUser {
 
     @Override
     public DocumentEntity getDocument() {
-        return documentRepository.findByWriterId(getUser().getId())
+        return documentRepository.findByWriterId(getStudent().getId())
                 .orElseThrow(() -> DocumentNotFoundException.EXCEPTION);
     }
 }
