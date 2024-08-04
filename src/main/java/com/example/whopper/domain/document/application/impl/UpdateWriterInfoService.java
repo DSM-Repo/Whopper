@@ -33,7 +33,7 @@ public class UpdateWriterInfoService extends AbstractUpdateElementServiceBase<Up
                 request.email(),
                 writerInfo.getProfileImagePath(),
                 request.skillSet(),
-                writerInfo.getUrl()
+                request.url()
         );
     }
 
