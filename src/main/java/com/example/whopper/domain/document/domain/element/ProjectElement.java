@@ -16,9 +16,9 @@ public class ProjectElement extends AbstractElement {
         private final String endDate;
         private final Set<String> skillSet;
         private final String description;
-        private final Set<String> urls;
+        private final String url;
 
-        public ProjectElement(String elementId, String name, String imagePath, ProjectType type, String startDate, String endDate, Set<String> skillSet, String description, Set<String> urls) {
+        public ProjectElement(String elementId, String name, String imagePath, ProjectType type, String startDate, String endDate, Set<String> skillSet, String description, String url) {
                 super(elementId);
                 this.name = name;
                 this.imagePath = imagePath;
@@ -27,7 +27,7 @@ public class ProjectElement extends AbstractElement {
                 this.endDate = endDate;
                 this.skillSet = skillSet;
                 this.description = description;
-                this.urls = urls;
+                this.url = url;
         }
 
         public static ProjectElement fromProjectElementRequest(ProjectElementRequest request, String imagePath) {
@@ -40,7 +40,7 @@ public class ProjectElement extends AbstractElement {
                         request.endDate(),
                         request.skillSet(),
                         request.description(),
-                        request.urls()
+                        request.url()
                 );
         }
 }

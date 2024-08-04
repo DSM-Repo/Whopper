@@ -5,6 +5,7 @@ import com.example.whopper.domain.document.domain.element.*;
 import com.example.whopper.domain.document.domain.element.type.AchievementType;
 import com.example.whopper.domain.document.domain.element.type.ProjectType;
 import com.example.whopper.domain.feedback.domain.FeedbackEntity;
+import com.example.whopper.domain.student.domain.ClassInfo;
 import com.example.whopper.domain.student.domain.StudentEntity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -17,139 +18,44 @@ public record FullDocumentResponse(
         String id,
         DocumentWriterResponse writer,
         DocumentStatus status,
-        IntroduceElementResponse introduce,
-        Set<String> skillSet,
-        Set<String> links,
-        List<ProjectElementResponse>projectList,
-        List<AchievementElementResponse> awardList,
-        List<ActivityElementResponse> activityList
+        IntroduceElement introduce,
+        List<ProjectElement>projectList,
+        List<AchievementElement> awardList,
+        List<ActivityElement> activityList
 ) {
-    public static FullDocumentResponse of(DocumentEntity document, StudentEntity student, String majorName, Map<String, List<FeedbackResponse>> feedbackMap) {
-        final var introduce = document.getIntroduce();
-
+    public static FullDocumentResponse of(DocumentEntity document, StudentEntity student, String majorName) {
         return new FullDocumentResponse(
                 document.getId(),
                 DocumentWriterResponse.of(student, document, majorName),
                 document.getStatus(),
-                IntroduceElementResponse.of(introduce, feedbackMap.get(introduce.getElementId())),
-                document.getWriter().getSkillSet(),
-                document.getWriter().getUrl(),
-                document.getProjectList().stream().map(project -> ProjectElementResponse.of(project, feedbackMap.get(project.getElementId()))).toList(),
-                document.getAchievementList().stream().map(achievement -> AchievementElementResponse.of(achievement, feedbackMap.get(achievement.getElementId()))).toList(),
-                document.getActivityList().stream().map(activity -> ActivityElementResponse.of(activity, feedbackMap.get(activity.getElementId()))).toList()
+                document.getIntroduce(),
+                document.getProjectList(),
+                document.getAchievementList(),
+                document.getActivityList()
         );
-    }
-
-    public record FeedbackResponse(@JsonIgnore String elementId, String comment, String writerName) {
-        public static FeedbackResponse of(FeedbackEntity entity) {
-            return new FeedbackResponse(entity.getElementId(), entity.getComment(), entity.getWriterName());
-        }
-    }
-
-    record IntroduceElementResponse(
-            String elementId,
-            String heading,
-            String introduce,
-            List<FeedbackResponse> feedback
-    ) {
-        public static IntroduceElementResponse of(IntroduceElement element, List<FeedbackResponse> feedbackList) {
-            return new IntroduceElementResponse(
-                    element.getElementId(),
-                    element.getHeading(),
-                    element.getIntroduce(),
-                    feedbackList
-            );
-        }
-    }
-
-    record ProjectElementResponse(
-            String elementId,
-            String name,
-            String imagePath,
-            ProjectType type,
-            String startDate,
-            String endDate,
-            Set<String> skillSet,
-            String description,
-            Set<String> urls,
-            List<FeedbackResponse> feedback
-    ) {
-        public static ProjectElementResponse of(ProjectElement element, List<FeedbackResponse> feedbackList) {
-            return new ProjectElementResponse(
-                    element.getElementId(),
-                    element.getName(),
-                    element.getImagePath(),
-                    element.getType(),
-                    element.getStartDate(),
-                    element.getEndDate(),
-                    element.getSkillSet(),
-                    element.getDescription(),
-                    element.getUrls(),
-                    feedbackList
-            );
-        }
-    }
-
-    record AchievementElementResponse(
-            String elementId,
-            String name,
-            String institution,
-            String date,
-            AchievementType type,
-            List<FeedbackResponse> feedback
-    ) {
-        public static AchievementElementResponse of(AchievementElement element, List<FeedbackResponse> feedbackList) {
-            return new AchievementElementResponse(
-                    element.getElementId(),
-                    element.getName(),
-                    element.getInstitution(),
-                    element.getDate(),
-                    element.getType(),
-                    feedbackList
-            );
-        }
-    }
-
-    record ActivityElementResponse(
-            String elementId,
-            String name,
-            String date,
-            String endDate,
-            boolean isPeriod,
-            String description,
-            List<FeedbackResponse> feedback
-    ) {
-        public static ActivityElementResponse of(ActivityElement element, List<FeedbackResponse> feedbackList) {
-            return new ActivityElementResponse(
-                    element.getElementId(),
-                    element.getName(),
-                    element.getDate(),
-                    element.getEndDate(),
-                    element.isPeriod(),
-                    element.getDescription(),
-                    feedbackList
-            );
-        }
     }
 
     record DocumentWriterResponse(
             String name,
             String email,
             String majorName,
-            String schoolNumber,
+            ClassInfo classInfo,
             String department,
-            String profileImage
+            String url,
+            Set<String> skillSet
     ) {
         public static DocumentWriterResponse of(StudentEntity student, DocumentEntity document, String majorName) {
-            final var schoolNumber = student.getClassInfo().schoolNumber();
+            final var classInfo = student.getClassInfo();
+            final var schoolNumber = classInfo.schoolNumber();
 
             return new DocumentWriterResponse(
                     student.getName(),
                     document.getWriter().getEmail(),
                     majorName,
-                    schoolNumber,
+                    classInfo,
                     SchoolDepartmentEnum.getBySchoolNumber(schoolNumber),
-                    student.getProfileImagePath()
+                    document.getWriter().getUrl(),
+                    document.getWriter().getSkillSet()
             );
         }
 
