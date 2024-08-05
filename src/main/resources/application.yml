@@ -17,10 +17,21 @@ jwt:
   teacherSecret: ${TEACHER_SECRET}
   studentSecret: ${STUDENT_SECRET}
 
-
 redis:
   host: ${REDIS_HOST}
   port: 6379
+
+aws:
+  region: ${AWS_REGION}
+  credentials:
+    access-key: ${AWS_ACCESS_KEY_ID}
+    secret-key: ${AWS_SECRET_ACCESS_KEY}
+  s3:
+    url: ${AWS_S3_URL}
+    bucket: ${AWS_S3_BUCKET}
+    profile-folder: ${PROFILE_FOLDER}
+    document-folder: ${DOC_FOLDER}
+    pdf-folder: ${PDF_FOLDER}
 
 key:
   login-api-url: ${LOGIN_URL}
