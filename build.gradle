@@ -46,8 +46,12 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.security:spring-security-test'
 
-    // s3
-    implementation 'com.amazonaws:aws-java-sdk-s3:1.12.281'
+    // AWS
+    final awsSdkVersion = "2.21.0"
+    implementation("software.amazon.awssdk:bom:$awsSdkVersion")
+    implementation("software.amazon.awssdk:s3-transfer-manager:$awsSdkVersion")
+    implementation("software.amazon.awssdk:s3:$awsSdkVersion")
+    implementation("software.amazon.awssdk.crt:aws-crt:0.27.3")
 
     // OpenFeign
     implementation 'org.springframework.cloud:spring-cloud-starter-openfeign:4.1.0'
