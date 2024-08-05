@@ -1,1 +1,35 @@
 spring:
+  data:
+    mongodb:
+      uri: ${MONGO_URI}
+      auto-index-creation: true
+
+  threads:
+    virtual:
+      enabled: true
+
+jwt:
+  header: Authorization
+  prefix: Bearer
+  secret: ${SECRET}
+  accessExpiration: 271000
+  refreshExpiration: 604800
+  teacherSecret: ${TEACHER_SECRET}
+  studentSecret: ${STUDENT_SECRET}
+
+
+redis:
+  host: ${REDIS_HOST}
+  port: 6379
+
+key:
+  login-api-url: ${LOGIN_URL}
+
+generation:
+  one: 2015
+
+server:
+  servlet:
+    context-path: /whopper
+  port: 8080
+  
