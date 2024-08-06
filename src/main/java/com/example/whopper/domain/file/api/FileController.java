@@ -5,7 +5,6 @@ import com.example.whopper.domain.file.type.ImageType;
 import com.example.whopper.infra.s3.component.SaveImageComponent;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
-import org.springframework.http.codec.multipart.FilePart;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;

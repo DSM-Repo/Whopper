@@ -5,6 +5,6 @@ import org.springframework.web.multipart.MultipartFile;
 import reactor.core.publisher.Mono;
 
 public interface SaveImageComponent {
-    Mono<String> saveImage(MultipartFile monoFilePart, ImageType imageType);
+    Mono<String> saveImage(MultipartFile multipartFile, ImageType imageType);
     String getFileBaseUrl();
 }
