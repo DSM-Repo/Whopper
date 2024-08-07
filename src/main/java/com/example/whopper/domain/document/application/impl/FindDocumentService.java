@@ -12,7 +12,6 @@ import com.example.whopper.domain.document.dto.response.SearchDocumentResponse;
 import com.example.whopper.domain.document.exception.DocumentIllegalStatusException;
 import com.example.whopper.domain.document.exception.DocumentNotFoundException;
 import com.example.whopper.domain.feedback.dao.FeedbackMongoRepository;
-import com.example.whopper.domain.major.dao.MajorRepository;
 import com.example.whopper.global.utils.current.CurrentStudent;
 import com.example.whopper.global.utils.DataResponseInfo;
 import lombok.RequiredArgsConstructor;
@@ -24,7 +23,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class FindDocumentService implements FindDocumentUseCase {
     private final DocumentRepository documentRepository;
-    private final MajorRepository majorRepository;
     private final FeedbackMongoRepository feedbackMongoRepository;
     private final CurrentStudent currentStudent;
 
@@ -42,7 +40,7 @@ public class FindDocumentService implements FindDocumentUseCase {
     public FullDocumentResponse getCurrentStudentDocument() {
         var currentStudentDocument = currentStudent.getDocument();
         var student = currentStudentDocument.getStudent();
-        var major = majorRepository.getById(student.getMajorId());
+        var major = student.getMajor();
 
         return FullDocumentResponse.of(currentStudentDocument, major.name());
     }
@@ -53,7 +51,7 @@ public class FindDocumentService implements FindDocumentUseCase {
                 .orElseThrow(() -> DocumentNotFoundException.EXCEPTION);
 
         var student = document.getStudent();
-        var major = majorRepository.getById(student.getMajorId());
+        var major = student.getMajor();
 
         return FullDocumentResponse.of(document, major.name());
     }
@@ -95,6 +93,6 @@ public class FindDocumentService implements FindDocumentUseCase {
             throw DocumentIllegalStatusException.EXCEPTION;
         }
 
-        return FullDocumentResponse.of(document, majorRepository.getById(document.getStudent().getMajorId()).name());
+        return FullDocumentResponse.of(document, document.getStudent().getMajor().name());
     }
 }
