@@ -3,7 +3,6 @@ package com.example.whopper.domain.document.api;
 import com.example.whopper.domain.document.application.usecase.*;
 import com.example.whopper.domain.document.domain.detail.CompletionElementLevel;
 import com.example.whopper.domain.document.domain.element.*;
-import com.example.whopper.domain.document.dto.request.ProjectElementRequest;
 import com.example.whopper.domain.document.dto.request.SearchDocumentRequest;
 import com.example.whopper.domain.document.dto.request.UpdateListRequest;
 import com.example.whopper.domain.document.dto.request.UpdateWriterInfoRequest;
@@ -13,9 +12,6 @@ import com.example.whopper.domain.document.dto.response.SearchDocumentResponse;
 import com.example.whopper.global.utils.DataResponseInfo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-
-import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -72,10 +68,9 @@ public class DocumentController {
 
     @PatchMapping("/project")
     public void updateProjectList(
-            @RequestPart("projectList") UpdateListRequest<ProjectElementRequest> request,
-            @RequestPart("images") List<MultipartFile> images
+            @RequestPart("projectList") UpdateListRequest<ProjectElement> request
     ) {
-        updateProjectListUseCase.update(request.list(), images);
+        updateProjectListUseCase.update(request.list());
     }
 
     @PatchMapping("/achievement")
