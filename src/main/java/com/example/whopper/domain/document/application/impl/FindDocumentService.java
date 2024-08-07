@@ -8,6 +8,7 @@ import com.example.whopper.domain.document.dto.response.DocumentResponse;
 import com.example.whopper.domain.document.dto.response.FullDocumentResponse;
 import com.example.whopper.domain.document.dto.response.SearchDocumentResponse;
 import com.example.whopper.domain.document.exception.DocumentNotFoundException;
+import com.example.whopper.domain.feedback.dao.FeedbackMongoRepository;
 import com.example.whopper.domain.major.dao.MajorRepository;
 import com.example.whopper.global.utils.current.CurrentStudent;
 import com.example.whopper.global.utils.DataResponseInfo;
@@ -21,6 +22,7 @@ import java.util.List;
 public class FindDocumentService implements FindDocumentUseCase {
     private final DocumentRepository documentRepository;
     private final MajorRepository majorRepository;
+    private final FeedbackMongoRepository feedbackMongoRepository;
     private final CurrentStudent currentStudent;
 
     @Override
@@ -57,7 +59,10 @@ public class FindDocumentService implements FindDocumentUseCase {
     public DataResponseInfo<SearchDocumentResponse> searchDocument(SearchDocumentRequest request) {
         return DataResponseInfo.of(
                 documentRepository.searchDocument(request)
-                        .map(SearchDocumentResponse::of)
+                        .map(document -> SearchDocumentResponse.of(
+                                document,
+                                feedbackMongoRepository.countByDocument(document)
+                        ))
                         .toList()
         );
     }
