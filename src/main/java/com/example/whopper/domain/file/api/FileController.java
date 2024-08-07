@@ -22,11 +22,7 @@ public class FileController {
     @PostMapping(value = "/image", consumes = {
             MediaType.MULTIPART_FORM_DATA_VALUE
     })
-    public ImagePathResponse uploadImage(
-            @RequestPart("file") MultipartFile filePart,
-            @RequestParam("type") ImageType imageType) {
-
-        // Save the image using the saveImageComponent
+    public ImagePathResponse uploadImage(@RequestPart("file") MultipartFile filePart, @RequestParam("type") ImageType imageType) {
         String path = saveImageUseCase.saveImage(filePart, imageType);
         return new ImagePathResponse(path, saveImageUseCase.getFileBaseUrl());
     }
