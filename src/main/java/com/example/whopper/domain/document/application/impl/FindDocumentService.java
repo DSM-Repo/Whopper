@@ -3,11 +3,13 @@ package com.example.whopper.domain.document.application.impl;
 import com.example.whopper.domain.document.application.usecase.FindDocumentUseCase;
 import com.example.whopper.domain.document.dao.DocumentRepository;
 import com.example.whopper.domain.document.domain.detail.CompletionElementLevel;
+import com.example.whopper.domain.document.domain.element.DocumentStatus;
 import com.example.whopper.domain.document.dto.request.SearchDocumentRequest;
 import com.example.whopper.domain.document.dto.response.DocumentResponse;
 import com.example.whopper.domain.document.dto.response.FullDocumentResponse;
 import com.example.whopper.domain.document.dto.response.ReleasedDocumentResponse;
 import com.example.whopper.domain.document.dto.response.SearchDocumentResponse;
+import com.example.whopper.domain.document.exception.DocumentIllegalStatusException;
 import com.example.whopper.domain.document.exception.DocumentNotFoundException;
 import com.example.whopper.domain.feedback.dao.FeedbackMongoRepository;
 import com.example.whopper.domain.major.dao.MajorRepository;
@@ -42,7 +44,7 @@ public class FindDocumentService implements FindDocumentUseCase {
         var student = currentStudentDocument.getStudent();
         var major = majorRepository.getById(student.getMajorId());
 
-        return FullDocumentResponse.of(currentStudentDocument, student, major.name());
+        return FullDocumentResponse.of(currentStudentDocument, major.name());
     }
 
     @Override
@@ -53,7 +55,7 @@ public class FindDocumentService implements FindDocumentUseCase {
         var student = document.getStudent();
         var major = majorRepository.getById(student.getMajorId());
 
-        return FullDocumentResponse.of(document, student, major.name());
+        return FullDocumentResponse.of(document, major.name());
     }
 
     @Override
@@ -82,5 +84,17 @@ public class FindDocumentService implements FindDocumentUseCase {
                         .map(ReleasedDocumentResponse::of)
                         .toList()
         );
+    }
+
+    @Override
+    public FullDocumentResponse findReleasedDocument(String documentId) {
+        var document = documentRepository.findById(documentId)
+                .orElseThrow(() -> DocumentNotFoundException.EXCEPTION);
+
+        if (!document.getStatus().equals(DocumentStatus.RELEASED)) {
+            throw DocumentIllegalStatusException.EXCEPTION;
+        }
+
+        return FullDocumentResponse.of(document, majorRepository.getById(document.getStudent().getMajorId()).name());
     }
 }

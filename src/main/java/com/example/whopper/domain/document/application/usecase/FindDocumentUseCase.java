@@ -15,4 +15,5 @@ public interface FindDocumentUseCase {
     DataResponseInfo<SearchDocumentResponse> searchDocument(SearchDocumentRequest request);
     CompletionElementLevel getCurrentStudentDocumentCompletionLevel();
     DataResponseInfo<ReleasedDocumentResponse> getReleasedDocuments();
+    FullDocumentResponse findReleasedDocument(String documentId);
 }

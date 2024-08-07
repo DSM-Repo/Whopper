@@ -6,6 +6,7 @@ import com.example.whopper.domain.document.domain.DocumentEntity;
 import com.example.whopper.domain.document.domain.element.DocumentStatus;
 import com.example.whopper.domain.document.exception.DocumentIllegalStatusException;
 import com.example.whopper.domain.document.exception.DocumentNotFoundException;
+import com.example.whopper.domain.feedback.dao.FeedbackMongoRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class ReleaseDocumentService implements ReleaseDocumentUseCase {
     private final DocumentRepository documentRepository;
+    private final FeedbackMongoRepository feedbackMongoRepository;
 
     @Override
     public void release(String documentId) {
@@ -20,7 +22,13 @@ public class ReleaseDocumentService implements ReleaseDocumentUseCase {
 
         document.release();
 
+        deleteFeedback(document);
+
         documentRepository.save(document);
+    }
+
+    private void deleteFeedback(DocumentEntity document) {
+        feedbackMongoRepository.deleteAllByDocument(document);
     }
 
     private DocumentEntity validateDocumentIdAndGetDocumentEntity(String documentId) {

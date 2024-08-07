@@ -64,6 +64,11 @@ public class DocumentController {
         return findDocumentUseCase.getReleasedDocuments();
     }
 
+    @GetMapping("/release/{documentId}")
+    public FullDocumentResponse findReleasedDocument(@PathVariable String documentId) {
+        return findDocumentUseCase.findReleasedDocument(documentId);
+    }
+
     @GetMapping("/student/{documentId}")
     public FullDocumentResponse getSubmittedDocument(@PathVariable String documentId) {
         return findDocumentUseCase.getSubmittedDocument(documentId);
