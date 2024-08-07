@@ -47,8 +47,20 @@ public class DocumentEntity {
 
     protected DocumentEntity() {}
 
-    public void updateDocumentStatus(DocumentStatus status) {
-        this.status = status;
+    public void release() {
+        status = DocumentStatus.RELEASED;
+    }
+
+    public void submit() {
+        status = DocumentStatus.SUBMITTED;
+    }
+
+    public void onGoing() {
+        status = DocumentStatus.ONGOING;
+    }
+
+    public void delete() {
+        status = DocumentStatus.DELETED;
     }
 
     public void updateWriterInfo(WriterInfoElement writer) {

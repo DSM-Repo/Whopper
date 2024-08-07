@@ -24,7 +24,7 @@ public class FindDocumentService implements FindDocumentUseCase {
     private final CurrentStudent currentStudent;
 
     @Override
-    public DocumentResponse getCurrentStudentDocumentMainPageResponse() {
+    public DocumentResponse getIntroduceRecentlySharedDocuments() {
         var currentStudentDocument = currentStudent.getDocument();
 
         return DocumentResponse.of(

@@ -20,7 +20,7 @@ public class CancelSubmitMyDocumentService implements CancelSubmitMyDocumentUseC
     }
 
     private void updateDocumentStatusAndSave(DocumentEntity document) {
-        document.updateDocumentStatus(DocumentStatus.ONGOING);
+        document.onGoing();
         documentRepository.save(document);
     }
 }
