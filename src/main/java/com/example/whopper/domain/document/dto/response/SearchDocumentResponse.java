@@ -7,10 +7,9 @@ import com.example.whopper.domain.student.domain.StudentInfo;
 public record SearchDocumentResponse(
         String documentId,
         StudentInfo studentInfo,
-        DocumentStatus status,
-        int numberOfFeedback
+        DocumentStatus status
 ) {
     public static SearchDocumentResponse of(DocumentEntity document) {
-        return new SearchDocumentResponse(document.getId(), StudentInfo.of(document.getStudent()), document.getStatus(), 0);
+        return new SearchDocumentResponse(document.getId(), StudentInfo.of(document.getStudent()), document.getStatus());
     }
 }
