@@ -6,6 +6,7 @@ import com.example.whopper.domain.document.domain.detail.CompletionElementLevel;
 import com.example.whopper.domain.document.dto.request.SearchDocumentRequest;
 import com.example.whopper.domain.document.dto.response.DocumentResponse;
 import com.example.whopper.domain.document.dto.response.FullDocumentResponse;
+import com.example.whopper.domain.document.dto.response.ReleasedDocumentResponse;
 import com.example.whopper.domain.document.dto.response.SearchDocumentResponse;
 import com.example.whopper.domain.document.exception.DocumentNotFoundException;
 import com.example.whopper.domain.feedback.dao.FeedbackMongoRepository;
@@ -72,5 +73,14 @@ public class FindDocumentService implements FindDocumentUseCase {
         var currentStudentDocument = currentStudent.getDocument();
 
         return CompletionElementLevel.of(currentStudentDocument);
+    }
+
+    @Override
+    public DataResponseInfo<ReleasedDocumentResponse> getReleasedDocuments() {
+        return DataResponseInfo.of(
+                documentRepository.getReleasedDocuments()
+                        .map(ReleasedDocumentResponse::of)
+                        .toList()
+        );
     }
 }

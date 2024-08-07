@@ -8,6 +8,7 @@ import com.example.whopper.domain.document.dto.request.UpdateListRequest;
 import com.example.whopper.domain.document.dto.request.UpdateWriterInfoRequest;
 import com.example.whopper.domain.document.dto.response.DocumentResponse;
 import com.example.whopper.domain.document.dto.response.FullDocumentResponse;
+import com.example.whopper.domain.document.dto.response.ReleasedDocumentResponse;
 import com.example.whopper.domain.document.dto.response.SearchDocumentResponse;
 import com.example.whopper.global.utils.DataResponseInfo;
 import lombok.RequiredArgsConstructor;
@@ -56,6 +57,11 @@ public class DocumentController {
     @GetMapping("/student")
     public DataResponseInfo<SearchDocumentResponse> search(@ModelAttribute SearchDocumentRequest request) {
         return findDocumentUseCase.searchDocument(request);
+    }
+
+    @GetMapping("/release")
+    public DataResponseInfo<ReleasedDocumentResponse> getReleasedDocuments() {
+        return findDocumentUseCase.getReleasedDocuments();
     }
 
     @GetMapping("/student/{documentId}")
