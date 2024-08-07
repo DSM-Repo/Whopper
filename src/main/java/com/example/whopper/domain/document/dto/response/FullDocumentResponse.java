@@ -20,7 +20,7 @@ public record FullDocumentResponse(
         DocumentStatus status,
         IntroduceElement introduce,
         List<ProjectElement>projectList,
-        List<AchievementElement> awardList,
+        List<AchievementElement> achievementList,
         List<ActivityElement> activityList
 ) {
     public static FullDocumentResponse of(DocumentEntity document, String majorName) {
