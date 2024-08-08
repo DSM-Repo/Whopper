@@ -1,12 +1,22 @@
 package com.example.whopper.domain.document.domain.element;
 
-import java.util.Date;
+import com.example.whopper.domain.document.domain.element.base.AbstractElement;
+import lombok.Getter;
 
-public record ActivityElement(
-        String name,
-        Date date,
-        Date endDate,
-        Boolean isPeriod,
-        String description
-) {
+@Getter
+public class ActivityElement extends AbstractElement {
+        private final String name;
+        private final String date;
+        private final String endDate;
+        private final boolean isPeriod;
+        private final String description;
+
+        public ActivityElement(String elementId, String name, String date, String endDate, boolean isPeriod, String description) {
+                super(elementId);
+                this.name = name;
+                this.date = date;
+                this.endDate = endDate;
+                this.isPeriod = isPeriod;
+                this.description = description;
+        }
 }
