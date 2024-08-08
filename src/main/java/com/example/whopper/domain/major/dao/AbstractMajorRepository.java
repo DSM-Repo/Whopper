@@ -1,6 +1,5 @@
 package com.example.whopper.domain.major.dao;
 
-import com.example.whopper.domain.major.domain.DefaultMajorFacade;
 import com.example.whopper.domain.major.domain.MajorEntity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
