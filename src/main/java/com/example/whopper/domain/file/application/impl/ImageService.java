@@ -1,6 +1,6 @@
 package com.example.whopper.domain.file.application.impl;
 
-import com.example.whopper.domain.file.application.usecase.SaveImageUseCase;
+import com.example.whopper.domain.file.application.usecase.ImageUseCase;
 import com.example.whopper.infra.s3.AwsS3Properties;
 import com.example.whopper.infra.s3.AwsS3FileType;
 import com.example.whopper.domain.file.type.ImageType;
@@ -18,7 +18,7 @@ import java.util.concurrent.Executors;
 
 @Component
 @RequiredArgsConstructor
-public class SaveImageService implements SaveImageUseCase {
+public class ImageService implements ImageUseCase {
     private static final Set<String> VALID_EXTENSIONS = Set.of(".jpg", ".jpeg", ".png", ".heic", ".svg", ".webp", ".gif");
 
     private final S3TransferManager s3TransferManager;
