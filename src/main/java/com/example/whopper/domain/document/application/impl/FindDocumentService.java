@@ -100,6 +100,6 @@ public class FindDocumentService implements FindDocumentUseCase {
     }
 
     private String getMajorName(StudentEntity student) {
-        return student.getMajor() == null ? "전공 미정" : student.getMajor().name();
+        return student.getMajor() == null ? "전공 미정" : student.getMajor().getName();
     }
 }
