@@ -19,4 +19,8 @@ public class LibraryEntity {
     private LocalDateTime createAt;
     private AccessRight accessRight;
     private List<DocumentIndex> index;
+
+    public Integer getGeneration() {
+        return this.year - this.grade - 2013;
+    }
 }
