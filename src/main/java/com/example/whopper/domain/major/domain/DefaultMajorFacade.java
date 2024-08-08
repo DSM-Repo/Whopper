@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 public class DefaultMajorFacade {
-    private DefaultMajorProperties defaultMajorProperties;
+    private final DefaultMajorProperties defaultMajorProperties;
 
     public MajorEntity getDefaultMajor() {
         return new MajorEntity(defaultMajorProperties.majorId(), defaultMajorProperties.name());
