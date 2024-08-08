@@ -10,7 +10,7 @@ public record SearchDocumentResponse(
         DocumentStatus status,
         int numberOfFeedback
 ) {
-    public static SearchDocumentResponse of(DocumentEntity document) {
-        return new SearchDocumentResponse(document.getId(), StudentInfo.of(document.getStudent()), document.getStatus(), 0);
+    public static SearchDocumentResponse of(DocumentEntity document, int numberOfFeedback) {
+        return new SearchDocumentResponse(document.getId(), StudentInfo.of(document.getStudent()), document.getStatus(), numberOfFeedback);
     }
 }
