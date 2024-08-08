@@ -61,6 +61,7 @@ public class JwtTokenProvider {
         refreshTokenRepository.save(
                 RefreshTokenEntity.builder()
                         .id(id)
+                        .userRole(userRole)
                         .token(refreshToken)
                         .timeToLive(jwtProperties.refreshExpiration())
                         .build());

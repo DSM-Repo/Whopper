@@ -25,7 +25,7 @@ public class FileController {
             MediaType.MULTIPART_FORM_DATA_VALUE
     })
     public ImagePathResponse uploadImage(@RequestPart("file") MultipartFile filePart, @RequestParam("type") ImageType imageType) {
-        String path = saveImageUseCase.saveImage(filePart, imageType);
-        return new ImagePathResponse(saveImageUseCase.getFileBaseUrl() + path);
+        String path = imageUseCase.saveImage(filePart, imageType);
+        return new ImagePathResponse(imageUseCase.getFileBaseUrl() + path);
     }
 }
