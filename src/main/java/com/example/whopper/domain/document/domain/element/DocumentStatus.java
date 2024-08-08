@@ -4,5 +4,5 @@ public enum DocumentStatus {
     ONGOING,
     DELETED,
     SUBMITTED,
-    SHARED
+    RELEASED
 }

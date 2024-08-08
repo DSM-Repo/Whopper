@@ -20,13 +20,13 @@ public record FullDocumentResponse(
         DocumentStatus status,
         IntroduceElement introduce,
         List<ProjectElement>projectList,
-        List<AchievementElement> awardList,
+        List<AchievementElement> achievementList,
         List<ActivityElement> activityList
 ) {
-    public static FullDocumentResponse of(DocumentEntity document, StudentEntity student, String majorName) {
+    public static FullDocumentResponse of(DocumentEntity document, String majorName) {
         return new FullDocumentResponse(
                 document.getId(),
-                DocumentWriterResponse.of(student, document, majorName),
+                DocumentWriterResponse.of(document.getStudent(), document, majorName),
                 document.getStatus(),
                 document.getIntroduce(),
                 document.getProjectList(),

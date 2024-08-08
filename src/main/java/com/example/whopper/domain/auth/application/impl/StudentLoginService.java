@@ -66,7 +66,6 @@ public class StudentLoginService implements StudentLoginUseCase {
                         .name(xquareUserResponse.getName())
                         .classInfo(xquareUserResponse.toClassInfo())
                         .profileImagePath(xquareUserResponse.getProfileImgUrl())
-                        .majorId("")
                         .build());
     }
 }

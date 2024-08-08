@@ -22,8 +22,8 @@ public abstract class AbstractDocumentRepository implements DocumentRepository {
     }
 
     @Override
-    public Stream<DocumentEntity> getNotSubmittedDocuments() {
-        return documentMongoRepository.findAllByStatus(DocumentStatus.ONGOING);
+    public Stream<DocumentEntity> getReleasedDocuments() {
+        return documentMongoRepository.findAllByStatus(DocumentStatus.RELEASED);
     }
 
     @Override
