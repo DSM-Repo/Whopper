@@ -12,6 +12,7 @@ import com.example.whopper.domain.document.dto.response.SearchDocumentResponse;
 import com.example.whopper.domain.document.exception.DocumentIllegalStatusException;
 import com.example.whopper.domain.document.exception.DocumentNotFoundException;
 import com.example.whopper.domain.feedback.dao.FeedbackMongoRepository;
+import com.example.whopper.domain.student.domain.StudentEntity;
 import com.example.whopper.global.utils.current.CurrentStudent;
 import com.example.whopper.global.utils.DataResponseInfo;
 import lombok.RequiredArgsConstructor;
@@ -40,9 +41,9 @@ public class FindDocumentService implements FindDocumentUseCase {
     public FullDocumentResponse getCurrentStudentDocument() {
         var currentStudentDocument = currentStudent.getDocument();
         var student = currentStudentDocument.getStudent();
-        var major = student.getMajor();
+        var majorName = getMajorName(student);
 
-        return FullDocumentResponse.of(currentStudentDocument, major.name());
+        return FullDocumentResponse.of(currentStudentDocument, majorName);
     }
 
     @Override
@@ -51,9 +52,9 @@ public class FindDocumentService implements FindDocumentUseCase {
                 .orElseThrow(() -> DocumentNotFoundException.EXCEPTION);
 
         var student = document.getStudent();
-        var major = student.getMajor();
+        var majorName = getMajorName(student);
 
-        return FullDocumentResponse.of(document, major.name());
+        return FullDocumentResponse.of(document, majorName);
     }
 
     @Override
@@ -92,7 +93,13 @@ public class FindDocumentService implements FindDocumentUseCase {
         if (!document.getStatus().equals(DocumentStatus.RELEASED)) {
             throw DocumentIllegalStatusException.EXCEPTION;
         }
+        var student = document.getStudent();
+        var majorName = getMajorName(student);
 
-        return FullDocumentResponse.of(document, document.getStudent().getMajor().name());
+        return FullDocumentResponse.of(document, majorName);
+    }
+
+    private String getMajorName(StudentEntity student) {
+        return student.getMajor() == null ? "전공 미정" : student.getMajor().name();
     }
 }
