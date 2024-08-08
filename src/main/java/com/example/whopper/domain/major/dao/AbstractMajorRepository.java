@@ -1,5 +1,6 @@
 package com.example.whopper.domain.major.dao;
 
+import com.example.whopper.domain.major.domain.DefaultMajorFacade;
 import com.example.whopper.domain.major.domain.MajorEntity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -11,6 +12,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class AbstractMajorRepository implements MajorRepository {
     private final MajorMongoRepository majorMongoRepository;
+    private final DefaultMajorFacade defaultMajorFacade;
 
     @Override
     public MajorEntity save(MajorEntity entity) {
@@ -20,7 +22,7 @@ public class AbstractMajorRepository implements MajorRepository {
     @Override
     public MajorEntity getById(String majorId) {
         return findById(majorId)
-                .orElse(MajorEntity.EMPTY_MAJOR_ENTITY);
+                .orElse(defaultMajorFacade.getDefaultMajor());
     }
 
     @Override
