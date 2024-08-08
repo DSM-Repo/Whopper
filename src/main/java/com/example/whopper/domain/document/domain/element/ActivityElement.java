@@ -11,12 +11,12 @@ public class ActivityElement extends AbstractElement {
         private final boolean isPeriod;
         private final String description;
 
-        public ActivityElement(String elementId, String name, String date, String endDate, boolean isPeriod, String description) {
+        public ActivityElement(String elementId, String name, String date, String endDate, String description) {
                 super(elementId);
                 this.name = name;
                 this.date = date;
                 this.endDate = endDate;
-                this.isPeriod = isPeriod;
+                this.isPeriod = endDate == null;
                 this.description = description;
         }
 }
