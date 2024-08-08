@@ -3,6 +3,7 @@ package com.example.whopper.domain.file.api;
 import com.example.whopper.domain.file.application.usecase.SaveImageUseCase;
 import com.example.whopper.domain.file.dto.response.ImagePathResponse;
 import com.example.whopper.domain.file.type.ImageType;
+import com.example.whopper.global.annotation.OnlyStudent;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,6 +20,7 @@ public class FileController {
 
     private final SaveImageUseCase saveImageUseCase;
 
+    @OnlyStudent
     @PostMapping(value = "/image", consumes = {
             MediaType.MULTIPART_FORM_DATA_VALUE
     })
