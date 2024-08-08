@@ -11,4 +11,6 @@ public interface FeedbackMongoRepository extends MongoRepository<FeedbackEntity,
     Optional<FeedbackEntity> findFirstByDocumentAndElementId(DocumentEntity document, String elementId);
     void deleteByDocumentAndElementId(DocumentEntity document, String elementId);
     List<FeedbackEntity> findAllByDocument(DocumentEntity document);
+    int countByDocument(DocumentEntity document);
+    void deleteAllByDocument(DocumentEntity document);
 }

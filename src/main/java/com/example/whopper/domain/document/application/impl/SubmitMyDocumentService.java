@@ -20,7 +20,7 @@ public class SubmitMyDocumentService implements SubmitMyDocumentUseCase {
     }
 
     private void updateDocumentStatusAndSave(DocumentEntity doc) {
-        doc.updateDocumentStatus(DocumentStatus.SUBMITTED);
+        doc.submit();
         documentRepository.save(doc);
     }
 }

@@ -10,7 +10,6 @@ public interface DocumentRepository {
     Optional<DocumentEntity> findById(String id);
     Optional<DocumentEntity> findByWriterId(String id);
     Stream<DocumentEntity> searchDocument(SearchDocumentRequest request);
-    Stream<DocumentEntity> getNotSubmittedDocuments();
-
+    Stream<DocumentEntity> getReleasedDocuments();
     DocumentEntity save(DocumentEntity document);
 }
