@@ -1,5 +1,6 @@
 package com.example.whopper.domain.auth.domain;
 
+import com.example.whopper.domain.auth.domain.type.UserRole;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -19,6 +20,8 @@ public class RefreshTokenEntity {
 
     @Id
     private String id;
+
+    private UserRole userRole;
 
     @Indexed
     private String token;
