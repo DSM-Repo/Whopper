@@ -27,12 +27,10 @@ import java.util.concurrent.Executors;
 @RequiredArgsConstructor
 public class PdfService implements PdfUseCase {
 
-    private static final Set<String> VALID_EXTENSIONS = Set.of(".jpg", ".jpeg", ".png", ".heic", ".svg", ".webp", ".gif");
-
     private final AwsS3Properties awsS3Properties;
     private final S3TransferManager s3TransferManager;
     private final S3Presigner s3Presigner;
-    private final ExecutorService executorService = Executors.newFixedThreadPool(10);
+    private final ExecutorService executorService = Executors.newVirtualThreadPerTaskExecutor();
 
     public String savePdf(MultipartFile multipartFile) {
         String originalFileName = multipartFile.getOriginalFilename();
@@ -70,10 +68,16 @@ public class PdfService implements PdfUseCase {
         // MultipartFile의 InputStream을 사용하여 파일을 S3에 업로드
         try (InputStream inputStream = multipartFile.getInputStream()) {
             // S3 업로드 수행
-            s3TransferManager.upload(UploadRequest.builder()
+            var uploadFuture = s3TransferManager.upload(UploadRequest.builder()
                     .putObjectRequest(putObjectRequest)
                     .requestBody(AsyncRequestBody.fromInputStream(inputStream, multipartFile.getSize(), executorService)) // 수정된 부분
-                    .build()).completionFuture().join(); // 동기적으로 대기
+                    .build()).completionFuture();
+
+            uploadFuture.whenComplete((result, exception) -> {
+                if (exception != null) {
+                    throw new RuntimeException("파일 업로드 중 오류 발생", exception);
+                }
+            });
         } catch (Exception e) {
             throw new RuntimeException("파일 업로드 중 오류 발생", e);
         }
@@ -84,6 +88,6 @@ public class PdfService implements PdfUseCase {
     }
 
     private boolean isValidExtension(String extension) {
-        return VALID_EXTENSIONS.contains(extension);
+        return extension.equals(".pdf");
     }
 }

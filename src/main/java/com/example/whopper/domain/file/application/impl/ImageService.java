@@ -14,6 +14,7 @@ import software.amazon.awssdk.transfer.s3.S3TransferManager;
 import software.amazon.awssdk.transfer.s3.model.UploadRequest;
 
 import java.util.*;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 @Component
@@ -23,6 +24,7 @@ public class ImageService implements ImageUseCase {
 
     private final S3TransferManager s3TransferManager;
     private final AwsS3Properties awsS3Properties;
+    private final ExecutorService executorService = Executors.newVirtualThreadPerTaskExecutor();
 
     public String saveImage(MultipartFile multipartFile, ImageType imageType) {
         String originalFileName = multipartFile.getOriginalFilename();
@@ -63,10 +65,16 @@ public class ImageService implements ImageUseCase {
                     .build();
 
             // S3에 파일 업로드
-            s3TransferManager.upload(UploadRequest.builder()
+            var uploadFuture = s3TransferManager.upload(UploadRequest.builder()
                     .putObjectRequest(putObjectRequest)
-                    .requestBody(AsyncRequestBody.fromInputStream(multipartFile.getInputStream(), multipartFile.getSize(), Executors.newFixedThreadPool(10))) // ExecutorService 추가
-                    .build()).completionFuture().join(); // 동기적으로 대기
+                    .requestBody(AsyncRequestBody.fromInputStream(multipartFile.getInputStream(), multipartFile.getSize(), executorService)) // ExecutorService 추가
+                    .build()).completionFuture();
+
+            uploadFuture.whenComplete((result, exception) -> {
+                if (exception != null) {
+                    throw new RuntimeException("파일 업로드 중 오류 발생", exception);
+                }
+            });
         } catch (Exception e) {
             throw new RuntimeException("파일 업로드 중 오류 발생", e);
         }
