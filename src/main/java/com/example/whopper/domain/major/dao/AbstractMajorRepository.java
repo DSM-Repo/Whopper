@@ -12,7 +12,6 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class AbstractMajorRepository implements MajorRepository {
     private final MajorMongoRepository majorMongoRepository;
-    private final DefaultMajorFacade defaultMajorFacade;
 
     @Override
     public MajorEntity save(MajorEntity entity) {
@@ -22,7 +21,7 @@ public class AbstractMajorRepository implements MajorRepository {
     @Override
     public MajorEntity getById(String majorId) {
         return findById(majorId)
-                .orElse(defaultMajorFacade.getDefaultMajor());
+                .orElse(null);
     }
 
     @Override
