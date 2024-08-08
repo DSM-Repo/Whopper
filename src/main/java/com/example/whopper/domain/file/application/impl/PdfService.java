@@ -18,6 +18,7 @@ import java.io.InputStream;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -26,12 +27,18 @@ import java.util.concurrent.Executors;
 @RequiredArgsConstructor
 public class PdfService implements PdfUseCase {
 
+    private static final Set<String> VALID_EXTENSIONS = Set.of(".jpg", ".jpeg", ".png", ".heic", ".svg", ".webp", ".gif");
+
     private final AwsS3Properties awsS3Properties;
     private final S3TransferManager s3TransferManager;
     private final S3Presigner s3Presigner;
     private final ExecutorService executorService = Executors.newFixedThreadPool(10);
 
     public String savePdf(MultipartFile multipartFile) {
+        String originalFileName = multipartFile.getOriginalFilename();
+        if (originalFileName == null || !isValidExtension(getExtension(originalFileName))) {
+            throw new RuntimeException("Invalid file extension.");
+        }
         String folder = awsS3Properties.pdfFolder();
         String date = LocalDate.now().format(DateTimeFormatter.BASIC_ISO_DATE);
         String key = String.format("%s/%s-%s.pdf", folder, date, UUID.randomUUID());
@@ -70,5 +77,13 @@ public class PdfService implements PdfUseCase {
         } catch (Exception e) {
             throw new RuntimeException("파일 업로드 중 오류 발생", e);
         }
+    }
+
+    private String getExtension(String filename) {
+        return filename.substring(filename.lastIndexOf(".")).toLowerCase();
+    }
+
+    private boolean isValidExtension(String extension) {
+        return VALID_EXTENSIONS.contains(extension);
     }
 }
