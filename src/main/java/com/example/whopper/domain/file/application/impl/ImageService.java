@@ -64,7 +64,6 @@ public class ImageService implements ImageUseCase {
                     .acl(AwsS3FileType.IMAGE.getCannedAcl())
                     .build();
 
-            // S3에 파일 업로드
             var uploadFuture = s3TransferManager.upload(UploadRequest.builder()
                     .putObjectRequest(putObjectRequest)
                     .requestBody(AsyncRequestBody.fromInputStream(multipartFile.getInputStream(), multipartFile.getSize(), executorService)) // ExecutorService 추가

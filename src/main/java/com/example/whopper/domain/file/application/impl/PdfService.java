@@ -30,6 +30,7 @@ public class PdfService implements PdfUseCase {
     private final AwsS3Properties awsS3Properties;
     private final S3TransferManager s3TransferManager;
     private final S3Presigner s3Presigner;
+  
     private final ExecutorService executorService = Executors.newVirtualThreadPerTaskExecutor();
 
     public String savePdf(MultipartFile multipartFile) {
@@ -37,6 +38,7 @@ public class PdfService implements PdfUseCase {
         if (originalFileName == null || !isValidExtension(getExtension(originalFileName))) {
             throw new RuntimeException("Invalid file extension.");
         }
+
         String folder = awsS3Properties.pdfFolder();
         String date = LocalDate.now().format(DateTimeFormatter.BASIC_ISO_DATE);
         String key = String.format("%s/%s-%s.pdf", folder, date, UUID.randomUUID());
