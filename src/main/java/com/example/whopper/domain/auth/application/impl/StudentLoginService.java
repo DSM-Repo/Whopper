@@ -7,6 +7,7 @@ import com.example.whopper.domain.auth.dto.response.TokenResponse;
 import com.example.whopper.domain.auth.exception.PasswordMismatchException;
 import com.example.whopper.domain.document.dao.DocumentRepository;
 import com.example.whopper.domain.document.domain.DocumentEntity;
+import com.example.whopper.domain.major.domain.MajorEntity;
 import com.example.whopper.domain.student.dao.StudentMongoRepository;
 import com.example.whopper.domain.student.domain.StudentEntity;
 import com.example.whopper.domain.student.exception.StudentNotFoundException;
@@ -66,6 +67,7 @@ public class StudentLoginService implements StudentLoginUseCase {
                         .name(xquareUserResponse.getName())
                         .classInfo(xquareUserResponse.toClassInfo())
                         .profileImagePath(xquareUserResponse.getProfileImgUrl())
+                        .major(MajorEntity.EMPTY_MAJOR_ENTITY)
                         .build());
     }
 }
