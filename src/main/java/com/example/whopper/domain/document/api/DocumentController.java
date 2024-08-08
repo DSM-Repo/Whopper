@@ -117,7 +117,7 @@ public class DocumentController {
     @OnlyStudent
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PatchMapping("/project")
-    public void updateProjectList(@RequestPart("projectList") UpdateListRequest<ProjectElement> request) {
+    public void updateProjectList(@RequestBody UpdateListRequest<ProjectElement> request) {
         updateProjectListUseCase.update(request.list());
     }
 
