@@ -31,23 +31,38 @@ public interface DocumentMongoRepository extends MongoRepository<DocumentEntity,
             "{ $match: {" +
                     "$and:  [" +
                         "{$or: [" +
-                            "{'studentInfo.name': {$regex: ?0, $options: 'i'} }," +
+                            "{ $and: [" +
+                                "{ $expr: { $ne: [?0, null] } }," +
+                                "{'studentInfo.name': {$regex: ?0, $options: 'i'} }" +
+                            "] }," +
                             "{ $expr: { $eq: [?0, null] } }" +
                         "] }," +
                         "{$or: [" +
-                            "{'studentInfo.classInfo.grade': ?1 }," +
+                            "{ $and: [" +
+                                "{ $expr: { $ne: [?1, null] } }," +
+                                "{'studentInfo.classInfo.grade': ?1 }" +
+                            "] }," +
                             "{ $expr: { $eq: [?1, null] } }" +
                         "] }," +
                         "{$or: [" +
-                            "{'studentInfo.classInfo.classNumber': ?2 }," +
+                            "{ $and: [" +
+                                "{ $expr: { $ne: [?2, null] } }," +
+                                "{'studentInfo.classInfo.classNumber': ?2 }" +
+                            "] }," +
                             "{ $expr: { $eq: [?2, null] } }" +
                         "] }," +
                         "{$or: [" +
-                            "{'majorInfo._id': {$regex: ?3, $options: 'i'} }," +
+                            "{ $and: [" +
+                                "{ $expr: { $ne: [?3, null] } }," +
+                                "{'majorInfo._id': {$regex: ?3, $options: 'i'} }" +
+                            "] }," +
                             "{ $expr: { $eq: [?3, null] } }" +
                         "] }," +
                         "{$or: [" +
-                            "{'status': {$regex: ?4, $options: 'i'} }," +
+                            "{ $and: [" +
+                                "{ $expr: { $ne: [?4, null] } }," +
+                                "{'status': {$regex: ?4, $options: 'i'} }" +
+                            "] }," +
                             "{ $expr: { $eq: [?4, null] } }" +
                         "] }" +
                     "] } }",
