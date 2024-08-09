@@ -1,7 +1,7 @@
 package com.example.whopper.domain.document.domain.element;
 
 import com.example.whopper.domain.document.domain.element.base.AbstractElement;
-import com.example.whopper.domain.document.dto.request.UpdateActivityElementRequest;
+import com.example.whopper.domain.document.dto.ActivityElementDto;
 import lombok.Getter;
 
 @Getter
@@ -21,7 +21,7 @@ public class ActivityElement extends AbstractElement {
                 this.description = description;
         }
 
-        public static ActivityElement fromRequest(UpdateActivityElementRequest request) {
+        public static ActivityElement fromRequest(ActivityElementDto request) {
                 return new ActivityElement(
                         request.elementId(),
                         request.name(),

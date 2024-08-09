@@ -5,20 +5,20 @@ import com.example.whopper.domain.document.application.usecase.UpdateAchievement
 import com.example.whopper.domain.document.dao.DocumentRepository;
 import com.example.whopper.domain.document.domain.DocumentEntity;
 import com.example.whopper.domain.document.domain.element.AchievementElement;
-import com.example.whopper.domain.document.dto.request.UpdateAchievementElementRequest;
+import com.example.whopper.domain.document.dto.AchievementElementDto;
 import com.example.whopper.global.utils.current.CurrentStudent;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class UpdateAchievementListService extends AbstractUpdateElementServiceBase<List<UpdateAchievementElementRequest>> implements UpdateAchievementListUseCase {
+public class UpdateAchievementListService extends AbstractUpdateElementServiceBase<List<AchievementElementDto>> implements UpdateAchievementListUseCase {
     public UpdateAchievementListService(DocumentRepository documentRepository, CurrentStudent currentUser) {
         super(documentRepository, currentUser);
     }
 
     @Override
-    protected void updateDocument(DocumentEntity document, List<UpdateAchievementElementRequest> list) {
+    protected void updateDocument(DocumentEntity document, List<AchievementElementDto> list) {
         document.updateAchievementList(list.stream()
                 .map(AchievementElement::fromRequest)
                 .toList()

@@ -2,7 +2,7 @@ package com.example.whopper.domain.document.domain.element;
 
 import com.example.whopper.domain.document.domain.element.base.AbstractElement;
 import com.example.whopper.domain.document.domain.element.type.ProjectType;
-import com.example.whopper.domain.document.dto.request.UpdateProjectElementRequest;
+import com.example.whopper.domain.document.dto.ProjectElementDto;
 import lombok.Getter;
 
 import java.util.Set;
@@ -30,7 +30,7 @@ public class ProjectElement extends AbstractElement {
                 this.url = url;
         }
 
-        public static ProjectElement fromRequest(UpdateProjectElementRequest request) {
+        public static ProjectElement fromRequest(ProjectElementDto request) {
                 return new ProjectElement(
                         request.elementId(),
                         request.name(),

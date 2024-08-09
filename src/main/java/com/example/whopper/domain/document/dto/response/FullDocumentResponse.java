@@ -2,6 +2,10 @@ package com.example.whopper.domain.document.dto.response;
 
 import com.example.whopper.domain.document.domain.DocumentEntity;
 import com.example.whopper.domain.document.domain.element.*;
+import com.example.whopper.domain.document.dto.AchievementElementDto;
+import com.example.whopper.domain.document.dto.ActivityElementDto;
+import com.example.whopper.domain.document.dto.IntroduceElementDto;
+import com.example.whopper.domain.document.dto.ProjectElementDto;
 import com.example.whopper.domain.student.domain.ClassInfo;
 import com.example.whopper.domain.student.domain.StudentEntity;
 
@@ -13,20 +17,20 @@ public record FullDocumentResponse(
         String id,
         DocumentWriterResponse writer,
         DocumentStatus status,
-        IntroduceElement introduce,
-        List<ProjectElement>projectList,
-        List<AchievementElement> achievementList,
-        List<ActivityElement> activityList
+        IntroduceElementDto introduce,
+        List<ProjectElementDto>projectList,
+        List<AchievementElementDto> achievementList,
+        List<ActivityElementDto> activityList
 ) {
     public static FullDocumentResponse of(DocumentEntity document, String majorName) {
         return new FullDocumentResponse(
                 document.getId(),
                 DocumentWriterResponse.of(document.getStudent(), document, majorName),
                 document.getStatus(),
-                document.getIntroduce(),
-                document.getProjectList(),
-                document.getAchievementList(),
-                document.getActivityList()
+                IntroduceElementDto.fromEntity(document.getIntroduce()),
+                document.getProjectList().stream().map(ProjectElementDto::fromEntity).toList(),
+                document.getAchievementList().stream().map(AchievementElementDto::fromEntity).toList(),
+                document.getActivityList().stream().map(ActivityElementDto::fromEntity).toList()
         );
     }
 

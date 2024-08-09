@@ -2,7 +2,7 @@ package com.example.whopper.domain.document.domain.element;
 
 import com.example.whopper.domain.document.domain.element.base.AbstractElement;
 import com.example.whopper.domain.document.domain.element.type.AchievementType;
-import com.example.whopper.domain.document.dto.request.UpdateAchievementElementRequest;
+import com.example.whopper.domain.document.dto.AchievementElementDto;
 import lombok.Getter;
 
 @Getter
@@ -20,7 +20,7 @@ public class AchievementElement extends AbstractElement {
                 this.type = type;
         }
 
-        public static AchievementElement fromRequest(UpdateAchievementElementRequest request) {
+        public static AchievementElement fromRequest(AchievementElementDto request) {
                 return new AchievementElement(
                         request.elementId(),
                         request.name(),

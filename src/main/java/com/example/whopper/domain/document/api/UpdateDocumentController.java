@@ -1,6 +1,7 @@
 package com.example.whopper.domain.document.api;
 
 import com.example.whopper.domain.document.application.usecase.*;
+import com.example.whopper.domain.document.dto.*;
 import com.example.whopper.domain.document.dto.request.*;
 import com.example.whopper.global.annotation.OnlyStudent;
 import lombok.RequiredArgsConstructor;
@@ -27,28 +28,28 @@ public class UpdateDocumentController {
     @OnlyStudent
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PatchMapping("/introduce")
-    public void updateIntroduce(@RequestBody UpdateIntroduceElementRequest request) {
+    public void updateIntroduce(@RequestBody IntroduceElementDto request) {
         updateIntroduceUseCase.update(request);
     }
 
     @OnlyStudent
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PatchMapping("/project")
-    public void updateProjectList(@RequestBody UpdateListRequest<UpdateProjectElementRequest> request) {
+    public void updateProjectList(@RequestBody UpdateListRequest<ProjectElementDto> request) {
         updateProjectListUseCase.update(request.list());
     }
 
     @OnlyStudent
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PatchMapping("/achievement")
-    public void updateAchievementList(@RequestBody UpdateListRequest<UpdateAchievementElementRequest> request) {
+    public void updateAchievementList(@RequestBody UpdateListRequest<AchievementElementDto> request) {
         updateAchievementListUseCase.update(request.list());
     }
 
     @OnlyStudent
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PatchMapping("/activity")
-    public void updateActivityList(@RequestBody UpdateListRequest<UpdateActivityElementRequest> request) {
+    public void updateActivityList(@RequestBody UpdateListRequest<ActivityElementDto> request) {
         updateActivityListUseCase.update(request.list());
     }
 }
