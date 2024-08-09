@@ -20,7 +20,7 @@ public class AbstractMajorRepository implements MajorRepository {
     @Override
     public MajorEntity getById(String majorId) {
         return findById(majorId)
-                .orElse(MajorEntity.EMPTY_MAJOR_ENTITY);
+                .orElse(null);
     }
 
     @Override

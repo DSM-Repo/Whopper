@@ -58,9 +58,9 @@ public class FindDocumentService implements FindDocumentUseCase {
     }
 
     @Override
-    public DataResponseInfo<SearchDocumentResponse> searchDocument(SearchDocumentRequest request) {
+    public DataResponseInfo<SearchDocumentResponse> searchDocument(String name, Integer grade, Integer classNumber, String majorId, String status) {
         return DataResponseInfo.of(
-                documentRepository.searchDocument(request)
+                documentRepository.searchDocuments(name, grade, classNumber, majorId, status)
                         .map(document -> SearchDocumentResponse.of(
                                 document,
                                 feedbackMongoRepository.countByDocument(document)
@@ -100,6 +100,6 @@ public class FindDocumentService implements FindDocumentUseCase {
     }
 
     private String getMajorName(StudentEntity student) {
-        return student.getMajor() == null ? "전공 미정" : student.getMajor().name();
+        return student.getMajor() == null ? "전공 미정" : student.getMajor().getName();
     }
 }

@@ -7,6 +7,8 @@ import com.example.whopper.domain.auth.dto.response.TokenResponse;
 import com.example.whopper.domain.auth.exception.PasswordMismatchException;
 import com.example.whopper.domain.document.dao.DocumentRepository;
 import com.example.whopper.domain.document.domain.DocumentEntity;
+import com.example.whopper.domain.major.domain.DefaultMajorFacade;
+import com.example.whopper.domain.major.domain.MajorEntity;
 import com.example.whopper.domain.student.dao.StudentMongoRepository;
 import com.example.whopper.domain.student.domain.StudentEntity;
 import com.example.whopper.domain.student.exception.StudentNotFoundException;
@@ -27,6 +29,7 @@ public class StudentLoginService implements StudentLoginUseCase {
     private final JwtTokenProvider jwtTokenProvider;
     private final XquareClient xquareClient;
     private final PasswordEncoder passwordEncoder;
+    private final DefaultMajorFacade defaultMajorFacade;
 
     @Transactional
     public TokenResponse studentLogin(LoginRequest request) {
@@ -66,6 +69,7 @@ public class StudentLoginService implements StudentLoginUseCase {
                         .name(xquareUserResponse.getName())
                         .classInfo(xquareUserResponse.toClassInfo())
                         .profileImagePath(xquareUserResponse.getProfileImgUrl())
+                        .major(defaultMajorFacade.getDefaultMajor())
                         .build());
     }
 }
