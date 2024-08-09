@@ -13,17 +13,6 @@ public abstract class AbstractDocumentRepository implements DocumentRepository {
     private final DocumentMongoRepository documentMongoRepository;
 
     @Override
-    public Stream<DocumentEntity> searchDocuments(String name, Integer grade, Integer classNumber, String majorId, String status) {
-        return documentMongoRepository.searchDocuments(
-                name,
-                grade,
-                classNumber,
-                majorId,
-                status
-        );
-    }
-
-    @Override
     public Optional<DocumentEntity> findById(String id) {
         return documentMongoRepository.findById(id);
     }

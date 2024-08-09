@@ -3,7 +3,9 @@ package com.example.whopper.domain.document.domain;
 import com.example.whopper.domain.document.domain.element.*;
 import com.example.whopper.domain.document.domain.element.base.AbstractElement;
 import com.example.whopper.domain.document.domain.element.base.NamedElement;
+import com.example.whopper.domain.student.domain.PrivateStudentInfo;
 import com.example.whopper.domain.student.domain.StudentEntity;
+import com.example.whopper.domain.student.domain.StudentInfo;
 import lombok.Builder;
 import lombok.Getter;
 import org.springframework.data.annotation.Id;
@@ -31,6 +33,8 @@ public class DocumentEntity {
     private List<AchievementElement> achievementList;
     private List<ActivityElement> activityList;
 
+    private PrivateStudentInfo privateStudentInfo;
+
     @Field("student")
     @DBRef(lazy = true)
     private StudentEntity student;
@@ -44,6 +48,13 @@ public class DocumentEntity {
         this.projectList = Collections.emptyList();
         this.achievementList = Collections.emptyList();
         this.activityList = Collections.emptyList();
+        this.privateStudentInfo = PrivateStudentInfo.of(
+                student.getName(),
+                student.getClassInfo().grade(),
+                student.getClassInfo().classNumber(),
+                student.getMajor().getId(),
+                student.getClassInfo().schoolNumber()
+        );
         this.student = student;
     }
 
