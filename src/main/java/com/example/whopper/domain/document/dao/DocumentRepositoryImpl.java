@@ -21,7 +21,6 @@ public class DocumentRepositoryImpl extends AbstractDocumentRepository {
         this.mongoUtils = mongoUtils;
     }
 
-    @Override
     public Stream<DocumentEntity> searchDocument(SearchDocumentRequest request) {
         Query query = searchQuery(request);
         query.with(getSort());

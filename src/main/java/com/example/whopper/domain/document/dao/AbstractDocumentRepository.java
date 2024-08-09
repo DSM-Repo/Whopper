@@ -2,6 +2,7 @@ package com.example.whopper.domain.document.dao;
 
 import com.example.whopper.domain.document.domain.DocumentEntity;
 import com.example.whopper.domain.document.domain.element.DocumentStatus;
+import com.example.whopper.domain.document.dto.request.SearchDocumentRequest;
 import lombok.RequiredArgsConstructor;
 
 import java.util.Optional;
@@ -10,6 +11,17 @@ import java.util.stream.Stream;
 @RequiredArgsConstructor
 public abstract class AbstractDocumentRepository implements DocumentRepository {
     private final DocumentMongoRepository documentMongoRepository;
+
+    @Override
+    public Stream<DocumentEntity> searchDocuments(SearchDocumentRequest request) {
+        return documentMongoRepository.searchDocuments(
+                request.name(),
+                request.majorId(),
+                request.grade(),
+                request.classNumber(),
+                request.status()
+        );
+    }
 
     @Override
     public Optional<DocumentEntity> findById(String id) {

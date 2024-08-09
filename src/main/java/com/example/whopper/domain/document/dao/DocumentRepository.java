@@ -9,7 +9,7 @@ import java.util.stream.Stream;
 public interface DocumentRepository {
     Optional<DocumentEntity> findById(String id);
     Optional<DocumentEntity> findByWriterId(String id);
-    Stream<DocumentEntity> searchDocument(SearchDocumentRequest request);
+    Stream<DocumentEntity> searchDocuments(SearchDocumentRequest request);
     Stream<DocumentEntity> getReleasedDocuments();
     DocumentEntity save(DocumentEntity document);
 }
