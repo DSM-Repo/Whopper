@@ -34,11 +34,11 @@ public interface DocumentMongoRepository extends MongoRepository<DocumentEntity,
                             "{ $expr: { $eq:  [?0, null] } }" +
                         "] }," +
                         "{$or: [" +
-                            "{'studentInfo.classInfo.grade': {$regex: ?1} }," +
+                            "{'studentInfo.classInfo.grade': ?1 }," +
                             "{ $expr: { $eq:  [?1, null] } }" +
                         "] }," +
                         "{$or: [" +
-                            "{'studentInfo.classInfo.classNumber': {$regex: ?2} }," +
+                            "{'studentInfo.classInfo.classNumber': ?2 }," +
                             "{ $expr: { $eq:  [?2, null] } }" +
                         "] }," +
                         "{$or: [" +
