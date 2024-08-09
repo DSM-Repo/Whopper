@@ -2,6 +2,7 @@ package com.example.whopper.domain.document.dao;
 
 import com.example.whopper.domain.document.domain.DocumentEntity;
 import com.example.whopper.domain.document.domain.element.DocumentStatus;
+import jakarta.annotation.Nullable;
 import org.springframework.data.mongodb.repository.Aggregation;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
@@ -30,34 +31,34 @@ public interface DocumentMongoRepository extends MongoRepository<DocumentEntity,
             "{ $match: {" +
                     "$and:  [" +
                         "{$or: [" +
-                            "{'studentInfo.name': {$regex: ?0} }," +
-                            "{ $expr: { $eq:  [?0, null] } }" +
+                            "{'studentInfo.name': {$regex: ?0, $options: 'i'} }," +
+                            "{ $expr: { $eq: [?0, null] } }" +
                         "] }," +
                         "{$or: [" +
                             "{'studentInfo.classInfo.grade': ?1 }," +
-                            "{ $expr: { $eq:  [?1, null] } }" +
+                            "{ $expr: { $eq: [?1, null] } }" +
                         "] }," +
                         "{$or: [" +
                             "{'studentInfo.classInfo.classNumber': ?2 }," +
-                            "{ $expr: { $eq:  [?2, null] } }" +
+                            "{ $expr: { $eq: [?2, null] } }" +
                         "] }," +
                         "{$or: [" +
-                            "{'majorInfo._id': {$regex: ?3} }," +
-                            "{ $expr: { $eq:  [?3, null] } }" +
+                            "{'majorInfo._id': {$regex: ?3, $options: 'i'} }," +
+                            "{ $expr: { $eq: [?3, null] } }" +
                         "] }," +
                         "{$or: [" +
-                            "{'status': {$regex: ?4} }," +
-                            "{ $expr: { $eq:  [?4, null] } }" +
+                            "{'status': {$regex: ?4, $options: 'i'} }," +
+                            "{ $expr: { $eq: [?4, null] } }" +
                         "] }" +
                     "] } }",
             "{ $sort: { 'studentInfo.classInfo.schoolNumber': 1 } }"
     })
     Stream<DocumentEntity> searchDocuments(
-            String name,
-            Integer grade,
-            Integer classNumber,
-            String majorId,
-            String status
+            @Nullable String name,
+            @Nullable Integer grade,
+            @Nullable Integer classNumber,
+            @Nullable String majorId,
+            @Nullable String status
     );
 
 }
