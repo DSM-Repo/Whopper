@@ -62,8 +62,14 @@ public class DocumentController {
 
     @OnlyTeacher
     @GetMapping("/student")
-    public DataResponseInfo<SearchDocumentResponse> search(@ModelAttribute SearchDocumentRequest request) {
-        return findDocumentUseCase.searchDocument(request);
+    public DataResponseInfo<SearchDocumentResponse> search(
+            @RequestParam(required = false) String name,
+            @RequestParam(required = false) Integer grade,
+            @RequestParam(required = false) Integer classNumber,
+            @RequestParam(required = false) String majorId,
+            @RequestParam(required = false) String status
+    ) {
+        return findDocumentUseCase.searchDocument(name, grade, classNumber, majorId, status);
     }
 
     @GetMapping("/release")
