@@ -7,6 +7,6 @@ public class FeedbackNotFoundException extends WhopperException {
     public static final WhopperException EXCEPTION = new FeedbackNotFoundException();
 
     private FeedbackNotFoundException() {
-        super(ErrorCode.DOCUMENT_NOT_FOUND);
+        super(ErrorCode.FEEDBACK_NOT_FOUND);
     }
 }
