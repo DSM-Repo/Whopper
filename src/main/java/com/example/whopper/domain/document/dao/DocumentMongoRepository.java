@@ -13,15 +13,4 @@ public interface DocumentMongoRepository extends MongoRepository<DocumentEntity,
     Optional<DocumentEntity> findByStudent_Id(String writerId);
     Stream<DocumentEntity> findAllByStatus(DocumentStatus status);
 
-    @Aggregation(pipeline = {
-
-    })
-    Stream<DocumentEntity> searchDocuments(
-            String name,
-            Integer grade,
-            Integer classNumber,
-            String majorId,
-            String status
-    );
-
 }
