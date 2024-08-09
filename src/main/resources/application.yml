@@ -47,3 +47,7 @@ server:
 app:
   cors:
     allow-hosts: ${ALLOW_HOSTS}
+
+default:
+  major-id: ${MAJOR_ID}
+  name: ${MAJOR_NAME}

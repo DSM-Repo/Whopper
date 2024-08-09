@@ -11,7 +11,7 @@ public record GetCurrentUserInfoResponse(
         String majorName
 ) {
     public static GetCurrentUserInfoResponse fromStudentEntity(StudentEntity entity, MajorEntity major) {
-        var majorName = major == null ? "전공 미정" : major.name();
+        var majorName = major == null ? "전공 미정" : major.getName();
         return new GetCurrentUserInfoResponse(entity.getName(), entity.getClassInfo(), entity.getProfileImagePath(), majorName);
     }
 }
