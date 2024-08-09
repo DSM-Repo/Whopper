@@ -26,6 +26,6 @@ public class FileController {
     })
     public ImagePathResponse uploadImage(@RequestPart("file") MultipartFile filePart, @RequestParam("type") ImageType imageType) {
         String path = imageUseCase.saveImage(filePart, imageType);
-        return new ImagePathResponse(imageUseCase.getFileBaseUrl() + path);
+        return new ImagePathResponse(imageUseCase.getFileBaseUrl() + path, filePart.getOriginalFilename());
     }
 }
