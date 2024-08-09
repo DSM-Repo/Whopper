@@ -16,16 +16,8 @@ public class CreateDocumentComponentImpl implements CreateDocumentComponent {
 
     @Override
     public DocumentEntity create(StudentEntity student) {
-        var document = createEntity(student);
+        var document = DocumentEntity.createForNewStudent(student);
 
         return documentRepository.save(document);
-    }
-
-    private static DocumentEntity createEntity(StudentEntity student) {
-        return DocumentEntity.builder()
-                .status(DocumentStatus.ONGOING)
-                .writer(WriterInfoElement.createEmptyElement(student))
-                .student(student)
-                .build();
     }
 }
