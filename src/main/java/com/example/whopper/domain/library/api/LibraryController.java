@@ -5,6 +5,7 @@ import com.example.whopper.domain.library.application.usecase.TeacherFindLibrary
 import com.example.whopper.domain.library.dto.response.LibraryResponse;
 import com.example.whopper.global.annotation.OnlyStudent;
 import com.example.whopper.global.annotation.OnlyTeacher;
+import com.example.whopper.global.utils.DataResponseInfo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,7 +30,7 @@ public class LibraryController {
 
     @OnlyTeacher
     @GetMapping("/teacher")
-    public List<LibraryResponse> teacherFindLibrary(@RequestParam Integer year) {
+    public DataResponseInfo<LibraryResponse> teacherFindLibrary(@RequestParam Integer year) {
         return teacherFindLibraryUseCase.teacherFindLibrary(year);
     }
 }
