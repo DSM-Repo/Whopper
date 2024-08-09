@@ -35,6 +35,9 @@ public enum ErrorCode {
     // feedback
     FEEDBACK_NOT_FOUND(404, "요청하신 피드백을 찾지 못했습니다."),
 
+    // library
+    LIBRARY_NOT_FOUND(404, "요청하신 라이브러리를 찾지 못했습니다."),
+
     IMAGE_REQUEST_SIZE_MISMATCH(422, "프로젝트의 갯수와, 이미지 갯수가 맞지 않습니다."),
 
     // general
