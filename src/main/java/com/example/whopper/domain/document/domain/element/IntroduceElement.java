@@ -1,6 +1,7 @@
 package com.example.whopper.domain.document.domain.element;
 
 import com.example.whopper.domain.document.domain.element.base.AbstractElement;
+import com.example.whopper.domain.document.dto.request.UpdateIntroduceElementRequest;
 import lombok.Getter;
 
 @Getter
@@ -16,6 +17,14 @@ public class IntroduceElement extends AbstractElement {
 
     public static IntroduceElement createEmptyElement() {
         return new IntroduceElement(null, "", "");
+    }
+
+    public static IntroduceElement fromRequest(UpdateIntroduceElementRequest request) {
+        return new IntroduceElement(
+                request.elementId(),
+                request.heading(),
+                request.introduce()
+        );
     }
 
     @Override
