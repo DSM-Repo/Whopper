@@ -16,9 +16,9 @@ public abstract class AbstractDocumentRepository implements DocumentRepository {
     public Stream<DocumentEntity> searchDocuments(SearchDocumentRequest request) {
         return documentMongoRepository.searchDocuments(
                 request.name(),
-                request.majorId(),
                 request.grade(),
                 request.classNumber(),
+                request.majorId(),
                 request.status()
         );
     }

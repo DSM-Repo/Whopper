@@ -27,37 +27,36 @@ public interface DocumentMongoRepository extends MongoRepository<DocumentEntity,
                     "    as: 'majorInfo' " +
                     "} }",
             "{ $unwind: '$majorInfo' }",
-            "{ $match: { " +
-                    "    $and: [ " +
-                    "        { $or: [ " +
-                    "            { 'studentInfo.name': { $regex: ?#{[0]}, $options: 'i' } }, " +
-                    "            { $expr: { $eq: [?#{[0]}, null] } } " +
-                    "        ] }, " +
-                    "        { $or: [ " +
-                    "            { 'majorInfo._id': ?#{[1]} }, " +
-                    "            { $expr: { $eq: [?#{[1]}, null] } } " +
-                    "        ] }, " +
-                    "        { $or: [ " +
-                    "            { 'studentInfo.classInfo.grade': ?#{[2]} }, " +
-                    "            { $expr: { $eq: [?#{[2]}, null] } } " +
-                    "        ] }, " +
-                    "        { $or: [ " +
-                    "            { 'studentInfo.classInfo.classNumber': ?#{[3]} }, " +
-                    "            { $expr: { $eq: [?#{[3]}, null] } } " +
-                    "        ] }, " +
-                    "        { $or: [ " +
-                    "            { 'status': ?#{[4]} }, " +
-                    "            { $expr: { $eq: [?#{[4]}, null] } } " +
-                    "        ] } " +
-                    "    ] " +
-                    "} }",
+            "{ $match: {" +
+                    "$and:  [" +
+                        "{$or: [" +
+                            "{'studentInfo.name': {$regex: ?0} }," +
+                            "{ $expr: { $eq:  [?0, null] } }" +
+                        "] }," +
+                        "{$or: [" +
+                            "{'studentInfo.classInfo.grade': {$regex: ?1} }," +
+                            "{ $expr: { $eq:  [?1, null] } }" +
+                        "] }," +
+                        "{$or: [" +
+                            "{'studentInfo.classInfo.classNumber': {$regex: ?2} }," +
+                            "{ $expr: { $eq:  [?2, null] } }" +
+                        "] }," +
+                        "{$or: [" +
+                            "{'majorInfo._id': {$regex: ?3} }," +
+                            "{ $expr: { $eq:  [?3, null] } }" +
+                        "] }," +
+                        "{$or: [" +
+                            "{'status': {$regex: ?4} }," +
+                            "{ $expr: { $eq:  [?4, null] } }" +
+                        "] }" +
+                    "] } }",
             "{ $sort: { 'studentInfo.classInfo.schoolNumber': 1 } }"
     })
     Stream<DocumentEntity> searchDocuments(
             String name,
-            String majorId,
             Integer grade,
             Integer classNumber,
+            String majorId,
             String status
     );
 
