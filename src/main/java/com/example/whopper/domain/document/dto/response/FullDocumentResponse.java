@@ -2,16 +2,11 @@ package com.example.whopper.domain.document.dto.response;
 
 import com.example.whopper.domain.document.domain.DocumentEntity;
 import com.example.whopper.domain.document.domain.element.*;
-import com.example.whopper.domain.document.domain.element.type.AchievementType;
-import com.example.whopper.domain.document.domain.element.type.ProjectType;
-import com.example.whopper.domain.feedback.domain.FeedbackEntity;
 import com.example.whopper.domain.student.domain.ClassInfo;
 import com.example.whopper.domain.student.domain.StudentEntity;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.time.Year;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 public record FullDocumentResponse(
