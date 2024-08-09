@@ -3,9 +3,7 @@ package com.example.whopper.domain.document.api;
 import com.example.whopper.domain.document.application.usecase.*;
 import com.example.whopper.domain.document.domain.detail.CompletionElementLevel;
 import com.example.whopper.domain.document.domain.element.*;
-import com.example.whopper.domain.document.dto.request.SearchDocumentRequest;
-import com.example.whopper.domain.document.dto.request.UpdateListRequest;
-import com.example.whopper.domain.document.dto.request.UpdateWriterInfoRequest;
+import com.example.whopper.domain.document.dto.request.*;
 import com.example.whopper.domain.document.dto.response.DocumentResponse;
 import com.example.whopper.domain.document.dto.response.FullDocumentResponse;
 import com.example.whopper.domain.document.dto.response.ReleasedDocumentResponse;
@@ -21,11 +19,6 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 @RequestMapping("/document")
 public class DocumentController {
-    private final UpdateActivityListUseCase updateActivityListUseCase;
-    private final UpdateAchievementListUseCase updateAchievementListUseCase;
-    private final UpdateProjectListUseCase updateProjectListUseCase;
-    private final UpdateIntroduceUseCase updateIntroduceUseCase;
-    private final UpdateWriterInfoUseCase updateWriterInfoUseCase;
     private final FindDocumentUseCase findDocumentUseCase;
     private final SubmitMyDocumentUseCase submitMyDocumentUseCase;
     private final CancelSubmitMyDocumentUseCase cancelSubmitMyDocumentUseCase;
@@ -104,40 +97,5 @@ public class DocumentController {
     @GetMapping("/detail")
     public FullDocumentResponse getCurrentDocument() {
         return findDocumentUseCase.getCurrentStudentDocument();
-    }
-
-    @OnlyStudent
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    @PatchMapping("/writer-info")
-    public void updateWriterInfo(@RequestBody UpdateWriterInfoRequest request) {
-        updateWriterInfoUseCase.update(request);
-    }
-
-    @OnlyStudent
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    @PatchMapping("/introduce")
-    public void updateIntroduce(@RequestBody IntroduceElement request) {
-        updateIntroduceUseCase.update(request);
-    }
-
-    @OnlyStudent
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    @PatchMapping("/project")
-    public void updateProjectList(@RequestBody UpdateListRequest<ProjectElement> request) {
-        updateProjectListUseCase.update(request.list());
-    }
-
-    @OnlyStudent
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    @PatchMapping("/achievement")
-    public void updateAchievementList(@RequestBody UpdateListRequest<AchievementElement> request) {
-        updateAchievementListUseCase.update(request.list());
-    }
-
-    @OnlyStudent
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    @PatchMapping("/activity")
-    public void updateActivityList(@RequestBody UpdateListRequest<ActivityElement> request) {
-        updateActivityListUseCase.update(request.list());
     }
 }

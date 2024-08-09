@@ -2,6 +2,7 @@ package com.example.whopper.domain.document.domain.element;
 
 import com.example.whopper.domain.document.domain.element.base.AbstractElement;
 import com.example.whopper.domain.document.domain.element.type.AchievementType;
+import com.example.whopper.domain.document.dto.AchievementElementDto;
 import lombok.Getter;
 
 @Getter
@@ -11,11 +12,21 @@ public class AchievementElement extends AbstractElement {
         private final String date;
         private final AchievementType type;
 
-        public AchievementElement(String elementId, String name, String institution, String date, AchievementType type) {
+        protected AchievementElement(String elementId, String name, String institution, String date, AchievementType type) {
                 super(elementId);
                 this.name = name;
                 this.institution = institution;
                 this.date = date;
                 this.type = type;
+        }
+
+        public static AchievementElement fromRequest(AchievementElementDto request) {
+                return new AchievementElement(
+                        request.elementId(),
+                        request.name(),
+                        request.institution(),
+                        request.date(),
+                        request.type()
+                );
         }
 }
