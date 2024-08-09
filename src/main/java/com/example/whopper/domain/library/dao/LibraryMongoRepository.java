@@ -8,4 +8,5 @@ import java.util.Optional;
 
 public interface LibraryMongoRepository extends MongoRepository<LibraryEntity, String> {
     Optional<LibraryEntity> findFirstByAccessRightNotAndYear(AccessRight accessRight, int year);
+    Optional<LibraryEntity> findFirstByYear(int year);
 }
