@@ -33,7 +33,7 @@ public class DocumentRepositoryImpl extends AbstractDocumentRepository {
         Query query = new Query();
 
         if (isNotBlank(request.name())) {
-            query.addCriteria(where("writer.name", request.name()));
+            query.addCriteria(where("student.name", request.name()));
         }
         if (isNotBlank(request.majorId())) {
             query.addCriteria(where("student.majorId", request.majorId()));

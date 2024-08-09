@@ -7,6 +7,7 @@ import lombok.Getter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 @Getter
 @Document(collection = "user_repo")
@@ -20,12 +21,15 @@ public class StudentEntity {
 
     private String password;
 
+    @Field("name")
     private String name;
 
+    @Field("classInfo")
     private ClassInfo classInfo;
 
     private String profileImagePath;
 
+    @Field("major")
     @DBRef(lazy = true)
     private MajorEntity major;
 

@@ -1,9 +1,15 @@
 package com.example.whopper.domain.student.domain;
 
+import org.springframework.data.mongodb.core.mapping.Field;
+
 public record ClassInfo(
+        @Field("grade")
         Integer grade,
+        @Field("classNumber")
         Integer classNumber,
+        @Field("number")
         Integer number,
+        @Field("schoolNumber")
         String schoolNumber // 학번
 ) {
     public static ClassInfo of(Integer grade, Integer classNumber, Integer number) {

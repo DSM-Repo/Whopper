@@ -9,6 +9,7 @@ import lombok.Getter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.time.Year;
 import java.util.Collections;
@@ -30,6 +31,7 @@ public class DocumentEntity {
     private List<AchievementElement> achievementList;
     private List<ActivityElement> activityList;
 
+    @Field("student")
     @DBRef(lazy = true)
     private StudentEntity student;
 
