@@ -3,9 +3,7 @@ package com.example.whopper.domain.document.api;
 import com.example.whopper.domain.document.application.usecase.*;
 import com.example.whopper.domain.document.domain.detail.CompletionElementLevel;
 import com.example.whopper.domain.document.domain.element.*;
-import com.example.whopper.domain.document.dto.request.SearchDocumentRequest;
-import com.example.whopper.domain.document.dto.request.UpdateListRequest;
-import com.example.whopper.domain.document.dto.request.UpdateWriterInfoRequest;
+import com.example.whopper.domain.document.dto.request.*;
 import com.example.whopper.domain.document.dto.response.DocumentResponse;
 import com.example.whopper.domain.document.dto.response.FullDocumentResponse;
 import com.example.whopper.domain.document.dto.response.ReleasedDocumentResponse;
@@ -116,28 +114,28 @@ public class DocumentController {
     @OnlyStudent
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PatchMapping("/introduce")
-    public void updateIntroduce(@RequestBody IntroduceElement request) {
+    public void updateIntroduce(@RequestBody UpdateIntroduceElementRequest request) {
         updateIntroduceUseCase.update(request);
     }
 
     @OnlyStudent
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PatchMapping("/project")
-    public void updateProjectList(@RequestBody UpdateListRequest<ProjectElement> request) {
+    public void updateProjectList(@RequestBody UpdateListRequest<UpdateProjectElementRequest> request) {
         updateProjectListUseCase.update(request.list());
     }
 
     @OnlyStudent
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PatchMapping("/achievement")
-    public void updateAchievementList(@RequestBody UpdateListRequest<AchievementElement> request) {
+    public void updateAchievementList(@RequestBody UpdateListRequest<UpdateAchievementElementRequest> request) {
         updateAchievementListUseCase.update(request.list());
     }
 
     @OnlyStudent
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PatchMapping("/activity")
-    public void updateActivityList(@RequestBody UpdateListRequest<ActivityElement> request) {
+    public void updateActivityList(@RequestBody UpdateListRequest<UpdateActivityElementRequest> request) {
         updateActivityListUseCase.update(request.list());
     }
 }
