@@ -6,7 +6,6 @@ import com.example.whopper.domain.auth.dto.request.LoginRequest;
 import com.example.whopper.domain.auth.dto.response.TokenResponse;
 import com.example.whopper.domain.auth.exception.PasswordMismatchException;
 import com.example.whopper.domain.document.application.component.CreateDocumentComponent;
-import com.example.whopper.domain.document.dao.DocumentRepository;
 import com.example.whopper.domain.major.domain.DefaultMajorFacade;
 import com.example.whopper.domain.student.dao.StudentMongoRepository;
 import com.example.whopper.domain.student.domain.StudentEntity;
@@ -52,7 +51,7 @@ public class StudentLoginService implements StudentLoginUseCase {
         XquareUserResponse xquareUserResponse = xquareClient.xquareUser(request);
         StudentEntity newStudent = createAndSaveNewStudent(xquareUserResponse);
 
-        createDocumentComponent.create(newStudent));
+        createDocumentComponent.create(newStudent);
         return getTokenResponse(newStudent.getId());
     }
 
