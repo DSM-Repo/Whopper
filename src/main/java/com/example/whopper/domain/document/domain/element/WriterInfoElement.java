@@ -4,6 +4,7 @@ import com.example.whopper.domain.document.domain.element.base.AbstractElement;
 import com.example.whopper.domain.student.domain.StudentEntity;
 import lombok.Builder;
 import lombok.Getter;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.time.Year;
 import java.util.Collections;

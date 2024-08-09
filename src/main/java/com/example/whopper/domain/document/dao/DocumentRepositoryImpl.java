@@ -22,38 +22,38 @@ public class DocumentRepositoryImpl extends AbstractDocumentRepository {
     }
 
     @Override
-    public Stream<DocumentEntity> searchDocument(SearchDocumentRequest request) {
-        Query query = searchQuery(request);
+    public Stream<DocumentEntity> searchDocuments(String name, Integer grade, Integer classNumber, String majorId, String status) {
+        Query query = searchQuery(name, grade, classNumber, majorId, status);
         query.with(getSort());
 
         return mongoUtils.find(query, DocumentEntity.class);
     }
 
-    private Query searchQuery(SearchDocumentRequest request) {
+    private Query searchQuery(String name, Integer grade, Integer classNumber, String majorId, String status) {
         Query query = new Query();
 
-        if (isNotBlank(request.name())) {
-            query.addCriteria(where("writer.name", request.name()));
+        if (isNotBlank(name)) {
+            query.addCriteria(where("privateStudentInfo.name", name));
         }
-        if (isNotBlank(request.majorId())) {
-            query.addCriteria(where("student.majorId", request.majorId()));
+        if (isNotBlank(majorId)) {
+            query.addCriteria(where("privateStudentInfo.majorId", majorId));
         }
 
-        Optional.ofNullable(request.classNumber())
-                .ifPresent(classNumber -> query.addCriteria(where("student.classInfo.classNumber", classNumber)));
+        Optional.ofNullable(classNumber)
+                .ifPresent(cn -> query.addCriteria(where("privateStudentInfo.classNumber", classNumber)));
 
-        Optional.ofNullable(request.grade())
-                .ifPresent(grade -> query.addCriteria(where("student.classInfo.grade", grade)));
+        Optional.ofNullable(grade)
+                .ifPresent(g -> query.addCriteria(where("privateStudentInfo.grade", grade)));
 
-        if (isNotBlank(request.status())) {
-            query.addCriteria(where("status", DocumentStatus.valueOf(request.status().toUpperCase()).name()));
+        if (isNotBlank(status)) {
+            query.addCriteria(where("status", status.toUpperCase()));
         }
 
         return query;
     }
 
     private Sort getSort() {
-        return Sort.by(Sort.DEFAULT_DIRECTION, "student.classInfo.schoolNumber");
+        return Sort.by(Sort.DEFAULT_DIRECTION, "privateStudentInfo.schoolNumber");
     }
 
     private Criteria where(String key, Object checkValue) {

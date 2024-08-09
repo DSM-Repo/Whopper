@@ -58,9 +58,9 @@ public class FindDocumentService implements FindDocumentUseCase {
     }
 
     @Override
-    public DataResponseInfo<SearchDocumentResponse> searchDocument(SearchDocumentRequest request) {
+    public DataResponseInfo<SearchDocumentResponse> searchDocument(String name, Integer grade, Integer classNumber, String majorId, String status) {
         return DataResponseInfo.of(
-                documentRepository.searchDocument(request)
+                documentRepository.searchDocuments(name, grade, classNumber, majorId, status)
                         .map(document -> SearchDocumentResponse.of(
                                 document,
                                 feedbackMongoRepository.countByDocument(document)
