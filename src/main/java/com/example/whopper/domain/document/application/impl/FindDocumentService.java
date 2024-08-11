@@ -12,6 +12,9 @@ import com.example.whopper.domain.document.dto.response.SearchDocumentResponse;
 import com.example.whopper.domain.document.exception.DocumentIllegalStatusException;
 import com.example.whopper.domain.document.exception.DocumentNotFoundException;
 import com.example.whopper.domain.feedback.dao.FeedbackMongoRepository;
+import com.example.whopper.domain.library.api.LibraryController;
+import com.example.whopper.domain.library.dao.LibraryMongoRepository;
+import com.example.whopper.domain.library.domain.ShardLibrary;
 import com.example.whopper.domain.student.domain.StudentEntity;
 import com.example.whopper.global.utils.current.CurrentStudent;
 import com.example.whopper.global.utils.DataResponseInfo;
@@ -25,15 +28,19 @@ import java.util.List;
 public class FindDocumentService implements FindDocumentUseCase {
     private final DocumentRepository documentRepository;
     private final FeedbackMongoRepository feedbackMongoRepository;
+    private final LibraryMongoRepository libraryMongoRepository;
     private final CurrentStudent currentStudent;
 
     @Override
     public DocumentResponse getIntroduceRecentlySharedDocuments() {
         var currentStudentDocument = currentStudent.getDocument();
+        var libraries = libraryMongoRepository.findTop3ByOrderByCreateAtDesc()
+                .map(ShardLibrary::fromLibraryEntity)
+                .toList();
 
         return DocumentResponse.of(
                 currentStudentDocument,
-                List.of() // 최근 공유된 document
+                libraries
         );
     }
 

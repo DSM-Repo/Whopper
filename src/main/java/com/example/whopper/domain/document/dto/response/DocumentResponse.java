@@ -1,19 +1,16 @@
 package com.example.whopper.domain.document.dto.response;
 
 import com.example.whopper.domain.document.domain.DocumentEntity;
-import com.example.whopper.domain.document.domain.detail.CompletionElementLevel;
 import com.example.whopper.domain.document.domain.element.IntroduceElement;
-import com.example.whopper.domain.document.domain.ShardDocument;
-import com.example.whopper.domain.student.domain.ClassInfo;
-import com.example.whopper.domain.student.domain.StudentEntity;
+import com.example.whopper.domain.library.domain.ShardLibrary;
 
 import java.util.List;
 
 public record DocumentResponse(
         IntroduceElement introduce,
-        List<ShardDocument> recentlyShared
+        List<ShardLibrary> recentlyShared
 ) {
-    public static DocumentResponse of(DocumentEntity document, List<ShardDocument> recentlyShared) {
+    public static DocumentResponse of(DocumentEntity document, List<ShardLibrary> recentlyShared) {
         return new DocumentResponse(
                 document.getIntroduce(),
                 recentlyShared
