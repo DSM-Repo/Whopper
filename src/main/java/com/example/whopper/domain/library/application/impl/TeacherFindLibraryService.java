@@ -8,8 +8,6 @@ import com.example.whopper.global.utils.DataResponseInfo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
 @RequiredArgsConstructor
 public class TeacherFindLibraryService implements TeacherFindLibraryUseCase {
