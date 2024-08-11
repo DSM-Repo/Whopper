@@ -1,12 +1,14 @@
 package com.example.whopper.domain.library.api;
 
 import com.example.whopper.domain.library.application.usecase.ChangeLibraryAccessRightUseCase;
+import com.example.whopper.domain.library.application.usecase.FindLibraryDetailUseCase;
 import com.example.whopper.domain.library.application.usecase.FindLibraryIndexUseCase;
 import com.example.whopper.domain.library.application.usecase.StudentFindLibraryUseCase;
 import com.example.whopper.domain.library.application.usecase.TeacherFindLibraryUseCase;
 import com.example.whopper.domain.library.domain.type.AccessRight;
-import com.example.whopper.domain.library.dto.response.LibraryIndexResponse;
-import com.example.whopper.domain.library.dto.response.LibraryResponse;
+import com.example.whopper.domain.library.dto.LibraryDetailResponse;
+import com.example.whopper.domain.library.dto.LibraryIndexResponse;
+import com.example.whopper.domain.library.dto.LibraryResponse;
 import com.example.whopper.global.annotation.OnlyStudent;
 import com.example.whopper.global.annotation.OnlyTeacher;
 import com.example.whopper.global.utils.DataResponseInfo;
@@ -18,8 +20,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/library")
@@ -29,6 +29,7 @@ public class LibraryController {
     private final TeacherFindLibraryUseCase teacherFindLibraryUseCase;
     private final FindLibraryIndexUseCase findLibraryIndexUseCase;
     private final ChangeLibraryAccessRightUseCase changeLibraryAccessRightUseCase;
+    private final FindLibraryDetailUseCase findLibraryDetailUseCase;
 
     @OnlyStudent
     @GetMapping("/student")
@@ -51,5 +52,10 @@ public class LibraryController {
     @PatchMapping("/{libraryId}/access-right")
     public void changeLibraryAccessRight(@PathVariable String libraryId, @RequestParam AccessRight accessRight) {
         changeLibraryAccessRightUseCase.changeLibraryAccessRight(libraryId, accessRight);
+    }
+
+    @GetMapping("/{libraryId}/public")
+    public LibraryDetailResponse findLibraryDetail(@PathVariable String libraryId) {
+        return findLibraryDetailUseCase.findLibraryDetail(libraryId);
     }
 }
