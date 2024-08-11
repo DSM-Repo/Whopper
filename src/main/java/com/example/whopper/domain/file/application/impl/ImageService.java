@@ -33,7 +33,7 @@ public class ImageService implements ImageUseCase {
         }
 
         // Generate a unique key for the file
-        String key = generateFileKey(originalFileName, imageType);
+        String key = generateFileKey(imageType);
 
         // Upload file and return the key
         uploadFile(multipartFile, key);
@@ -49,9 +49,9 @@ public class ImageService implements ImageUseCase {
         return filename.substring(filename.lastIndexOf(".")).toLowerCase();
     }
 
-    private String generateFileKey(String originalFileName, ImageType imageType) {
+    private String generateFileKey(ImageType imageType) {
         String folder = imageType == ImageType.PROFILE ? awsS3Properties.profileFolder() : awsS3Properties.documentFolder();
-        return folder + "/" + UUID.randomUUID() + originalFileName;
+        return folder + "/" + UUID.randomUUID();
     }
 
     private void uploadFile(MultipartFile multipartFile, String key) {
