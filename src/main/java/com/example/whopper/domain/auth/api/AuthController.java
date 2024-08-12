@@ -33,7 +33,7 @@ public class AuthController {
     }
 
     @PutMapping("/token")
-    public TokenResponse reissueToken(@RequestHeader String token) {
+    public TokenResponse reissueToken(@RequestHeader(name = "RefreshToken") String token) {
         return reissueTokenUseCase.reissueToken(token);
     }
 }

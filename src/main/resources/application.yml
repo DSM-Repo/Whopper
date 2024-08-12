@@ -47,6 +47,7 @@ server:
 app:
   cors:
     allow-hosts: ${ALLOW_HOSTS}
+    allow-headers: ${ALLOW_HEADERS}
 
 default:
   major:
