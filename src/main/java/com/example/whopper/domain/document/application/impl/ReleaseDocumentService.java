@@ -18,26 +18,38 @@ public class ReleaseDocumentService implements ReleaseDocumentUseCase {
 
     @Override
     public void release(String documentId) {
-        var document = validateDocumentIdAndGetDocumentEntity(documentId);
+        var document = findById(documentId);
 
-        document.release();
+        if (document.getStatus().equals(DocumentStatus.RELEASED)) {
+            cancelRelease(document);
+        } else if (document.getStatus().equals(DocumentStatus.SUBMITTED)) {
+            deleteFeedback(document);
+            release(document);
+        } else {
+            throw DocumentIllegalStatusException.EXCEPTION;
+        }
 
-        deleteFeedback(document);
-
-        documentRepository.save(document);
+        save(document);
     }
 
     private void deleteFeedback(DocumentEntity document) {
         feedbackMongoRepository.deleteAllByDocument(document);
     }
 
-    private DocumentEntity validateDocumentIdAndGetDocumentEntity(String documentId) {
-        var document = documentRepository.findById(documentId)
+    private DocumentEntity findById(String documentId) {
+        return documentRepository.findById(documentId)
                 .orElseThrow(() -> DocumentNotFoundException.EXCEPTION);
+    }
 
-        if(!document.getStatus().equals(DocumentStatus.SUBMITTED)) {
-            throw DocumentIllegalStatusException.EXCEPTION;
-        }
-        return document;
+    private void release(DocumentEntity document) {
+        document.release();
+    }
+
+    private void cancelRelease(DocumentEntity document) {
+        document.submit();
+    }
+
+    private void save(DocumentEntity document) {
+        documentRepository.save(document);
     }
 }

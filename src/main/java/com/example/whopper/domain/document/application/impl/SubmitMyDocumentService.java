@@ -16,11 +16,26 @@ public class SubmitMyDocumentService implements SubmitMyDocumentUseCase {
 
     @Override
     public void submit() {
-        updateDocumentStatusAndSave(currentStudent.getDocument());
+        var document = currentStudent.getDocument();
+
+        if (document.getStatus().equals(DocumentStatus.SUBMITTED)) {
+            cancelSubmit(document);
+        } else {
+            submit(document);
+        }
+
+        save(document);
     }
 
-    private void updateDocumentStatusAndSave(DocumentEntity doc) {
-        doc.submit();
-        documentRepository.save(doc);
+    private void cancelSubmit(DocumentEntity document) {
+        document.onGoing();
+    }
+
+    private void submit(DocumentEntity document) {
+        document.submit();
+    }
+
+    private void save(DocumentEntity document) {
+        documentRepository.save(document);
     }
 }

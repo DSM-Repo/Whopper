@@ -5,10 +5,9 @@ import com.example.whopper.domain.auth.domain.type.UserRole;
 import com.example.whopper.domain.auth.dto.request.LoginRequest;
 import com.example.whopper.domain.auth.dto.response.TokenResponse;
 import com.example.whopper.domain.auth.exception.PasswordMismatchException;
-import com.example.whopper.domain.document.dao.DocumentRepository;
-import com.example.whopper.domain.document.domain.DocumentEntity;
+import com.example.whopper.domain.document.application.component.CreateDocumentComponent;
+import com.example.whopper.domain.file.domain.DefaultProfileImageProperties;
 import com.example.whopper.domain.major.domain.DefaultMajorFacade;
-import com.example.whopper.domain.major.domain.MajorEntity;
 import com.example.whopper.domain.student.dao.StudentMongoRepository;
 import com.example.whopper.domain.student.domain.StudentEntity;
 import com.example.whopper.domain.student.exception.StudentNotFoundException;
@@ -25,11 +24,12 @@ import org.springframework.transaction.annotation.Transactional;
 public class StudentLoginService implements StudentLoginUseCase {
 
     private final StudentMongoRepository studentMongoRepository;
-    private final DocumentRepository documentRepository;
     private final JwtTokenProvider jwtTokenProvider;
     private final XquareClient xquareClient;
     private final PasswordEncoder passwordEncoder;
     private final DefaultMajorFacade defaultMajorFacade;
+    private final CreateDocumentComponent createDocumentComponent;
+    private final DefaultProfileImageProperties defaultProfileImageProperties;
 
     @Transactional
     public TokenResponse studentLogin(LoginRequest request) {
@@ -53,7 +53,7 @@ public class StudentLoginService implements StudentLoginUseCase {
         XquareUserResponse xquareUserResponse = xquareClient.xquareUser(request);
         StudentEntity newStudent = createAndSaveNewStudent(xquareUserResponse);
 
-        documentRepository.save(DocumentEntity.createForNewStudent(newStudent));
+        createDocumentComponent.create(newStudent);
         return getTokenResponse(newStudent.getId());
     }
 
@@ -68,7 +68,7 @@ public class StudentLoginService implements StudentLoginUseCase {
                         .password(xquareUserResponse.getPassword())
                         .name(xquareUserResponse.getName())
                         .classInfo(xquareUserResponse.toClassInfo())
-                        .profileImagePath(xquareUserResponse.getProfileImgUrl())
+                        .profileImagePath(defaultProfileImageProperties.imageUrl())
                         .major(defaultMajorFacade.getDefaultMajor())
                         .build());
     }

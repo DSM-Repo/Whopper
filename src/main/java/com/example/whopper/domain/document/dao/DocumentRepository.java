@@ -12,4 +12,5 @@ public interface DocumentRepository {
     Stream<DocumentEntity> searchDocuments(String name, Integer grade, Integer classNumber, String majorId, String status);
     Stream<DocumentEntity> getReleasedDocuments();
     DocumentEntity save(DocumentEntity document);
+    Stream<DocumentEntity> getReleasedDocumentsByGenerationAndYear(int generation, int year);
 }

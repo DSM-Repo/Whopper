@@ -47,7 +47,11 @@ server:
 app:
   cors:
     allow-hosts: ${ALLOW_HOSTS}
+    allow-headers: ${ALLOW_HEADERS}
 
 default:
-  major-id: ${MAJOR_ID}
-  name: ${MAJOR_NAME}
+  major:
+    major-id: ${MAJOR_ID}
+    name: ${MAJOR_NAME}
+  profile:
+    image-url: ${DEFAULT_PROFILE_IMAGE}
