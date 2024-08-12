@@ -22,9 +22,9 @@ public class TeacherComponent {
             throw new NotAuthenticatedException("인증되지 않는 유저입니다.");
         }
 
-        String accountId = authentication.getName();
+        String id = authentication.getName();
 
-        return teacherMongoRepository.findFirstByAccountId(accountId)
+        return teacherMongoRepository.findById(id)
                 .orElseThrow(() -> TeacherNotFoundException.EXCEPTION);
     }
 }
