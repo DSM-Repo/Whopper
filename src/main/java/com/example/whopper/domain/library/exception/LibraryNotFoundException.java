@@ -1,6 +1,5 @@
 package com.example.whopper.domain.library.exception;
 
-import com.example.whopper.domain.feedback.exception.FeedbackNotFoundException;
 import com.example.whopper.global.error.exception.ErrorCode;
 import com.example.whopper.global.error.exception.WhopperException;
 
