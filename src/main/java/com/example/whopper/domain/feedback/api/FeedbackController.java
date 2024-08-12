@@ -5,13 +5,10 @@ import com.example.whopper.domain.feedback.application.usecase.DeleteFeedbackUse
 import com.example.whopper.domain.feedback.application.usecase.UpdateFeedbackUseCase;
 import com.example.whopper.domain.feedback.dto.DeleteFeedbackRequest;
 import com.example.whopper.domain.feedback.dto.FeedbackRequest;
+import com.example.whopper.domain.feedback.dto.UpdateFeedbackRequest;
 import com.example.whopper.global.annotation.OnlyTeacher;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -26,19 +23,19 @@ public class FeedbackController {
 
     @OnlyTeacher
     @PostMapping
-    public void addFeedback(FeedbackRequest request) {
+    public void addFeedback(@RequestBody FeedbackRequest request) {
         addFeedbackUseCase.addFeedback(request);
     }
 
     @OnlyTeacher
     @PatchMapping
-    public void updateFeedback(FeedbackRequest request) {
+    public void updateFeedback(@RequestBody UpdateFeedbackRequest request) {
         updateFeedbackUseCase.updateFeedback(request);
     }
 
     @OnlyTeacher
     @DeleteMapping
-    public void deleteFeedback(DeleteFeedbackRequest request) {
+    public void deleteFeedback(@RequestBody DeleteFeedbackRequest request) {
         deleteFeedbackUseCase.deleteFeedback(request);
     }
 }

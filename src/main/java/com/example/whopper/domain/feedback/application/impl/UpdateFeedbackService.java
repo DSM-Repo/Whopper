@@ -7,6 +7,7 @@ import com.example.whopper.domain.feedback.application.usecase.UpdateFeedbackUse
 import com.example.whopper.domain.feedback.dao.FeedbackMongoRepository;
 import com.example.whopper.domain.feedback.domain.FeedbackEntity;
 import com.example.whopper.domain.feedback.dto.FeedbackRequest;
+import com.example.whopper.domain.feedback.dto.UpdateFeedbackRequest;
 import com.example.whopper.domain.feedback.exception.FeedbackNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -25,7 +26,7 @@ public class UpdateFeedbackService implements UpdateFeedbackUseCase {
     }
 
     @Transactional
-    public void updateFeedback(FeedbackRequest request) {
+    public void updateFeedback(UpdateFeedbackRequest request) {
         FeedbackEntity feedback = feedbackMongoRepository
                 .findFirstByDocumentAndElementId(findDocument(request.document_id()), request.element_id())
                 .orElseThrow(()-> FeedbackNotFoundException.EXCEPTION);
