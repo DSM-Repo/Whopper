@@ -17,8 +17,11 @@ public class StudentFindLibraryService implements StudentFindLibraryUseCase {
     private final PdfUseCase pdfUseCase;
 
     public DataResponseInfo<LibraryResponse> studentFindLibrary(Integer year) {
-        var libraries = libraryMongoRepository.findFirstByAccessRightNotAndYear(AccessRight.PRIVATE, year)
-                .stream()
+        var libraries = year == null
+                ? libraryMongoRepository.findFirstByAccessRightNot(AccessRight.PRIVATE)
+                : libraryMongoRepository.findFirstByAccessRightNotAndYear(AccessRight.PRIVATE, year);
+
+        return DataResponseInfo.of(libraries.stream()
                 .map(library -> new LibraryResponse(
                         null,
                         null,
@@ -27,8 +30,6 @@ public class StudentFindLibraryService implements StudentFindLibraryUseCase {
                         library.getGeneration(),
                         pdfUseCase.getPdfFileUrl(library.getFilePath())
                 ))
-                .toList();
-
-        return DataResponseInfo.of(libraries);
+                .toList());
     }
 }

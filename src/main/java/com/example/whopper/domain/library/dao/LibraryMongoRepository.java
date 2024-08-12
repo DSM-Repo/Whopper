@@ -9,6 +9,7 @@ import java.util.stream.Stream;
 
 public interface LibraryMongoRepository extends MongoRepository<LibraryEntity, String> {
     Optional<LibraryEntity> findFirstByAccessRightNotAndYear(AccessRight accessRight, int year);
+    Optional<LibraryEntity> findFirstByAccessRightNot(AccessRight accessRight);
     Optional<LibraryEntity> findFirstByYear(int year);
     Stream<LibraryEntity> findTop3ByOrderByCreateAtDesc();
 }
