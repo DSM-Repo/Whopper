@@ -28,6 +28,11 @@ public abstract class AbstractDocumentRepository implements DocumentRepository {
     }
 
     @Override
+    public Stream<DocumentEntity> getReleasedDocumentsByGenerationAndYear(int generation, int year) {
+        return documentMongoRepository.findAllByWriterGenerationAndYearAndStatus(generation, year, DocumentStatus.RELEASED);
+    }
+
+    @Override
     public DocumentEntity save(DocumentEntity document) {
         return documentMongoRepository.save(document);
     }

@@ -23,4 +23,8 @@ public class LibraryEntity {
     public Integer getGeneration() {
         return this.year - this.grade - 2013;
     }
+
+    public void changeAccessRight(AccessRight accessRight) {
+        this.accessRight = accessRight;
+    }
 }

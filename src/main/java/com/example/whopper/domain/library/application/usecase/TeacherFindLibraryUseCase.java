@@ -3,6 +3,6 @@ package com.example.whopper.domain.library.application.usecase;
 import com.example.whopper.domain.library.dto.LibraryResponse;
 import com.example.whopper.global.utils.DataResponseInfo;
 
-public interface StudentFindLibraryUseCase {
-    DataResponseInfo<LibraryResponse> studentFindLibrary(Integer year);
+public interface TeacherFindLibraryUseCase {
+    DataResponseInfo<LibraryResponse> teacherFindLibrary(Integer year);
 }

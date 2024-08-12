@@ -1,4 +1,4 @@
-package com.example.whopper.domain.library.dto.response;
+package com.example.whopper.domain.library.dto;
 
 import com.example.whopper.domain.library.domain.type.AccessRight;
 

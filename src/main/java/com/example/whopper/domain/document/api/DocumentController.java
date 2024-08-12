@@ -2,8 +2,6 @@ package com.example.whopper.domain.document.api;
 
 import com.example.whopper.domain.document.application.usecase.*;
 import com.example.whopper.domain.document.domain.detail.CompletionElementLevel;
-import com.example.whopper.domain.document.domain.element.*;
-import com.example.whopper.domain.document.dto.request.*;
 import com.example.whopper.domain.document.dto.response.DocumentResponse;
 import com.example.whopper.domain.document.dto.response.FullDocumentResponse;
 import com.example.whopper.domain.document.dto.response.ReleasedDocumentResponse;
@@ -21,9 +19,7 @@ import org.springframework.web.bind.annotation.*;
 public class DocumentController {
     private final FindDocumentUseCase findDocumentUseCase;
     private final SubmitMyDocumentUseCase submitMyDocumentUseCase;
-    private final CancelSubmitMyDocumentUseCase cancelSubmitMyDocumentUseCase;
     private final ReleaseDocumentUseCase releaseDocumentUseCase;
-    private final CancelReleaseDocumentUseCase cancelReleaseDocumentUseCase;
 
     @OnlyTeacher
     @ResponseStatus(HttpStatus.NO_CONTENT)
@@ -32,25 +28,11 @@ public class DocumentController {
         releaseDocumentUseCase.release(documentId);
     }
 
-    @OnlyTeacher
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    @PostMapping("/release/cancel/{documentId}")
-    public void cancelRelease(@PathVariable String documentId) {
-        cancelReleaseDocumentUseCase.cancel(documentId);
-    }
-
     @OnlyStudent
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PatchMapping("/submit")
     public void submit() {
         submitMyDocumentUseCase.submit();
-    }
-
-    @OnlyStudent
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    @PatchMapping("/submit/cancel")
-    public void cancelSubmit() {
-        cancelSubmitMyDocumentUseCase.cancel();
     }
 
     @OnlyTeacher
@@ -65,14 +47,16 @@ public class DocumentController {
         return findDocumentUseCase.searchDocument(name, grade, classNumber, majorId, status);
     }
 
-    @GetMapping("/release")
+    @OnlyTeacher
+    @GetMapping("/released")
     public DataResponseInfo<ReleasedDocumentResponse> getReleasedDocuments() {
         return findDocumentUseCase.getReleasedDocuments();
     }
 
-    @GetMapping("/release/{documentId}")
-    public FullDocumentResponse findReleasedDocument(@PathVariable String documentId) {
-        return findDocumentUseCase.findReleasedDocument(documentId);
+    @OnlyTeacher
+    @GetMapping("/released/grade/{grade}/year/{year}")
+    public DataResponseInfo<FullDocumentResponse> getReleasedDocumentsByGradeAndYear(@PathVariable Integer grade, @PathVariable Integer year) {
+        return findDocumentUseCase.getReleasedDocumentsByGradeAndYear(grade, year);
     }
 
     @OnlyTeacher

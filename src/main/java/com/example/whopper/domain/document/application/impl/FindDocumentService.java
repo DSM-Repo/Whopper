@@ -12,12 +12,16 @@ import com.example.whopper.domain.document.dto.response.SearchDocumentResponse;
 import com.example.whopper.domain.document.exception.DocumentIllegalStatusException;
 import com.example.whopper.domain.document.exception.DocumentNotFoundException;
 import com.example.whopper.domain.feedback.dao.FeedbackMongoRepository;
+import com.example.whopper.domain.library.api.LibraryController;
+import com.example.whopper.domain.library.dao.LibraryMongoRepository;
+import com.example.whopper.domain.library.domain.ShardLibrary;
 import com.example.whopper.domain.student.domain.StudentEntity;
 import com.example.whopper.global.utils.current.CurrentStudent;
 import com.example.whopper.global.utils.DataResponseInfo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.Year;
 import java.util.List;
 
 @Service
@@ -25,15 +29,19 @@ import java.util.List;
 public class FindDocumentService implements FindDocumentUseCase {
     private final DocumentRepository documentRepository;
     private final FeedbackMongoRepository feedbackMongoRepository;
+    private final LibraryMongoRepository libraryMongoRepository;
     private final CurrentStudent currentStudent;
 
     @Override
     public DocumentResponse getIntroduceRecentlySharedDocuments() {
         var currentStudentDocument = currentStudent.getDocument();
+        var libraries = libraryMongoRepository.findTop3ByOrderByCreateAtDesc()
+                .map(ShardLibrary::fromLibraryEntity)
+                .toList();
 
         return DocumentResponse.of(
                 currentStudentDocument,
-                List.of() // 최근 공유된 document
+                libraries
         );
     }
 
@@ -86,17 +94,14 @@ public class FindDocumentService implements FindDocumentUseCase {
     }
 
     @Override
-    public FullDocumentResponse findReleasedDocument(String documentId) {
-        var document = documentRepository.findById(documentId)
-                .orElseThrow(() -> DocumentNotFoundException.EXCEPTION);
+    public DataResponseInfo<FullDocumentResponse> getReleasedDocumentsByGradeAndYear(int grade, int year) {
+        var generation = (year - 2013) - grade;
+        var document = documentRepository.getReleasedDocumentsByGenerationAndYear(generation, year);
 
-        if (!document.getStatus().equals(DocumentStatus.RELEASED)) {
-            throw DocumentIllegalStatusException.EXCEPTION;
-        }
-        var student = document.getStudent();
-        var majorName = getMajorName(student);
+        var response = document.map(doc -> FullDocumentResponse.of(doc, doc.getStudent().getMajor().getName()))
+                .toList();
 
-        return FullDocumentResponse.of(document, majorName);
+        return DataResponseInfo.of(response);
     }
 
     private String getMajorName(StudentEntity student) {

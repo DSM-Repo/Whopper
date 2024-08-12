@@ -1,5 +1,6 @@
 package com.example.whopper.global.config;
 
+import com.example.whopper.global.security.CorsProperties;
 import com.example.whopper.global.security.jwt.JwtTokenProvider;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletResponse;
@@ -36,8 +37,7 @@ public class SecurityConfig {
 
     private final ObjectMapper objectMapper;
 
-    @Value("${app.cors.allow-hosts}")
-    private String allowHosts;
+    private final CorsProperties corsProperties;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -84,10 +84,10 @@ public class SecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
 
-        configuration.setAllowedOrigins(List.of(allowHosts.split(",")));
+        configuration.setAllowedOrigins(List.of(corsProperties.allowHosts().split(",")));
         configuration.setAllowedMethods(List.of("OPTIONS", "GET", "POST", "PUT", "PATCH", "DELETE")); // HTTP 메서드 허용
         configuration.setAllowCredentials(false);
-        configuration.setAllowedHeaders(List.of("Authorization", "Cache-Control", "Content-Type"));
+        configuration.setAllowedHeaders(List.of(corsProperties.allowHeaders().split(",")));
         configuration.setExposedHeaders(Collections.singletonList("Authorization"));
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();

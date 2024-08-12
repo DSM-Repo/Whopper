@@ -3,6 +3,7 @@ package com.example.whopper.domain.document.domain.element;
 import com.example.whopper.domain.document.domain.element.base.AbstractElement;
 import com.example.whopper.domain.document.domain.element.type.ProjectType;
 import com.example.whopper.domain.document.dto.ProjectElementDto;
+import com.example.whopper.domain.file.domain.ImageInfo;
 import lombok.Getter;
 
 import java.util.Set;
@@ -10,18 +11,18 @@ import java.util.Set;
 @Getter
 public class ProjectElement extends AbstractElement {
         private final String name;
-        private final String imagePath;
+        private final ImageInfo imageInfo;
         private final ProjectType type;
         private final String startDate;
         private final String endDate;
         private final Set<String> skillSet;
-        private final String description;
+        private final ProjectDescription description;
         private final String url;
 
-        protected ProjectElement(String elementId, String name, String imagePath, ProjectType type, String startDate, String endDate, Set<String> skillSet, String description, String url) {
+        protected ProjectElement(String elementId, String name, ImageInfo imageInfo, ProjectType type, String startDate, String endDate, Set<String> skillSet, ProjectDescription description, String url) {
                 super(elementId);
                 this.name = name;
-                this.imagePath = imagePath;
+                this.imageInfo = imageInfo;
                 this.type = type;
                 this.startDate = startDate;
                 this.endDate = endDate;
@@ -34,7 +35,7 @@ public class ProjectElement extends AbstractElement {
                 return new ProjectElement(
                         request.elementId(),
                         request.name(),
-                        request.imagePath(),
+                        request.imageInfo(),
                         request.type(),
                         request.startDate(),
                         request.endDate(),
@@ -43,5 +44,14 @@ public class ProjectElement extends AbstractElement {
                         request.url()
                 );
         }
-}
 
+        public record ProjectDescription(
+                String motive,
+                String role,
+                String retrospective
+        ) {
+                public static ProjectDescription of(String motive, String role, String retrospective) {
+                        return new ProjectDescription(motive, role, retrospective);
+                }
+        }
+}

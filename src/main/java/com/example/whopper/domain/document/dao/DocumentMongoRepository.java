@@ -12,5 +12,6 @@ import java.util.stream.Stream;
 public interface DocumentMongoRepository extends MongoRepository<DocumentEntity, String> {
     Optional<DocumentEntity> findByStudent_Id(String writerId);
     Stream<DocumentEntity> findAllByStatus(DocumentStatus status);
+    Stream<DocumentEntity> findAllByWriterGenerationAndYearAndStatus(int generation, int year, DocumentStatus status);
 
 }
