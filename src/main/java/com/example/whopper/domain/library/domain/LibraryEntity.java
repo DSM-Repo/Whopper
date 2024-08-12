@@ -1,6 +1,7 @@
 package com.example.whopper.domain.library.domain;
 
 import com.example.whopper.domain.library.domain.type.AccessRight;
+import lombok.Builder;
 import lombok.Getter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -13,12 +14,23 @@ import java.util.List;
 public class LibraryEntity {
     @Id
     private String id;
-    private Integer year;
-    private Integer grade;
-    private String filePath;
-    private LocalDateTime createAt;
+    private final Integer year;
+    private final Integer grade;
+    private final String filePath;
+    private final LocalDateTime createAt;
     private AccessRight accessRight;
-    private List<DocumentIndex> index;
+    private final List<DocumentIndex> index;
+
+    @Builder
+    public LibraryEntity(Integer year, Integer grade, String filePath, LocalDateTime createAt,
+                         AccessRight accessRight, List<DocumentIndex> index) {
+        this.year = year;
+        this.grade = grade;
+        this.filePath = filePath;
+        this.createAt = createAt;
+        this.accessRight = accessRight;
+        this.index = index;
+    }
 
     public Integer getGeneration() {
         return this.year - this.grade - 2013;
