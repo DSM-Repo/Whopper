@@ -71,7 +71,7 @@ public class FindDocumentService implements FindDocumentUseCase {
                 documentRepository.searchDocuments(name, grade, classNumber, majorId, status)
                         .map(document -> SearchDocumentResponse.of(
                                 document,
-                                feedbackMongoRepository.countByDocument(document)
+                                feedbackMongoRepository.countByDocumentId(document.getId())
                         ))
                         .toList()
         );
