@@ -40,7 +40,7 @@ public class LibraryController {
     private final ChangeLibraryAccessRightUseCase changeLibraryAccessRightUseCase;
     private final FindLibraryDetailUseCase findLibraryDetailUseCase;
 
-    @PostMapping("/")
+    @PostMapping
     public void saveLibraryDocument(
             @RequestParam(name = "grade") Integer grade,
             @RequestPart("pdf") MultipartFile pdfPart,
