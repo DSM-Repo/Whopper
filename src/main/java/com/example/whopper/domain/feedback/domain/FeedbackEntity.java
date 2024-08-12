@@ -16,15 +16,14 @@ public class FeedbackEntity {
     private final String writerName;
     private final String elementId;
 
-    @DBRef(lazy = true)
-    private DocumentEntity document;
+    private final String documentId;
 
     @Builder
-    public FeedbackEntity(String comment, String writerName, String elementId, DocumentEntity document) {
+    public FeedbackEntity(String comment, String writerName, String elementId, String documentId) {
         this.comment = comment;
         this.writerName = writerName;
         this.elementId = elementId;
-        this.document = document;
+        this.documentId = documentId;
     }
 
     public void updateFeedback(String comment) {
