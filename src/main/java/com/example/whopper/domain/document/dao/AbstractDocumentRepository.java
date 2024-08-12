@@ -2,7 +2,6 @@ package com.example.whopper.domain.document.dao;
 
 import com.example.whopper.domain.document.domain.DocumentEntity;
 import com.example.whopper.domain.document.domain.element.DocumentStatus;
-import com.example.whopper.domain.document.dto.request.SearchDocumentRequest;
 import lombok.RequiredArgsConstructor;
 
 import java.util.Optional;
