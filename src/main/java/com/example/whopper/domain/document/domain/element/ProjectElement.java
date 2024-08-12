@@ -16,10 +16,10 @@ public class ProjectElement extends AbstractElement {
         private final String startDate;
         private final String endDate;
         private final Set<String> skillSet;
-        private final String description;
+        private final ProjectDescription description;
         private final String url;
 
-        protected ProjectElement(String elementId, String name, ImageInfo imageInfo, ProjectType type, String startDate, String endDate, Set<String> skillSet, String description, String url) {
+        protected ProjectElement(String elementId, String name, ImageInfo imageInfo, ProjectType type, String startDate, String endDate, Set<String> skillSet, ProjectDescription description, String url) {
                 super(elementId);
                 this.name = name;
                 this.imageInfo = imageInfo;
@@ -44,5 +44,14 @@ public class ProjectElement extends AbstractElement {
                         request.url()
                 );
         }
-}
 
+        public record ProjectDescription(
+                String motive,
+                String role,
+                String retrospective
+        ) {
+                public static ProjectDescription of(String motive, String role, String retrospective) {
+                        return new ProjectDescription(motive, role, retrospective);
+                }
+        }
+}

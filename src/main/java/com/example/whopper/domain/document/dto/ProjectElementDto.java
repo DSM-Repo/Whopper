@@ -6,7 +6,7 @@ import com.example.whopper.domain.file.domain.ImageInfo;
 
 import java.util.Set;
 
-public record ProjectElementDto(String elementId, String name, ImageInfo imageInfo, ProjectType type, String startDate, String endDate, Set<String> skillSet, String description, String url) {
+public record ProjectElementDto(String elementId, String name, ImageInfo imageInfo, ProjectType type, String startDate, String endDate, Set<String> skillSet, ProjectElement.ProjectDescription description, String url) {
     public static ProjectElementDto fromEntity(ProjectElement element) {
         return new ProjectElementDto(
                 element.getElementId(),
