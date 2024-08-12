@@ -48,6 +48,7 @@ app:
   cors:
     allow-hosts: ${ALLOW_HOSTS}
     allow-headers: ${ALLOW_HEADERS}
+    exposed-headers: ${EXPOSED_HEADERS}
 
 default:
   major:
