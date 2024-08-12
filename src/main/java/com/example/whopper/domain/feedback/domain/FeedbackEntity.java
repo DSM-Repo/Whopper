@@ -13,8 +13,8 @@ public class FeedbackEntity {
     @Id
     private String id;
     private String comment;
-    private String writerName;
-    private String elementId;
+    private final String writerName;
+    private final String elementId;
 
     @DBRef(lazy = true)
     private DocumentEntity document;

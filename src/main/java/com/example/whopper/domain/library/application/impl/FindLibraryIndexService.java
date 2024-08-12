@@ -4,6 +4,7 @@ import com.example.whopper.domain.library.application.component.FindLibraryByIdC
 import com.example.whopper.domain.library.application.usecase.FindLibraryIndexUseCase;
 import com.example.whopper.domain.library.domain.LibraryEntity;
 import com.example.whopper.domain.library.dto.LibraryIndexResponse;
+import com.example.whopper.global.utils.DataResponseInfo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +17,6 @@ public class FindLibraryIndexService implements FindLibraryIndexUseCase {
     public LibraryIndexResponse findLibraryIndex(String libraryId) {
         LibraryEntity library = findLibraryByIdComponent.findLibraryById(libraryId);
 
-        return new LibraryIndexResponse(library.getIndex());
+        return new LibraryIndexResponse(DataResponseInfo.of(library.getIndex()));
     }
 }
