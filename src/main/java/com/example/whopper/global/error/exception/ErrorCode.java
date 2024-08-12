@@ -21,7 +21,7 @@ public enum ErrorCode {
     STUDENT_NOT_FOUND(404, "일치하는 학생을 찾을 수 없습니다."),
 
     // teacher
-    TEACHER_NOT_FOUND(404, "일치하는 학생을 찾을 수 없습니다."),
+    TEACHER_NOT_FOUND(404, "일치하는 선생님을 찾을 수 없습니다."),
 
     // major
     DUPLICATED_MAJOR(409, "중복되는 전공 이름이 존재합니다."),
