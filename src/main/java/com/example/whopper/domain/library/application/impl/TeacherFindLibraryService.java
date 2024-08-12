@@ -3,7 +3,7 @@ package com.example.whopper.domain.library.application.impl;
 import com.example.whopper.domain.file.application.usecase.PdfUseCase;
 import com.example.whopper.domain.library.application.usecase.TeacherFindLibraryUseCase;
 import com.example.whopper.domain.library.dao.LibraryMongoRepository;
-import com.example.whopper.domain.library.dto.response.LibraryResponse;
+import com.example.whopper.domain.library.dto.LibraryResponse;
 import com.example.whopper.global.utils.DataResponseInfo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
