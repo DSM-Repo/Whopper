@@ -21,6 +21,7 @@ import com.example.whopper.global.utils.DataResponseInfo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.Year;
 import java.util.List;
 
 @Service
@@ -93,17 +94,14 @@ public class FindDocumentService implements FindDocumentUseCase {
     }
 
     @Override
-    public FullDocumentResponse findReleasedDocument(String documentId) {
-        var document = documentRepository.findById(documentId)
-                .orElseThrow(() -> DocumentNotFoundException.EXCEPTION);
+    public DataResponseInfo<FullDocumentResponse> getReleasedDocumentsByGradeAndYear(int grade, int year) {
+        var generation = (year - 2013) - grade;
+        var document = documentRepository.getReleasedDocumentsByGenerationAndYear(generation, year);
 
-        if (!document.getStatus().equals(DocumentStatus.RELEASED)) {
-            throw DocumentIllegalStatusException.EXCEPTION;
-        }
-        var student = document.getStudent();
-        var majorName = getMajorName(student);
+        var response = document.map(doc -> FullDocumentResponse.of(doc, doc.getStudent().getMajor().getName()))
+                .toList();
 
-        return FullDocumentResponse.of(document, majorName);
+        return DataResponseInfo.of(response);
     }
 
     private String getMajorName(StudentEntity student) {

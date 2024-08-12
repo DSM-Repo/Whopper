@@ -47,14 +47,14 @@ public class DocumentController {
         return findDocumentUseCase.searchDocument(name, grade, classNumber, majorId, status);
     }
 
-    @GetMapping("/release")
+    @GetMapping("/released")
     public DataResponseInfo<ReleasedDocumentResponse> getReleasedDocuments() {
         return findDocumentUseCase.getReleasedDocuments();
     }
 
-    @GetMapping("/release/{documentId}")
-    public FullDocumentResponse findReleasedDocument(@PathVariable String documentId) {
-        return findDocumentUseCase.findReleasedDocument(documentId);
+    @GetMapping("/released/grade/{grade}/year/{year}")
+    public DataResponseInfo<FullDocumentResponse> getReleasedDocumentsByGradeAndYear(@PathVariable Integer grade, @PathVariable Integer year) {
+        return findDocumentUseCase.getReleasedDocumentsByGradeAndYear(grade, year);
     }
 
     @OnlyTeacher
