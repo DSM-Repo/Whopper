@@ -1,8 +1,10 @@
 package com.example.whopper.domain.feedback.dto;
 
+import com.example.whopper.domain.document.domain.element.type.DocumentElementType;
+
 public record FeedbackRequest(
         String comment,
-        String element_id,
+        DocumentElementType type,
         String document_id
 ) {
 }

@@ -36,4 +36,9 @@ public abstract class AbstractDocumentRepository implements DocumentRepository {
     public DocumentEntity save(DocumentEntity document) {
         return documentMongoRepository.save(document);
     }
+
+    @Override
+    public Boolean existsByDocumentId(String documentId) {
+        return documentMongoRepository.existsById(documentId);
+    }
 }
