@@ -23,7 +23,7 @@ public class ReleaseDocumentService implements ReleaseDocumentUseCase {
         if (document.getStatus().equals(DocumentStatus.RELEASED)) {
             cancelRelease(document);
         } else if (document.getStatus().equals(DocumentStatus.SUBMITTED)) {
-            deleteFeedback(document);
+            deleteFeedback(documentId);
             release(document);
         } else {
             throw DocumentIllegalStatusException.EXCEPTION;
@@ -32,8 +32,8 @@ public class ReleaseDocumentService implements ReleaseDocumentUseCase {
         save(document);
     }
 
-    private void deleteFeedback(DocumentEntity document) {
-        feedbackMongoRepository.deleteAllByDocument(document);
+    private void deleteFeedback(String documentId) {
+        feedbackMongoRepository.deleteAllByDocumentId(documentId);
     }
 
     private DocumentEntity findById(String documentId) {

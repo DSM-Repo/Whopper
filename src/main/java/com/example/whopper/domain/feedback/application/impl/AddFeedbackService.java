@@ -23,6 +23,7 @@ public class AddFeedbackService implements AddFeedbackUseCase {
 
     private final TeacherComponent teacherComponent;
 
+    @Override
     public void addFeedback(FeedbackRequest request) {
         DocumentEntity document = documentRepository.findById(request.document_id())
                         .orElseThrow(()-> DocumentNotFoundException.EXCEPTION);
@@ -34,7 +35,7 @@ public class AddFeedbackService implements AddFeedbackUseCase {
                         .comment(request.comment())
                         .writerName(teacherComponent.currentTeacher().getName())
                         .elementId(request.element_id())
-                        .document(document)
+                        .documentId(document.getId())
                         .build());
     }
 }

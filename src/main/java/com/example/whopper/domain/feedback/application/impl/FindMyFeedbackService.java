@@ -24,7 +24,7 @@ public class FindMyFeedbackService implements FindMyFeedbackUseCase {
         DocumentEntity document = currentStudent.getDocument();
         Map<String, String> elementNameMap = document.getElementNameMap();
 
-        List<FeedbackResponse> feedbackList = feedbackMongoRepository.findAllByDocument(document)
+        List<FeedbackResponse> feedbackList = feedbackMongoRepository.findAllByDocumentId(document.getId())
                 .stream()
                 .map(feedback -> new FeedbackResponse(feedback, elementNameMap.get(feedback.getElementId())))
                 .toList();

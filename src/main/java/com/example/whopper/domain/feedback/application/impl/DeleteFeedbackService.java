@@ -12,16 +12,10 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class DeleteFeedbackService implements DeleteFeedbackUseCase {
-
-    private final DocumentRepository documentRepository;
-
     private final FeedbackMongoRepository feedbackMongoRepository;
 
-    public DocumentEntity findDocument(String documentId) {
-        return documentRepository.findById(documentId).orElseThrow(()-> DocumentNotFoundException.EXCEPTION);
-    }
-
+    @Override
     public void deleteFeedback(DeleteFeedbackRequest request) {
-        feedbackMongoRepository.deleteByDocumentAndElementId(findDocument(request.document_id()), request.element_id());
+        feedbackMongoRepository.deleteByDocumentIdAndElementId(request.document_id(), request.element_id());
     }
 }
