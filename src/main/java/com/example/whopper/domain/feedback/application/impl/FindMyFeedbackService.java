@@ -4,7 +4,7 @@ import com.example.whopper.domain.document.domain.DocumentEntity;
 import com.example.whopper.domain.feedback.application.usecase.FindMyFeedbackUseCase;
 import com.example.whopper.domain.feedback.dao.FeedbackMongoRepository;
 import com.example.whopper.domain.feedback.dto.FeedbackResponse;
-import com.example.whopper.domain.feedback.dto.MyFeedbackResponse;
+import com.example.whopper.global.utils.DataResponseInfo;
 import com.example.whopper.global.utils.current.CurrentStudent;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -20,7 +20,7 @@ public class FindMyFeedbackService implements FindMyFeedbackUseCase {
     private final FeedbackMongoRepository feedbackMongoRepository;
 
     @Override
-    public MyFeedbackResponse findMyFeedback() {
+    public DataResponseInfo<FeedbackResponse> findMyFeedback() {
         DocumentEntity document = currentStudent.getDocument();
         Map<String, String> elementNameMap = document.getElementNameMap();
 
@@ -29,6 +29,6 @@ public class FindMyFeedbackService implements FindMyFeedbackUseCase {
                 .map(feedback -> new FeedbackResponse(feedback, elementNameMap.get(feedback.getElementId())))
                 .toList();
 
-        return new MyFeedbackResponse(document.getId(), feedbackList);
+        return DataResponseInfo.of(feedbackList);
     }
 }
