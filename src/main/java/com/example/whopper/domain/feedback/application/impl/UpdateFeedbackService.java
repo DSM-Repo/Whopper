@@ -18,8 +18,8 @@ public class UpdateFeedbackService implements UpdateFeedbackUseCase {
 
     @Override
     @Transactional
-    public void updateFeedback(UpdateFeedbackRequest request) {
-        FeedbackEntity feedback = feedbackMongoRepository.findById(request.id())
+    public void updateFeedback(String id, UpdateFeedbackRequest request) {
+        FeedbackEntity feedback = feedbackMongoRepository.findById(id)
                 .orElseThrow(()-> FeedbackNotFoundException.EXCEPTION);
 
         feedback.updateFeedback(request.comment());

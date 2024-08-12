@@ -3,7 +3,6 @@ package com.example.whopper.domain.feedback.api;
 import com.example.whopper.domain.feedback.application.usecase.AddFeedbackUseCase;
 import com.example.whopper.domain.feedback.application.usecase.DeleteFeedbackUseCase;
 import com.example.whopper.domain.feedback.application.usecase.UpdateFeedbackUseCase;
-import com.example.whopper.domain.feedback.dto.DeleteFeedbackRequest;
 import com.example.whopper.domain.feedback.dto.FeedbackRequest;
 import com.example.whopper.domain.feedback.dto.UpdateFeedbackRequest;
 import com.example.whopper.global.annotation.OnlyTeacher;
@@ -28,14 +27,14 @@ public class FeedbackController {
     }
 
     @OnlyTeacher
-    @PatchMapping
-    public void updateFeedback(@RequestBody UpdateFeedbackRequest request) {
-        updateFeedbackUseCase.updateFeedback(request);
+    @PatchMapping("/{feedbackId}")
+    public void updateFeedback(@PathVariable String feedbackId, @RequestBody UpdateFeedbackRequest request) {
+        updateFeedbackUseCase.updateFeedback(feedbackId, request);
     }
 
     @OnlyTeacher
-    @DeleteMapping
-    public void deleteFeedback(@RequestBody DeleteFeedbackRequest request) {
-        deleteFeedbackUseCase.deleteFeedback(request);
+    @DeleteMapping("/{feedbackId}")
+    public void deleteFeedback(@PathVariable String feedbackId) {
+        deleteFeedbackUseCase.deleteFeedback(feedbackId);
     }
 }

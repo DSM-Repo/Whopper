@@ -6,7 +6,6 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import java.util.List;
 
 public interface FeedbackMongoRepository extends MongoRepository<FeedbackEntity, String> {
-    void deleteByDocumentIdAndElementId(String documentId, String elementId);
     List<FeedbackEntity> findAllByDocumentId(String documentId);
     int countByDocumentId(String documentId);
     void deleteAllByDocumentId(String documentId);
