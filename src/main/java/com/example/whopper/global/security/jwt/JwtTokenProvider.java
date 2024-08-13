@@ -110,7 +110,6 @@ public class JwtTokenProvider {
     public TokenResponse receiveToken(String id, UserRole userRole) {
 
         ZonedDateTime now = ZonedDateTime.now(ZoneId.of("Asia/Seoul"));
-        log.info(now.toString());
 
         return TokenResponse
                 .builder()
