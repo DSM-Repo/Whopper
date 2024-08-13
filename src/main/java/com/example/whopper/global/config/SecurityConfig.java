@@ -75,7 +75,7 @@ public class SecurityConfig {
         return httpSecurity.build();
 
     }
- 
+
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
