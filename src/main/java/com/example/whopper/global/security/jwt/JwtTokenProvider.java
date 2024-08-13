@@ -21,6 +21,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.Date;
 
 @Slf4j
@@ -107,7 +109,7 @@ public class JwtTokenProvider {
 
     public TokenResponse receiveToken(String id, UserRole userRole) {
 
-        LocalDateTime now = LocalDateTime.now();
+        ZonedDateTime now = ZonedDateTime.now(ZoneId.of("Asia/Seoul"));
         log.info(now.toString());
 
         return TokenResponse
