@@ -84,8 +84,7 @@ public class SecurityConfig {
         configuration.setAllowedOrigins(List.of(corsProperties.allowHosts().split(",")));
         configuration.setAllowedMethods(List.of("OPTIONS", "GET", "POST", "PUT", "PATCH", "DELETE"));
         configuration.setAllowCredentials(false);
-        configuration.setAllowedHeaders(List.of(corsProperties.allowHeaders().split(",")));
-        configuration.setExposedHeaders(List.of(corsProperties.exposedHeaders().split(",")));
+        configuration.addAllowedHeader("*"); // 모든 헤더 허용
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
