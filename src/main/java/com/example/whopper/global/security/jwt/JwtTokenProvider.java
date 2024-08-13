@@ -110,8 +110,8 @@ public class JwtTokenProvider {
                 .builder()
                 .accessToken(createAccessToken(id, userRole))
                 .refreshToken(createRefreshToken(id, userRole))
-                .accessExpiredAt(new Date(now.getTime() + jwtProperties.accessExpiration()))
-                .refreshExpiredAt(new Date(now.getTime() + jwtProperties.refreshExpiration()))
+                .accessExpiredAt(new Date(now.getTime() + jwtProperties.accessExpiration() * 1000))
+                .refreshExpiredAt(new Date(now.getTime() + jwtProperties.refreshExpiration() * 1000))
                 .build();
     }
 
