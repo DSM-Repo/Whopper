@@ -84,11 +84,13 @@ public class SecurityConfig {
         configuration.setAllowedOrigins(List.of(corsProperties.allowHosts().split(",")));
         configuration.setAllowedMethods(List.of("OPTIONS", "GET", "POST", "PUT", "PATCH", "DELETE"));
         configuration.setAllowCredentials(false);
-        configuration.addAllowedHeader("*"); // 모든 헤더 허용
+        configuration.setAllowedHeaders(List.of(corsProperties.allowHeaders().split(",")));
+        configuration.setExposedHeaders(List.of(corsProperties.exposedHeaders().split(",")));
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
         return source;
     }
 }
+
 
