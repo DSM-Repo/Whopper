@@ -115,8 +115,8 @@ public class JwtTokenProvider {
                 .builder()
                 .accessToken(createAccessToken(id, userRole))
                 .refreshToken(createRefreshToken(id, userRole))
-                .accessExpiredAt(now.plusSeconds(jwtProperties.accessExpiration()))
-                .refreshExpiredAt(now.plusSeconds(jwtProperties.refreshExpiration()))
+                .accessExpiredAt(now.plusSeconds(jwtProperties.accessExpiration()).toEpochSecond())
+                .refreshExpiredAt(now.plusSeconds(jwtProperties.refreshExpiration()).toEpochSecond())
                 .build();
     }
 
