@@ -30,7 +30,7 @@ public class DocumentController {
 
     @OnlyStudent
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @PatchMapping("/submit")
+    @PostMapping("/submit")
     public void submit() {
         submitMyDocumentUseCase.submit();
     }
