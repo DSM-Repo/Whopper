@@ -10,9 +10,7 @@ import java.time.ZonedDateTime;
 public record TokenResponse(
         String accessToken,
         String refreshToken,
-        @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS", timezone = "Asia/Seoul", locale = "Asia/Seoul")
-        ZonedDateTime accessExpiredAt,
-        @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS", timezone = "Asia/Seoul", locale = "Asia/Seoul")
-        ZonedDateTime refreshExpiredAt
+        Long accessExpiredAt,
+        Long refreshExpiredAt
 ) {
 }
