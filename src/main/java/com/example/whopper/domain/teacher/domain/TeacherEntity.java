@@ -3,6 +3,7 @@ package com.example.whopper.domain.teacher.domain;
 import lombok.Getter;
 import lombok.Builder;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Getter
@@ -11,6 +12,7 @@ public class TeacherEntity {
     @Id
     private String id;
     private String name;
+    @Indexed(unique = true)
     private String accountId;
     private String password;
 
