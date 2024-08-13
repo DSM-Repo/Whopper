@@ -19,6 +19,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Component
@@ -104,14 +106,14 @@ public class JwtTokenProvider {
 
     public TokenResponse receiveToken(String id, UserRole userRole) {
 
-        Date now = new Date();
+        LocalDateTime now = LocalDateTime.now();
 
         return TokenResponse
                 .builder()
                 .accessToken(createAccessToken(id, userRole))
                 .refreshToken(createRefreshToken(id, userRole))
-                .accessExpiredAt(new Date(now.getTime() + jwtProperties.accessExpiration() * 1000))
-                .refreshExpiredAt(new Date(now.getTime() + jwtProperties.refreshExpiration() * 1000))
+                .accessExpiredAt(now.plusSeconds(jwtProperties.accessExpiration()))
+                .refreshExpiredAt(now.plusSeconds(jwtProperties.refreshExpiration()))
                 .build();
     }
 
