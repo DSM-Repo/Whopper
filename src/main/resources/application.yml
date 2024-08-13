@@ -12,8 +12,8 @@ jwt:
   header: Authorization
   prefix: Bearer
   secret: ${SECRET}
-  accessExpiration: 271000
-  refreshExpiration: 604800
+  accessExpiration: ${ACCESS_EXP}
+  refreshExpiration: ${REFRESH_EXP}
   teacherSecret: ${TEACHER_SECRET}
   studentSecret: ${STUDENT_SECRET}
 

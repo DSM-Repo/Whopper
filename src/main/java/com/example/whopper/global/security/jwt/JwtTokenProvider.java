@@ -41,7 +41,7 @@ public class JwtTokenProvider {
                 .claim("type", "access")
                 .claim("user", getSecret(userRole))
                 .setIssuedAt(now)
-                .setExpiration(new Date(now.getTime() + jwtProperties.accessExpiration() * 1000))
+                .setExpiration(new Date(now.getTime() + jwtProperties.accessExpiration()))
                 .signWith(SignatureAlgorithm.HS256, jwtProperties.secret())
                 .compact();
     }
@@ -54,7 +54,7 @@ public class JwtTokenProvider {
                 .claim("type", "refresh")
                 .claim("user", getSecret(userRole))
                 .setIssuedAt(now)
-                .setExpiration(new Date(now.getTime() + jwtProperties.refreshExpiration() * 1000))
+                .setExpiration(new Date(now.getTime() + jwtProperties.refreshExpiration()))
                 .signWith(SignatureAlgorithm.HS256, jwtProperties.secret())
                 .compact();
 
@@ -110,8 +110,8 @@ public class JwtTokenProvider {
                 .builder()
                 .accessToken(createAccessToken(id, userRole))
                 .refreshToken(createRefreshToken(id, userRole))
-                .accessExpiredAt(new Date(now.getTime() + jwtProperties.accessExpiration() * 1000))
-                .refreshExpiredAt(new Date(now.getTime() + jwtProperties.refreshExpiration() * 1000))
+                .accessExpiredAt(new Date(now.getTime() + jwtProperties.accessExpiration()))
+                .refreshExpiredAt(new Date(now.getTime() + jwtProperties.refreshExpiration()))
                 .build();
     }
 
