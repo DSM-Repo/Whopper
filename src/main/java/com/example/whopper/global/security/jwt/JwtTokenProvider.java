@@ -108,7 +108,7 @@ public class JwtTokenProvider {
     public TokenResponse receiveToken(String id, UserRole userRole) {
 
         LocalDateTime now = LocalDateTime.now();
-        log.info(now);
+        log.info(now.toString());
 
         return TokenResponse
                 .builder()
