@@ -7,6 +7,7 @@ import com.example.whopper.domain.major.exception.AlreadyExistsMajorNameExceptio
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
 
 @Service
@@ -16,12 +17,17 @@ public class AddMajorService implements AddMajorUseCase {
 
     @Override
     public void add(List<String> majors) {
-        majors.forEach(this::addMajor);
-    }
+        var uniqueMajors = new HashSet<>(majors);
+        List<String> newMajors = uniqueMajors.stream()
+                .filter(major -> !majorRepository.existsByName(major))
+                .toList();
 
-    private void addMajor(String major) {
-        if (!majorRepository.existsByName(major)) {
-            majorRepository.save(MajorEntity.createEntity(major));
+        if (!newMajors.isEmpty()) {
+            var majorEntities = newMajors.stream()
+                    .map(MajorEntity::createEntity)
+                    .toList();
+
+            majorRepository.saveAll(majorEntities);
         }
     }
 }
