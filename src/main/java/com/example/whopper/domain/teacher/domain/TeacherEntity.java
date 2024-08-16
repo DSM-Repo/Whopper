@@ -17,9 +17,9 @@ public class TeacherEntity {
     private String password;
 
     @Builder
-    public TeacherEntity(String name, String account_id, String password) {
+    public TeacherEntity(String name, String accountId, String password) {
         this.name = name;
-        this.accountId = account_id;
+        this.accountId = accountId;
         this.password = password;
     }
     protected TeacherEntity() {}
