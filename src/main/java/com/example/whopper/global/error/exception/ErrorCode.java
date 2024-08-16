@@ -9,6 +9,8 @@ import lombok.Getter;
 @JsonFormat(shape = JsonFormat.Shape.OBJECT)
 public enum ErrorCode {
 
+    FORBIDDEN(403, "접근 권한이 없는 유저입니다."),
+
     // auth
     PASSWORD_MISMATCH(401, "비밀번호가 일치하지 않습니다."),
 

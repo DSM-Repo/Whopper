@@ -1,9 +1,6 @@
 package com.example.whopper.domain.feedback.api;
 
-import com.example.whopper.domain.feedback.application.usecase.AddFeedbackUseCase;
-import com.example.whopper.domain.feedback.application.usecase.DeleteFeedbackUseCase;
-import com.example.whopper.domain.feedback.application.usecase.FindFeedbackUseCase;
-import com.example.whopper.domain.feedback.application.usecase.UpdateFeedbackUseCase;
+import com.example.whopper.domain.feedback.application.usecase.*;
 import com.example.whopper.domain.feedback.dto.FeedbackRequest;
 import com.example.whopper.domain.feedback.dto.FeedbackResponse;
 import com.example.whopper.domain.feedback.dto.UpdateFeedbackRequest;
@@ -25,6 +22,14 @@ public class FeedbackController {
     private final DeleteFeedbackUseCase deleteFeedbackUseCase;
 
     private final FindFeedbackUseCase findFeedbackUseCase;
+
+    private final ConfirmFeedbackUseCase confirmFeedbackUseCase;
+
+    @OnlyStudent
+    @PostMapping("/{feedbackId}")
+    public void confirm(@PathVariable String feedbackId) {
+        confirmFeedbackUseCase.confirm(feedbackId);
+    }
 
     @OnlyStudent
     @GetMapping
