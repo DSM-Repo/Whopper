@@ -18,6 +18,11 @@ public class AbstractMajorRepository implements MajorRepository {
     }
 
     @Override
+    public void saveAll(List<MajorEntity> entities) {
+        majorMongoRepository.saveAll(entities);
+    }
+
+    @Override
     public MajorEntity getById(String majorId) {
         return findById(majorId)
                 .orElse(null);

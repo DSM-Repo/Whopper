@@ -8,11 +8,11 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 
-public record CustomUserDetails(String account_id, String role) implements UserDetails {
+public record CustomUserDetails(String id, String role) implements UserDetails {
 
     @Override
     public String getUsername() {
-        return account_id;
+        return id;
     }
 
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -21,7 +21,7 @@ public record CustomUserDetails(String account_id, String role) implements UserD
 
     @Override
     public String getPassword() {
-        return account_id;
+        return id;
     }
 
     @Override

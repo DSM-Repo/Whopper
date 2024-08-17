@@ -1,6 +1,7 @@
 package com.example.whopper.domain.feedback.domain;
 
 import com.example.whopper.domain.document.domain.DocumentEntity;
+import com.example.whopper.domain.document.domain.element.type.DocumentElementType;
 import lombok.Builder;
 import lombok.Getter;
 import org.springframework.data.annotation.Id;
@@ -13,16 +14,16 @@ public class FeedbackEntity {
     @Id
     private String id;
     private String comment;
-    private final String writerName;
-    private final String elementId;
+    private String writerName;
+    private DocumentElementType type;
 
-    private final String documentId;
+    private String documentId;
 
     @Builder
-    public FeedbackEntity(String comment, String writerName, String elementId, String documentId) {
+    public FeedbackEntity(String comment, String writerName, DocumentElementType type, String documentId) {
         this.comment = comment;
         this.writerName = writerName;
-        this.elementId = elementId;
+        this.type = type;
         this.documentId = documentId;
     }
 

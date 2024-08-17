@@ -14,7 +14,6 @@ import com.example.whopper.infra.feign.dto.response.XquareUserResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -25,15 +24,14 @@ public class TeacherLoginService implements TeacherLoginUseCase {
     private final XquareClient xquareClient;
     private final PasswordEncoder passwordEncoder;
 
-    @Transactional
     public TokenResponse teacherLogin(LoginRequest request) {
-        return teacherMongoRepository.existsByAccountId(request.account_id())
+        return teacherMongoRepository.existsByAccountId(request.account_id().trim())
                 ? loginExistingTeacher(request)
                 : registerAndLoginNewTeacher(request);
     }
 
     private TokenResponse loginExistingTeacher(LoginRequest request) {
-        TeacherEntity teacher = teacherMongoRepository.findFirstByAccountId(request.account_id())
+        TeacherEntity teacher = teacherMongoRepository.findByAccountId(request.account_id())
                 .orElseThrow(() -> TeacherNotFoundException.EXCEPTION);
 
         if (!passwordEncoder.matches(request.password(), teacher.getPassword())) {
@@ -46,13 +44,14 @@ public class TeacherLoginService implements TeacherLoginUseCase {
     private TokenResponse registerAndLoginNewTeacher(LoginRequest request) {
         XquareUserResponse xquareUserResponse = xquareClient.xquareUser(request);
         TeacherEntity newTeacher = createAndSaveNewTeacher(xquareUserResponse);
+
         return jwtTokenProvider.receiveToken(newTeacher.getId(), UserRole.TEACHER);
     }
 
     private TeacherEntity createAndSaveNewTeacher(XquareUserResponse xquareUserResponse) {
         return teacherMongoRepository.save(
                 TeacherEntity.builder()
-                        .account_id(xquareUserResponse.getAccount_id())
+                        .accountId(xquareUserResponse.getAccount_id())
                         .password(xquareUserResponse.getPassword())
                         .name(xquareUserResponse.getName())
                         .build());

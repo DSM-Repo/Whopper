@@ -1,14 +1,16 @@
 package com.example.whopper.domain.auth.dto.response;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Builder;
 
-import java.util.Date;
+import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 
 @Builder
 public record TokenResponse(
         String accessToken,
         String refreshToken,
-        Date accessExpiredAt,
-        Date refreshExpiredAt
+        Long accessExpiredAt,
+        Long refreshExpiredAt
 ) {
 }

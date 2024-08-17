@@ -7,6 +7,7 @@ import java.util.Optional;
 
 public interface MajorRepository {
     MajorEntity save(MajorEntity entity);
+    void saveAll(List<MajorEntity> entities);
     MajorEntity getById(String majorId);
     Optional<MajorEntity> findById(String majorId);
     List<MajorEntity> findAll();
