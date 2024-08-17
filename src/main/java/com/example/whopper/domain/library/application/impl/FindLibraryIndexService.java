@@ -20,3 +20,4 @@ public class FindLibraryIndexService implements FindLibraryIndexUseCase {
         return new LibraryIndexResponse(DataResponseInfo.of(library.getIndex()));
     }
 }
+
