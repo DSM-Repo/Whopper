@@ -4,13 +4,10 @@ import com.example.whopper.domain.file.application.usecase.PdfUseCase;
 import com.example.whopper.domain.library.application.component.ParseDocumentIndexComponent;
 import com.example.whopper.domain.library.application.usecase.ChangeLibraryAccessRightUseCase;
 import com.example.whopper.domain.library.application.usecase.CreateLibraryUseCase;
-import com.example.whopper.domain.library.application.usecase.FindLibraryDetailUseCase;
-import com.example.whopper.domain.library.application.usecase.StudentFindLibraryUseCase;
-import com.example.whopper.domain.library.application.usecase.TeacherFindLibraryUseCase;
+import com.example.whopper.domain.library.application.usecase.FindLibraryUseCase;
 import com.example.whopper.domain.library.domain.type.AccessRight;
 import com.example.whopper.domain.library.dto.LibraryDetailResponse;
 import com.example.whopper.domain.library.dto.LibraryResponse;
-import com.example.whopper.global.annotation.OnlyStudent;
 import com.example.whopper.global.annotation.OnlyTeacher;
 import com.example.whopper.global.utils.DataResponseInfo;
 import lombok.RequiredArgsConstructor;
@@ -32,10 +29,8 @@ public class LibraryController {
     private final CreateLibraryUseCase createLibraryUseCase;
     private final ParseDocumentIndexComponent parseDocumentIndexComponent;
     private final PdfUseCase pdfUseCase;
-    private final StudentFindLibraryUseCase studentFindLibraryUseCase;
-    private final TeacherFindLibraryUseCase teacherFindLibraryUseCase;
     private final ChangeLibraryAccessRightUseCase changeLibraryAccessRightUseCase;
-    private final FindLibraryDetailUseCase findLibraryDetailUseCase;
+    private final FindLibraryUseCase findLibraryUseCase;
 
     @PostMapping
     public void saveLibraryDocument(
@@ -49,19 +44,12 @@ public class LibraryController {
 
     @GetMapping("/{libraryId}")
     public LibraryDetailResponse getLibraryDetailResponse(@PathVariable String libraryId) {
-        return findLibraryDetailUseCase.findLibraryDetail(libraryId);
+        return findLibraryUseCase.findLibraryDetail(libraryId);
     }
 
-    @OnlyStudent
-    @GetMapping("/student")
+    @GetMapping
     public DataResponseInfo<LibraryResponse> studentFindLibrary(@RequestParam(defaultValue = "0") Integer year) {
-        return studentFindLibraryUseCase.studentFindLibrary(year);
-    }
-
-    @OnlyTeacher
-    @GetMapping("/teacher")
-    public DataResponseInfo<LibraryResponse> teacherFindLibrary(@RequestParam(defaultValue = "0") Integer year) {
-        return teacherFindLibraryUseCase.teacherFindLibrary(year);
+        return findLibraryUseCase.findLibrary(year);
     }
 
     @OnlyTeacher
@@ -72,6 +60,6 @@ public class LibraryController {
 
     @GetMapping("/{libraryId}/public")
     public LibraryDetailResponse findLibraryDetail(@PathVariable String libraryId) {
-        return findLibraryDetailUseCase.findLibraryDetail(libraryId);
+        return findLibraryUseCase.findLibraryDetail(libraryId);
     }
 }
