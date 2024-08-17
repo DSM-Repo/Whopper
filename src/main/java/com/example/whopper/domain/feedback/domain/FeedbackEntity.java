@@ -13,17 +13,17 @@ public class FeedbackEntity {
     private String id;
     private String comment;
     private String writerName;
-    private DocumentElementType type;
+    private String elementId;
 
     private String documentId;
 
     private Status status;
 
     @Builder
-    public FeedbackEntity(String comment, String writerName, DocumentElementType type, String documentId) {
+    public FeedbackEntity(String comment, String writerName, String elementId, String documentId) {
         this.comment = comment;
         this.writerName = writerName;
-        this.type = type;
+        this.elementId = elementId;
         this.documentId = documentId;
         status = Status.PENDING;
     }

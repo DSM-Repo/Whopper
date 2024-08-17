@@ -34,7 +34,7 @@ public class AddFeedbackService implements AddFeedbackUseCase {
                 FeedbackEntity.builder()
                         .comment(request.comment())
                         .writerName(teacherComponent.currentTeacher().getName())
-                        .type(request.type())
+                        .elementId(request.element_id())
                         .documentId(document.getId())
                         .build());
     }
