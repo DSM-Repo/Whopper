@@ -6,6 +6,7 @@ import com.example.whopper.domain.library.dao.LibraryMongoRepository;
 import com.example.whopper.domain.library.domain.type.AccessRight;
 import com.example.whopper.domain.library.dto.LibraryResponse;
 import com.example.whopper.global.utils.DataResponseInfo;
+import com.mongodb.lang.Nullable;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +17,7 @@ public class TeacherFindLibraryService implements TeacherFindLibraryUseCase {
     private final LibraryMongoRepository libraryMongoRepository;
     private final PdfUseCase pdfUseCase;
 
-    public DataResponseInfo<LibraryResponse> teacherFindLibrary(Integer year) {
+    public DataResponseInfo<LibraryResponse> teacherFindLibrary(@Nullable Integer year) {
         var libraries = year == null
                 ? libraryMongoRepository.findFirstByAccessRightNot(AccessRight.PRIVATE)
                 : libraryMongoRepository.findFirstByAccessRightNotAndYear(AccessRight.PRIVATE, year);

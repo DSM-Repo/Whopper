@@ -1,5 +1,6 @@
 package com.example.whopper.domain.library.domain;
 
+import com.example.whopper.domain.library.application.model.Library;
 import com.example.whopper.domain.library.domain.type.AccessRight;
 import lombok.Builder;
 import lombok.Getter;
@@ -39,4 +40,17 @@ public class LibraryEntity {
     public void changeAccessRight(AccessRight accessRight) {
         this.accessRight = accessRight;
     }
+
+    public Library toModel(String pdfFileUrl) {
+        return new Library(
+                id,
+                year,
+                grade,
+                createAt,
+                accessRight,
+                index,
+                pdfFileUrl
+        );
+    }
+
 }

@@ -1,5 +1,6 @@
 package com.example.whopper.domain.library.dto;
 
+import com.example.whopper.domain.library.application.model.Library;
 import com.example.whopper.domain.library.domain.type.AccessRight;
 
 public record LibraryResponse(
@@ -10,4 +11,16 @@ public record LibraryResponse(
         Integer generation,
         String document_url
 ) {
+
+    public static LibraryResponse from(Library library) {
+        return new LibraryResponse(
+                library.id(),
+                library.accessRight(),
+                library.year(),
+                library.grade(),
+                library.getGeneration(),
+                library.pdfFileUrl()
+        );
+    }
+
 }
