@@ -1,6 +1,5 @@
 package com.example.whopper.domain.library.application.impl;
 
-import com.example.whopper.domain.file.application.usecase.PdfUseCase;
 import com.example.whopper.domain.library.application.usecase.TeacherFindLibraryUseCase;
 import com.example.whopper.domain.library.dao.LibraryMongoRepository;
 import com.example.whopper.domain.library.domain.type.AccessRight;
@@ -15,7 +14,6 @@ import org.springframework.stereotype.Service;
 public class TeacherFindLibraryService implements TeacherFindLibraryUseCase {
 
     private final LibraryMongoRepository libraryMongoRepository;
-    private final PdfUseCase pdfUseCase;
 
     public DataResponseInfo<LibraryResponse> teacherFindLibrary(@Nullable Integer year) {
         var libraries = (year == null)
@@ -28,8 +26,7 @@ public class TeacherFindLibraryService implements TeacherFindLibraryUseCase {
                         library.getAccessRight(),
                         library.getYear(),
                         library.getGrade(),
-                        library.getGeneration(),
-                        pdfUseCase.getPdfFileUrl(library.getFilePath())
+                        library.getGeneration()
                 ))
                 .toList());
     }
