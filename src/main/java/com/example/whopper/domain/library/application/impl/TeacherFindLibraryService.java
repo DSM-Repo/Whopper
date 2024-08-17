@@ -18,7 +18,7 @@ public class TeacherFindLibraryService implements TeacherFindLibraryUseCase {
     private final PdfUseCase pdfUseCase;
 
     public DataResponseInfo<LibraryResponse> teacherFindLibrary(@Nullable Integer year) {
-        var libraries = year == null
+        var libraries = (year == null)
                 ? libraryMongoRepository.findFirstByAccessRightNot(AccessRight.PRIVATE)
                 : libraryMongoRepository.findFirstByAccessRightNotAndYear(AccessRight.PRIVATE, year);
 
