@@ -8,8 +8,7 @@ public record LibraryResponse(
         AccessRight access_right,
         Integer year,
         Integer grade,
-        Integer generation,
-        String document_url
+        Integer generation
 ) {
 
     public static LibraryResponse from(Library library) {
@@ -18,9 +17,7 @@ public record LibraryResponse(
                 library.accessRight(),
                 library.year(),
                 library.grade(),
-                library.getGeneration(),
-                library.pdfFileUrl()
+                library.getGeneration()
         );
     }
-
 }
