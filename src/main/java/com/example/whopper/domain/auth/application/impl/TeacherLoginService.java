@@ -4,6 +4,7 @@ import com.example.whopper.domain.auth.application.usecase.TeacherLoginUseCase;
 import com.example.whopper.domain.auth.domain.type.UserRole;
 import com.example.whopper.domain.auth.dto.request.LoginRequest;
 import com.example.whopper.domain.auth.dto.response.TokenResponse;
+import com.example.whopper.domain.auth.exception.InvalidUserException;
 import com.example.whopper.domain.auth.exception.PasswordMismatchException;
 import com.example.whopper.domain.teacher.dao.TeacherMongoRepository;
 import com.example.whopper.domain.teacher.domain.TeacherEntity;
@@ -43,6 +44,7 @@ public class TeacherLoginService implements TeacherLoginUseCase {
 
     private TokenResponse registerAndLoginNewTeacher(LoginRequest request) {
         XquareUserResponse xquareUserResponse = xquareClient.xquareUser(request);
+        if(!xquareUserResponse.getUser_role().equals("SCH")) throw InvalidUserException.EXCEPTION;
         TeacherEntity newTeacher = createAndSaveNewTeacher(xquareUserResponse);
 
         return jwtTokenProvider.receiveToken(newTeacher.getId(), UserRole.TEACHER);

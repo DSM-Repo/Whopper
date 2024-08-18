@@ -4,6 +4,7 @@ import com.example.whopper.domain.auth.application.usecase.StudentLoginUseCase;
 import com.example.whopper.domain.auth.domain.type.UserRole;
 import com.example.whopper.domain.auth.dto.request.LoginRequest;
 import com.example.whopper.domain.auth.dto.response.TokenResponse;
+import com.example.whopper.domain.auth.exception.InvalidUserException;
 import com.example.whopper.domain.auth.exception.PasswordMismatchException;
 import com.example.whopper.domain.document.application.component.CreateDocumentComponent;
 import com.example.whopper.domain.file.domain.DefaultProfileImageProperties;
@@ -51,6 +52,7 @@ public class StudentLoginService implements StudentLoginUseCase {
 
     private TokenResponse registerAndLoginNewStudent(LoginRequest request) {
         XquareUserResponse xquareUserResponse = xquareClient.xquareUser(request);
+        if(!xquareUserResponse.getUser_role().equals("STU")) throw InvalidUserException.EXCEPTION;
         StudentEntity newStudent = createAndSaveNewStudent(xquareUserResponse);
 
         createDocumentComponent.create(newStudent);
