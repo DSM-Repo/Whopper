@@ -44,6 +44,12 @@ public class FeedbackController {
     }
 
     @OnlyTeacher
+    @GetMapping("/teacher")
+    public DataResponseInfo<FeedbackResponse> getFeedbacksWrittenByTeacher() {
+        return findFeedbackUseCase.getFeedbacksWrittenByTeacher();
+    }
+
+    @OnlyTeacher
     @PostMapping
     public void addFeedback(@RequestBody FeedbackRequest request) {
         addFeedbackUseCase.addFeedback(request);

@@ -6,6 +6,7 @@ import com.example.whopper.domain.document.exception.DocumentNotFoundException;
 import com.example.whopper.domain.feedback.application.usecase.FindFeedbackUseCase;
 import com.example.whopper.domain.feedback.dao.FeedbackMongoRepository;
 import com.example.whopper.domain.feedback.dto.FeedbackResponse;
+import com.example.whopper.domain.teacher.application.component.TeacherComponent;
 import com.example.whopper.global.utils.DataResponseInfo;
 import com.example.whopper.global.utils.current.CurrentStudent;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +21,7 @@ public class FindFeedbackService implements FindFeedbackUseCase {
     private final CurrentStudent currentStudent;
     private final FeedbackMongoRepository feedbackMongoRepository;
     private final DocumentRepository documentRepository;
+    private final TeacherComponent teacherComponent;
 
     @Override
     public DataResponseInfo<FeedbackResponse> getCurrentStudentFeedbackList() {
@@ -47,5 +49,16 @@ public class FindFeedbackService implements FindFeedbackUseCase {
         List<FeedbackResponse> feedbackList = getFeedbackResponsesByDocumentId(documentId);
 
         return DataResponseInfo.of(feedbackList);
+    }
+
+    @Override
+    public DataResponseInfo<FeedbackResponse> getFeedbacksWrittenByTeacher() {
+        var teacher = teacherComponent.currentTeacher();
+
+        var result = feedbackMongoRepository.findAllByTeacherId(teacher.getId())
+                .map(FeedbackResponse::new)
+                .toList();
+
+        return DataResponseInfo.of(result);
     }
 }
