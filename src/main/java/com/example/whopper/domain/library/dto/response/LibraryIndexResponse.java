@@ -1,4 +1,4 @@
-package com.example.whopper.domain.library.dto;
+package com.example.whopper.domain.library.dto.response;
 
 import com.example.whopper.domain.library.domain.DocumentIndex;
 

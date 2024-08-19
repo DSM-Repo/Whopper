@@ -4,7 +4,7 @@ import com.example.whopper.domain.file.application.usecase.PdfUseCase;
 import com.example.whopper.domain.library.application.component.FindLibraryByIdComponent;
 import com.example.whopper.domain.library.application.usecase.FindLibraryDetailUseCase;
 import com.example.whopper.domain.library.domain.LibraryEntity;
-import com.example.whopper.domain.library.dto.LibraryDetailResponse;
+import com.example.whopper.domain.library.dto.response.LibraryDetailResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

@@ -9,9 +9,10 @@ import com.example.whopper.domain.library.application.usecase.StudentFindLibrary
 import com.example.whopper.domain.library.application.usecase.TeacherFindLibraryUseCase;
 import com.example.whopper.domain.library.domain.DocumentIndex;
 import com.example.whopper.domain.library.domain.type.AccessRight;
-import com.example.whopper.domain.library.dto.LibraryDetailResponse;
-import com.example.whopper.domain.library.dto.LibraryIndexResponse;
-import com.example.whopper.domain.library.dto.LibraryResponse;
+import com.example.whopper.domain.library.dto.request.DocumentIndexRequest;
+import com.example.whopper.domain.library.dto.response.LibraryDetailResponse;
+import com.example.whopper.domain.library.dto.response.LibraryIndexResponse;
+import com.example.whopper.domain.library.dto.response.LibraryResponse;
 import com.example.whopper.global.annotation.OnlyStudent;
 import com.example.whopper.global.annotation.OnlyTeacher;
 import com.example.whopper.global.utils.DataResponseInfo;
@@ -45,11 +46,11 @@ public class LibraryController {
     public void saveLibraryDocument(
             @RequestParam(name = "grade") Integer grade,
             @RequestPart("pdf") MultipartFile pdfPart,
-            @RequestPart("index") List<DocumentIndex> indexPart) {
+            @RequestPart("index") DocumentIndexRequest indexPart) {
 
 
         String filePath = pdfUseCase.savePdf(pdfPart);
-        createLibraryUseCase.createLibrary(grade, filePath, DataResponseInfo.of(indexPart));
+        createLibraryUseCase.createLibrary(grade, filePath, DataResponseInfo.of(indexPart.index()));
     }
 
     @OnlyStudent
