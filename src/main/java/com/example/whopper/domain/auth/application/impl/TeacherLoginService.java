@@ -26,7 +26,7 @@ public class TeacherLoginService implements TeacherLoginUseCase {
     private final PasswordEncoder passwordEncoder;
 
     public TokenResponse teacherLogin(LoginRequest request) {
-        return teacherMongoRepository.existsByAccountId(request.account_id().trim())
+        return teacherMongoRepository.existsByAccountId(request.account_id())
                 ? loginExistingTeacher(request)
                 : registerAndLoginNewTeacher(request);
     }
