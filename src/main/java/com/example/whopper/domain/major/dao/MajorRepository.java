@@ -8,8 +8,7 @@ import java.util.Optional;
 public interface MajorRepository {
     MajorEntity save(MajorEntity entity);
     void saveAll(List<MajorEntity> entities);
-    MajorEntity getById(String majorId);
-    Optional<MajorEntity> findById(String majorId);
+    Optional<MajorEntity> findByName(String name);
     List<MajorEntity> findAll();
     void delete(MajorEntity entity);
     boolean existsByName(String name);

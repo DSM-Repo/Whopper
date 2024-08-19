@@ -11,7 +11,7 @@ public class DefaultMajorFacade {
     private final MajorRepository majorRepository;
 
     public MajorEntity getDefaultMajor() {
-        return majorRepository.findById(defaultMajorProperties.majorId())
+        return majorRepository.findByName(defaultMajorProperties.name())
                 .orElseGet(() -> majorRepository.save(MajorEntity.createEntity(defaultMajorProperties.name())));
     }
 }
