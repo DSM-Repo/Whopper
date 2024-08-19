@@ -12,6 +12,7 @@ import com.example.whopper.domain.teacher.exception.TeacherNotFoundException;
 import com.example.whopper.global.security.jwt.JwtTokenProvider;
 import com.example.whopper.infra.feign.XquareClient;
 import com.example.whopper.infra.feign.dto.response.XquareUserResponse;
+import com.example.whopper.infra.feign.exception.XquareException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -43,7 +44,14 @@ public class TeacherLoginService implements TeacherLoginUseCase {
     }
 
     private TokenResponse registerAndLoginNewTeacher(LoginRequest request) {
-        XquareUserResponse xquareUserResponse = xquareClient.xquareUser(request);
+        XquareUserResponse xquareUserResponse;
+
+        try {
+            xquareUserResponse = xquareClient.xquareUser(request);
+        } catch (Exception e) {
+            throw XquareException.EXCEPTION;
+        }
+
         if(!xquareUserResponse.getUserRole().equals("SCH")) throw InvalidUserException.EXCEPTION;
         TeacherEntity newTeacher = createAndSaveNewTeacher(xquareUserResponse);
 

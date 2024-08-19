@@ -9,6 +9,9 @@ import lombok.Getter;
 @JsonFormat(shape = JsonFormat.Shape.OBJECT)
 public enum ErrorCode {
 
+    // xquare
+    XQUARE(503, "DSM-login 서비스에서 에러가 발생했습니다."),
+
     FORBIDDEN(403, "접근 권한이 없는 유저입니다."),
 
     // auth

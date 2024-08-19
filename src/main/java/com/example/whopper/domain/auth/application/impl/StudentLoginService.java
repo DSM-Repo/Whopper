@@ -15,6 +15,7 @@ import com.example.whopper.domain.student.exception.StudentNotFoundException;
 import com.example.whopper.global.security.jwt.JwtTokenProvider;
 import com.example.whopper.infra.feign.XquareClient;
 import com.example.whopper.infra.feign.dto.response.XquareUserResponse;
+import com.example.whopper.infra.feign.exception.XquareException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -34,9 +35,9 @@ public class StudentLoginService implements StudentLoginUseCase {
 
     @Transactional
     public TokenResponse studentLogin(LoginRequest request) {
-        return studentMongoRepository.existsByAccountId(request.accountId()) ?
-                loginExistingStudent(request) :
-                registerAndLoginNewStudent(request);
+        return studentMongoRepository.existsByAccountId(request.accountId())
+                ? loginExistingStudent(request)
+                : registerAndLoginNewStudent(request);
     }
 
     private TokenResponse loginExistingStudent(LoginRequest request) {
@@ -51,7 +52,14 @@ public class StudentLoginService implements StudentLoginUseCase {
     }
 
     private TokenResponse registerAndLoginNewStudent(LoginRequest request) {
-        XquareUserResponse xquareUserResponse = xquareClient.xquareUser(request);
+        XquareUserResponse xquareUserResponse;
+
+        try {
+            xquareUserResponse = xquareClient.xquareUser(request);
+        } catch (Exception e) {
+            throw XquareException.EXCEPTION;
+        }
+
         if(!xquareUserResponse.getUserRole().equals("STU")) throw InvalidUserException.EXCEPTION;
         StudentEntity newStudent = createAndSaveNewStudent(xquareUserResponse);
 
