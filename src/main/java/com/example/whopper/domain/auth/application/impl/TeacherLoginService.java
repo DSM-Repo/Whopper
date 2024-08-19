@@ -26,13 +26,13 @@ public class TeacherLoginService implements TeacherLoginUseCase {
     private final PasswordEncoder passwordEncoder;
 
     public TokenResponse teacherLogin(LoginRequest request) {
-        return teacherMongoRepository.existsByAccountId(request.account_id())
+        return teacherMongoRepository.existsByAccountId(request.accountId())
                 ? loginExistingTeacher(request)
                 : registerAndLoginNewTeacher(request);
     }
 
     private TokenResponse loginExistingTeacher(LoginRequest request) {
-        TeacherEntity teacher = teacherMongoRepository.findByAccountId(request.account_id())
+        TeacherEntity teacher = teacherMongoRepository.findByAccountId(request.accountId())
                 .orElseThrow(() -> TeacherNotFoundException.EXCEPTION);
 
         if (!passwordEncoder.matches(request.password(), teacher.getPassword())) {
@@ -44,7 +44,7 @@ public class TeacherLoginService implements TeacherLoginUseCase {
 
     private TokenResponse registerAndLoginNewTeacher(LoginRequest request) {
         XquareUserResponse xquareUserResponse = xquareClient.xquareUser(request);
-        if(!xquareUserResponse.getUser_role().equals("SCH")) throw InvalidUserException.EXCEPTION;
+        if(!xquareUserResponse.getUserRole().equals("SCH")) throw InvalidUserException.EXCEPTION;
         TeacherEntity newTeacher = createAndSaveNewTeacher(xquareUserResponse);
 
         return jwtTokenProvider.receiveToken(newTeacher.getId(), UserRole.TEACHER);
@@ -53,7 +53,7 @@ public class TeacherLoginService implements TeacherLoginUseCase {
     private TeacherEntity createAndSaveNewTeacher(XquareUserResponse xquareUserResponse) {
         return teacherMongoRepository.save(
                 TeacherEntity.builder()
-                        .accountId(xquareUserResponse.getAccount_id())
+                        .accountId(xquareUserResponse.getAccountId())
                         .password(xquareUserResponse.getPassword())
                         .name(xquareUserResponse.getName())
                         .build());

@@ -8,6 +8,9 @@ spring:
     virtual:
       enabled: true
 
+  jackson:
+    property-naming-strategy: SNAKE_CASE
+
 jwt:
   header: Authorization
   prefix: Bearer

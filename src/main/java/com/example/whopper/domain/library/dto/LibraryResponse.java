@@ -6,7 +6,7 @@ import com.example.whopper.domain.library.domain.type.AccessRight;
 
 public record LibraryResponse(
         String id,
-        AccessRight access_right,
+        AccessRight accessRight,
         Integer year,
         Integer grade,
         Integer generation

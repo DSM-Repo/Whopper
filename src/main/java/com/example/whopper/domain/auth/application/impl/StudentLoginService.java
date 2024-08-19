@@ -34,13 +34,13 @@ public class StudentLoginService implements StudentLoginUseCase {
 
     @Transactional
     public TokenResponse studentLogin(LoginRequest request) {
-        return studentMongoRepository.existsByAccountId(request.account_id()) ?
+        return studentMongoRepository.existsByAccountId(request.accountId()) ?
                 loginExistingStudent(request) :
                 registerAndLoginNewStudent(request);
     }
 
     private TokenResponse loginExistingStudent(LoginRequest request) {
-        StudentEntity student = studentMongoRepository.findFirstByAccountId(request.account_id())
+        StudentEntity student = studentMongoRepository.findFirstByAccountId(request.accountId())
                 .orElseThrow(() -> StudentNotFoundException.EXCEPTION);
 
         if (!passwordEncoder.matches(request.password(), student.getPassword())) {
@@ -52,7 +52,7 @@ public class StudentLoginService implements StudentLoginUseCase {
 
     private TokenResponse registerAndLoginNewStudent(LoginRequest request) {
         XquareUserResponse xquareUserResponse = xquareClient.xquareUser(request);
-        if(!xquareUserResponse.getUser_role().equals("STU")) throw InvalidUserException.EXCEPTION;
+        if(!xquareUserResponse.getUserRole().equals("STU")) throw InvalidUserException.EXCEPTION;
         StudentEntity newStudent = createAndSaveNewStudent(xquareUserResponse);
 
         createDocumentComponent.create(newStudent);
@@ -66,7 +66,7 @@ public class StudentLoginService implements StudentLoginUseCase {
     private StudentEntity createAndSaveNewStudent(XquareUserResponse xquareUserResponse) {
         return studentMongoRepository.save(
                 StudentEntity.builder()
-                        .accountId(xquareUserResponse.getAccount_id())
+                        .accountId(xquareUserResponse.getAccountId())
                         .password(xquareUserResponse.getPassword())
                         .name(xquareUserResponse.getName())
                         .classInfo(xquareUserResponse.toClassInfo())

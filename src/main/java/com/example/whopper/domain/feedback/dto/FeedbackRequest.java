@@ -5,6 +5,6 @@ import com.example.whopper.domain.document.domain.element.type.DocumentElementTy
 public record FeedbackRequest(
         String comment,
         DocumentElementType type,
-        String document_id
+        String documentId
 ) {
 }

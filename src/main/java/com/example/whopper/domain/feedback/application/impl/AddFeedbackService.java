@@ -25,7 +25,7 @@ public class AddFeedbackService implements AddFeedbackUseCase {
 
     @Override
     public void addFeedback(FeedbackRequest request) {
-        DocumentEntity document = documentRepository.findById(request.document_id())
+        DocumentEntity document = documentRepository.findById(request.documentId())
                         .orElseThrow(()-> DocumentNotFoundException.EXCEPTION);
 
         if(document.getStatus() != DocumentStatus.SUBMITTED) throw DocumentIllegalStatusException.EXCEPTION;
