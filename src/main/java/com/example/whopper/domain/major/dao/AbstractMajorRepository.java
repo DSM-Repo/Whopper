@@ -23,9 +23,8 @@ public class AbstractMajorRepository implements MajorRepository {
     }
 
     @Override
-    public MajorEntity getById(String majorId) {
-        return findById(majorId)
-                .orElse(null);
+    public Optional<MajorEntity> findByName(String name) {
+        return majorMongoRepository.findByName(name);
     }
 
     @Override

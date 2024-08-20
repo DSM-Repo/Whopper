@@ -2,12 +2,10 @@ package com.example.whopper.domain.library.application.model;
 
 import com.example.whopper.domain.library.domain.DocumentIndex;
 import com.example.whopper.domain.library.domain.type.AccessRight;
-import lombok.Getter;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
-@Getter
 public record Library(
         String id,
         Integer year,

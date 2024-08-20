@@ -12,7 +12,7 @@ public class XquareUserResponse {
 
     private UUID id;
 
-    private String account_id;
+    private String accountId;
 
     private String password;
 
@@ -20,17 +20,17 @@ public class XquareUserResponse {
 
     private Integer grade;
 
-    private Integer class_num;
+    private Integer classNum;
 
     private Integer num;
 
-    private String user_role;
+    private String userRole;
 
     private String profileImgUrl;
 
     private String clubName;
 
     public ClassInfo toClassInfo() {
-        return ClassInfo.of(grade, class_num, num);
+        return ClassInfo.of(grade, classNum, num);
     }
 }

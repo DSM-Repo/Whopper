@@ -1,9 +1,6 @@
 package com.example.whopper.domain.feedback.api;
 
-import com.example.whopper.domain.feedback.application.usecase.AddFeedbackUseCase;
-import com.example.whopper.domain.feedback.application.usecase.DeleteFeedbackUseCase;
-import com.example.whopper.domain.feedback.application.usecase.FindFeedbackUseCase;
-import com.example.whopper.domain.feedback.application.usecase.UpdateFeedbackUseCase;
+import com.example.whopper.domain.feedback.application.usecase.*;
 import com.example.whopper.domain.feedback.dto.FeedbackRequest;
 import com.example.whopper.domain.feedback.dto.FeedbackResponse;
 import com.example.whopper.domain.feedback.dto.UpdateFeedbackRequest;
@@ -26,6 +23,14 @@ public class FeedbackController {
 
     private final FindFeedbackUseCase findFeedbackUseCase;
 
+    private final ConfirmFeedbackUseCase confirmFeedbackUseCase;
+
+    @OnlyStudent
+    @PostMapping("/confirm")
+    public void confirm(@RequestBody ConfirmRequest request) {
+        confirmFeedbackUseCase.confirm(request.id);
+    }
+
     @OnlyStudent
     @GetMapping
     public DataResponseInfo<FeedbackResponse> getMyFeedbackList() {
@@ -36,6 +41,12 @@ public class FeedbackController {
     @GetMapping("/{documentId}")
     public DataResponseInfo<FeedbackResponse> getFeedbackListByDocumentId(@PathVariable String documentId) {
         return findFeedbackUseCase.getFeedbackListByDocumentId(documentId);
+    }
+
+    @OnlyTeacher
+    @GetMapping("/teacher")
+    public DataResponseInfo<FeedbackResponse> getFeedbacksWrittenByTeacher() {
+        return findFeedbackUseCase.getFeedbacksWrittenByTeacher();
     }
 
     @OnlyTeacher
@@ -55,4 +66,6 @@ public class FeedbackController {
     public void deleteFeedback(@PathVariable String feedbackId) {
         deleteFeedbackUseCase.deleteFeedback(feedbackId);
     }
+
+    record ConfirmRequest(String id) {}
 }

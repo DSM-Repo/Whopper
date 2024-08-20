@@ -16,9 +16,11 @@ import com.example.whopper.global.utils.current.CurrentStudent;
 import com.example.whopper.global.utils.DataResponseInfo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class FindDocumentService implements FindDocumentUseCase {
     private final DocumentRepository documentRepository;
     private final FeedbackMongoRepository feedbackMongoRepository;
