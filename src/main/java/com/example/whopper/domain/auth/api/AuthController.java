@@ -23,17 +23,17 @@ class AuthController {
     private final ReissueTokenUseCase reissueTokenUseCase;
 
     @PostMapping("/student")
-    private TokenResponse studentLogin(@RequestBody LoginRequest request) {
+    TokenResponse studentLogin(@RequestBody LoginRequest request) {
         return studentLoginUseCase.studentLogin(request);
     }
 
     @PostMapping("/teacher")
-    private TokenResponse teacherLogin(@RequestBody LoginRequest request) {
+    TokenResponse teacherLogin(@RequestBody LoginRequest request) {
         return teacherLoginUseCase.teacherLogin(request);
     }
 
     @PutMapping("/token")
-    private TokenResponse reissueToken(@RequestHeader(name = "x-refresh-token") String token) {
+    TokenResponse reissueToken(@RequestHeader(name = "x-refresh-token") String token) {
         return reissueTokenUseCase.reissueToken(token);
     }
 }
