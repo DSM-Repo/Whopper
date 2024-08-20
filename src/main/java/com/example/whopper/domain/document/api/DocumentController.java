@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/document")
-public class DocumentController {
+class DocumentController {
     private final FindDocumentUseCase findDocumentUseCase;
     private final SubmitMyDocumentUseCase submitMyDocumentUseCase;
     private final ReleaseDocumentUseCase releaseDocumentUseCase;
