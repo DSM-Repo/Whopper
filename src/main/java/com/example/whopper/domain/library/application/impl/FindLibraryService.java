@@ -28,9 +28,9 @@ public class FindLibraryService implements FindLibraryUseCase {
 
     @Override
     public DataResponseInfo<LibraryResponse> findLibrary(Integer year) {
-        var library = (year != 0 )
-                ? libraryMongoRepository.findAllByYear(year)
-                : libraryMongoRepository.findAll();
+        var library = (year == 0)
+                ? libraryMongoRepository.findAll()
+                : libraryMongoRepository.findAllByYear(year);
 
         return DataResponseInfo.of(library.stream()
                 .map(LibraryResponse::fromEntity)

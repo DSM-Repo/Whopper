@@ -16,24 +16,24 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/auth")
-public class AuthController {
+class AuthController {
 
     private final StudentLoginUseCase studentLoginUseCase;
     private final TeacherLoginUseCase teacherLoginUseCase;
     private final ReissueTokenUseCase reissueTokenUseCase;
 
     @PostMapping("/student")
-    public TokenResponse studentLogin(@RequestBody LoginRequest request) {
+    private TokenResponse studentLogin(@RequestBody LoginRequest request) {
         return studentLoginUseCase.studentLogin(request);
     }
 
     @PostMapping("/teacher")
-    public TokenResponse teacherLogin(@RequestBody LoginRequest request) {
+    TokenResponse teacherLogin(@RequestBody LoginRequest request) {
         return teacherLoginUseCase.teacherLogin(request);
     }
 
     @PutMapping("/token")
-    public TokenResponse reissueToken(@RequestHeader(name = "x-refresh-token") String token) {
+    TokenResponse reissueToken(@RequestHeader(name = "x-refresh-token") String token) {
         return reissueTokenUseCase.reissueToken(token);
     }
 }
