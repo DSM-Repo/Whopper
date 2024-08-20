@@ -23,7 +23,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
-public class StudentLoginService implements StudentLoginUseCase {
+class StudentLoginService implements StudentLoginUseCase {
 
     private final StudentMongoRepository studentMongoRepository;
     private final JwtTokenProvider jwtTokenProvider;
