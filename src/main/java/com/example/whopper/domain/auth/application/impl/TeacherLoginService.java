@@ -26,6 +26,7 @@ class TeacherLoginService implements TeacherLoginUseCase {
     private final XquareClient xquareClient;
     private final PasswordEncoder passwordEncoder;
 
+    @Override
     public TokenResponse teacherLogin(LoginRequest request) {
         return teacherMongoRepository.existsByAccountId(request.accountId())
                 ? loginExistingTeacher(request)
