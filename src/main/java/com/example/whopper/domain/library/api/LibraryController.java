@@ -36,11 +36,8 @@ public class LibraryController {
 
     private final CreateLibraryUseCase createLibraryUseCase;
     private final PdfUseCase pdfUseCase;
-    private final StudentFindLibraryUseCase studentFindLibraryUseCase;
-    private final TeacherFindLibraryUseCase teacherFindLibraryUseCase;
-    private final FindLibraryIndexUseCase findLibraryIndexUseCase;
     private final ChangeLibraryAccessRightUseCase changeLibraryAccessRightUseCase;
-    private final FindLibraryDetailUseCase findLibraryDetailUseCase;
+    private final FindLibraryUseCase findLibraryUseCase;
 
     @PostMapping
     public void saveLibraryDocument(
@@ -53,21 +50,14 @@ public class LibraryController {
         createLibraryUseCase.createLibrary(grade, filePath, DataResponseInfo.of(indexPart.index()));
     }
 
-    @OnlyStudent
-    @GetMapping("/student")
-    public DataResponseInfo<LibraryResponse> studentFindLibrary(@RequestParam Integer year) {
-        return studentFindLibraryUseCase.studentFindLibrary(year);
+    @GetMapping("/{libraryId}")
+    public LibraryDetailResponse getLibraryDetailResponse(@PathVariable String libraryId) {
+        return findLibraryUseCase.findLibraryDetail(libraryId);
     }
 
-    @OnlyTeacher
-    @GetMapping("/teacher")
-    public DataResponseInfo<LibraryResponse> teacherFindLibrary(@RequestParam Integer year) {
-        return teacherFindLibraryUseCase.teacherFindLibrary(year);
-    }
-
-    @GetMapping("/{libraryId}/index")
-    public LibraryIndexResponse findLibrary(@PathVariable String libraryId) {
-        return findLibraryIndexUseCase.findLibraryIndex(libraryId);
+    @GetMapping
+    public DataResponseInfo<LibraryResponse> studentFindLibrary(@RequestParam(defaultValue = "0") Integer year) {
+        return findLibraryUseCase.findLibrary(year);
     }
 
     @OnlyTeacher
@@ -78,6 +68,6 @@ public class LibraryController {
 
     @GetMapping("/{libraryId}/public")
     public LibraryDetailResponse findLibraryDetail(@PathVariable String libraryId) {
-        return findLibraryDetailUseCase.findLibraryDetail(libraryId);
+        return findLibraryUseCase.findLibraryDetail(libraryId);
     }
 }

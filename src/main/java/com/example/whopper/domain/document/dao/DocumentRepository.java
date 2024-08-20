@@ -13,4 +13,5 @@ public interface DocumentRepository {
     Stream<DocumentEntity> getReleasedDocuments();
     DocumentEntity save(DocumentEntity document);
     Stream<DocumentEntity> getReleasedDocumentsByGenerationAndYear(int generation, int year);
+    Boolean existsByDocumentId(String documentId);
 }

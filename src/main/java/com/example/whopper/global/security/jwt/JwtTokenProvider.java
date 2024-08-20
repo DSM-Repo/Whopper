@@ -12,6 +12,7 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -19,8 +20,12 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.Date;
 
+@Slf4j
 @Component
 @RequiredArgsConstructor
 public class JwtTokenProvider {
@@ -104,14 +109,14 @@ public class JwtTokenProvider {
 
     public TokenResponse receiveToken(String id, UserRole userRole) {
 
-        Date now = new Date();
+        ZonedDateTime now = ZonedDateTime.now(ZoneId.of("Asia/Seoul"));
 
         return TokenResponse
                 .builder()
                 .accessToken(createAccessToken(id, userRole))
                 .refreshToken(createRefreshToken(id, userRole))
-                .accessExpiredAt(new Date(now.getTime() + jwtProperties.accessExpiration()))
-                .refreshExpiredAt(new Date(now.getTime() + jwtProperties.refreshExpiration()))
+                .accessExpiredAt(now.plusSeconds(jwtProperties.accessExpiration()).toEpochSecond())
+                .refreshExpiredAt(now.plusSeconds(jwtProperties.refreshExpiration()).toEpochSecond())
                 .build();
     }
 

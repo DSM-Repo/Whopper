@@ -4,6 +4,7 @@ import com.example.whopper.domain.auth.application.usecase.TeacherLoginUseCase;
 import com.example.whopper.domain.auth.domain.type.UserRole;
 import com.example.whopper.domain.auth.dto.request.LoginRequest;
 import com.example.whopper.domain.auth.dto.response.TokenResponse;
+import com.example.whopper.domain.auth.exception.InvalidUserException;
 import com.example.whopper.domain.auth.exception.PasswordMismatchException;
 import com.example.whopper.domain.teacher.dao.TeacherMongoRepository;
 import com.example.whopper.domain.teacher.domain.TeacherEntity;
@@ -11,10 +12,10 @@ import com.example.whopper.domain.teacher.exception.TeacherNotFoundException;
 import com.example.whopper.global.security.jwt.JwtTokenProvider;
 import com.example.whopper.infra.feign.XquareClient;
 import com.example.whopper.infra.feign.dto.response.XquareUserResponse;
+import com.example.whopper.infra.feign.exception.XquareException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -25,15 +26,14 @@ public class TeacherLoginService implements TeacherLoginUseCase {
     private final XquareClient xquareClient;
     private final PasswordEncoder passwordEncoder;
 
-    @Transactional
     public TokenResponse teacherLogin(LoginRequest request) {
-        return teacherMongoRepository.existsByAccountId(request.account_id())
+        return teacherMongoRepository.existsByAccountId(request.accountId())
                 ? loginExistingTeacher(request)
                 : registerAndLoginNewTeacher(request);
     }
 
     private TokenResponse loginExistingTeacher(LoginRequest request) {
-        TeacherEntity teacher = teacherMongoRepository.findFirstByAccountId(request.account_id())
+        TeacherEntity teacher = teacherMongoRepository.findByAccountId(request.accountId())
                 .orElseThrow(() -> TeacherNotFoundException.EXCEPTION);
 
         if (!passwordEncoder.matches(request.password(), teacher.getPassword())) {
@@ -44,15 +44,24 @@ public class TeacherLoginService implements TeacherLoginUseCase {
     }
 
     private TokenResponse registerAndLoginNewTeacher(LoginRequest request) {
-        XquareUserResponse xquareUserResponse = xquareClient.xquareUser(request);
+        XquareUserResponse xquareUserResponse;
+
+        try {
+            xquareUserResponse = xquareClient.xquareUser(request);
+        } catch (Exception e) {
+            throw XquareException.EXCEPTION;
+        }
+
+        if(!xquareUserResponse.getUserRole().equals("SCH")) throw InvalidUserException.EXCEPTION;
         TeacherEntity newTeacher = createAndSaveNewTeacher(xquareUserResponse);
+
         return jwtTokenProvider.receiveToken(newTeacher.getId(), UserRole.TEACHER);
     }
 
     private TeacherEntity createAndSaveNewTeacher(XquareUserResponse xquareUserResponse) {
         return teacherMongoRepository.save(
                 TeacherEntity.builder()
-                        .account_id(xquareUserResponse.getAccount_id())
+                        .accountId(xquareUserResponse.getAccountId())
                         .password(xquareUserResponse.getPassword())
                         .name(xquareUserResponse.getName())
                         .build());

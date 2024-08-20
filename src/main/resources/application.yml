@@ -8,12 +8,15 @@ spring:
     virtual:
       enabled: true
 
+  jackson:
+    property-naming-strategy: SNAKE_CASE
+
 jwt:
   header: Authorization
   prefix: Bearer
   secret: ${SECRET}
-  accessExpiration: 271000
-  refreshExpiration: 604800
+  accessExpiration: ${ACCESS_EXP}
+  refreshExpiration: ${REFRESH_EXP}
   teacherSecret: ${TEACHER_SECRET}
   studentSecret: ${STUDENT_SECRET}
 
@@ -48,6 +51,7 @@ app:
   cors:
     allow-hosts: ${ALLOW_HOSTS}
     allow-headers: ${ALLOW_HEADERS}
+    exposed-headers: ${EXPOSED_HEADERS}
 
 default:
   major:

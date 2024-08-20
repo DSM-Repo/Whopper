@@ -23,8 +23,9 @@ public class AddFeedbackService implements AddFeedbackUseCase {
 
     private final TeacherComponent teacherComponent;
 
+    @Override
     public void addFeedback(FeedbackRequest request) {
-        DocumentEntity document = documentRepository.findById(request.document_id())
+        DocumentEntity document = documentRepository.findById(request.documentId())
                         .orElseThrow(()-> DocumentNotFoundException.EXCEPTION);
 
         if(document.getStatus() != DocumentStatus.SUBMITTED) throw DocumentIllegalStatusException.EXCEPTION;
@@ -32,9 +33,9 @@ public class AddFeedbackService implements AddFeedbackUseCase {
         feedbackMongoRepository.save(
                 FeedbackEntity.builder()
                         .comment(request.comment())
-                        .writerName(teacherComponent.currentTeacher().getName())
-                        .elementId(request.element_id())
-                        .document(document)
+                        .type(request.type())
+                        .documentId(document.getId())
+                        .teacher(teacherComponent.currentTeacher())
                         .build());
     }
 }

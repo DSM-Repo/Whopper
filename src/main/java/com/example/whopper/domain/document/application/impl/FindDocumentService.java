@@ -3,16 +3,12 @@ package com.example.whopper.domain.document.application.impl;
 import com.example.whopper.domain.document.application.usecase.FindDocumentUseCase;
 import com.example.whopper.domain.document.dao.DocumentRepository;
 import com.example.whopper.domain.document.domain.detail.CompletionElementLevel;
-import com.example.whopper.domain.document.domain.element.DocumentStatus;
-import com.example.whopper.domain.document.dto.request.SearchDocumentRequest;
 import com.example.whopper.domain.document.dto.response.DocumentResponse;
 import com.example.whopper.domain.document.dto.response.FullDocumentResponse;
 import com.example.whopper.domain.document.dto.response.ReleasedDocumentResponse;
 import com.example.whopper.domain.document.dto.response.SearchDocumentResponse;
-import com.example.whopper.domain.document.exception.DocumentIllegalStatusException;
 import com.example.whopper.domain.document.exception.DocumentNotFoundException;
 import com.example.whopper.domain.feedback.dao.FeedbackMongoRepository;
-import com.example.whopper.domain.library.api.LibraryController;
 import com.example.whopper.domain.library.dao.LibraryMongoRepository;
 import com.example.whopper.domain.library.domain.ShardLibrary;
 import com.example.whopper.domain.student.domain.StudentEntity;
@@ -20,12 +16,11 @@ import com.example.whopper.global.utils.current.CurrentStudent;
 import com.example.whopper.global.utils.DataResponseInfo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
-import java.time.Year;
-import java.util.List;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class FindDocumentService implements FindDocumentUseCase {
     private final DocumentRepository documentRepository;
     private final FeedbackMongoRepository feedbackMongoRepository;
@@ -71,7 +66,7 @@ public class FindDocumentService implements FindDocumentUseCase {
                 documentRepository.searchDocuments(name, grade, classNumber, majorId, status)
                         .map(document -> SearchDocumentResponse.of(
                                 document,
-                                feedbackMongoRepository.countByDocument(document)
+                                feedbackMongoRepository.countByDocumentId(document.getId())
                         ))
                         .toList()
         );

@@ -1,6 +1,7 @@
 package com.example.whopper.domain.feedback.domain;
 
-import com.example.whopper.domain.document.domain.DocumentEntity;
+import com.example.whopper.domain.document.domain.element.type.DocumentElementType;
+import com.example.whopper.domain.teacher.domain.TeacherEntity;
 import lombok.Builder;
 import lombok.Getter;
 import org.springframework.data.annotation.Id;
@@ -13,21 +14,34 @@ public class FeedbackEntity {
     @Id
     private String id;
     private String comment;
-    private String writerName;
-    private String elementId;
+    private DocumentElementType type;
+
+    private String documentId;
+
+    private Status status;
 
     @DBRef(lazy = true)
-    private DocumentEntity document;
+    private TeacherEntity teacher;
 
     @Builder
-    public FeedbackEntity(String comment, String writerName, String elementId, DocumentEntity document) {
+    public FeedbackEntity(String comment, DocumentElementType type, String documentId, TeacherEntity teacher) {
         this.comment = comment;
-        this.writerName = writerName;
-        this.elementId = elementId;
-        this.document = document;
+        this.type = type;
+        this.documentId = documentId;
+        status = Status.PENDING;
+        this.teacher = teacher;
     }
 
     public void updateFeedback(String comment) {
         this.comment = comment;
+    }
+
+    public void confirmed() {
+        status = Status.CONFIRMED;
+    }
+
+    enum Status {
+        CONFIRMED,
+        PENDING
     }
 }

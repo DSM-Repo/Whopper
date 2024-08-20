@@ -2,7 +2,6 @@ package com.example.whopper.domain.document.dao;
 
 import com.example.whopper.domain.document.domain.DocumentEntity;
 import com.example.whopper.domain.document.domain.element.DocumentStatus;
-import com.example.whopper.domain.document.dto.request.SearchDocumentRequest;
 import lombok.RequiredArgsConstructor;
 
 import java.util.Optional;
@@ -35,5 +34,10 @@ public abstract class AbstractDocumentRepository implements DocumentRepository {
     @Override
     public DocumentEntity save(DocumentEntity document) {
         return documentMongoRepository.save(document);
+    }
+
+    @Override
+    public Boolean existsByDocumentId(String documentId) {
+        return documentMongoRepository.existsById(documentId);
     }
 }

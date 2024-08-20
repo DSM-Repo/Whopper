@@ -4,6 +4,7 @@ import com.example.whopper.domain.library.domain.LibraryEntity;
 import com.example.whopper.domain.library.domain.type.AccessRight;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
 
@@ -12,4 +13,6 @@ public interface LibraryMongoRepository extends MongoRepository<LibraryEntity, S
     Optional<LibraryEntity> findFirstByAccessRightNot(AccessRight accessRight);
     Optional<LibraryEntity> findFirstByYear(int year);
     Stream<LibraryEntity> findTop3ByOrderByCreateAtDesc();
+
+    List<LibraryEntity> findAllByYear(int year);
 }
