@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-public class CreateDocumentComponentImpl implements CreateDocumentComponent {
+class CreateDocumentComponentImpl implements CreateDocumentComponent {
     private final DocumentRepository documentRepository;
 
     @Override
