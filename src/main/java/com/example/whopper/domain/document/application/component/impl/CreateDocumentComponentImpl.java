@@ -3,8 +3,6 @@ package com.example.whopper.domain.document.application.component.impl;
 import com.example.whopper.domain.document.application.component.CreateDocumentComponent;
 import com.example.whopper.domain.document.dao.DocumentRepository;
 import com.example.whopper.domain.document.domain.DocumentEntity;
-import com.example.whopper.domain.document.domain.element.DocumentStatus;
-import com.example.whopper.domain.document.domain.element.WriterInfoElement;
 import com.example.whopper.domain.student.domain.StudentEntity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
