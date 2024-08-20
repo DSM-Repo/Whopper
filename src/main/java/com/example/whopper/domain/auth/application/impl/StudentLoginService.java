@@ -33,6 +33,7 @@ class StudentLoginService implements StudentLoginUseCase {
     private final CreateDocumentComponent createDocumentComponent;
     private final DefaultProfileImageProperties defaultProfileImageProperties;
 
+    @Override
     @Transactional
     public TokenResponse studentLogin(LoginRequest request) {
         return studentMongoRepository.existsByAccountId(request.accountId())
