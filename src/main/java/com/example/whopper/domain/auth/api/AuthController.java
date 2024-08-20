@@ -28,12 +28,12 @@ class AuthController {
     }
 
     @PostMapping("/teacher")
-    TokenResponse teacherLogin(@RequestBody LoginRequest request) {
+    private TokenResponse teacherLogin(@RequestBody LoginRequest request) {
         return teacherLoginUseCase.teacherLogin(request);
     }
 
     @PutMapping("/token")
-    TokenResponse reissueToken(@RequestHeader(name = "x-refresh-token") String token) {
+    private TokenResponse reissueToken(@RequestHeader(name = "x-refresh-token") String token) {
         return reissueTokenUseCase.reissueToken(token);
     }
 }
