@@ -24,20 +24,20 @@ class DocumentController {
     @OnlyTeacher
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PostMapping("/release/{documentId}")
-    public void release(@PathVariable String documentId) {
+    private void release(@PathVariable String documentId) {
         releaseDocumentUseCase.release(documentId);
     }
 
     @OnlyStudent
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PostMapping("/submit")
-    public void submit() {
+    private void submit() {
         submitMyDocumentUseCase.submit();
     }
 
     @OnlyTeacher
     @GetMapping("/student")
-    public DataResponseInfo<SearchDocumentResponse> search(
+    private DataResponseInfo<SearchDocumentResponse> search(
             @RequestParam(required = false) String name,
             @RequestParam(required = false) Integer grade,
             @RequestParam(required = false) Integer classNumber,
@@ -49,37 +49,37 @@ class DocumentController {
 
     @OnlyTeacher
     @GetMapping("/released")
-    public DataResponseInfo<ReleasedDocumentResponse> getReleasedDocuments() {
+    private DataResponseInfo<ReleasedDocumentResponse> getReleasedDocuments() {
         return findDocumentUseCase.getReleasedDocuments();
     }
 
     @OnlyTeacher
     @GetMapping("/released/grade/{grade}/year/{year}")
-    public DataResponseInfo<FullDocumentResponse> getReleasedDocumentsByGradeAndYear(@PathVariable Integer grade, @PathVariable Integer year) {
+    private DataResponseInfo<FullDocumentResponse> getReleasedDocumentsByGradeAndYear(@PathVariable Integer grade, @PathVariable Integer year) {
         return findDocumentUseCase.getReleasedDocumentsByGradeAndYear(grade, year);
     }
 
     @OnlyTeacher
     @GetMapping("/student/{documentId}")
-    public FullDocumentResponse getSubmittedDocument(@PathVariable String documentId) {
+    private FullDocumentResponse getSubmittedDocument(@PathVariable String documentId) {
         return findDocumentUseCase.getSubmittedDocument(documentId);
     }
 
     @OnlyStudent
     @GetMapping("/completion")
-    public CompletionElementLevel getCompletionLevel() {
+    private CompletionElementLevel getCompletionLevel() {
         return findDocumentUseCase.getCurrentStudentDocumentCompletionLevel();
     }
 
     @OnlyStudent
     @GetMapping
-    public DocumentResponse getIntroduceRecentlySharedDocuments() {
+    private DocumentResponse getIntroduceRecentlySharedDocuments() {
         return findDocumentUseCase.getIntroduceRecentlySharedDocuments();
     }
 
     @OnlyStudent
     @GetMapping("/detail")
-    public FullDocumentResponse getCurrentDocument() {
+    private FullDocumentResponse getCurrentDocument() {
         return findDocumentUseCase.getCurrentStudentDocument();
     }
 }
