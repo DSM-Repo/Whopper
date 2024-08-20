@@ -19,7 +19,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class TeacherLoginService implements TeacherLoginUseCase {
+class TeacherLoginService implements TeacherLoginUseCase {
 
     private final TeacherMongoRepository teacherMongoRepository;
     private final JwtTokenProvider jwtTokenProvider;
