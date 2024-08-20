@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class ReleaseDocumentService implements ReleaseDocumentUseCase {
+class ReleaseDocumentService implements ReleaseDocumentUseCase {
     private final DocumentRepository documentRepository;
     private final FeedbackMongoRepository feedbackMongoRepository;
 

@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class UpdateAchievementListService extends AbstractUpdateElementServiceBase<List<AchievementElementDto>> implements UpdateAchievementListUseCase {
+class UpdateAchievementListService extends AbstractUpdateElementServiceBase<List<AchievementElementDto>> implements UpdateAchievementListUseCase {
     public UpdateAchievementListService(DocumentRepository documentRepository, CurrentStudent currentUser) {
         super(documentRepository, currentUser);
     }

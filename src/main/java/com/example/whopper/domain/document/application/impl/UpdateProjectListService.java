@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class UpdateProjectListService extends AbstractUpdateElementServiceBase<List<ProjectElementDto>> implements UpdateProjectListUseCase {
+class UpdateProjectListService extends AbstractUpdateElementServiceBase<List<ProjectElementDto>> implements UpdateProjectListUseCase {
     public UpdateProjectListService(DocumentRepository documentRepository, CurrentStudent currentUser) {
         super(documentRepository, currentUser);
     }

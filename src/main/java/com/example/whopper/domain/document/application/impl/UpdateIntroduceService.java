@@ -10,7 +10,7 @@ import com.example.whopper.global.utils.current.CurrentStudent;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UpdateIntroduceService extends AbstractUpdateElementServiceBase<IntroduceElementDto> implements UpdateIntroduceUseCase {
+class UpdateIntroduceService extends AbstractUpdateElementServiceBase<IntroduceElementDto> implements UpdateIntroduceUseCase {
     public UpdateIntroduceService(DocumentRepository documentRepository, CurrentStudent currentUser) {
         super(documentRepository, currentUser);
     }

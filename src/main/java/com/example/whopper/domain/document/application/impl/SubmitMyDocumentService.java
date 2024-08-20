@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class SubmitMyDocumentService implements SubmitMyDocumentUseCase {
+class SubmitMyDocumentService implements SubmitMyDocumentUseCase {
     private final DocumentRepository documentRepository;
     private final CurrentStudent currentStudent;
 

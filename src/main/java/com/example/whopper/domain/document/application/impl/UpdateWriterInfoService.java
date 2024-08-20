@@ -13,7 +13,7 @@ import com.example.whopper.global.utils.current.CurrentStudent;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UpdateWriterInfoService extends AbstractUpdateElementServiceBase<UpdateWriterInfoRequest> implements UpdateWriterInfoUseCase {
+class UpdateWriterInfoService extends AbstractUpdateElementServiceBase<UpdateWriterInfoRequest> implements UpdateWriterInfoUseCase {
     private final StudentMongoRepository studentMongoRepository;
     private final MajorRepository majorRepository;
     private final DefaultMajorFacade defaultMajorFacade;

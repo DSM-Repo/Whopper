@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class UpdateActivityListService extends AbstractUpdateElementServiceBase<List<ActivityElementDto>> implements UpdateActivityListUseCase {
+class UpdateActivityListService extends AbstractUpdateElementServiceBase<List<ActivityElementDto>> implements UpdateActivityListUseCase {
     public UpdateActivityListService(DocumentRepository documentRepository, CurrentStudent currentUser) {
         super(documentRepository, currentUser);
     }
