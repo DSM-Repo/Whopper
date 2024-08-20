@@ -16,6 +16,7 @@ class ReissueTokenService implements ReissueTokenUseCase {
     private final RefreshTokenRepository refreshTokenRepository;
     private final JwtTokenProvider jwtTokenProvider;
 
+    @Override
     public TokenResponse reissueToken(String token) {
         RefreshTokenEntity refreshToken = refreshTokenRepository.findByToken(token)
                 .orElseThrow(()-> RefreshTokenNotFoundException.EXCEPTION);
