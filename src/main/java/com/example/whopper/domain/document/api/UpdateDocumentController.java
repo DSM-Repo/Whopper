@@ -21,35 +21,35 @@ class UpdateDocumentController {
     @OnlyStudent
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PatchMapping("/writer-info")
-    private void updateWriterInfo(@RequestBody UpdateWriterInfoRequest request) {
+    void updateWriterInfo(@RequestBody UpdateWriterInfoRequest request) {
         updateWriterInfoUseCase.update(request);
     }
 
     @OnlyStudent
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PatchMapping("/introduce")
-    private void updateIntroduce(@RequestBody IntroduceElementDto request) {
+    void updateIntroduce(@RequestBody IntroduceElementDto request) {
         updateIntroduceUseCase.update(request);
     }
 
     @OnlyStudent
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PatchMapping("/project")
-    private void updateProjectList(@RequestBody UpdateListRequest<ProjectElementDto> request) {
+    void updateProjectList(@RequestBody UpdateListRequest<ProjectElementDto> request) {
         updateProjectListUseCase.update(request.list());
     }
 
     @OnlyStudent
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PatchMapping("/achievement")
-    private void updateAchievementList(@RequestBody UpdateListRequest<AchievementElementDto> request) {
+    void updateAchievementList(@RequestBody UpdateListRequest<AchievementElementDto> request) {
         updateAchievementListUseCase.update(request.list());
     }
 
     @OnlyStudent
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PatchMapping("/activity")
-    private void updateActivityList(@RequestBody UpdateListRequest<ActivityElementDto> request) {
+    void updateActivityList(@RequestBody UpdateListRequest<ActivityElementDto> request) {
         updateActivityListUseCase.update(request.list());
     }
 }
