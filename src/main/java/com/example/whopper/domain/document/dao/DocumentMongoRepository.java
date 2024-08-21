@@ -8,7 +8,7 @@ import java.util.Optional;
 import java.util.stream.Stream;
 
 interface DocumentMongoRepository extends MongoRepository<DocumentEntity, String> {
-    Optional<DocumentEntity> findByStudent_Id(String writerId);
+    Optional<DocumentEntity> findByStudentId(String writerId);
     Stream<DocumentEntity> findAllByStatus(DocumentStatus status);
     Stream<DocumentEntity> findAllByWriterGenerationAndYearAndStatus(int generation, int year, DocumentStatus status);
 
