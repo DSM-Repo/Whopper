@@ -1,10 +1,10 @@
-package com.example.whopper.lagacy.auth.application.impl;
+package com.example.whopper.application.auth.service;
 
-import com.example.whopper.lagacy.auth.application.usecase.ReissueTokenUseCase;
+import com.example.whopper.application.auth.usecase.ReissueTokenUseCase;
 import com.example.whopper.lagacy.auth.dao.RefreshTokenRepository;
-import com.example.whopper.lagacy.auth.domain.RefreshTokenEntity;
-import com.example.whopper.lagacy.auth.dto.response.TokenResponse;
-import com.example.whopper.lagacy.auth.exception.RefreshTokenNotFoundException;
+import com.example.whopper.domain.refreshtoken.RefreshTokenEntity;
+import com.example.whopper.interfaces.auth.dto.response.TokenResponse;
+import com.example.whopper.common.exception.auth.RefreshTokenNotFoundException;
 import com.example.whopper.common.security.jwt.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

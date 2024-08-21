@@ -1,11 +1,11 @@
-package com.example.whopper.lagacy.auth.application.impl;
+package com.example.whopper.application.auth.service;
 
-import com.example.whopper.lagacy.auth.application.usecase.TeacherLoginUseCase;
-import com.example.whopper.lagacy.auth.domain.type.UserRole;
-import com.example.whopper.lagacy.auth.dto.request.LoginRequest;
-import com.example.whopper.lagacy.auth.dto.response.TokenResponse;
-import com.example.whopper.lagacy.auth.exception.InvalidUserException;
-import com.example.whopper.lagacy.auth.exception.PasswordMismatchException;
+import com.example.whopper.application.auth.usecase.TeacherLoginUseCase;
+import com.example.whopper.domain.refreshtoken.type.UserRole;
+import com.example.whopper.interfaces.auth.dto.request.LoginRequest;
+import com.example.whopper.interfaces.auth.dto.response.TokenResponse;
+import com.example.whopper.common.exception.auth.InvalidUserException;
+import com.example.whopper.common.exception.auth.PasswordMismatchException;
 import com.example.whopper.lagacy.teacher.dao.TeacherMongoRepository;
 import com.example.whopper.lagacy.teacher.domain.TeacherEntity;
 import com.example.whopper.lagacy.teacher.exception.TeacherNotFoundException;

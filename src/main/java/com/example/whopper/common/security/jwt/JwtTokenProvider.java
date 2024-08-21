@@ -1,11 +1,11 @@
 package com.example.whopper.common.security.jwt;
 
 import com.example.whopper.lagacy.auth.dao.RefreshTokenRepository;
-import com.example.whopper.lagacy.auth.domain.RefreshTokenEntity;
-import com.example.whopper.lagacy.auth.domain.type.UserRole;
-import com.example.whopper.lagacy.auth.dto.response.TokenResponse;
-import com.example.whopper.lagacy.auth.exception.ExpiredTokenException;
-import com.example.whopper.lagacy.auth.exception.InvalidTokenException;
+import com.example.whopper.domain.refreshtoken.RefreshTokenEntity;
+import com.example.whopper.domain.refreshtoken.type.UserRole;
+import com.example.whopper.interfaces.auth.dto.response.TokenResponse;
+import com.example.whopper.common.exception.auth.ExpiredTokenException;
+import com.example.whopper.common.exception.auth.InvalidTokenException;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;

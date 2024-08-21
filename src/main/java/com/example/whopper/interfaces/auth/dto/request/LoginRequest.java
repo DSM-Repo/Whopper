@@ -1,4 +1,4 @@
-package com.example.whopper.lagacy.auth.dto.request;
+package com.example.whopper.interfaces.auth.dto.request;
 
 public record LoginRequest(
         String accountId,

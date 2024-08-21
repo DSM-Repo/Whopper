@@ -1,10 +1,10 @@
-package com.example.whopper.lagacy.auth.api;
+package com.example.whopper.interfaces.auth.controller;
 
-import com.example.whopper.lagacy.auth.application.usecase.ReissueTokenUseCase;
-import com.example.whopper.lagacy.auth.application.usecase.StudentLoginUseCase;
-import com.example.whopper.lagacy.auth.application.usecase.TeacherLoginUseCase;
-import com.example.whopper.lagacy.auth.dto.request.LoginRequest;
-import com.example.whopper.lagacy.auth.dto.response.TokenResponse;
+import com.example.whopper.application.auth.usecase.ReissueTokenUseCase;
+import com.example.whopper.application.auth.usecase.StudentLoginUseCase;
+import com.example.whopper.application.auth.usecase.TeacherLoginUseCase;
+import com.example.whopper.interfaces.auth.dto.request.LoginRequest;
+import com.example.whopper.interfaces.auth.dto.response.TokenResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;

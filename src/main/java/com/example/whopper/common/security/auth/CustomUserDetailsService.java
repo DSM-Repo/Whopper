@@ -1,6 +1,6 @@
 package com.example.whopper.common.security.auth;
 
-import com.example.whopper.lagacy.auth.domain.type.UserRole;
+import com.example.whopper.domain.refreshtoken.type.UserRole;
 import com.example.whopper.lagacy.student.dao.StudentMongoRepository;
 import com.example.whopper.lagacy.student.exception.StudentNotFoundException;
 import com.example.whopper.lagacy.teacher.dao.TeacherMongoRepository;

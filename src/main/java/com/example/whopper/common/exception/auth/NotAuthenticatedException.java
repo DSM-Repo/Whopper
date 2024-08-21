@@ -1,4 +1,4 @@
-package com.example.whopper.lagacy.auth.exception;
+package com.example.whopper.common.exception.auth;
 
 public class NotAuthenticatedException extends RuntimeException {
 

@@ -1,4 +1,4 @@
-package com.example.whopper.lagacy.auth.dto.response;
+package com.example.whopper.interfaces.auth.dto.response;
 
 import lombok.Builder;
 

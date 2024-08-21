@@ -1,6 +1,6 @@
 package com.example.whopper.lagacy.teacher.application.component;
 
-import com.example.whopper.lagacy.auth.exception.NotAuthenticatedException;
+import com.example.whopper.common.exception.auth.NotAuthenticatedException;
 import com.example.whopper.lagacy.teacher.dao.TeacherMongoRepository;
 import com.example.whopper.lagacy.teacher.domain.TeacherEntity;
 import com.example.whopper.lagacy.teacher.exception.TeacherNotFoundException;

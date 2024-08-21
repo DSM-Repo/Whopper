@@ -1,4 +1,4 @@
-package com.example.whopper.lagacy.auth.exception;
+package com.example.whopper.common.exception.auth;
 
 import com.example.whopper.common.error.exception.ErrorCode;
 import com.example.whopper.common.error.exception.WhopperException;

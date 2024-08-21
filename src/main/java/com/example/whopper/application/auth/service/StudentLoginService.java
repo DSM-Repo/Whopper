@@ -1,11 +1,11 @@
-package com.example.whopper.lagacy.auth.application.impl;
+package com.example.whopper.application.auth.service;
 
-import com.example.whopper.lagacy.auth.application.usecase.StudentLoginUseCase;
-import com.example.whopper.lagacy.auth.domain.type.UserRole;
-import com.example.whopper.lagacy.auth.dto.request.LoginRequest;
-import com.example.whopper.lagacy.auth.dto.response.TokenResponse;
-import com.example.whopper.lagacy.auth.exception.InvalidUserException;
-import com.example.whopper.lagacy.auth.exception.PasswordMismatchException;
+import com.example.whopper.application.auth.usecase.StudentLoginUseCase;
+import com.example.whopper.domain.refreshtoken.type.UserRole;
+import com.example.whopper.interfaces.auth.dto.request.LoginRequest;
+import com.example.whopper.interfaces.auth.dto.response.TokenResponse;
+import com.example.whopper.common.exception.auth.InvalidUserException;
+import com.example.whopper.common.exception.auth.PasswordMismatchException;
 import com.example.whopper.lagacy.document.application.component.CreateDocumentComponent;
 import com.example.whopper.lagacy.file.domain.DefaultProfileImageProperties;
 import com.example.whopper.lagacy.major.domain.DefaultMajorFacade;

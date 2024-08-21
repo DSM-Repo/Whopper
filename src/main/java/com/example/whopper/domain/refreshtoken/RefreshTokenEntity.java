@@ -1,6 +1,6 @@
-package com.example.whopper.lagacy.auth.domain;
+package com.example.whopper.domain.refreshtoken;
 
-import com.example.whopper.lagacy.auth.domain.type.UserRole;
+import com.example.whopper.domain.refreshtoken.type.UserRole;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
