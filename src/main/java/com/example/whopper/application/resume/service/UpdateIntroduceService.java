@@ -6,7 +6,7 @@ import com.example.whopper.domain.resume.DocumentRepository;
 import com.example.whopper.domain.resume.DocumentEntity;
 import com.example.whopper.domain.resume.element.IntroduceElement;
 import com.example.whopper.interfaces.resume.dto.IntroduceElementDto;
-import com.example.whopper.global.utils.current.CurrentStudent;
+import com.example.whopper.application.student.component.CurrentStudent;
 import org.springframework.stereotype.Service;
 
 @Service

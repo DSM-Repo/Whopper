@@ -6,7 +6,7 @@ import com.example.whopper.domain.resume.DocumentRepository;
 import com.example.whopper.domain.resume.DocumentEntity;
 import com.example.whopper.domain.resume.element.ProjectElement;
 import com.example.whopper.interfaces.resume.dto.ProjectElementDto;
-import com.example.whopper.global.utils.current.CurrentStudent;
+import com.example.whopper.application.student.component.CurrentStudent;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

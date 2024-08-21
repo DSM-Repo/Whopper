@@ -4,7 +4,7 @@ import com.example.whopper.domain.resume.DocumentRepository;
 import com.example.whopper.domain.resume.DocumentEntity;
 import com.example.whopper.domain.resume.element.DocumentStatus;
 import com.example.whopper.common.exception.resume.DocumentModificationException;
-import com.example.whopper.global.utils.current.CurrentStudent;
+import com.example.whopper.application.student.component.CurrentStudent;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 

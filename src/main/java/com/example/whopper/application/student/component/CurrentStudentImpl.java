@@ -1,4 +1,4 @@
-package com.example.whopper.global.utils.current;
+package com.example.whopper.application.student.component;
 
 import com.example.whopper.domain.resume.DocumentRepository;
 import com.example.whopper.domain.resume.DocumentEntity;

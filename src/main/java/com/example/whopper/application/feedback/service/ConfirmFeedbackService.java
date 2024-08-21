@@ -4,7 +4,7 @@ import com.example.whopper.application.feedback.usecase.ConfirmFeedbackUseCase;
 import com.example.whopper.domain.feedback.FeedbackMongoRepository;
 import com.example.whopper.common.exception.feedback.FeedbackNotFoundException;
 import com.example.whopper.common.error.exception.ForbiddenException;
-import com.example.whopper.global.utils.current.CurrentStudent;
+import com.example.whopper.application.student.component.CurrentStudent;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

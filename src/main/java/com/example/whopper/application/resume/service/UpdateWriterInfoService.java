@@ -9,7 +9,7 @@ import com.example.whopper.interfaces.resume.dto.request.UpdateWriterInfoRequest
 import com.example.whopper.domain.major.MajorRepository;
 import com.example.whopper.domain.major.DefaultMajorFacade;
 import com.example.whopper.domain.student.StudentMongoRepository;
-import com.example.whopper.global.utils.current.CurrentStudent;
+import com.example.whopper.application.student.component.CurrentStudent;
 import org.springframework.stereotype.Service;
 
 @Service

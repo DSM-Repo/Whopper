@@ -6,7 +6,7 @@ import com.example.whopper.domain.feedback.FeedbackEntity;
 import com.example.whopper.domain.feedback.FeedbackMongoRepository;
 import com.example.whopper.domain.resume.DocumentEntity;
 import com.example.whopper.global.utils.DataResponseInfo;
-import com.example.whopper.global.utils.current.CurrentStudent;
+import com.example.whopper.application.student.component.CurrentStudent;
 import com.example.whopper.interfaces.feedback.dto.FeedbackResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

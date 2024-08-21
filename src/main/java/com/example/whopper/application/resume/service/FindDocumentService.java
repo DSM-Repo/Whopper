@@ -12,7 +12,7 @@ import com.example.whopper.domain.feedback.FeedbackMongoRepository;
 import com.example.whopper.domain.library.LibraryMongoRepository;
 import com.example.whopper.domain.library.ShardLibrary;
 import com.example.whopper.domain.student.StudentEntity;
-import com.example.whopper.global.utils.current.CurrentStudent;
+import com.example.whopper.application.student.component.CurrentStudent;
 import com.example.whopper.global.utils.DataResponseInfo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
