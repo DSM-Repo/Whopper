@@ -33,19 +33,19 @@ public class FeedbackController {
 
     @OnlyStudent
     @GetMapping
-    public DataResponseInfo<FeedbackResponse> getMyFeedbackList() {
+    public DataResponseInfo<FeedbackResponse.StudentResponse> getMyFeedbackList() {
         return findFeedbackUseCase.getCurrentStudentFeedbackList();
     }
 
     @OnlyTeacher
     @GetMapping("/{documentId}")
-    public DataResponseInfo<FeedbackResponse> getFeedbackListByDocumentId(@PathVariable String documentId) {
+    public DataResponseInfo<FeedbackResponse.TeacherResponse> getFeedbackListByDocumentId(@PathVariable String documentId) {
         return findFeedbackUseCase.getFeedbackListByDocumentId(documentId);
     }
 
     @OnlyTeacher
     @GetMapping("/teacher")
-    public DataResponseInfo<FeedbackResponse> getFeedbacksWrittenByTeacher() {
+    public DataResponseInfo<FeedbackResponse.TeacherResponse> getFeedbacksWrittenByTeacher() {
         return findFeedbackUseCase.getFeedbacksWrittenByTeacher();
     }
 
