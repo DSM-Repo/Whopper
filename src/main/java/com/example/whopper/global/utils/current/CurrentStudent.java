@@ -1,7 +1,7 @@
 package com.example.whopper.global.utils.current;
 
-import com.example.whopper.domain.document.domain.DocumentEntity;
-import com.example.whopper.domain.student.domain.StudentEntity;
+import com.example.whopper.lagacy.document.domain.DocumentEntity;
+import com.example.whopper.lagacy.student.domain.StudentEntity;
 
 public interface CurrentStudent {
     StudentEntity getStudent();

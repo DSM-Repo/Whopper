@@ -1,0 +1,26 @@
+package com.example.whopper.lagacy.auth.application.impl;
+
+import com.example.whopper.lagacy.auth.application.usecase.ReissueTokenUseCase;
+import com.example.whopper.lagacy.auth.dao.RefreshTokenRepository;
+import com.example.whopper.lagacy.auth.domain.RefreshTokenEntity;
+import com.example.whopper.lagacy.auth.dto.response.TokenResponse;
+import com.example.whopper.lagacy.auth.exception.RefreshTokenNotFoundException;
+import com.example.whopper.common.security.jwt.JwtTokenProvider;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+
+@Service
+@RequiredArgsConstructor
+class ReissueTokenService implements ReissueTokenUseCase {
+
+    private final RefreshTokenRepository refreshTokenRepository;
+    private final JwtTokenProvider jwtTokenProvider;
+
+    @Override
+    public TokenResponse reissueToken(String token) {
+        RefreshTokenEntity refreshToken = refreshTokenRepository.findByToken(token)
+                .orElseThrow(()-> RefreshTokenNotFoundException.EXCEPTION);
+
+        return jwtTokenProvider.receiveToken(refreshToken.getId(), refreshToken.getUserRole());
+    }
+}
