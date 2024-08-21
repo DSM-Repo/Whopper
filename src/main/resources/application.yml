@@ -55,7 +55,6 @@ app:
 
 default:
   major:
-    major-id: ${MAJOR_ID}
     name: ${MAJOR_NAME}
   profile:
     image-url: ${DEFAULT_PROFILE_IMAGE}
