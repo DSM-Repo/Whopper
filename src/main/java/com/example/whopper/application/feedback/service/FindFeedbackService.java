@@ -1,14 +1,13 @@
 package com.example.whopper.application.feedback.service;
 
-import com.example.whopper.domain.document.dao.DocumentRepository;
-import com.example.whopper.domain.document.domain.DocumentEntity;
-import com.example.whopper.domain.document.exception.DocumentNotFoundException;
-import com.example.whopper.domain.feedback.application.usecase.FindFeedbackUseCase;
-import com.example.whopper.domain.feedback.dao.FeedbackMongoRepository;
-import com.example.whopper.domain.feedback.dto.FeedbackResponse;
-import com.example.whopper.domain.teacher.application.component.TeacherComponent;
+import com.example.whopper.application.feedback.usecase.FindFeedbackUseCase;
+import com.example.whopper.application.teacher.component.TeacherComponent;
+import com.example.whopper.domain.feedback.FeedbackEntity;
+import com.example.whopper.domain.feedback.FeedbackMongoRepository;
+import com.example.whopper.domain.resume.DocumentEntity;
 import com.example.whopper.global.utils.DataResponseInfo;
 import com.example.whopper.global.utils.current.CurrentStudent;
+import com.example.whopper.interfaces.feedback.dto.FeedbackResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
