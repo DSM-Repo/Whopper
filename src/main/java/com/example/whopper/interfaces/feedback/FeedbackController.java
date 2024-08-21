@@ -5,7 +5,6 @@ import com.example.whopper.application.feedback.usecase.ConfirmFeedbackUseCase;
 import com.example.whopper.application.feedback.usecase.DeleteFeedbackUseCase;
 import com.example.whopper.application.feedback.usecase.FindFeedbackUseCase;
 import com.example.whopper.application.feedback.usecase.UpdateFeedbackUseCase;
-import com.example.whopper.lagacy.feedback.application.usecase.*;
 import com.example.whopper.interfaces.feedback.dto.FeedbackRequest;
 import com.example.whopper.interfaces.feedback.dto.FeedbackResponse;
 import com.example.whopper.interfaces.feedback.dto.UpdateFeedbackRequest;

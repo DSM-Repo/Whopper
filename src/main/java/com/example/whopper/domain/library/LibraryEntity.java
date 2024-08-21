@@ -1,9 +1,9 @@
 package com.example.whopper.domain.library;
 
-import com.example.whopper.lagacy.library.application.model.Library;
 import com.example.whopper.domain.library.type.AccessRight;
 import lombok.Builder;
 import lombok.Getter;
+import org.apache.tomcat.jni.Library;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -39,18 +39,6 @@ public class LibraryEntity {
 
     public void changeAccessRight(AccessRight accessRight) {
         this.accessRight = accessRight;
-    }
-
-    public Library toModel(String pdfFileUrl) {
-        return new Library(
-                id,
-                year,
-                grade,
-                createAt,
-                accessRight,
-                index,
-                pdfFileUrl
-        );
     }
 
 }

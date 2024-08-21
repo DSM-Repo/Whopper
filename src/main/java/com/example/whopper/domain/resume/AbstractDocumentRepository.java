@@ -1,6 +1,5 @@
 package com.example.whopper.domain.resume;
 
-import com.example.whopper.lagacy.document.dao.DocumentMongoRepository;
 import com.example.whopper.domain.resume.element.DocumentStatus;
 import lombok.RequiredArgsConstructor;
 

@@ -6,7 +6,6 @@ import com.example.whopper.domain.resume.element.DocumentStatus;
 import com.example.whopper.domain.resume.element.IntroduceElement;
 import com.example.whopper.domain.resume.element.ProjectElement;
 import com.example.whopper.domain.resume.element.WriterInfoElement;
-import com.example.whopper.lagacy.document.domain.element.*;
 import com.example.whopper.domain.resume.element.base.AbstractElement;
 import com.example.whopper.domain.resume.element.base.NamedElement;
 import com.example.whopper.domain.student.PrivateStudentInfo;

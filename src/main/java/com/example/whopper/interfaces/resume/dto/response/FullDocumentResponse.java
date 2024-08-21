@@ -6,7 +6,6 @@ import com.example.whopper.interfaces.resume.dto.ActivityElementDto;
 import com.example.whopper.interfaces.resume.dto.IntroduceElementDto;
 import com.example.whopper.interfaces.resume.dto.ProjectElementDto;
 import com.example.whopper.domain.resume.DocumentEntity;
-import com.example.whopper.lagacy.document.domain.element.*;
 import com.example.whopper.domain.student.ClassInfo;
 import com.example.whopper.domain.student.StudentEntity;
 
