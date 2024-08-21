@@ -1,10 +1,10 @@
 package com.example.whopper.common.security.auth;
 
 import com.example.whopper.domain.refreshtoken.type.UserRole;
-import com.example.whopper.lagacy.student.dao.StudentMongoRepository;
-import com.example.whopper.lagacy.student.exception.StudentNotFoundException;
-import com.example.whopper.lagacy.teacher.dao.TeacherMongoRepository;
-import com.example.whopper.lagacy.teacher.exception.TeacherNotFoundException;
+import com.example.whopper.domain.student.StudentMongoRepository;
+import com.example.whopper.common.exception.student.StudentNotFoundException;
+import com.example.whopper.domain.teacher.TeacherMongoRepository;
+import com.example.whopper.common.exception.teacher.TeacherNotFoundException;
 import com.example.whopper.common.security.jwt.JwtProperties;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;

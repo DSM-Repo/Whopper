@@ -1,11 +1,11 @@
 package com.example.whopper.global.utils.current;
 
-import com.example.whopper.lagacy.document.dao.DocumentRepository;
-import com.example.whopper.lagacy.document.domain.DocumentEntity;
-import com.example.whopper.lagacy.document.exception.DocumentNotFoundException;
-import com.example.whopper.lagacy.student.dao.StudentMongoRepository;
-import com.example.whopper.lagacy.student.domain.StudentEntity;
-import com.example.whopper.lagacy.student.exception.StudentNotFoundException;
+import com.example.whopper.domain.resume.DocumentRepository;
+import com.example.whopper.domain.resume.DocumentEntity;
+import com.example.whopper.common.exception.resume.DocumentNotFoundException;
+import com.example.whopper.domain.student.StudentMongoRepository;
+import com.example.whopper.domain.student.StudentEntity;
+import com.example.whopper.common.exception.student.StudentNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
