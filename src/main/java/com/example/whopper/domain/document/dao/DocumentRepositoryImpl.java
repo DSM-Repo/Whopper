@@ -13,7 +13,7 @@ import java.util.Optional;
 import java.util.stream.Stream;
 
 @Repository
-public class DocumentRepositoryImpl extends AbstractDocumentRepository {
+class DocumentRepositoryImpl extends AbstractDocumentRepository {
     private final MongoUtils mongoUtils;
 
     public DocumentRepositoryImpl(DocumentMongoRepository documentMongoRepository, MongoUtils mongoUtils) {

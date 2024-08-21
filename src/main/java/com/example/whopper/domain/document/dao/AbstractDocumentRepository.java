@@ -8,7 +8,7 @@ import java.util.Optional;
 import java.util.stream.Stream;
 
 @RequiredArgsConstructor
-public abstract class AbstractDocumentRepository implements DocumentRepository {
+abstract class AbstractDocumentRepository implements DocumentRepository {
     private final DocumentMongoRepository documentMongoRepository;
 
     @Override
