@@ -27,7 +27,7 @@ private final AwsProperties awsProperties;
                 .credentialsProvider(DefaultCredentialsProvider.create())
                 .region(Region.of(awsProperties.region()))
                 .targetThroughputInGbps(20.0)
-                .minimumPartSizeInBytes(8L * 1024 * 1024) // 8 MB in bytes
+                .minimumPartSizeInBytes(50L * 1024 * 1024)  
                 .build();
 
         return S3TransferManager.builder()
