@@ -43,7 +43,7 @@ public class PdfService implements PdfUseCase {
 
         String folder = awsS3Properties.pdfFolder();
         String date = LocalDate.now().format(DateTimeFormatter.BASIC_ISO_DATE);
-        String key = String.format("%s/%s-%s.pdf", folder, date, UUID.randomUUID());
+        String key = String.format("%s%s-%s.pdf", folder, date, UUID.randomUUID());
 
         uploadFile(multipartFile, key);
 
