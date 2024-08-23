@@ -31,10 +31,11 @@ public class MajorController {
     }
 
     @OnlyTeacher
-    @DeleteMapping("/{majorId}")
-    public void delete(@PathVariable String majorId) {
-        deleteMajorUseCase.delete(majorId);
+    @DeleteMapping
+    public void delete(@RequestBody IdRequest request) {
+        deleteMajorUseCase.delete(request.id);
     }
 
     private record AddMajorRequest(List<String> majors) {}
+    private record IdRequest(String id) {}
 }
