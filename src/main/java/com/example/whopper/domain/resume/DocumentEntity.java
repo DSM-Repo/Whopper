@@ -1,131 +1,118 @@
 package com.example.whopper.domain.resume;
 
-import com.example.whopper.domain.resume.element.AchievementElement;
-import com.example.whopper.domain.resume.element.ActivityElement;
-import com.example.whopper.domain.resume.element.DocumentStatus;
-import com.example.whopper.domain.resume.element.IntroduceElement;
-import com.example.whopper.domain.resume.element.ProjectElement;
-import com.example.whopper.domain.resume.element.WriterInfoElement;
-import com.example.whopper.domain.resume.element.base.AbstractElement;
-import com.example.whopper.domain.resume.element.base.NamedElement;
-import com.example.whopper.domain.student.PrivateStudentInfo;
-import com.example.whopper.domain.student.StudentEntity;
 import lombok.Builder;
 import lombok.Getter;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.Field;
 
-import java.time.Year;
-import java.util.Collections;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+import java.util.Set;
 
 @Getter
-@Document(collection = "document_repo")
-public class DocumentEntity {
+@Builder
+@Document(collection = "resume_repo")
+class DocumentEntity {
+
+    /* fields */
     @Id
     private String id;
     private Integer year;
-    private DocumentStatus status;
-    private WriterInfoElement writer;
-    private IntroduceElement introduce;
-    private List<ProjectElement> projectList;
-    private List<AchievementElement> achievementList;
-    private List<ActivityElement> activityList;
+    private Status status;
+    private Writer writer;
 
-    private PrivateStudentInfo privateStudentInfo;
+    private Introduce introduce;
+    private List<Project> projectList;
+    private List<Achievement> achievementList;
+    private List<Activity> activityList;
 
-    @Field("student")
-    @DBRef(lazy = true)
-    private StudentEntity student;
+    /* value objects */
 
-    @Builder
-    public DocumentEntity(DocumentStatus status, WriterInfoElement writer, StudentEntity student) {
-        this.year = Year.now().getValue();
-        this.status = status;
-        this.writer = writer;
-        this.introduce = IntroduceElement.createEmptyElement();
-        this.projectList = Collections.emptyList();
-        this.achievementList = Collections.emptyList();
-        this.activityList = Collections.emptyList();
-        this.privateStudentInfo = PrivateStudentInfo.of(
-                student.getName(),
-                student.getClassInfo().grade(),
-                student.getClassInfo().classNumber(),
-                student.getMajor().id(),
-                student.getClassInfo().schoolNumber()
-        );
-        this.student = student;
+    record Activity(
+            String name,
+            Date date,
+            boolean isPeriod,
+            String description
+    ) {}
+
+    record Achievement(
+            String name,
+            String institution,
+            String date,
+            Type type
+    ) {
+        enum Type {
+            AWARD, CERTIFICATE
+        }
     }
+
+    record Introduce(
+            String heading,
+            String introduce
+    ) {}
+
+    record Project(
+            String name,
+            Image projectLogo,
+            Type type,
+            Date date,
+            Set<String> skillSet,
+            List<Section> sections,
+            String url
+    ) {
+        record Section(
+                String title,
+                String description
+        ) {}
+
+        record Image(
+                String imagePath,
+                String originalName
+        ) {}
+
+        enum Type {
+            TEAM, PERSONAL
+        }
+    }
+
+    record Writer(
+            String name,
+            SchoolInfo schoolInfo,
+            Major major,
+            String email,
+            Set<String> skillSet,
+            String url
+    ) {
+        record SchoolInfo(
+                Integer grade,
+                Integer classNumber,
+                String schoolNumber,
+                Integer generation
+        ) {}
+
+        record Major(
+                String majorId,
+                String majorName
+        ) {}
+    }
+
+    /**
+     * 현재 레주메의 상태를 표현합니다.
+     *
+     * <ul>
+     *   <li>{@link #ONGOING} - 레주메가 현재 작성 중입니다.</li>
+     *   <li>{@link #DELETED} - 레주메가 삭제되었습니다.</li>
+     *   <li>{@link #SUBMITTED} - 레주메가 제출되어, 선생님이 피드백을 작성할 수 있습니다.</li>
+     *   <li>{@link #RELEASED} - 레주메가 공개되어, 선생님이 PDF화를 할 수 있습니다.</li>
+     * </ul>
+     */
+    enum Status {
+        ONGOING, DELETED, SUBMITTED, RELEASED
+    }
+
+    record Date(
+            String startDate,
+            String endDate
+    ) {}
 
     protected DocumentEntity() {}
-
-    public void release() {
-        status = DocumentStatus.RELEASED;
-    }
-
-    public void submit() {
-        status = DocumentStatus.SUBMITTED;
-    }
-
-    public void onGoing() {
-        status = DocumentStatus.ONGOING;
-    }
-
-    public void delete() {
-        status = DocumentStatus.DELETED;
-    }
-
-    public void updateWriterInfo(WriterInfoElement writer) {
-        this.writer = writer;
-    }
-
-    public void updateProjectList(List<ProjectElement> projectList) {
-        this.projectList = projectList;
-    }
-
-    private List<? extends AbstractElement> getElementList() {
-        return Stream.of(
-                        Stream.of(writer, introduce),
-                        projectList.stream(),
-                        achievementList.stream(),
-                        activityList.stream()
-                )
-                .flatMap(stream -> stream)
-                .toList();
-    }
-
-    public Map<String, String> getElementNameMap() {
-        return getElementList().stream()
-                .collect(Collectors.toMap(
-                        AbstractElement::getElementId,
-                        NamedElement::getName
-                ));
-    }
-
-    public static DocumentEntity createForNewStudent(StudentEntity student) {
-        return DocumentEntity.builder()
-                .status(DocumentStatus.ONGOING)
-                .writer(WriterInfoElement.createEmptyElement(student))
-                .student(student)
-                .build();
-    }
-
-    public void updateIntroduceElement(IntroduceElement introduce) {
-        this.introduce = introduce;
-    }
-
-    public void updateAchievementList(List<AchievementElement> achievementList) {
-        this.achievementList = achievementList;
-    }
-
-
-    public void updateActivityElement(List<ActivityElement> activityList) {
-        this.activityList = activityList;
-    }
 }
-
