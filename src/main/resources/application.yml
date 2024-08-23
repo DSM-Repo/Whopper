@@ -17,6 +17,16 @@ spring:
       max-file-size: 100MB
       max-request-size: 100MB
 
+  cloud:
+    aws:
+      credentials:
+        access-key: ${AWS_ACCESS_KEY_ID}
+        secret-key: ${AWS_SECRET_ACCESS_KEY}
+      s3:
+        bucket: ${AWS_S3_BUCKET}
+      region:
+        static: ${AWS_REGION}
+
 jwt:
   header: Authorization
   prefix: Bearer
@@ -31,10 +41,6 @@ redis:
   port: 6379
 
 aws:
-  region: ${AWS_REGION}
-  credentials:
-    access-key: ${AWS_ACCESS_KEY_ID}
-    secret-key: ${AWS_SECRET_ACCESS_KEY}
   s3:
     url: ${AWS_S3_URL}
     bucket: ${AWS_S3_BUCKET}
