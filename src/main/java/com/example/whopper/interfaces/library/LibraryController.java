@@ -34,8 +34,8 @@ public class LibraryController {
     @PostMapping
     public void saveLibraryDocument(
             @RequestParam(name = "grade") Integer grade,
-            @RequestPart("pdf") MultipartFile pdfPart,
-            @RequestPart("index") DocumentIndexRequest indexPart) {
+            @RequestPart(name = "pdf") MultipartFile pdfPart,
+            @RequestPart(name = "index") DocumentIndexRequest indexPart) {
 
 
         String filePath = pdfUseCase.savePdf(pdfPart);

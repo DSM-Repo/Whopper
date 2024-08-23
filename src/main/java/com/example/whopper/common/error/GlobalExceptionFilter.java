@@ -27,10 +27,10 @@ public class GlobalExceptionFilter extends OncePerRequestFilter {
             filterChain.doFilter(request,response);
         } catch (WhopperException e){
             ErrorCode errorCode = e.getErrorCode();
-            writerErrorResponse(response, errorCode.getStatusCode(), ErrorResponse.of(errorCode, errorCode.getMessage()));
+            writerErrorResponse(response, errorCode.getStatusCode(), ErrorResponse.of(errorCode, errorCode.getMessage(), e));
         } catch (Exception e){
             e.printStackTrace();
-            writerErrorResponse(response, response.getStatus(), ErrorResponse.of(response.getStatus(),e.getMessage()));
+            writerErrorResponse(response, response.getStatus(), ErrorResponse.of(response.getStatus(),e.getMessage(), e));
         }
     }
 

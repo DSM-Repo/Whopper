@@ -14,23 +14,26 @@ public record ErrorResponse(
         int status,
         @JsonFormat(shape = STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
         LocalDateTime timestamp,
-        String description
+        String description,
+        String exception
 ) {
-    public static ErrorResponse of(ErrorCode errorCode, String description) {
+    public static ErrorResponse of(ErrorCode errorCode, String description, Exception e) {
         return ErrorResponse.builder()
                 .message(errorCode.getMessage())
                 .status(errorCode.getStatusCode())
                 .timestamp(LocalDateTime.now())
                 .description(description)
+                .exception(e.getClass().getSimpleName())
                 .build();
     }
 
-    public static ErrorResponse of(int statusCode, String description) {
+    public static ErrorResponse of(int statusCode, String description, Exception e) {
         return ErrorResponse.builder()
                 .message(description)
                 .status(statusCode)
                 .timestamp(LocalDateTime.now())
                 .description(description)
+                .exception(e.getClass().getSimpleName())
                 .build();
     }
 }
