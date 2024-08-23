@@ -3,7 +3,6 @@ package com.example.whopper.application.resume.service;
 import com.example.whopper.application.resume.base.AbstractUpdateElementServiceBase;
 import com.example.whopper.application.resume.usecase.UpdateActivityListUseCase;
 import com.example.whopper.domain.resume.DocumentRepository;
-import com.example.whopper.domain.resume.DocumentEntity;
 import com.example.whopper.domain.resume.element.ActivityElement;
 import com.example.whopper.interfaces.resume.dto.ActivityElementDto;
 import com.example.whopper.application.student.component.CurrentStudent;

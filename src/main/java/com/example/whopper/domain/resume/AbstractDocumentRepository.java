@@ -11,28 +11,30 @@ abstract class AbstractDocumentRepository implements DocumentRepository {
     private final DocumentMongoRepository documentMongoRepository;
 
     @Override
-    public Optional<DocumentEntity> findById(String id) {
+    public Optional<ResumeModel> findById(String id) {
         return documentMongoRepository.findById(id);
     }
 
     @Override
-    public Optional<DocumentEntity> findByWriterId(String id) {
+    public Optional<ResumeModel> findByWriterId(String id) {
         return documentMongoRepository.findByStudentId(id);
     }
 
     @Override
-    public Stream<DocumentEntity> getReleasedDocuments() {
+    public Stream<ResumeModel> getReleasedDocuments() {
         return documentMongoRepository.findAllByStatus(DocumentStatus.RELEASED);
     }
 
     @Override
-    public Stream<DocumentEntity> getReleasedDocumentsByGenerationAndYear(int generation, int year) {
+    public Stream<ResumeModel> getReleasedDocumentsByGenerationAndYear(int generation, int year) {
         return documentMongoRepository.findAllByWriterGenerationAndYearAndStatus(generation, year, DocumentStatus.RELEASED);
     }
 
     @Override
-    public DocumentEntity save(DocumentEntity document) {
-        return documentMongoRepository.save(document);
+    public ResumeModel save(ResumeModel resume) {
+        final var entity =
+
+        return documentMongoRepository.save();
     }
 
     @Override
