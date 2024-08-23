@@ -31,7 +31,7 @@ public class FeedbackController {
 
     @OnlyStudent
     @PostMapping("/confirm")
-    public void confirm(@RequestBody ConfirmRequest request) {
+    public void confirm(@RequestBody IdRequest request) {
         confirmFeedbackUseCase.confirm(request.id);
     }
 
@@ -66,10 +66,10 @@ public class FeedbackController {
     }
 
     @OnlyTeacher
-    @DeleteMapping("/{feedbackId}")
-    public void deleteFeedback(@PathVariable String feedbackId) {
-        deleteFeedbackUseCase.deleteFeedback(feedbackId);
+    @DeleteMapping
+    public void deleteFeedback(@RequestBody IdRequest request) {
+        deleteFeedbackUseCase.deleteFeedback(request.id());
     }
 
-    record ConfirmRequest(String id) {}
+    record IdRequest(String id) {}
 }
