@@ -56,7 +56,7 @@ generation:
 
 server:
   servlet:
-    context-path: /whopper
+    context-path: ${CONTEXT_PATH}
   port: 8080
 
 app:
