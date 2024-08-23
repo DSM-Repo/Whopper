@@ -1,5 +1,6 @@
 package com.example.whopper.domain.resume;
 
+import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import org.springframework.data.annotation.Id;
@@ -8,9 +9,9 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import java.util.List;
 import java.util.Set;
 
-@Getter
-@Builder
-@Document(collection = "resume_repo")
+@Getter(value = AccessLevel.PACKAGE)
+@Builder(access = AccessLevel.PACKAGE)
+@Document(collection = "document_repo")
 class DocumentEntity {
 
     /* fields */
