@@ -1,6 +1,8 @@
 package com.example.whopper.application.file.impl;
 
 import com.example.whopper.application.file.usecase.PdfUseCase;
+import com.example.whopper.common.exception.file.ExtensionNotMatchException;
+import com.example.whopper.common.exception.file.PdfUploadFailedException;
 import com.example.whopper.infrastructure.aws.s3.AwsS3FileType;
 import com.example.whopper.infrastructure.aws.s3.AwsS3Properties;
 import lombok.RequiredArgsConstructor;
@@ -29,13 +31,14 @@ public class PdfService implements PdfUseCase {
     private final AwsS3Properties awsS3Properties;
     private final S3TransferManager s3TransferManager;
     private final S3Presigner s3Presigner;
-  
+
     private final ExecutorService executorService = Executors.newVirtualThreadPerTaskExecutor();
 
+    @Override
     public String savePdf(MultipartFile multipartFile) {
         String originalFileName = multipartFile.getOriginalFilename();
         if (originalFileName == null || !isValidExtension(getExtension(originalFileName))) {
-            throw new RuntimeException("Invalid file extension.");
+            throw ExtensionNotMatchException.EXCEPTION;
         }
 
         String folder = awsS3Properties.pdfFolder();
@@ -47,6 +50,7 @@ public class PdfService implements PdfUseCase {
         return key;
     }
 
+    @Override
     public String getPdfFileUrl(String filePath) {
         GetObjectPresignRequest getObjectPresignRequest = GetObjectPresignRequest.builder()
                 .signatureDuration(Duration.ofHours(4))
@@ -76,11 +80,11 @@ public class PdfService implements PdfUseCase {
 
             uploadFuture.whenComplete((result, exception) -> {
                 if (exception != null) {
-                    throw new RuntimeException("파일 업로드 중 오류 발생", exception);
+                    throw PdfUploadFailedException.EXCEPTION;
                 }
             });
         } catch (Exception e) {
-            throw new RuntimeException("파일 업로드 중 오류 발생", e);
+            throw PdfUploadFailedException.EXCEPTION;
         }
     }
 

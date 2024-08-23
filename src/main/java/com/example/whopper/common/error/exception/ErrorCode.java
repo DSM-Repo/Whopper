@@ -9,6 +9,10 @@ import lombok.Getter;
 @JsonFormat(shape = JsonFormat.Shape.OBJECT)
 public enum ErrorCode {
 
+    // file
+    PDF_UPLOAD_FAILED(500, "Pdf 저장에 실패하였습니다."),
+    EXTENSION_NOT_MATCH(400, "지원하지 않는 확장자 타입입니다."),
+
     // xquare
     XQUARE(503, "DSM-login 서비스에서 에러가 발생했습니다."),
 
