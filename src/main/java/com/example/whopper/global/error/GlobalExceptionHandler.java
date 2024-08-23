@@ -17,7 +17,7 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ErrorResponse> handlePluckException(WhopperException e) {
 
         ErrorCode errorCode = e.getErrorCode();
-        ErrorResponse response = ErrorResponse.of(errorCode, errorCode.getMessage());
+        ErrorResponse response = ErrorResponse.of(errorCode, errorCode.getMessage(), e);
         e.printStackTrace();
         log.error(e.toString());
 
@@ -40,7 +40,7 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ErrorResponse> handleException(Exception e) {
 
         ErrorCode errorCode = ErrorCode.INTERNAL_SERVER_ERROR;
-        ErrorResponse response = ErrorResponse.of(errorCode, e.getMessage());
+        ErrorResponse response = ErrorResponse.of(errorCode, e.getMessage(), e);
 
         return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
     }

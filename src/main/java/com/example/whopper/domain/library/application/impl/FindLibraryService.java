@@ -4,8 +4,8 @@ import com.example.whopper.domain.file.application.usecase.PdfUseCase;
 import com.example.whopper.domain.library.application.usecase.FindLibraryUseCase;
 import com.example.whopper.domain.library.dao.LibraryMongoRepository;
 import com.example.whopper.domain.library.domain.LibraryEntity;
-import com.example.whopper.domain.library.dto.LibraryDetailResponse;
-import com.example.whopper.domain.library.dto.LibraryResponse;
+import com.example.whopper.domain.library.dto.response.LibraryDetailResponse;
+import com.example.whopper.domain.library.dto.response.LibraryResponse;
 import com.example.whopper.domain.library.exception.LibraryNotFoundException;
 import com.example.whopper.global.utils.DataResponseInfo;
 import lombok.RequiredArgsConstructor;
@@ -28,9 +28,9 @@ public class FindLibraryService implements FindLibraryUseCase {
 
     @Override
     public DataResponseInfo<LibraryResponse> findLibrary(Integer year) {
-        var library = (year != 0 )
-                ? libraryMongoRepository.findAllByYear(year)
-                : libraryMongoRepository.findAll();
+        var library = (year == 0)
+                ? libraryMongoRepository.findAll()
+                : libraryMongoRepository.findAllByYear(year);
 
         return DataResponseInfo.of(library.stream()
                 .map(LibraryResponse::fromEntity)
