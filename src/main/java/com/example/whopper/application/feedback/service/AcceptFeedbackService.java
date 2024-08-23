@@ -1,0 +1,22 @@
+package com.example.whopper.application.feedback.service;
+
+import com.example.whopper.application.feedback.usecase.AcceptFeedbackUseCase;
+import com.example.whopper.common.exception.feedback.FeedbackNotFoundException;
+import com.example.whopper.domain.feedback.FeedbackMongoRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+
+@Service
+@RequiredArgsConstructor
+public class AcceptFeedbackService implements AcceptFeedbackUseCase {
+    private final FeedbackMongoRepository feedbackMongoRepository;
+
+    public void accept(String id) {
+        var feedback = feedbackMongoRepository.findById(id)
+                .orElseThrow(() -> FeedbackNotFoundException.EXCEPTION);
+
+        feedback.rejected();
+
+        feedbackMongoRepository.save(feedback);
+    }
+}

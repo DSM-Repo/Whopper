@@ -29,6 +29,7 @@ public class FeedbackEntity {
         this.documentId = documentId;
         status = Status.PENDING;
         this.teacher = teacher;
+        this.rejected = false;
     }
 
     public void updateFeedback(String comment) {
@@ -37,6 +38,10 @@ public class FeedbackEntity {
 
     public void confirmed() {
         status = Status.CONFIRMED;
+    }
+
+    public void rejected() {
+        rejected = true;
     }
 
     enum Status {

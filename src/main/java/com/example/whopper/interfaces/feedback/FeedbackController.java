@@ -1,5 +1,6 @@
 package com.example.whopper.interfaces.feedback;
 
+import com.example.whopper.application.feedback.usecase.AcceptFeedbackUseCase;
 import com.example.whopper.application.feedback.usecase.AddFeedbackUseCase;
 import com.example.whopper.application.feedback.usecase.ConfirmFeedbackUseCase;
 import com.example.whopper.application.feedback.usecase.DeleteFeedbackUseCase;
@@ -21,6 +22,8 @@ public class FeedbackController {
 
     private final AddFeedbackUseCase addFeedbackUseCase;
 
+    private final AcceptFeedbackUseCase acceptFeedbackUseCase;
+
     private final UpdateFeedbackUseCase updateFeedbackUseCase;
 
     private final DeleteFeedbackUseCase deleteFeedbackUseCase;
@@ -33,6 +36,12 @@ public class FeedbackController {
     @PostMapping("/confirm")
     public void confirm(@RequestBody IdRequest request) {
         confirmFeedbackUseCase.confirm(request.id);
+    }
+
+    @OnlyTeacher
+    @PostMapping("/accept")
+    public void accept(@RequestBody IdRequest request) {
+        acceptFeedbackUseCase.accept(request.id);
     }
 
     @OnlyStudent
