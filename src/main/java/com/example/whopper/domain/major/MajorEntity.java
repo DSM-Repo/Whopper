@@ -8,21 +8,22 @@ import org.springframework.data.mongodb.core.mapping.Field;
 
 @Getter
 @Document(collection = "majors")
-public class MajorEntity {
+class MajorEntity {
     @Id
     private String id;
+
     @Field("name")
     @Indexed(unique = true)
     private String name;
 
     protected MajorEntity() {}
 
-    private MajorEntity(String id, String name) {
+    MajorEntity(String id, String name) {
         this.id = id;
         this.name = name;
     }
 
-    public static MajorEntity createEntity(String name) {
+    static MajorEntity createEntity(String name) {
         return new MajorEntity(null, name);
     }
 }

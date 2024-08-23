@@ -5,6 +5,7 @@ import com.example.whopper.application.resume.usecase.UpdateWriterInfoUseCase;
 import com.example.whopper.domain.resume.DocumentRepository;
 import com.example.whopper.domain.resume.DocumentEntity;
 import com.example.whopper.domain.resume.element.WriterInfoElement;
+import com.example.whopper.domain.student.StudentEntity;
 import com.example.whopper.interfaces.resume.dto.request.UpdateWriterInfoRequest;
 import com.example.whopper.domain.major.MajorRepository;
 import com.example.whopper.domain.major.DefaultMajorFacade;
@@ -48,7 +49,7 @@ class UpdateWriterInfoService extends AbstractUpdateElementServiceBase<UpdateWri
         var major = majorRepository.findById(majorId)
                 .orElseGet(defaultMajorFacade::getDefaultMajor);
 
-        user.updateMajor(major);
+        user.updateMajor(new StudentEntity.Major(major.id(), major.name()));
         studentMongoRepository.save(user);
     }
 }

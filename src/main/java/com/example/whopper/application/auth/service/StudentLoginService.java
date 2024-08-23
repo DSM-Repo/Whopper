@@ -73,6 +73,8 @@ class StudentLoginService implements StudentLoginUseCase {
     }
 
     private StudentEntity createAndSaveNewStudent(XquareUserResponse xquareUserResponse) {
+        var defaultMajor = defaultMajorFacade.getDefaultMajor();
+
         return studentMongoRepository.save(
                 StudentEntity.builder()
                         .accountId(xquareUserResponse.getAccountId())
@@ -80,7 +82,7 @@ class StudentLoginService implements StudentLoginUseCase {
                         .name(xquareUserResponse.getName())
                         .classInfo(xquareUserResponse.toClassInfo())
                         .profileImagePath(defaultProfileImageProperties.imageUrl())
-                        .major(defaultMajorFacade.getDefaultMajor())
+                        .major(new StudentEntity.Major(defaultMajor.id(), defaultMajor.name()))
                         .build());
     }
 }

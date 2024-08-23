@@ -93,13 +93,13 @@ class FindDocumentService implements FindDocumentUseCase {
         var generation = (year - 2013) - grade;
         var document = documentRepository.getReleasedDocumentsByGenerationAndYear(generation, year);
 
-        var response = document.map(doc -> FullDocumentResponse.of(doc, doc.getStudent().getMajor().getName()))
+        var response = document.map(doc -> FullDocumentResponse.of(doc, doc.getStudent().getMajor().name()))
                 .toList();
 
         return DataResponseInfo.of(response);
     }
 
     private String getMajorName(StudentEntity student) {
-        return student.getMajor() == null ? "전공 미정" : student.getMajor().getName();
+        return student.getMajor() == null ? "전공 미정" : student.getMajor().name();
     }
 }

@@ -12,33 +12,47 @@ public class AbstractMajorRepository implements MajorRepository {
     private final MajorMongoRepository majorMongoRepository;
 
     @Override
-    public MajorEntity save(MajorEntity entity) {
-        return majorMongoRepository.save(entity);
+    public MajorModel save(MajorModel model) {
+        final var majorEntity = majorMongoRepository.save(
+                MajorEntityMapper.toEntity(model)
+        );
+
+        return MajorEntityMapper.toModel(majorEntity);
     }
 
     @Override
-    public void saveAll(List<MajorEntity> entities) {
-        majorMongoRepository.saveAll(entities);
+    public void saveAll(List<MajorModel> entities) {
+        majorMongoRepository.saveAll(
+                MajorEntityMapper.toEntityList(entities)
+        );
     }
 
     @Override
-    public Optional<MajorEntity> findByName(String name) {
-        return majorMongoRepository.findByName(name);
+    public Optional<MajorModel> findByName(String name) {
+        final var entity = majorMongoRepository.findByName(name); // Optional<MajorEntity>
+
+        return MajorEntityMapper.toOptionalModel(entity);
     }
 
     @Override
-    public Optional<MajorEntity> findById(String majorId) {
-        return majorMongoRepository.findById(majorId);
+    public Optional<MajorModel> findById(String majorId) {
+        final var entity = majorMongoRepository.findById(majorId);
+
+        return MajorEntityMapper.toOptionalModel(entity);
     }
 
     @Override
-    public List<MajorEntity> findAll() {
-        return majorMongoRepository.findAll();
+    public List<MajorModel> findAll() {
+        final var entities = majorMongoRepository.findAll();
+
+        return MajorEntityMapper.toModelList(entities);
     }
 
     @Override
-    public void delete(MajorEntity entity) {
-        majorMongoRepository.delete(entity);
+    public void delete(MajorModel model) {
+        majorMongoRepository.delete(
+                MajorEntityMapper.toEntity(model)
+        );
     }
 
     @Override

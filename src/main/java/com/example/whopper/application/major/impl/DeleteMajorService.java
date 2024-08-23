@@ -13,12 +13,9 @@ public class DeleteMajorService implements DeleteMajorUseCase {
 
     @Override
     public void delete(String majorId) {
-        var majorEntity = majorRepository.findById(majorId);
+        var major = majorRepository.findById(majorId)
+                .orElseThrow(() -> MajorNotFoundException.EXCEPTION);
 
-        if (majorEntity.isEmpty()) {
-            throw MajorNotFoundException.EXCEPTION;
-        }
-
-        majorRepository.delete(majorEntity.get());
+        majorRepository.delete(major);
     }
 }

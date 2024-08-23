@@ -56,7 +56,7 @@ public class DocumentEntity {
                 student.getName(),
                 student.getClassInfo().grade(),
                 student.getClassInfo().classNumber(),
-                student.getMajor().getId(),
+                student.getMajor().id(),
                 student.getClassInfo().schoolNumber()
         );
         this.student = student;
