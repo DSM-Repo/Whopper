@@ -5,7 +5,7 @@ import com.example.whopper.interfaces.resume.dto.response.DocumentResponse;
 import com.example.whopper.interfaces.resume.dto.response.FullDocumentResponse;
 import com.example.whopper.interfaces.resume.dto.response.ReleasedDocumentResponse;
 import com.example.whopper.interfaces.resume.dto.response.SearchDocumentResponse;
-import com.example.whopper.global.utils.DataResponseInfo;
+import com.example.whopper.common.http.response.DataResponseInfo;
 
 public interface FindDocumentUseCase {
     DocumentResponse getIntroduceRecentlySharedDocuments();

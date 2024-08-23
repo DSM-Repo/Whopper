@@ -1,4 +1,4 @@
-package com.example.whopper.global.utils;
+package com.example.whopper.common.http.response;
 
 import java.util.List;
 

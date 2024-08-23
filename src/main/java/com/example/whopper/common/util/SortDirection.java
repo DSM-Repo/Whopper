@@ -1,4 +1,4 @@
-package com.example.whopper.global.utils;
+package com.example.whopper.common.util;
 
 public enum SortDirection {
     ASC, DESC;

@@ -5,7 +5,7 @@ import com.example.whopper.application.major.usecase.DeleteMajorUseCase;
 import com.example.whopper.application.major.usecase.FindMajorUseCase;
 import com.example.whopper.common.annotation.OnlyTeacher;
 import com.example.whopper.domain.major.MajorModel;
-import com.example.whopper.global.utils.DataResponseInfo;
+import com.example.whopper.common.http.response.DataResponseInfo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
