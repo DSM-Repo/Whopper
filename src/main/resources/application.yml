@@ -8,19 +8,39 @@ spring:
     virtual:
       enabled: true
 
+  jackson:
+    property-naming-strategy: SNAKE_CASE
+
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 100MB
+      max-request-size: 100MB
+
 jwt:
   header: Authorization
   prefix: Bearer
   secret: ${SECRET}
-  accessExpiration: 271000
-  refreshExpiration: 604800
+  accessExpiration: ${ACCESS_EXP}
+  refreshExpiration: ${REFRESH_EXP}
   teacherSecret: ${TEACHER_SECRET}
   studentSecret: ${STUDENT_SECRET}
-
 
 redis:
   host: ${REDIS_HOST}
   port: 6379
+
+aws:
+  region: ${AWS_REGION}
+  credentials:
+    access-key: ${AWS_ACCESS_KEY_ID}
+    secret-key: ${AWS_SECRET_ACCESS_KEY}
+  s3:
+    url: ${AWS_S3_URL}
+    bucket: ${AWS_S3_BUCKET}
+    profile-folder: ${PROFILE_FOLDER}
+    document-folder: ${DOC_FOLDER}
+    pdf-folder: ${PDF_FOLDER}
 
 key:
   login-api-url: ${LOGIN_URL}
@@ -32,4 +52,15 @@ server:
   servlet:
     context-path: /whopper
   port: 8080
-  
+
+app:
+  cors:
+    allow-hosts: ${ALLOW_HOSTS}
+    allow-headers: ${ALLOW_HEADERS}
+    exposed-headers: ${EXPOSED_HEADERS}
+
+default:
+  major:
+    name: ${MAJOR_NAME}
+  profile:
+    image-url: ${DEFAULT_PROFILE_IMAGE}
