@@ -10,11 +10,11 @@ import java.util.Optional;
 import java.util.stream.Stream;
 
 @Repository
-class DocumentRepositoryImpl extends AbstractDocumentRepository {
+class ResumeRepositoryImpl extends AbstractResumeRepository {
     private final MongoUtils mongoUtils;
 
-    public DocumentRepositoryImpl(DocumentMongoRepository documentMongoRepository, MongoUtils mongoUtils) {
-        super(documentMongoRepository);
+    public ResumeRepositoryImpl(ResumeMongoRepository resumeMongoRepository, MongoUtils mongoUtils) {
+        super(resumeMongoRepository);
         this.mongoUtils = mongoUtils;
     }
 
