@@ -5,6 +5,7 @@ import com.example.whopper.domain.resume.element.type.ProjectType;
 import com.example.whopper.interfaces.resume.dto.ProjectElementDto;
 import com.example.whopper.domain.file.ImageInfo;
 import lombok.Getter;
+import org.bson.types.ObjectId;
 
 import java.util.List;
 import java.util.Set;
@@ -47,11 +48,14 @@ public class ProjectElement extends AbstractElement {
         }
 
         public record Section(
+                String elementId,
                 String title,
                 String description
         ) {
-                public static Section of(String title, String description) {
-                        return new Section(title, description);
+                public Section {
+                        if (elementId.isBlank()) {
+                                elementId = new ObjectId().toHexString();
+                        }
                 }
         }
 }
