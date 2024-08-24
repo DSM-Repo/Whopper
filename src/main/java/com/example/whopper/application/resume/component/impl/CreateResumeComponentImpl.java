@@ -1,6 +1,6 @@
 package com.example.whopper.application.resume.component.impl;
 
-import com.example.whopper.application.resume.component.CreateDocumentComponent;
+import com.example.whopper.application.resume.component.CreateResumeComponent;
 import com.example.whopper.domain.resume.ResumeRepository;
 import com.example.whopper.domain.resume.ResumeModel;
 import com.example.whopper.domain.resume.ResumeModelFactory;
@@ -10,13 +10,13 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-class CreateDocumentComponentImpl implements CreateDocumentComponent {
+class CreateResumeComponentImpl implements CreateResumeComponent {
     private final ResumeRepository resumeRepository;
 
     @Override
     public ResumeModel create(StudentEntity student) {
-        var document = ResumeModelFactory.createResumeModelFromStudentEntity(student);
+        var resume = ResumeModelFactory.createResumeModelFromStudentEntity(student);
 
-        return resumeRepository.save(document);
+        return resumeRepository.save(resume);
     }
 }

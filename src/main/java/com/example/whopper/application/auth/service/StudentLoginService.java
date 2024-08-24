@@ -6,7 +6,7 @@ import com.example.whopper.interfaces.auth.dto.request.LoginRequest;
 import com.example.whopper.interfaces.auth.dto.response.TokenResponse;
 import com.example.whopper.common.exception.auth.InvalidUserException;
 import com.example.whopper.common.exception.auth.PasswordMismatchException;
-import com.example.whopper.application.resume.component.CreateDocumentComponent;
+import com.example.whopper.application.resume.component.CreateResumeComponent;
 import com.example.whopper.domain.file.DefaultProfileImageProperties;
 import com.example.whopper.domain.major.DefaultMajorFacade;
 import com.example.whopper.domain.student.StudentMongoRepository;
@@ -30,7 +30,7 @@ class StudentLoginService implements StudentLoginUseCase {
     private final XquareClient xquareClient;
     private final PasswordEncoder passwordEncoder;
     private final DefaultMajorFacade defaultMajorFacade;
-    private final CreateDocumentComponent createDocumentComponent;
+    private final CreateResumeComponent createResumeComponent;
     private final DefaultProfileImageProperties defaultProfileImageProperties;
 
     @Override
@@ -64,7 +64,7 @@ class StudentLoginService implements StudentLoginUseCase {
         if(!xquareUserResponse.getUserRole().equals("STU")) throw InvalidUserException.EXCEPTION;
         StudentEntity newStudent = createAndSaveNewStudent(xquareUserResponse);
 
-        createDocumentComponent.create(newStudent);
+        createResumeComponent.create(newStudent);
         return getTokenResponse(newStudent.getId());
     }
 
