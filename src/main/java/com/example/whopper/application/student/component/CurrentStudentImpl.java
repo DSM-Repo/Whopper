@@ -27,7 +27,7 @@ public class CurrentStudentImpl implements CurrentStudent {
     }
 
     @Override
-    public ResumeModel getDocument() {
+    public ResumeModel getResume() {
         return resumeRepository.findByWriterId(getStudent().getId())
                 .orElseThrow(() -> ResumeNotFoundException.EXCEPTION);
     }

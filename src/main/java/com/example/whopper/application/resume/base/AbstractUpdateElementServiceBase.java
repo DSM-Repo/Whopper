@@ -15,7 +15,7 @@ public abstract class AbstractUpdateElementServiceBase<T> {
 
     @Transactional
     public void update(T request) {
-        var resume = currentStudent.getDocument();
+        var resume = currentStudent.getResume();
 
         if (!resume.status().equals(ResumeElementDto.Status.ONGOING)) {
             throw DocumentModificationException.EXCEPTION;

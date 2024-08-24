@@ -23,7 +23,7 @@ public class FindFeedbackService implements FindFeedbackUseCase {
 
     @Override
     public DataResponseInfo<FeedbackResponse.StudentResponse> getCurrentStudentFeedbackList() {
-        DocumentEntity document = currentStudent.getDocument();
+        DocumentEntity document = currentStudent.getResume();
 
         List<FeedbackResponse.StudentResponse> feedbackList = getFeedbackResponsesByDocumentId(document.getId())
                 .stream()

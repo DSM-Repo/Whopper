@@ -18,7 +18,7 @@ class SubmitMyResumeService implements SubmitMyResumeUseCase {
 
     @Override
     public void submit() {
-        var resume = currentStudent.getDocument();
+        var resume = currentStudent.getResume();
 
         ResumeModel newResume;
         if (resume.status().equals(ResumeElementDto.Status.SUBMITTED)) {

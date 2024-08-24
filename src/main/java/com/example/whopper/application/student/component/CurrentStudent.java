@@ -5,5 +5,5 @@ import com.example.whopper.domain.student.StudentEntity;
 
 public interface CurrentStudent {
     StudentEntity getStudent();
-    ResumeModel getDocument();
+    ResumeModel getResume();
 }

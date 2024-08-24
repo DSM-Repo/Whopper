@@ -19,7 +19,7 @@ public class ConfirmFeedbackService implements ConfirmFeedbackUseCase {
         var feedback = feedbackMongoRepository.findById(id)
                 .orElseThrow(() -> FeedbackNotFoundException.EXCEPTION);
 
-        var currentDocument = currentStudent.getDocument();
+        var currentDocument = currentStudent.getResume();
 
         if (!currentDocument.getId().equals(feedback.getDocumentId())) {
             throw ForbiddenException.EXCEPTION;

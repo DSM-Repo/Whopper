@@ -3,7 +3,6 @@ package com.example.whopper.application.resume.service;
 import com.example.whopper.application.resume.usecase.FindResumeUseCase;
 import com.example.whopper.domain.resume.ResumeRepository;
 import com.example.whopper.domain.resume.detail.CompletionElementLevel;
-import com.example.whopper.interfaces.resume.dto.ResumeElementDto;
 import com.example.whopper.interfaces.resume.dto.response.ResumeResponse;
 import com.example.whopper.interfaces.resume.dto.response.FullResumeResponse;
 import com.example.whopper.interfaces.resume.dto.response.ReleasedResumeResponse;
@@ -12,7 +11,6 @@ import com.example.whopper.common.exception.resume.ResumeNotFoundException;
 import com.example.whopper.domain.feedback.FeedbackMongoRepository;
 import com.example.whopper.domain.library.LibraryMongoRepository;
 import com.example.whopper.domain.library.ShardLibrary;
-import com.example.whopper.domain.student.StudentEntity;
 import com.example.whopper.application.student.component.CurrentStudent;
 import com.example.whopper.common.http.response.DataResponseInfo;
 import lombok.RequiredArgsConstructor;
@@ -30,22 +28,22 @@ class FindResumeService implements FindResumeUseCase {
 
     @Override
     public ResumeResponse getIntroduceRecentlySharedResumes() {
-        var currentStudentDocument = currentStudent.getDocument();
+        var currentStudentResume = currentStudent.getResume();
         var libraries = libraryMongoRepository.findTop3ByOrderByCreateAtDesc()
                 .map(ShardLibrary::fromLibraryEntity)
                 .toList();
 
         return ResumeResponse.of(
-                currentStudentDocument,
+                currentStudentResume,
                 libraries
         );
     }
 
     @Override
     public FullResumeResponse getCurrentStudentResume() {
-        var currentStudentDocument = currentStudent.getDocument();
+        var currentStudentResume = currentStudent.getResume();
 
-        return FullResumeResponse.of(currentStudentDocument);
+        return FullResumeResponse.of(currentStudentResume);
     }
 
     @Override
@@ -70,9 +68,9 @@ class FindResumeService implements FindResumeUseCase {
 
     @Override
     public CompletionElementLevel getCurrentStudentResumeCompletionLevel() {
-        var currentStudentDocument = currentStudent.getDocument();
+        var currentStudentResume = currentStudent.getResume();
 
-        return CompletionElementLevel.of(currentStudentDocument);
+        return CompletionElementLevel.of(currentStudentResume);
     }
 
     @Override
