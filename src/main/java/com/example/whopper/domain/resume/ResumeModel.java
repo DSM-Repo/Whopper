@@ -18,12 +18,12 @@ public record ResumeModel(
         List<ResumeElementDto.Achievement> achievementList,
         List<ResumeElementDto.Activity> activityList
 ) {
-    public static ResumeModel createInitialResume(String name, ResumeElementDto.Writer.SchoolInfo schoolInfo, ResumeElementDto.Writer.Major major) {
+    public static ResumeModel createInitialResume(String id, String name, ResumeElementDto.Writer.SchoolInfo schoolInfo, ResumeElementDto.Writer.Major major) {
         return new ResumeModel(
                 null,
                 Year.now().getValue(),
                 ResumeElementDto.Status.ONGOING,
-                new ResumeElementDto.Writer(name, schoolInfo, major, "", Collections.emptySet(), ""),
+                new ResumeElementDto.Writer(id, name, schoolInfo, major, "", Collections.emptySet(), ""),
                 null,
                 null,
                 null,

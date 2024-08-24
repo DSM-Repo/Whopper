@@ -1,6 +1,6 @@
 package com.example.whopper.domain.resume;
 
-import com.example.whopper.domain.resume.element.DocumentStatus;
+import com.example.whopper.interfaces.resume.dto.ResumeElementDto;
 import lombok.RequiredArgsConstructor;
 
 import java.util.Optional;
@@ -17,18 +17,18 @@ abstract class AbstractResumeRepository implements ResumeRepository {
 
     @Override
     public Optional<ResumeModel> findByWriterId(String id) {
-        return ResumeEntityMapper.toOptionalModel(resumeMongoRepository.findByStudentId(id));
+        return ResumeEntityMapper.toOptionalModel(resumeMongoRepository.findByWriterId(id));
     }
 
     @Override
     public Stream<ResumeModel> getReleasedDocuments() {
-        return resumeMongoRepository.findAllByStatus(DocumentStatus.RELEASED)
+        return resumeMongoRepository.findAllByStatus(ResumeElementMapper.toStatusEntity(ResumeElementDto.Status.RELEASED))
                 .map(ResumeEntityMapper::toModel);
     }
 
     @Override
     public Stream<ResumeModel> getReleasedDocumentsByGenerationAndYear(int generation, int year) {
-        return resumeMongoRepository.findAllByWriterGenerationAndYearAndStatus(generation, year, DocumentStatus.RELEASED)
+        return resumeMongoRepository.findAllByWriterSchoolInfoGenerationAndYearAndStatus(generation, year, ResumeElementMapper.toStatusEntity(ResumeElementDto.Status.RELEASED))
                 .map(ResumeEntityMapper::toModel);
     }
 

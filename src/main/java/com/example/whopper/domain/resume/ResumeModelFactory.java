@@ -13,6 +13,7 @@ public class ResumeModelFactory {
 
         return ResumeModel.createInitialResume(
                 student.getName(),
+                student.getId(),
                 new ResumeElementDto.Writer.SchoolInfo(
                         classInfo.grade(),
                         classInfo.classNumber(),

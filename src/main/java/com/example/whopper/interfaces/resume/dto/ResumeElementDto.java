@@ -10,6 +10,7 @@ public class ResumeElementDto {
     }
 
     public record Writer(
+            String id,
             String name,
             SchoolInfo schoolInfo,
             Major major,
