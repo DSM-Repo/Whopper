@@ -5,10 +5,7 @@ import com.example.whopper.application.resume.usecase.UpdateActivityListUseCase;
 import com.example.whopper.application.resume.usecase.UpdateIntroduceUseCase;
 import com.example.whopper.application.resume.usecase.UpdateProjectListUseCase;
 import com.example.whopper.application.resume.usecase.UpdateWriterInfoUseCase;
-import com.example.whopper.interfaces.resume.dto.AchievementElementDto;
-import com.example.whopper.interfaces.resume.dto.ActivityElementDto;
-import com.example.whopper.interfaces.resume.dto.IntroduceElementDto;
-import com.example.whopper.interfaces.resume.dto.ProjectElementDto;
+import com.example.whopper.interfaces.resume.dto.*;
 import com.example.whopper.interfaces.resume.dto.request.UpdateListRequest;
 import com.example.whopper.interfaces.resume.dto.request.UpdateWriterInfoRequest;
 import com.example.whopper.common.annotation.OnlyStudent;
@@ -36,28 +33,28 @@ class UpdateDocumentController {
     @OnlyStudent
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PatchMapping("/introduce")
-    void updateIntroduce(@RequestBody IntroduceElementDto request) {
+    void updateIntroduce(@RequestBody ResumeElementDto.Introduce request) {
         updateIntroduceUseCase.update(request);
     }
 
     @OnlyStudent
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PatchMapping("/project")
-    void updateProjectList(@RequestBody UpdateListRequest<ProjectElementDto> request) {
+    void updateProjectList(@RequestBody UpdateListRequest<ResumeElementDto.Project> request) {
         updateProjectListUseCase.update(request.list());
     }
 
     @OnlyStudent
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PatchMapping("/achievement")
-    void updateAchievementList(@RequestBody UpdateListRequest<AchievementElementDto> request) {
+    void updateAchievementList(@RequestBody UpdateListRequest<ResumeElementDto.Achievement> request) {
         updateAchievementListUseCase.update(request.list());
     }
 
     @OnlyStudent
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PatchMapping("/activity")
-    void updateActivityList(@RequestBody UpdateListRequest<ActivityElementDto> request) {
+    void updateActivityList(@RequestBody UpdateListRequest<ResumeElementDto.Activity> request) {
         updateActivityListUseCase.update(request.list());
     }
 }
