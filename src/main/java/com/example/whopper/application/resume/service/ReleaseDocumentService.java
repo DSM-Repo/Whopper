@@ -1,7 +1,7 @@
 package com.example.whopper.application.resume.service;
 
 import com.example.whopper.application.resume.usecase.ReleaseDocumentUseCase;
-import com.example.whopper.domain.resume.DocumentRepository;
+import com.example.whopper.domain.resume.ResumeRepository;
 import com.example.whopper.domain.resume.DocumentEntity;
 import com.example.whopper.domain.resume.element.DocumentStatus;
 import com.example.whopper.common.exception.resume.DocumentIllegalStatusException;
@@ -15,7 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 @RequiredArgsConstructor
 class ReleaseDocumentService implements ReleaseDocumentUseCase {
-    private final DocumentRepository documentRepository;
+    private final ResumeRepository resumeRepository;
     private final FeedbackMongoRepository feedbackMongoRepository;
 
     @Override
@@ -39,7 +39,7 @@ class ReleaseDocumentService implements ReleaseDocumentUseCase {
     }
 
     private DocumentEntity findById(String documentId) {
-        return documentRepository.findById(documentId)
+        return resumeRepository.findById(documentId)
                 .orElseThrow(() -> DocumentNotFoundException.EXCEPTION);
     }
 
@@ -52,6 +52,6 @@ class ReleaseDocumentService implements ReleaseDocumentUseCase {
     }
 
     private void save(DocumentEntity document) {
-        documentRepository.save(document);
+        resumeRepository.save(document);
     }
 }

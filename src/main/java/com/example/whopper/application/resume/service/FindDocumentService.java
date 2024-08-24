@@ -1,7 +1,7 @@
 package com.example.whopper.application.resume.service;
 
 import com.example.whopper.application.resume.usecase.FindDocumentUseCase;
-import com.example.whopper.domain.resume.DocumentRepository;
+import com.example.whopper.domain.resume.ResumeRepository;
 import com.example.whopper.domain.resume.detail.CompletionElementLevel;
 import com.example.whopper.interfaces.resume.dto.response.DocumentResponse;
 import com.example.whopper.interfaces.resume.dto.response.FullDocumentResponse;
@@ -22,7 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
 class FindDocumentService implements FindDocumentUseCase {
-    private final DocumentRepository documentRepository;
+    private final ResumeRepository resumeRepository;
     private final FeedbackMongoRepository feedbackMongoRepository;
     private final LibraryMongoRepository libraryMongoRepository;
     private final CurrentStudent currentStudent;
@@ -51,7 +51,7 @@ class FindDocumentService implements FindDocumentUseCase {
 
     @Override
     public FullDocumentResponse getSubmittedDocument(String documentId) {
-        var document = documentRepository.findById(documentId)
+        var document = resumeRepository.findById(documentId)
                 .orElseThrow(() -> DocumentNotFoundException.EXCEPTION);
 
         var student = document.getStudent();
@@ -63,7 +63,7 @@ class FindDocumentService implements FindDocumentUseCase {
     @Override
     public DataResponseInfo<SearchDocumentResponse> searchDocument(String name, Integer grade, Integer classNumber, String majorId, String status) {
         return DataResponseInfo.of(
-                documentRepository.searchDocuments(name, grade, classNumber, majorId, status)
+                resumeRepository.searchDocuments(name, grade, classNumber, majorId, status)
                         .map(document -> SearchDocumentResponse.of(
                                 document,
                                 feedbackMongoRepository.countByDocumentId(document.getId())
@@ -82,7 +82,7 @@ class FindDocumentService implements FindDocumentUseCase {
     @Override
     public DataResponseInfo<ReleasedDocumentResponse> getReleasedDocuments() {
         return DataResponseInfo.of(
-                documentRepository.getReleasedDocuments()
+                resumeRepository.getReleasedDocuments()
                         .map(ReleasedDocumentResponse::of)
                         .toList()
         );
@@ -91,7 +91,7 @@ class FindDocumentService implements FindDocumentUseCase {
     @Override
     public DataResponseInfo<FullDocumentResponse> getReleasedDocumentsByGradeAndYear(int grade, int year) {
         var generation = (year - 2013) - grade;
-        var document = documentRepository.getReleasedDocumentsByGenerationAndYear(generation, year);
+        var document = resumeRepository.getReleasedDocumentsByGenerationAndYear(generation, year);
 
         var response = document.map(doc -> FullDocumentResponse.of(doc, doc.getStudent().getMajor().name()))
                 .toList();

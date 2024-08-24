@@ -1,8 +1,8 @@
 package com.example.whopper.application.student.component;
 
-import com.example.whopper.domain.resume.DocumentRepository;
-import com.example.whopper.domain.resume.DocumentEntity;
+import com.example.whopper.domain.resume.ResumeRepository;
 import com.example.whopper.common.exception.resume.DocumentNotFoundException;
+import com.example.whopper.domain.resume.ResumeModel;
 import com.example.whopper.domain.student.StudentMongoRepository;
 import com.example.whopper.domain.student.StudentEntity;
 import com.example.whopper.common.exception.student.StudentNotFoundException;
@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class CurrentStudentImpl implements CurrentStudent {
     private final StudentMongoRepository studentMongoRepository;
-    private final DocumentRepository documentRepository;
+    private final ResumeRepository resumeRepository;
 
     @Override
     public StudentEntity getStudent() {
@@ -27,8 +27,8 @@ public class CurrentStudentImpl implements CurrentStudent {
     }
 
     @Override
-    public DocumentEntity getDocument() {
-        return documentRepository.findByWriterId(getStudent().getId())
+    public ResumeModel getDocument() {
+        return resumeRepository.findByWriterId(getStudent().getId())
                 .orElseThrow(() -> DocumentNotFoundException.EXCEPTION);
     }
 }
