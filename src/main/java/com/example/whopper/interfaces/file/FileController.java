@@ -5,12 +5,9 @@ import com.example.whopper.interfaces.file.response.ImagePathResponse;
 import com.example.whopper.domain.file.type.ImageType;
 import com.example.whopper.common.annotation.OnlyStudent;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestPart;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 @RestController
@@ -28,4 +25,12 @@ public class FileController {
         String path = imageUseCase.saveImage(filePart, imageType);
         return new ImagePathResponse(imageUseCase.getFileBaseUrl() + path, filePart.getOriginalFilename());
     }
+
+    @PutMapping
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    void deleteImage(@RequestBody UrlRequest request) {
+        imageUseCase.deleteImage(request.url);
+    }
+
+    record UrlRequest(String url) {}
 }

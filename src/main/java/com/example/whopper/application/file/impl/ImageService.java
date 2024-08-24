@@ -17,7 +17,9 @@ public class ImageService implements ImageUseCase {
 
     private final AwsS3Properties awsS3Properties;
     private final FileUploadService fileUploadService;
+    private final FileDeleteService fileDeleteService;
 
+    @Override
     public String saveImage(MultipartFile multipartFile, ImageType imageType) {
         String originalFileName = multipartFile.getOriginalFilename();
         if (originalFileName == null || !isValidExtension(getExtension(originalFileName))) {
@@ -33,8 +35,14 @@ public class ImageService implements ImageUseCase {
         return key;
     }
 
+    @Override
     public String getFileBaseUrl() {
         return awsS3Properties.url();
+    }
+
+    @Override
+    public void deleteImage(String url) {
+        fileDeleteService.deleteByUrl(url);
     }
 
     private String getExtension(String filename) {
