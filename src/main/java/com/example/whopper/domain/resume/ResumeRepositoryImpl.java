@@ -19,28 +19,29 @@ class ResumeRepositoryImpl extends AbstractResumeRepository {
     }
 
     @Override
-    public Stream<ResumeEntity> searchDocuments(String name, Integer grade, Integer classNumber, String majorId, String status) {
+    public Stream<ResumeModel> searchDocuments(String name, Integer grade, Integer classNumber, String majorId, String status) {
         Query query = searchQuery(name, grade, classNumber, majorId, status);
         query.with(getSort());
 
-        return mongoUtils.find(query, ResumeEntity.class);
+        return mongoUtils.find(query, ResumeEntity.class)
+                .map(ResumeEntityMapper::toModel);
     }
 
     private Query searchQuery(String name, Integer grade, Integer classNumber, String majorId, String status) {
         Query query = new Query();
 
         if (isNotBlank(name)) {
-            query.addCriteria(where("privateStudentInfo.name", name));
+            query.addCriteria(where("writer.name", name));
         }
         if (isNotBlank(majorId)) {
-            query.addCriteria(where("privateStudentInfo.majorId", majorId));
+            query.addCriteria(where("writer.major.majorId", majorId));
         }
 
         Optional.ofNullable(classNumber)
-                .ifPresent(cn -> query.addCriteria(where("privateStudentInfo.classNumber", classNumber)));
+                .ifPresent(cn -> query.addCriteria(where("writer.schoolInfo.classNumber", classNumber)));
 
         Optional.ofNullable(grade)
-                .ifPresent(g -> query.addCriteria(where("privateStudentInfo.grade", grade)));
+                .ifPresent(g -> query.addCriteria(where("writer.schoolInfo.grade", grade)));
 
         if (isNotBlank(status)) {
             query.addCriteria(where("status", status.toUpperCase()));
@@ -50,7 +51,7 @@ class ResumeRepositoryImpl extends AbstractResumeRepository {
     }
 
     private Sort getSort() {
-        return Sort.by(Sort.DEFAULT_DIRECTION, "privateStudentInfo.schoolNumber");
+        return Sort.by(Sort.DEFAULT_DIRECTION, "writer.schoolInfo.schoolNumber");
     }
 
     private Criteria where(String key, Object checkValue) {
