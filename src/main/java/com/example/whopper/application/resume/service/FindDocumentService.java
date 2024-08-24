@@ -24,6 +24,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -83,7 +84,8 @@ class FindDocumentService implements FindDocumentUseCase {
         var responses = documents.stream()
                 .map(document -> SearchDocumentResponse.of(
                         document,
-                        feedbackMap.get(document.getId())
+                        Optional.ofNullable(feedbackMap.get(document.getId()))
+                                .orElse(Collections.emptyList())
                                 .stream()
                                 .map(SearchDocumentResponse.Feedback::fromFeedback)
                                 .toList()
