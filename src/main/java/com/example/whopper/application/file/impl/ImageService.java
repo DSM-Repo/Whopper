@@ -42,7 +42,9 @@ public class ImageService implements ImageUseCase {
 
     @Override
     public void deleteImage(String url) {
-        fileDeleteService.deleteByUrl(url);
+        final var key = url.substring(awsS3Properties.url().length());
+
+        fileDeleteService.deleteByKey(key);
     }
 
     private String getExtension(String filename) {
