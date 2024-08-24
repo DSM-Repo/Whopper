@@ -1,6 +1,9 @@
 package com.example.whopper.application.resume.service;
 
 import com.example.whopper.application.resume.usecase.FindDocumentUseCase;
+import com.example.whopper.application.teacher.component.TeacherComponent;
+import com.example.whopper.domain.feedback.FeedbackEntity;
+import com.example.whopper.domain.resume.DocumentEntity;
 import com.example.whopper.domain.resume.DocumentRepository;
 import com.example.whopper.domain.resume.detail.CompletionElementLevel;
 import com.example.whopper.interfaces.resume.dto.response.DocumentResponse;
@@ -18,6 +21,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
@@ -26,6 +34,7 @@ class FindDocumentService implements FindDocumentUseCase {
     private final FeedbackMongoRepository feedbackMongoRepository;
     private final LibraryMongoRepository libraryMongoRepository;
     private final CurrentStudent currentStudent;
+    private final TeacherComponent teacherComponent;
 
     @Override
     public DocumentResponse getIntroduceRecentlySharedDocuments() {
@@ -62,14 +71,26 @@ class FindDocumentService implements FindDocumentUseCase {
 
     @Override
     public DataResponseInfo<SearchDocumentResponse> searchDocument(String name, Integer grade, Integer classNumber, String majorId, String status) {
-        return DataResponseInfo.of(
-                documentRepository.searchDocuments(name, grade, classNumber, majorId, status)
-                        .map(document -> SearchDocumentResponse.of(
-                                document,
-                                feedbackMongoRepository.countByDocumentId(document.getId())
-                        ))
-                        .toList()
-        );
+        var teacherId = teacherComponent.currentTeacher().getId();
+
+        var documents = documentRepository.searchDocuments(name, grade, classNumber, majorId, status).toList();
+        var documentIds = documents.stream().map(DocumentEntity::getId).toList();
+
+        Map<String, List<FeedbackEntity>> feedbackMap = feedbackMongoRepository.findAllByDocumentIdInAndTeacherId(documentIds, teacherId)
+                .collect(Collectors.groupingBy(FeedbackEntity::getDocumentId));
+
+
+        var responses = documents.stream()
+                .map(document -> SearchDocumentResponse.of(
+                        document,
+                        feedbackMap.getOrDefault(document.getId(), Collections.emptyList())
+                                .stream()
+                                .map(SearchDocumentResponse.Feedback::fromFeedback)
+                                .toList()
+                ))
+                .toList();
+
+        return DataResponseInfo.of(responses);
     }
 
     @Override
