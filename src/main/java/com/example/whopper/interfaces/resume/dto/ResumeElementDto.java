@@ -1,7 +1,5 @@
 package com.example.whopper.interfaces.resume.dto;
 
-import com.example.whopper.domain.resume.ResumeModel;
-
 import java.util.List;
 import java.util.Set;
 
@@ -19,6 +17,10 @@ public class ResumeElementDto {
             Set<String> skillSet,
             String url
     ) {
+        public Writer update(Major major, String email, Set<String> skillSet, String url) {
+            return new Writer(name, schoolInfo, major, email, skillSet, url);
+        }
+
         public record SchoolInfo(
                 Integer grade,
                 Integer classNumber,
