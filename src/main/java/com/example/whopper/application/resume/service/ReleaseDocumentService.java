@@ -1,12 +1,12 @@
 package com.example.whopper.application.resume.service;
 
 import com.example.whopper.application.resume.usecase.ReleaseDocumentUseCase;
+import com.example.whopper.domain.resume.ResumeModel;
 import com.example.whopper.domain.resume.ResumeRepository;
-import com.example.whopper.domain.resume.DocumentEntity;
-import com.example.whopper.domain.resume.element.DocumentStatus;
 import com.example.whopper.common.exception.resume.DocumentIllegalStatusException;
-import com.example.whopper.common.exception.resume.DocumentNotFoundException;
+import com.example.whopper.common.exception.resume.ResumeNotFoundException;
 import com.example.whopper.domain.feedback.FeedbackMongoRepository;
+import com.example.whopper.interfaces.resume.dto.ResumeElementDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,39 +19,40 @@ class ReleaseDocumentService implements ReleaseDocumentUseCase {
     private final FeedbackMongoRepository feedbackMongoRepository;
 
     @Override
-    public void release(String documentId) {
-        var document = findById(documentId);
+    public void release(String resumeId) {
+        var resume = findById(resumeId);
 
-        if (document.getStatus().equals(DocumentStatus.RELEASED)) {
-            cancelRelease(document);
-        } else if (document.getStatus().equals(DocumentStatus.SUBMITTED)) {
-            deleteFeedback(documentId);
-            release(document);
+        ResumeModel newResume;
+        if (resume.status().equals(ResumeElementDto.Status.RELEASED)) {
+            newResume = cancelRelease(resume);
+        } else if (resume.status().equals(ResumeElementDto.Status.SUBMITTED)) {
+            deleteFeedback(resumeId);
+            newResume = release(resume);
         } else {
             throw DocumentIllegalStatusException.EXCEPTION;
         }
 
-        save(document);
+        save(newResume);
     }
 
-    private void deleteFeedback(String documentId) {
-        feedbackMongoRepository.deleteAllByDocumentId(documentId);
+    private void deleteFeedback(String resumeId) {
+        feedbackMongoRepository.deleteAllByDocumentId(resumeId);
     }
 
-    private DocumentEntity findById(String documentId) {
-        return resumeRepository.findById(documentId)
-                .orElseThrow(() -> DocumentNotFoundException.EXCEPTION);
+    private ResumeModel findById(String resumeId) {
+        return resumeRepository.findById(resumeId)
+                .orElseThrow(() -> ResumeNotFoundException.EXCEPTION);
     }
 
-    private void release(DocumentEntity document) {
-        document.release();
+    private ResumeModel release(ResumeModel resume) {
+        return resume.release();
     }
 
-    private void cancelRelease(DocumentEntity document) {
-        document.submit();
+    private ResumeModel cancelRelease(ResumeModel resume) {
+        return resume.submit();
     }
 
-    private void save(DocumentEntity document) {
-        resumeRepository.save(document);
+    private void save(ResumeModel resume) {
+        resumeRepository.save(resume);
     }
 }
