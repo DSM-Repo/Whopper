@@ -6,12 +6,12 @@ import com.example.whopper.domain.library.ShardLibrary;
 
 import java.util.List;
 
-public record DocumentResponse(
+public record ResumeResponse(
         IntroduceElementDto introduce,
         List<ShardLibrary> recentlyShared
 ) {
-    public static DocumentResponse of(DocumentEntity document, List<ShardLibrary> recentlyShared) {
-        return new DocumentResponse(
+    public static ResumeResponse of(DocumentEntity document, List<ShardLibrary> recentlyShared) {
+        return new ResumeResponse(
                 IntroduceElementDto.fromElement(document.getIntroduce()),
                 recentlyShared
         );

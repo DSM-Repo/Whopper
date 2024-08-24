@@ -1,13 +1,13 @@
 package com.example.whopper.interfaces.resume;
 
-import com.example.whopper.application.resume.usecase.FindDocumentUseCase;
+import com.example.whopper.application.resume.usecase.FindResumeUseCase;
 import com.example.whopper.application.resume.usecase.ReleaseDocumentUseCase;
 import com.example.whopper.application.resume.usecase.SubmitMyDocumentUseCase;
 import com.example.whopper.domain.resume.detail.CompletionElementLevel;
-import com.example.whopper.interfaces.resume.dto.response.DocumentResponse;
-import com.example.whopper.interfaces.resume.dto.response.FullDocumentResponse;
-import com.example.whopper.interfaces.resume.dto.response.ReleasedDocumentResponse;
-import com.example.whopper.interfaces.resume.dto.response.SearchDocumentResponse;
+import com.example.whopper.interfaces.resume.dto.response.ResumeResponse;
+import com.example.whopper.interfaces.resume.dto.response.FullResumeResponse;
+import com.example.whopper.interfaces.resume.dto.response.ReleasedResumeResponse;
+import com.example.whopper.interfaces.resume.dto.response.SearchResumeResponse;
 import com.example.whopper.common.annotation.OnlyStudent;
 import com.example.whopper.common.annotation.OnlyTeacher;
 import com.example.whopper.common.http.response.DataResponseInfo;
@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 @RequestMapping("/document")
 class DocumentController {
-    private final FindDocumentUseCase findDocumentUseCase;
+    private final FindResumeUseCase findResumeUseCase;
     private final SubmitMyDocumentUseCase submitMyDocumentUseCase;
     private final ReleaseDocumentUseCase releaseDocumentUseCase;
 
@@ -39,49 +39,49 @@ class DocumentController {
 
     @OnlyTeacher
     @GetMapping("/student")
-    DataResponseInfo<SearchDocumentResponse> search(
+    DataResponseInfo<SearchResumeResponse> search(
             @RequestParam(required = false) String name,
             @RequestParam(required = false) Integer grade,
             @RequestParam(required = false) Integer classNumber,
             @RequestParam(required = false) String majorId,
             @RequestParam(required = false) String status
     ) {
-        return findDocumentUseCase.searchDocument(name, grade, classNumber, majorId, status);
+        return findResumeUseCase.searchResume(name, grade, classNumber, majorId, status);
     }
 
     @OnlyTeacher
     @GetMapping("/released")
-    DataResponseInfo<ReleasedDocumentResponse> getReleasedDocuments() {
-        return findDocumentUseCase.getReleasedDocuments();
+    DataResponseInfo<ReleasedResumeResponse> getReleasedDocuments() {
+        return findResumeUseCase.getReleasedResumes();
     }
 
     @OnlyTeacher
     @GetMapping("/released/grade/{grade}/year/{year}")
-    DataResponseInfo<FullDocumentResponse> getReleasedDocumentsByGradeAndYear(@PathVariable Integer grade, @PathVariable Integer year) {
-        return findDocumentUseCase.getReleasedDocumentsByGradeAndYear(grade, year);
+    DataResponseInfo<FullResumeResponse> getReleasedDocumentsByGradeAndYear(@PathVariable Integer grade, @PathVariable Integer year) {
+        return findResumeUseCase.getReleasedResumesByGradeAndYear(grade, year);
     }
 
     @OnlyTeacher
     @GetMapping("/student/{documentId}")
-    FullDocumentResponse getSubmittedDocument(@PathVariable String documentId) {
-        return findDocumentUseCase.getSubmittedDocument(documentId);
+    FullResumeResponse getSubmittedDocument(@PathVariable String documentId) {
+        return findResumeUseCase.getSubmittedResume(documentId);
     }
 
     @OnlyStudent
     @GetMapping("/completion")
     CompletionElementLevel getCompletionLevel() {
-        return findDocumentUseCase.getCurrentStudentDocumentCompletionLevel();
+        return findResumeUseCase.getCurrentStudentResumeCompletionLevel();
     }
 
     @OnlyStudent
     @GetMapping
-    DocumentResponse getIntroduceRecentlySharedDocuments() {
-        return findDocumentUseCase.getIntroduceRecentlySharedDocuments();
+    ResumeResponse getIntroduceRecentlySharedDocuments() {
+        return findResumeUseCase.getIntroduceRecentlySharedResumes();
     }
 
     @OnlyStudent
     @GetMapping("/detail")
-    FullDocumentResponse getCurrentDocument() {
-        return findDocumentUseCase.getCurrentStudentDocument();
+    FullResumeResponse getCurrentDocument() {
+        return findResumeUseCase.getCurrentStudentResume();
     }
 }

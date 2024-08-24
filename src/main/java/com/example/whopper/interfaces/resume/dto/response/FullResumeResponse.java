@@ -13,7 +13,7 @@ import java.time.Year;
 import java.util.List;
 import java.util.Set;
 
-public record FullDocumentResponse(
+public record FullResumeResponse(
         String id,
         DocumentWriterResponse writer,
         DocumentStatus status,
@@ -22,8 +22,8 @@ public record FullDocumentResponse(
         List<AchievementElementDto> achievementList,
         List<ActivityElementDto> activityList
 ) {
-    public static FullDocumentResponse of(DocumentEntity document, String majorName) {
-        return new FullDocumentResponse(
+    public static FullResumeResponse of(DocumentEntity document, String majorName) {
+        return new FullResumeResponse(
                 document.getId(),
                 DocumentWriterResponse.of(document.getStudent(), document, majorName),
                 document.getStatus(),
