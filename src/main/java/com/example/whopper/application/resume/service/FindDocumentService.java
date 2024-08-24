@@ -73,17 +73,17 @@ class FindDocumentService implements FindDocumentUseCase {
     public DataResponseInfo<SearchDocumentResponse> searchDocument(String name, Integer grade, Integer classNumber, String majorId, String status) {
         var teacherId = teacherComponent.currentTeacher().getId();
 
-        var documents = documentRepository.searchDocuments(name, grade, classNumber, majorId, status).toList();
+        var documents = documentRepository.searchDocuments(name, grade, classNumber, majorId, status);
         var documentIds = documents.stream().map(DocumentEntity::getId).toList();
 
         Map<String, List<FeedbackEntity>> feedbackMap = feedbackMongoRepository.findAllByDocumentIdInAndTeacherId(documentIds, teacherId)
+                .stream()
                 .collect(Collectors.groupingBy(FeedbackEntity::getDocumentId));
-
 
         var responses = documents.stream()
                 .map(document -> SearchDocumentResponse.of(
                         document,
-                        feedbackMap.getOrDefault(document.getId(), Collections.emptyList())
+                        feedbackMap.get(document.getId())
                                 .stream()
                                 .map(SearchDocumentResponse.Feedback::fromFeedback)
                                 .toList()

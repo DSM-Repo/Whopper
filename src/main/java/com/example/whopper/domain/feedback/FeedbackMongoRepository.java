@@ -11,5 +11,5 @@ public interface FeedbackMongoRepository extends MongoRepository<FeedbackEntity,
     void deleteAllByDocumentId(String documentId);
     Stream<FeedbackEntity> findAllByTeacherId(String teacherId);
     Stream<FeedbackEntity> findAllByDocumentIdAndTeacherId(String documentId, String teacherId);
-    Stream<FeedbackEntity> findAllByDocumentIdInAndTeacherId(List<String> documentIds, String teacherId);
+    List<FeedbackEntity> findAllByDocumentIdInAndTeacherId(List<String> documentIds, String teacherId);
 }
