@@ -1,6 +1,16 @@
 package com.example.whopper.domain.resume;
 
+import java.util.Optional;
+
 public class ResumeEntityMapper {
+
+    public static Optional<DocumentEntity> toOptionalEntity(Optional<ResumeModel> model) {
+        return model.map(ResumeEntityMapper::toEntity);
+    }
+
+    public static Optional<ResumeModel> toOptionalModel(Optional<DocumentEntity> entity) {
+        return entity.map(ResumeEntityMapper::toModel);
+    }
 
     public static DocumentEntity toEntity(ResumeModel model) {
         return DocumentEntity.builder()
