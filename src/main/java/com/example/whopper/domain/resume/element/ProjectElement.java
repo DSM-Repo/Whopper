@@ -5,7 +5,9 @@ import com.example.whopper.domain.resume.element.type.ProjectType;
 import com.example.whopper.interfaces.resume.dto.ProjectElementDto;
 import com.example.whopper.domain.file.ImageInfo;
 import lombok.Getter;
+import org.bson.types.ObjectId;
 
+import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -16,10 +18,10 @@ public class ProjectElement extends AbstractElement {
         private final String startDate;
         private final String endDate;
         private final Set<String> skillSet;
-        private final ProjectDescription description;
+        private final List<Section> sections;
         private final String url;
 
-        protected ProjectElement(String elementId, String name, ImageInfo imageInfo, ProjectType type, String startDate, String endDate, Set<String> skillSet, ProjectDescription description, String url) {
+        protected ProjectElement(String elementId, String name, ImageInfo imageInfo, ProjectType type, String startDate, String endDate, Set<String> skillSet, List<Section> sections, String url) {
                 super(elementId);
                 this.name = name;
                 this.imageInfo = imageInfo;
@@ -27,7 +29,7 @@ public class ProjectElement extends AbstractElement {
                 this.startDate = startDate;
                 this.endDate = endDate;
                 this.skillSet = skillSet;
-                this.description = description;
+                this.sections = sections;
                 this.url = url;
         }
 
@@ -40,18 +42,20 @@ public class ProjectElement extends AbstractElement {
                         request.startDate(),
                         request.endDate(),
                         request.skillSet(),
-                        request.description(),
+                        request.sections(),
                         request.url()
                 );
         }
 
-        public record ProjectDescription(
-                String motive,
-                String role,
-                String retrospective
+        public record Section(
+                String elementId,
+                String title,
+                String description
         ) {
-                public static ProjectDescription of(String motive, String role, String retrospective) {
-                        return new ProjectDescription(motive, role, retrospective);
+                public Section {
+                        if (elementId.isBlank()) {
+                                elementId = new ObjectId().toHexString();
+                        }
                 }
         }
 }
