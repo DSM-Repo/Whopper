@@ -34,7 +34,7 @@ public class FindFeedbackService implements FindFeedbackUseCase {
     }
 
     private List<FeedbackEntity> getFeedbackResponsesByDocumentId(String documentId) {
-        return feedbackMongoRepository.findAllByDocumentId(documentId);
+        return feedbackMongoRepository.findAllByDocumentIdAndStatus(documentId, FeedbackEntity.Status.PENDING);
     }
 
     @Override
