@@ -13,7 +13,7 @@ import java.util.stream.Stream;
 public class MongoUtilsImpl implements MongoUtils {
     private final MongoTemplate mongoTemplate;
 
-    public <T> Stream<T> find(Query query, Class<T> targetClass) {
-        return mongoTemplate.find(query, targetClass).stream();
+    public <T> List<T> find(Query query, Class<T> targetClass) {
+        return mongoTemplate.find(query, targetClass);
     }
 }
