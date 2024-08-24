@@ -3,6 +3,7 @@ package com.example.whopper.application.resume.service;
 import com.example.whopper.application.resume.usecase.FindResumeUseCase;
 import com.example.whopper.domain.resume.ResumeRepository;
 import com.example.whopper.domain.resume.detail.CompletionElementLevel;
+import com.example.whopper.interfaces.resume.dto.ResumeElementDto;
 import com.example.whopper.interfaces.resume.dto.response.ResumeResponse;
 import com.example.whopper.interfaces.resume.dto.response.FullResumeResponse;
 import com.example.whopper.interfaces.resume.dto.response.ReleasedResumeResponse;
@@ -43,30 +44,25 @@ class FindResumeService implements FindResumeUseCase {
     @Override
     public FullResumeResponse getCurrentStudentResume() {
         var currentStudentDocument = currentStudent.getDocument();
-        var student = currentStudentDocument.getStudent();
-        var majorName = getMajorName(student);
 
-        return FullResumeResponse.of(currentStudentDocument, majorName);
+        return FullResumeResponse.of(currentStudentDocument);
     }
 
     @Override
     public FullResumeResponse getSubmittedResume(String resumeId) {
-        var document = resumeRepository.findById(resumeId)
+        var resume = resumeRepository.findById(resumeId)
                 .orElseThrow(() -> ResumeNotFoundException.EXCEPTION);
 
-        var student = document.getStudent();
-        var majorName = getMajorName(student);
-
-        return FullResumeResponse.of(document, majorName);
+        return FullResumeResponse.of(resume);
     }
 
     @Override
     public DataResponseInfo<SearchResumeResponse> searchResume(String name, Integer grade, Integer classNumber, String majorId, String status) {
         return DataResponseInfo.of(
                 resumeRepository.searchDocuments(name, grade, classNumber, majorId, status)
-                        .map(document -> SearchResumeResponse.of(
-                                document,
-                                feedbackMongoRepository.countByDocumentId(document.getId())
+                        .map(resume -> SearchResumeResponse.of(
+                                resume,
+                                feedbackMongoRepository.countByDocumentId(resume.id())
                         ))
                         .toList()
         );
@@ -91,15 +87,11 @@ class FindResumeService implements FindResumeUseCase {
     @Override
     public DataResponseInfo<FullResumeResponse> getReleasedResumesByGradeAndYear(int grade, int year) {
         var generation = (year - 2013) - grade;
-        var document = resumeRepository.getReleasedDocumentsByGenerationAndYear(generation, year);
+        var resume = resumeRepository.getReleasedDocumentsByGenerationAndYear(generation, year);
 
-        var response = document.map(doc -> FullResumeResponse.of(doc, doc.getStudent().getMajor().name()))
+        var response = resume.map(FullResumeResponse::of)
                 .toList();
 
         return DataResponseInfo.of(response);
-    }
-
-    private String getMajorName(StudentEntity student) {
-        return student.getMajor() == null ? "전공 미정" : student.getMajor().name();
     }
 }

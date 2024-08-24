@@ -1,13 +1,7 @@
 package com.example.whopper.interfaces.resume.dto.response;
 
-import com.example.whopper.domain.resume.element.DocumentStatus;
-import com.example.whopper.interfaces.resume.dto.AchievementElementDto;
-import com.example.whopper.interfaces.resume.dto.ActivityElementDto;
-import com.example.whopper.interfaces.resume.dto.IntroduceElementDto;
-import com.example.whopper.interfaces.resume.dto.ProjectElementDto;
-import com.example.whopper.domain.resume.DocumentEntity;
-import com.example.whopper.domain.student.ClassInfo;
-import com.example.whopper.domain.student.StudentEntity;
+import com.example.whopper.domain.resume.ResumeModel;
+import com.example.whopper.interfaces.resume.dto.*;
 
 import java.time.Year;
 import java.util.List;
@@ -16,21 +10,21 @@ import java.util.Set;
 public record FullResumeResponse(
         String id,
         DocumentWriterResponse writer,
-        DocumentStatus status,
-        IntroduceElementDto introduce,
-        List<ProjectElementDto>projectList,
-        List<AchievementElementDto> achievementList,
-        List<ActivityElementDto> activityList
+        ResumeElementDto.Status status,
+        ResumeElementDto.Introduce introduce,
+        List<ResumeElementDto.Project>projectList,
+        List<ResumeElementDto.Achievement> achievementList,
+        List<ResumeElementDto.Activity> activityList
 ) {
-    public static FullResumeResponse of(DocumentEntity document, String majorName) {
+    public static FullResumeResponse of(ResumeModel resume) {
         return new FullResumeResponse(
-                document.getId(),
-                DocumentWriterResponse.of(document.getStudent(), document, majorName),
-                document.getStatus(),
-                IntroduceElementDto.fromEntity(document.getIntroduce()),
-                document.getProjectList().stream().map(ProjectElementDto::fromEntity).toList(),
-                document.getAchievementList().stream().map(AchievementElementDto::fromEntity).toList(),
-                document.getActivityList().stream().map(ActivityElementDto::fromEntity).toList()
+                resume.id(),
+                DocumentWriterResponse.of(resume),
+                resume.status(),
+                resume.introduce(),
+                resume.projectList(),
+                resume.achievementList(),
+                resume.activityList()
         );
     }
 
@@ -38,23 +32,24 @@ public record FullResumeResponse(
             String name,
             String email,
             String majorName,
-            ClassInfo classInfo,
+            ResumeElementDto.Writer.SchoolInfo classInfo,
             String department,
             String url,
             Set<String> skillSet
     ) {
-        public static DocumentWriterResponse of(StudentEntity student, DocumentEntity document, String majorName) {
-            final var classInfo = student.getClassInfo();
-            final var schoolNumber = classInfo.schoolNumber();
+        public static DocumentWriterResponse of(ResumeModel resume) {
+            final var schoolInfo = resume.writer().schoolInfo();
+            final var schoolNumber = schoolInfo.schoolNumber();
+            final var writer = resume.writer();
 
             return new DocumentWriterResponse(
-                    student.getName(),
-                    document.getWriter().getEmail(),
-                    majorName,
-                    classInfo,
+                    writer.name(),
+                    writer.email(),
+                    writer.major().majorName(),
+                    schoolInfo,
                     SchoolDepartmentEnum.getBySchoolNumber(schoolNumber),
-                    document.getWriter().getUrl(),
-                    document.getWriter().getSkillSet()
+                    writer.url(),
+                    writer.skillSet()
             );
         }
 
