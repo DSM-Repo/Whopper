@@ -31,7 +31,7 @@ public class MajorController {
     }
 
     @OnlyTeacher
-    @PutMapping
+    @PutMapping("/del")
     public void delete(@RequestBody IdRequest request) {
         deleteMajorUseCase.delete(request.id);
     }

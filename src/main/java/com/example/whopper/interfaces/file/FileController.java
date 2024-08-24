@@ -26,7 +26,7 @@ public class FileController {
         return new ImagePathResponse(imageUseCase.getFileBaseUrl() + path, filePart.getOriginalFilename());
     }
 
-    @PutMapping
+    @PutMapping("/del")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     void deleteImage(@RequestBody UrlRequest request) {
         imageUseCase.deleteImage(request.url);
