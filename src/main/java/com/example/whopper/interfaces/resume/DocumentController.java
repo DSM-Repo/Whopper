@@ -1,8 +1,8 @@
 package com.example.whopper.interfaces.resume;
 
 import com.example.whopper.application.resume.usecase.FindResumeUseCase;
-import com.example.whopper.application.resume.usecase.ReleaseDocumentUseCase;
-import com.example.whopper.application.resume.usecase.SubmitMyDocumentUseCase;
+import com.example.whopper.application.resume.usecase.ReleaseResumeUseCase;
+import com.example.whopper.application.resume.usecase.SubmitMyResumeUseCase;
 import com.example.whopper.domain.resume.detail.CompletionElementLevel;
 import com.example.whopper.interfaces.resume.dto.response.ResumeResponse;
 import com.example.whopper.interfaces.resume.dto.response.FullResumeResponse;
@@ -20,21 +20,21 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/document")
 class DocumentController {
     private final FindResumeUseCase findResumeUseCase;
-    private final SubmitMyDocumentUseCase submitMyDocumentUseCase;
-    private final ReleaseDocumentUseCase releaseDocumentUseCase;
+    private final SubmitMyResumeUseCase submitMyResumeUseCase;
+    private final ReleaseResumeUseCase releaseResumeUseCase;
 
     @OnlyTeacher
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PostMapping("/release/{documentId}")
     void release(@PathVariable String documentId) {
-        releaseDocumentUseCase.release(documentId);
+        releaseResumeUseCase.release(documentId);
     }
 
     @OnlyStudent
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PostMapping("/submit")
     void submit() {
-        submitMyDocumentUseCase.submit();
+        submitMyResumeUseCase.submit();
     }
 
     @OnlyTeacher

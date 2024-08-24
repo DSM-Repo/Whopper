@@ -1,6 +1,6 @@
 package com.example.whopper.application.resume.service;
 
-import com.example.whopper.application.resume.usecase.SubmitMyDocumentUseCase;
+import com.example.whopper.application.resume.usecase.SubmitMyResumeUseCase;
 import com.example.whopper.domain.resume.ResumeModel;
 import com.example.whopper.domain.resume.ResumeRepository;
 import com.example.whopper.application.student.component.CurrentStudent;
@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional
 @RequiredArgsConstructor
-class SubmitMyDocumentService implements SubmitMyDocumentUseCase {
+class SubmitMyResumeService implements SubmitMyResumeUseCase {
     private final ResumeRepository resumeRepository;
     private final CurrentStudent currentStudent;
 

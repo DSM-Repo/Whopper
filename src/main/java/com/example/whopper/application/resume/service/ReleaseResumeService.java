@@ -1,6 +1,6 @@
 package com.example.whopper.application.resume.service;
 
-import com.example.whopper.application.resume.usecase.ReleaseDocumentUseCase;
+import com.example.whopper.application.resume.usecase.ReleaseResumeUseCase;
 import com.example.whopper.domain.resume.ResumeModel;
 import com.example.whopper.domain.resume.ResumeRepository;
 import com.example.whopper.common.exception.resume.DocumentIllegalStatusException;
@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional
 @RequiredArgsConstructor
-class ReleaseDocumentService implements ReleaseDocumentUseCase {
+class ReleaseResumeService implements ReleaseResumeUseCase {
     private final ResumeRepository resumeRepository;
     private final FeedbackMongoRepository feedbackMongoRepository;
 
