@@ -1,6 +1,7 @@
 package com.example.whopper.domain.resume;
 
 import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import org.springframework.data.annotation.Id;
@@ -12,6 +13,7 @@ import java.util.Set;
 @Getter(value = AccessLevel.PACKAGE)
 @Builder(access = AccessLevel.PACKAGE)
 @Document(collection = "document_repo")
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 class ResumeEntity {
 
     /* fields */
