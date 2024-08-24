@@ -53,7 +53,7 @@ class ResumeEntity {
 
     record Project(
             String name,
-            Image projectLogo,
+            Logo logo,
             Type type,
             Date date,
             Set<String> skillSet,
@@ -65,7 +65,7 @@ class ResumeEntity {
                 String description
         ) {}
 
-        record Image(
+        record Logo(
                 String imagePath,
                 String originalName
         ) {}

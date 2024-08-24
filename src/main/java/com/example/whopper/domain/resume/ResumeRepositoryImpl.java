@@ -13,8 +13,8 @@ import java.util.stream.Stream;
 class ResumeRepositoryImpl extends AbstractResumeRepository {
     private final MongoUtils mongoUtils;
 
-    public ResumeRepositoryImpl(ResumeMongoRepository resumeMongoRepository, MongoUtils mongoUtils) {
-        super(resumeMongoRepository);
+    public ResumeRepositoryImpl(ResumeMongoRepository resumeMongoRepository, MongoUtils mongoUtils, ResumeEntityMapper resumeEntityMapper, ResumeElementMapper resumeElementMapper) {
+        super(resumeMongoRepository, resumeEntityMapper, resumeElementMapper);
         this.mongoUtils = mongoUtils;
     }
 
@@ -24,7 +24,7 @@ class ResumeRepositoryImpl extends AbstractResumeRepository {
         query.with(getSort());
 
         return mongoUtils.find(query, ResumeEntity.class)
-                .map(ResumeEntityMapper::toModel);
+                .map(resumeEntityMapper::toModel);
     }
 
     private Query searchQuery(String name, Integer grade, Integer classNumber, String majorId, String status) {
