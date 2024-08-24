@@ -44,7 +44,7 @@ public class FeedbackEntity {
         rejected = true;
     }
 
-    enum Status {
+    public enum Status {
         CONFIRMED,
         PENDING
     }
