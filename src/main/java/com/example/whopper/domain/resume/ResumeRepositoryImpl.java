@@ -19,11 +19,11 @@ class ResumeRepositoryImpl extends AbstractResumeRepository {
     }
 
     @Override
-    public Stream<DocumentEntity> searchDocuments(String name, Integer grade, Integer classNumber, String majorId, String status) {
+    public Stream<ResumeEntity> searchDocuments(String name, Integer grade, Integer classNumber, String majorId, String status) {
         Query query = searchQuery(name, grade, classNumber, majorId, status);
         query.with(getSort());
 
-        return mongoUtils.find(query, DocumentEntity.class);
+        return mongoUtils.find(query, ResumeEntity.class);
     }
 
     private Query searchQuery(String name, Integer grade, Integer classNumber, String majorId, String status) {

@@ -12,7 +12,7 @@ import java.util.Set;
 @Getter(value = AccessLevel.PACKAGE)
 @Builder(access = AccessLevel.PACKAGE)
 @Document(collection = "document_repo")
-class DocumentEntity {
+class ResumeEntity {
 
     /* fields */
     @Id
@@ -76,6 +76,7 @@ class DocumentEntity {
     }
 
     record Writer(
+            String id,
             String name,
             SchoolInfo schoolInfo,
             Major major,
@@ -115,5 +116,5 @@ class DocumentEntity {
             String endDate
     ) {}
 
-    protected DocumentEntity() {}
+    protected ResumeEntity() {}
 }

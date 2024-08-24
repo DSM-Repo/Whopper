@@ -4,16 +4,16 @@ import java.util.Optional;
 
 public class ResumeEntityMapper {
 
-    public static Optional<DocumentEntity> toOptionalEntity(Optional<ResumeModel> model) {
+    public static Optional<ResumeEntity> toOptionalEntity(Optional<ResumeModel> model) {
         return model.map(ResumeEntityMapper::toEntity);
     }
 
-    public static Optional<ResumeModel> toOptionalModel(Optional<DocumentEntity> entity) {
+    public static Optional<ResumeModel> toOptionalModel(Optional<ResumeEntity> entity) {
         return entity.map(ResumeEntityMapper::toModel);
     }
 
-    public static DocumentEntity toEntity(ResumeModel model) {
-        return DocumentEntity.builder()
+    public static ResumeEntity toEntity(ResumeModel model) {
+        return ResumeEntity.builder()
                 .id(model.id())
                 .year(model.year())
                 .status(ResumeElementMapper.toStatusEntity(model.status()))
@@ -25,7 +25,7 @@ public class ResumeEntityMapper {
                 .build();
     }
 
-    public static ResumeModel toModel(DocumentEntity entity) {
+    public static ResumeModel toModel(ResumeEntity entity) {
         return ResumeModel.builder()
                 .id(entity.getId())
                 .year(entity.getYear())
