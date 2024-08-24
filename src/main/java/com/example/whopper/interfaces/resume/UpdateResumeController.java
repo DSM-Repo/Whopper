@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/document")
-class UpdateDocumentController {
+class UpdateResumeController {
     private final UpdateActivityListUseCase updateActivityListUseCase;
     private final UpdateAchievementListUseCase updateAchievementListUseCase;
     private final UpdateProjectListUseCase updateProjectListUseCase;

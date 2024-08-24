@@ -18,16 +18,16 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/document")
-class DocumentController {
+class ResumeController {
     private final FindResumeUseCase findResumeUseCase;
     private final SubmitMyResumeUseCase submitMyResumeUseCase;
     private final ReleaseResumeUseCase releaseResumeUseCase;
 
     @OnlyTeacher
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @PostMapping("/release/{documentId}")
-    void release(@PathVariable String documentId) {
-        releaseResumeUseCase.release(documentId);
+    @PostMapping("/release/{resumeId}")
+    void release(@PathVariable String resumeId) {
+        releaseResumeUseCase.release(resumeId);
     }
 
     @OnlyStudent
@@ -51,19 +51,19 @@ class DocumentController {
 
     @OnlyTeacher
     @GetMapping("/released")
-    DataResponseInfo<ReleasedResumeResponse> getReleasedDocuments() {
+    DataResponseInfo<ReleasedResumeResponse> getReleasedResumes() {
         return findResumeUseCase.getReleasedResumes();
     }
 
     @OnlyTeacher
     @GetMapping("/released/grade/{grade}/year/{year}")
-    DataResponseInfo<FullResumeResponse> getReleasedDocumentsByGradeAndYear(@PathVariable Integer grade, @PathVariable Integer year) {
+    DataResponseInfo<FullResumeResponse> getReleasedResumesByGradeAndYear(@PathVariable Integer grade, @PathVariable Integer year) {
         return findResumeUseCase.getReleasedResumesByGradeAndYear(grade, year);
     }
 
     @OnlyTeacher
     @GetMapping("/student/{documentId}")
-    FullResumeResponse getSubmittedDocument(@PathVariable String documentId) {
+    FullResumeResponse getSubmittedResume(@PathVariable String documentId) {
         return findResumeUseCase.getSubmittedResume(documentId);
     }
 
@@ -75,13 +75,13 @@ class DocumentController {
 
     @OnlyStudent
     @GetMapping
-    ResumeResponse getIntroduceRecentlySharedDocuments() {
+    ResumeResponse getIntroduceRecentlySharedResumes() {
         return findResumeUseCase.getIntroduceRecentlySharedResumes();
     }
 
     @OnlyStudent
     @GetMapping("/detail")
-    FullResumeResponse getCurrentDocument() {
+    FullResumeResponse getCurrentResume() {
         return findResumeUseCase.getCurrentStudentResume();
     }
 }
