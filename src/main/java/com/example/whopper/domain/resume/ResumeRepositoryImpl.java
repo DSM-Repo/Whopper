@@ -20,11 +20,7 @@ class ResumeRepositoryImpl extends AbstractResumeRepository {
     }
 
     @Override
-<<<<<<< HEAD:src/main/java/com/example/whopper/domain/resume/ResumeRepositoryImpl.java
     public Stream<ResumeModel> searchDocuments(String name, Integer grade, Integer classNumber, String majorId, String status) {
-=======
-    public List<DocumentEntity> searchDocuments(String name, Integer grade, Integer classNumber, String majorId, String status) {
->>>>>>> origin/main:src/main/java/com/example/whopper/domain/resume/DocumentRepositoryImpl.java
         Query query = searchQuery(name, grade, classNumber, majorId, status);
         query.with(getSort());
 
