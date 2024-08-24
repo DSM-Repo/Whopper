@@ -33,8 +33,8 @@ public class FindFeedbackService implements FindFeedbackUseCase {
         return DataResponseInfo.of(feedbackList);
     }
 
-    private List<FeedbackEntity> getFeedbackResponsesByDocumentId(String resumeId) {
-        return feedbackMongoRepository.findAllByDocumentId(resumeId);
+    private List<FeedbackEntity> getFeedbackResponsesByDocumentId(String documentId) {
+        return feedbackMongoRepository.findAllByDocumentIdAndStatus(documentId, FeedbackEntity.Status.PENDING);
     }
 
     @Override
