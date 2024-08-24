@@ -1,7 +1,7 @@
 package com.example.whopper.application.student.component;
 
 import com.example.whopper.domain.resume.ResumeRepository;
-import com.example.whopper.common.exception.resume.DocumentNotFoundException;
+import com.example.whopper.common.exception.resume.ResumeNotFoundException;
 import com.example.whopper.domain.resume.ResumeModel;
 import com.example.whopper.domain.student.StudentMongoRepository;
 import com.example.whopper.domain.student.StudentEntity;
@@ -29,6 +29,6 @@ public class CurrentStudentImpl implements CurrentStudent {
     @Override
     public ResumeModel getDocument() {
         return resumeRepository.findByWriterId(getStudent().getId())
-                .orElseThrow(() -> DocumentNotFoundException.EXCEPTION);
+                .orElseThrow(() -> ResumeNotFoundException.EXCEPTION);
     }
 }

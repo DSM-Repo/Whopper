@@ -7,7 +7,7 @@ import com.example.whopper.interfaces.resume.dto.response.DocumentResponse;
 import com.example.whopper.interfaces.resume.dto.response.FullDocumentResponse;
 import com.example.whopper.interfaces.resume.dto.response.ReleasedDocumentResponse;
 import com.example.whopper.interfaces.resume.dto.response.SearchDocumentResponse;
-import com.example.whopper.common.exception.resume.DocumentNotFoundException;
+import com.example.whopper.common.exception.resume.ResumeNotFoundException;
 import com.example.whopper.domain.feedback.FeedbackMongoRepository;
 import com.example.whopper.domain.library.LibraryMongoRepository;
 import com.example.whopper.domain.library.ShardLibrary;
@@ -52,7 +52,7 @@ class FindDocumentService implements FindDocumentUseCase {
     @Override
     public FullDocumentResponse getSubmittedDocument(String documentId) {
         var document = resumeRepository.findById(documentId)
-                .orElseThrow(() -> DocumentNotFoundException.EXCEPTION);
+                .orElseThrow(() -> ResumeNotFoundException.EXCEPTION);
 
         var student = document.getStudent();
         var majorName = getMajorName(student);

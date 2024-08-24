@@ -4,7 +4,7 @@ import com.example.whopper.domain.resume.ResumeRepository;
 import com.example.whopper.domain.resume.DocumentEntity;
 import com.example.whopper.domain.resume.element.DocumentStatus;
 import com.example.whopper.common.exception.resume.DocumentIllegalStatusException;
-import com.example.whopper.common.exception.resume.DocumentNotFoundException;
+import com.example.whopper.common.exception.resume.ResumeNotFoundException;
 import com.example.whopper.application.feedback.usecase.AddFeedbackUseCase;
 import com.example.whopper.domain.feedback.FeedbackMongoRepository;
 import com.example.whopper.domain.feedback.FeedbackEntity;
@@ -26,7 +26,7 @@ public class AddFeedbackService implements AddFeedbackUseCase {
     @Override
     public void addFeedback(FeedbackRequest request) {
         DocumentEntity document = resumeRepository.findById(request.documentId())
-                        .orElseThrow(()-> DocumentNotFoundException.EXCEPTION);
+                        .orElseThrow(()-> ResumeNotFoundException.EXCEPTION);
 
         if(document.getStatus() != DocumentStatus.SUBMITTED) throw DocumentIllegalStatusException.EXCEPTION;
 
