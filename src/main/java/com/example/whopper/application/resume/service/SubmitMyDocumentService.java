@@ -1,10 +1,10 @@
 package com.example.whopper.application.resume.service;
 
 import com.example.whopper.application.resume.usecase.SubmitMyDocumentUseCase;
+import com.example.whopper.domain.resume.ResumeModel;
 import com.example.whopper.domain.resume.ResumeRepository;
-import com.example.whopper.domain.resume.DocumentEntity;
-import com.example.whopper.domain.resume.element.DocumentStatus;
 import com.example.whopper.application.student.component.CurrentStudent;
+import com.example.whopper.interfaces.resume.dto.ResumeElementDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,26 +18,27 @@ class SubmitMyDocumentService implements SubmitMyDocumentUseCase {
 
     @Override
     public void submit() {
-        var document = currentStudent.getDocument();
+        var resume = currentStudent.getDocument();
 
-        if (document.getStatus().equals(DocumentStatus.SUBMITTED)) {
-            cancelSubmit(document);
+        ResumeModel newResume;
+        if (resume.status().equals(ResumeElementDto.Status.SUBMITTED)) {
+            newResume =cancelSubmit(resume);
         } else {
-            submit(document);
+            newResume = submit(resume);
         }
 
-        save(document);
+        save(newResume);
     }
 
-    private void cancelSubmit(DocumentEntity document) {
-        document.onGoing();
+    private ResumeModel cancelSubmit(ResumeModel resume) {
+        return resume.onGoing();
     }
 
-    private void submit(DocumentEntity document) {
-        document.submit();
+    private ResumeModel submit(ResumeModel resume) {
+        return resume.submit();
     }
 
-    private void save(DocumentEntity document) {
-        resumeRepository.save(document);
+    private void save(ResumeModel resume) {
+        resumeRepository.save(resume);
     }
 }
