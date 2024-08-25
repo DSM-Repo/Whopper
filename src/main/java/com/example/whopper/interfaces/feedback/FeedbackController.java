@@ -1,16 +1,18 @@
 package com.example.whopper.interfaces.feedback;
 
+import com.example.whopper.application.feedback.usecase.AcceptFeedbackUseCase;
 import com.example.whopper.application.feedback.usecase.AddFeedbackUseCase;
 import com.example.whopper.application.feedback.usecase.ConfirmFeedbackUseCase;
 import com.example.whopper.application.feedback.usecase.DeleteFeedbackUseCase;
 import com.example.whopper.application.feedback.usecase.FindFeedbackUseCase;
+import com.example.whopper.application.feedback.usecase.RejectFeedbackUseCase;
 import com.example.whopper.application.feedback.usecase.UpdateFeedbackUseCase;
 import com.example.whopper.interfaces.feedback.dto.FeedbackRequest;
 import com.example.whopper.interfaces.feedback.dto.FeedbackResponse;
 import com.example.whopper.interfaces.feedback.dto.UpdateFeedbackRequest;
 import com.example.whopper.common.annotation.OnlyStudent;
 import com.example.whopper.common.annotation.OnlyTeacher;
-import com.example.whopper.global.utils.DataResponseInfo;
+import com.example.whopper.common.http.response.DataResponseInfo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,6 +22,10 @@ import org.springframework.web.bind.annotation.*;
 public class FeedbackController {
 
     private final AddFeedbackUseCase addFeedbackUseCase;
+
+    private final AcceptFeedbackUseCase acceptFeedbackUseCase;
+
+    private final RejectFeedbackUseCase rejectFeedbackUseCase;
 
     private final UpdateFeedbackUseCase updateFeedbackUseCase;
 
@@ -33,6 +39,18 @@ public class FeedbackController {
     @PostMapping("/confirm")
     public void confirm(@RequestBody IdRequest request) {
         confirmFeedbackUseCase.confirm(request.id);
+    }
+
+    @OnlyTeacher
+    @PostMapping("/accept")
+    public void accept(@RequestBody IdRequest request) {
+        acceptFeedbackUseCase.accept(request.id);
+    }
+
+    @OnlyTeacher
+    @PostMapping("/reject")
+    public void reject(@RequestBody IdRequest request) {
+        rejectFeedbackUseCase.reject(request.id);
     }
 
     @OnlyStudent

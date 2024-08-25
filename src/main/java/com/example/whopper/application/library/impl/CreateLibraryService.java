@@ -5,7 +5,7 @@ import com.example.whopper.domain.library.LibraryMongoRepository;
 import com.example.whopper.domain.library.DocumentIndex;
 import com.example.whopper.domain.library.LibraryEntity;
 import com.example.whopper.domain.library.type.AccessRight;
-import com.example.whopper.global.utils.DataResponseInfo;
+import com.example.whopper.common.http.response.DataResponseInfo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

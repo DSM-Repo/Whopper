@@ -1,6 +1,5 @@
 package com.example.whopper.domain.feedback;
 
-import com.example.whopper.domain.resume.element.type.DocumentElementType;
 import com.example.whopper.domain.teacher.TeacherEntity;
 import lombok.Builder;
 import lombok.Getter;
@@ -14,22 +13,22 @@ public class FeedbackEntity {
     @Id
     private String id;
     private String comment;
-    private DocumentElementType type;
-
+    private Type type;
     private String documentId;
-
     private Status status;
+    private Boolean rejected;
 
     @DBRef(lazy = true)
     private TeacherEntity teacher;
 
     @Builder
-    public FeedbackEntity(String comment, DocumentElementType type, String documentId, TeacherEntity teacher) {
+    public FeedbackEntity(String comment, Type type, String documentId, TeacherEntity teacher) {
         this.comment = comment;
         this.type = type;
         this.documentId = documentId;
         status = Status.PENDING;
         this.teacher = teacher;
+        this.rejected = false;
     }
 
     public void updateFeedback(String comment) {
@@ -40,8 +39,16 @@ public class FeedbackEntity {
         status = Status.CONFIRMED;
     }
 
-    enum Status {
+    public void rejected() {
+        rejected = true;
+    }
+
+    public enum Status {
         CONFIRMED,
         PENDING
+    }
+
+    public enum Type {
+        PROJECT, ACTIVITY, WRITER_INFO, INTRODUCE, ACHIEVEMENT
     }
 }
