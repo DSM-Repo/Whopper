@@ -6,6 +6,7 @@ import com.example.whopper.infrastructure.aws.s3.AwsS3Properties;
 import io.awspring.cloud.s3.S3Operations;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.time.Duration;
@@ -14,6 +15,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.UUID;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class PdfService implements PdfUseCase {
 

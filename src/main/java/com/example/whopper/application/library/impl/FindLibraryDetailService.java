@@ -8,6 +8,7 @@ import com.example.whopper.interfaces.library.dto.response.LibraryDetailResponse
 import com.example.whopper.common.exception.library.LibraryNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -16,6 +17,8 @@ public class FindLibraryDetailService implements FindLibraryDetailUseCase {
     private final LibraryMongoRepository libraryMongoRepository;
     private final PdfUseCase pdfUseCase;
 
+    @Override
+    @Transactional(readOnly = true)
     public LibraryDetailResponse findLibraryDetail(String libraryId) {
         LibraryEntity library =  libraryMongoRepository.findById(libraryId)
                 .orElseThrow(() -> LibraryNotFoundException.EXCEPTION);
