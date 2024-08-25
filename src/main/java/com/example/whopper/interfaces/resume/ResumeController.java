@@ -62,9 +62,9 @@ class ResumeController {
     }
 
     @OnlyTeacher
-    @GetMapping("/student/{documentId}")
-    FullResumeResponse getSubmittedResume(@PathVariable String documentId) {
-        return findResumeUseCase.getSubmittedResume(documentId);
+    @GetMapping("/student/{resumeId}")
+    FullResumeResponse getSubmittedResume(@PathVariable String resumeId) {
+        return findResumeUseCase.getSubmittedResume(resumeId);
     }
 
     @OnlyStudent

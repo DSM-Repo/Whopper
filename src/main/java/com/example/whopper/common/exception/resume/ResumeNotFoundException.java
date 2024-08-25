@@ -7,6 +7,6 @@ public class ResumeNotFoundException extends WhopperException {
     public static final WhopperException EXCEPTION = new ResumeNotFoundException();
 
     private ResumeNotFoundException() {
-        super(ErrorCode.DOCUMENT_NOT_FOUND);
+        super(ErrorCode.RESUME_NOT_FOUND);
     }
 }

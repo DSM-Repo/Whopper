@@ -20,7 +20,7 @@ class ResumeRepositoryImpl extends AbstractResumeRepository {
     }
 
     @Override
-    public Stream<ResumeModel> searchDocuments(String name, Integer grade, Integer classNumber, String majorId, String status) {
+    public Stream<ResumeModel> searchResumes(String name, Integer grade, Integer classNumber, String majorId, String status) {
         Query query = searchQuery(name, grade, classNumber, majorId, status);
         query.with(getSort());
 

@@ -4,7 +4,7 @@ import com.example.whopper.domain.resume.ResumeModel;
 import com.example.whopper.domain.student.StudentInfo;
 
 public record ReleasedResumeResponse(
-        String documentId,
+        String resumeId,
         StudentInfo studentInfo
 ) {
     public static ReleasedResumeResponse of(ResumeModel resume) {
