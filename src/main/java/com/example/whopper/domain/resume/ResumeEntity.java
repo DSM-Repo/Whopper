@@ -10,9 +10,9 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import java.util.List;
 import java.util.Set;
 
-@Getter(value = AccessLevel.PACKAGE)
-@Builder(access = AccessLevel.PACKAGE)
-@Document(collection = "document_repo")
+@Getter
+@Builder
+@Document(collection = "resume_repo")
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 class ResumeEntity {
 
