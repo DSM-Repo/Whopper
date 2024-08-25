@@ -1,5 +1,8 @@
 package com.example.whopper.domain.history;
 
+import lombok.Builder;
+
+@Builder
 public record HistoryModel(
         String id,
         String date,
