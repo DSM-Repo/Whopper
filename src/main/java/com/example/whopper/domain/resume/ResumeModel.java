@@ -24,10 +24,10 @@ public record ResumeModel(
                 Year.now().getValue(),
                 ResumeElementDto.Status.ONGOING,
                 new ResumeElementDto.Writer(id, name, schoolInfo, major, "", Collections.emptySet(), ""),
-                null,
-                null,
-                null,
-                null
+                new ResumeElementDto.Introduce("", ""),
+                Collections.emptyList(),
+                Collections.emptyList(),
+                Collections.emptyList()
         );
     }
 
