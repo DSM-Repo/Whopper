@@ -1,8 +1,8 @@
-package com.example.whopper.domain.resume.detail;
+package com.example.whopper.interfaces.resume.dto.response;
 
 import com.example.whopper.domain.resume.ResumeModel;
 
-public record CompletionElementLevel(
+public record CompletionElementLevelResponse(
         boolean writerInfo,
         boolean introduce,
         boolean certificateAndAward,
@@ -12,7 +12,7 @@ public record CompletionElementLevel(
 ) {
     private static final int TOTAL_ELEMENTS = 5;
 
-    public static CompletionElementLevel of(ResumeModel resume) {
+    public static CompletionElementLevelResponse of(ResumeModel resume) {
         var introduce = resume.introduce();
         var writerInfo = resume.writer();
 
@@ -32,7 +32,7 @@ public record CompletionElementLevel(
     
         final double percentComplete = (completedElementsCount / TOTAL_ELEMENTS) * 100;
 
-        return new CompletionElementLevel(
+        return new CompletionElementLevelResponse(
                 isWriterInfoCompleted,
                 isIntroduceCompleted,
                 isCertificateAndAwardCompleted,

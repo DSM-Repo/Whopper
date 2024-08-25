@@ -3,7 +3,7 @@ package com.example.whopper.interfaces.resume;
 import com.example.whopper.application.resume.usecase.FindResumeUseCase;
 import com.example.whopper.application.resume.usecase.ReleaseResumeUseCase;
 import com.example.whopper.application.resume.usecase.SubmitMyResumeUseCase;
-import com.example.whopper.domain.resume.detail.CompletionElementLevel;
+import com.example.whopper.interfaces.resume.dto.response.CompletionElementLevelResponse;
 import com.example.whopper.interfaces.resume.dto.response.ResumeResponse;
 import com.example.whopper.interfaces.resume.dto.response.FullResumeResponse;
 import com.example.whopper.interfaces.resume.dto.response.ReleasedResumeResponse;
@@ -69,7 +69,7 @@ class ResumeController {
 
     @OnlyStudent
     @GetMapping("/completion")
-    CompletionElementLevel getCompletionLevel() {
+    CompletionElementLevelResponse getCompletionLevel() {
         return findResumeUseCase.getCurrentStudentResumeCompletionLevel();
     }
 
