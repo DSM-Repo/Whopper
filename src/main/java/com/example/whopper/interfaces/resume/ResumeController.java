@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/document")
+@RequestMapping("/resume")
 class ResumeController {
     private final FindResumeUseCase findResumeUseCase;
     private final SubmitMyResumeUseCase submitMyResumeUseCase;
