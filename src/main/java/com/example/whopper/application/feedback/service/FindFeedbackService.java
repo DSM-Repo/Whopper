@@ -23,9 +23,9 @@ public class FindFeedbackService implements FindFeedbackUseCase {
 
     @Override
     public DataResponseInfo<FeedbackResponse.StudentResponse> getCurrentStudentFeedbackList() {
-        ResumeModel resume = currentStudent.getResume();
+        var resume = currentStudent.getResume();
 
-        List<FeedbackResponse.StudentResponse> feedbackList = getFeedbackResponsesByDocumentId(resume.id())
+        var feedbackList = getFeedbackResponsesByDocumentId(resume.id())
                 .stream()
                 .map(FeedbackResponse.StudentResponse::fromFeedback)
                 .toList();
@@ -33,8 +33,8 @@ public class FindFeedbackService implements FindFeedbackUseCase {
         return DataResponseInfo.of(feedbackList);
     }
 
-    private List<FeedbackEntity> getFeedbackResponsesByDocumentId(String documentId) {
-        return feedbackMongoRepository.findAllByDocumentIdAndStatus(documentId, FeedbackEntity.Status.PENDING);
+    private List<FeedbackEntity> getFeedbackResponsesByDocumentId(String resumeId) {
+        return feedbackMongoRepository.findAllByDocumentIdAndStatus(resumeId, FeedbackEntity.Status.PENDING);
     }
 
     @Override
