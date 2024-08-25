@@ -37,10 +37,10 @@ public enum ErrorCode {
     DUPLICATED_MAJOR(409, "중복되는 전공 이름이 존재합니다."),
     MAJOR_NOT_FOUND(404, "일치하는 전공을 찾지 못했습니다."),
 
-    // document
-    DOCUMENT_NOT_FOUND(404, "요청하신 문서를 찾지 못했습니다."),
-    DOCUMENT_ILLEGAL_STATUS(400, "해당 문서에 접근할 수 없는 상태입니다."),
-    DOCUMENT_MODIFICATION_NOT_ALLOWED(403, "제출된 문서는 수정이 불가능합니다."),
+    // resume
+    RESUME_NOT_FOUND(404, "요청하신 문서를 찾지 못했습니다."),
+    RESUME_ILLEGAL_STATUS(400, "해당 문서에 접근할 수 없는 상태입니다."),
+    RESUME_MODIFICATION_NOT_ALLOWED(403, "제출된 문서는 수정이 불가능합니다."),
 
     // feedback
     FEEDBACK_NOT_FOUND(404, "요청하신 피드백을 찾지 못했습니다."),

@@ -1,19 +1,19 @@
 package com.example.whopper.interfaces.feedback.dto.response;
 
-import com.example.whopper.domain.feedback.FeedbackEntity;
+import com.example.whopper.domain.feedback.FeedbackModel;
 
-public record FeedbackResponse{
+public class FeedbackResponse{
 
     public record StudentResponse(
             String id,
-            String teacherName,
-            String type,
             String comment,
+            String type,
             String status,
-            Boolean rejected
+            Boolean rejected,
+            String teacherName
     ) {
-        public static StudentResponse fromFeedback(FeedbackEntity feedback) {
-            return new StudentResponse(feedback.getId(), feedback.getTeacher().getName(), feedback.getType().name(), feedback.getComment(), String.valueOf(feedback.getStatus()), feedback.getRejected());
+        public static StudentResponse fromFeedback(FeedbackModel feedback) {
+            return new StudentResponse(feedback.id(), feedback.comment(), feedback.type().name(), feedback.status().name(), feedback.rejected(), feedback.writer().name());
         }
     }
 
@@ -24,8 +24,8 @@ public record FeedbackResponse{
             String status,
             Boolean rejected
     ) {
-        public static TeacherResponse fromFeedback(FeedbackEntity feedback) {
-            return new TeacherResponse(feedback.getId(), feedback.getType().name(), feedback.getComment(), String.valueOf(feedback.getStatus()), feedback.getRejected());
+        public static TeacherResponse fromFeedback(FeedbackModel feedback) {
+            return new TeacherResponse(feedback.id(), feedback.comment(), feedback.type().name(), feedback.status().name(), feedback.rejected());
         }
     }
 }

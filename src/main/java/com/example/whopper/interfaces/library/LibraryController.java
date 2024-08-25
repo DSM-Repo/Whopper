@@ -5,7 +5,7 @@ import com.example.whopper.application.library.usecase.ChangeLibraryAccessRightU
 import com.example.whopper.application.library.usecase.CreateLibraryUseCase;
 import com.example.whopper.application.library.usecase.FindLibraryUseCase;
 import com.example.whopper.domain.library.type.AccessRight;
-import com.example.whopper.interfaces.library.dto.request.DocumentIndexRequest;
+import com.example.whopper.interfaces.library.dto.request.ResumeIndexRequest;
 import com.example.whopper.interfaces.library.dto.response.LibraryDetailResponse;
 import com.example.whopper.interfaces.library.dto.response.LibraryResponse;
 import com.example.whopper.common.annotation.OnlyTeacher;
@@ -25,10 +25,10 @@ public class LibraryController {
     private final FindLibraryUseCase findLibraryUseCase;
 
     @PostMapping
-    public void saveLibraryDocument(
+    public void saveLibraryresume(
             @RequestParam(name = "grade") Integer grade,
             @RequestPart(name = "pdf") MultipartFile pdfPart,
-            @RequestPart(name = "index") DocumentIndexRequest indexPart) {
+            @RequestPart(name = "index") ResumeIndexRequest indexPart) {
 
 
         String filePath = pdfUseCase.savePdf(pdfPart);

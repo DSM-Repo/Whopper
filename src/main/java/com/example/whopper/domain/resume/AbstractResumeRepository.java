@@ -23,13 +23,13 @@ abstract class AbstractResumeRepository implements ResumeRepository {
     }
 
     @Override
-    public Stream<ResumeModel> getReleasedDocuments() {
+    public Stream<ResumeModel> getReleasedResumes() {
         return resumeMongoRepository.findAllByStatus(resumeElementMapper.toStatusEntity(ResumeElementDto.Status.RELEASED))
                 .map(resumeEntityMapper::toModel);
     }
 
     @Override
-    public Stream<ResumeModel> getReleasedDocumentsByGenerationAndYear(int generation, int year) {
+    public Stream<ResumeModel> getReleasedResumesByGenerationAndYear(int generation, int year) {
         return resumeMongoRepository.findAllByWriterSchoolInfoGenerationAndYearAndStatus(generation, year, resumeElementMapper.toStatusEntity(ResumeElementDto.Status.RELEASED))
                 .map(resumeEntityMapper::toModel);
     }
@@ -42,7 +42,7 @@ abstract class AbstractResumeRepository implements ResumeRepository {
     }
 
     @Override
-    public Boolean existsByDocumentId(String documentId) {
-        return resumeMongoRepository.existsById(documentId);
+    public Boolean existsByResumeId(String resumeId) {
+        return resumeMongoRepository.existsById(resumeId);
     }
 }

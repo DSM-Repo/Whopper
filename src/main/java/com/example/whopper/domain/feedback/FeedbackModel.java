@@ -1,31 +1,27 @@
 package com.example.whopper.domain.feedback;
 
-import com.example.whopper.domain.resume.element.type.DocumentElementType;
+import com.example.whopper.interfaces.feedback.dto.FeedbackElementDto;
 
 public record FeedbackModel(
         String id,
         String comment,
-        DocumentElementType type,
-        String documentId,
-        FeedbackEntity.Status status,
+        FeedbackElementDto.Type type,
+        String resumeId,
+        FeedbackElementDto.Status status,
         Boolean rejected,
-        String Writer
+        FeedbackElementDto.Writer writer
 ) {
-    record Writer(
-            String id,
-            String name
-    ) {}
 
     public FeedbackModel update(String comment) {
-        return new FeedbackModel(id, comment, type, documentId, status, rejected, teacherId);
+        return new FeedbackModel(id, comment, type, resumeId, status, rejected, writer);
     }
 
-    public void confirmed() {
-        status = FeedbackEntity.Status.CONFIRMED;
+    public FeedbackModel confirm() {
+        return new FeedbackModel(id, comment, type, resumeId, FeedbackElementDto.Status.CONFIRMED, rejected, writer);
     }
 
-    public void rejected() {
-        rejected = true;
+    public FeedbackModel reject() {
+        return new FeedbackModel(id, comment, type, resumeId, status, true, writer);
     }
 }
 

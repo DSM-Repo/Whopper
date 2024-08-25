@@ -3,7 +3,7 @@ package com.example.whopper.application.resume.service;
 import com.example.whopper.application.resume.usecase.ReleaseResumeUseCase;
 import com.example.whopper.domain.resume.ResumeModel;
 import com.example.whopper.domain.resume.ResumeRepository;
-import com.example.whopper.common.exception.resume.DocumentIllegalStatusException;
+import com.example.whopper.common.exception.resume.ResumeIllegalStatusException;
 import com.example.whopper.common.exception.resume.ResumeNotFoundException;
 import com.example.whopper.domain.feedback.FeedbackMongoRepository;
 import com.example.whopper.interfaces.resume.dto.ResumeElementDto;
@@ -29,14 +29,14 @@ class ReleaseResumeService implements ReleaseResumeUseCase {
             deleteFeedback(resumeId);
             newResume = release(resume);
         } else {
-            throw DocumentIllegalStatusException.EXCEPTION;
+            throw ResumeIllegalStatusException.EXCEPTION;
         }
 
         save(newResume);
     }
 
     private void deleteFeedback(String resumeId) {
-        feedbackMongoRepository.deleteAllByDocumentId(resumeId);
+        feedbackMongoRepository.deleteAllByResumeId(resumeId);
     }
 
     private ResumeModel findById(String resumeId) {

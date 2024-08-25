@@ -1,6 +1,6 @@
 package com.example.whopper.interfaces.resume.dto.request;
 
-public record SearchDocumentRequest(
+public record SearchResumeRequest(
         String name,
         Integer grade,
         Integer classNumber,

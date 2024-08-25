@@ -1,6 +1,6 @@
 package com.example.whopper.interfaces.resume.dto.response;
 
-import com.example.whopper.domain.feedback.FeedbackEntity;
+import com.example.whopper.domain.feedback.FeedbackModel;
 import com.example.whopper.domain.resume.ResumeModel;
 import com.example.whopper.domain.student.StudentInfo;
 import com.example.whopper.interfaces.resume.dto.ResumeElementDto;
@@ -8,7 +8,7 @@ import com.example.whopper.interfaces.resume.dto.ResumeElementDto;
 import java.util.List;
 
 public record SearchResumeResponse(
-        String documentId,
+        String resumeId,
         StudentInfo studentInfo,
         ResumeElementDto.Status status,
         List<Feedback> feedbackList
@@ -18,8 +18,8 @@ public record SearchResumeResponse(
     }
 
     public record Feedback(String id, String comment, String type, String status, boolean rejected) {
-        public static SearchResumeResponse.Feedback fromFeedback(FeedbackEntity feedback) {
-            return new SearchResumeResponse.Feedback(feedback.getId(), feedback.getComment(), feedback.getType().name(), feedback.getStatus().name(), feedback.getRejected());
+        public static SearchResumeResponse.Feedback fromFeedback(FeedbackModel feedback) {
+            return new SearchResumeResponse.Feedback(null, feedback.comment(), feedback.type().name(), feedback.status().name(), feedback.rejected());
         }
     }
 }

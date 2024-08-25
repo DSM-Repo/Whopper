@@ -9,7 +9,7 @@ import java.util.Set;
 
 public record FullResumeResponse(
         String id,
-        DocumentWriterResponse writer,
+        ResumeWriterResponse writer,
         ResumeElementDto.Status status,
         ResumeElementDto.Introduce introduce,
         List<ResumeElementDto.Project>projectList,
@@ -19,7 +19,7 @@ public record FullResumeResponse(
     public static FullResumeResponse of(ResumeModel resume) {
         return new FullResumeResponse(
                 resume.id(),
-                DocumentWriterResponse.of(resume),
+                ResumeWriterResponse.of(resume),
                 resume.status(),
                 resume.introduce(),
                 resume.projectList(),
@@ -28,7 +28,7 @@ public record FullResumeResponse(
         );
     }
 
-    record DocumentWriterResponse(
+    record ResumeWriterResponse(
             String name,
             String email,
             String majorName,
@@ -37,12 +37,12 @@ public record FullResumeResponse(
             String url,
             Set<String> skillSet
     ) {
-        public static DocumentWriterResponse of(ResumeModel resume) {
+        public static ResumeWriterResponse of(ResumeModel resume) {
             final var schoolInfo = resume.writer().schoolInfo();
             final var schoolNumber = schoolInfo.schoolNumber();
             final var writer = resume.writer();
 
-            return new DocumentWriterResponse(
+            return new ResumeWriterResponse(
                     writer.name(),
                     writer.email(),
                     writer.major().majorName(),

@@ -52,7 +52,7 @@ public class ImageService implements ImageUseCase {
     }
 
     private String generateFileKey(ImageType imageType) {
-        String folder = imageType == ImageType.PROFILE ? awsS3Properties.profileFolder() : awsS3Properties.documentFolder();
+        String folder = imageType == ImageType.PROFILE ? awsS3Properties.profileFolder() : awsS3Properties.resumeFolder();
         return folder + "/" + UUID.randomUUID();
     }
 
