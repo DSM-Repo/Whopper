@@ -6,7 +6,7 @@ import com.example.whopper.common.exception.resume.ResumeNotFoundException;
 import com.example.whopper.application.feedback.usecase.AddFeedbackUseCase;
 import com.example.whopper.domain.feedback.FeedbackMongoRepository;
 import com.example.whopper.domain.feedback.FeedbackEntity;
-import com.example.whopper.interfaces.feedback.dto.FeedbackRequest;
+import com.example.whopper.interfaces.feedback.dto.request.FeedbackRequest;
 import com.example.whopper.application.teacher.component.TeacherComponent;
 import com.example.whopper.interfaces.resume.dto.ResumeElementDto;
 import lombok.RequiredArgsConstructor;

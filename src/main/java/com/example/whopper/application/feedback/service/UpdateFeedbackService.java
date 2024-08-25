@@ -3,7 +3,7 @@ package com.example.whopper.application.feedback.service;
 import com.example.whopper.application.feedback.usecase.UpdateFeedbackUseCase;
 import com.example.whopper.domain.feedback.FeedbackMongoRepository;
 import com.example.whopper.domain.feedback.FeedbackEntity;
-import com.example.whopper.interfaces.feedback.dto.UpdateFeedbackRequest;
+import com.example.whopper.interfaces.feedback.dto.request.UpdateFeedbackRequest;
 import com.example.whopper.common.exception.feedback.FeedbackNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

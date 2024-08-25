@@ -1,8 +1,8 @@
-package com.example.whopper.interfaces.feedback.dto;
+package com.example.whopper.interfaces.feedback.dto.response;
 
 import com.example.whopper.domain.feedback.FeedbackEntity;
 
-public class FeedbackResponse{
+public record FeedbackResponse{
 
     public record StudentResponse(
             String id,
