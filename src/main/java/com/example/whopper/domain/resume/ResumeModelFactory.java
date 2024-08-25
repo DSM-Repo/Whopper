@@ -12,8 +12,8 @@ public class ResumeModelFactory {
         final var major = student.getMajor();
 
         return ResumeModel.createInitialResume(
-                student.getName(),
                 student.getId(),
+                student.getName(),
                 new ResumeElementDto.Writer.SchoolInfo(
                         classInfo.grade(),
                         classInfo.classNumber(),
