@@ -1,29 +1,29 @@
 package com.example.whopper.application.resume.base;
 
-import com.example.whopper.domain.resume.DocumentRepository;
-import com.example.whopper.domain.resume.DocumentEntity;
-import com.example.whopper.domain.resume.element.DocumentStatus;
+import com.example.whopper.domain.resume.ResumeRepository;
+import com.example.whopper.domain.resume.ResumeModel;
 import com.example.whopper.common.exception.resume.DocumentModificationException;
 import com.example.whopper.application.student.component.CurrentStudent;
+import com.example.whopper.interfaces.resume.dto.ResumeElementDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 
 @RequiredArgsConstructor
 public abstract class AbstractUpdateElementServiceBase<T> {
-    protected final DocumentRepository documentRepository;
+    protected final ResumeRepository resumeRepository;
     protected final CurrentStudent currentStudent;
 
     @Transactional
     public void update(T request) {
-        var document = currentStudent.getDocument();
+        var resume = currentStudent.getResume();
 
-        if (!document.getStatus().equals(DocumentStatus.ONGOING)) {
+        if (!resume.status().equals(ResumeElementDto.Status.ONGOING)) {
             throw DocumentModificationException.EXCEPTION;
         }
 
-        updateDocument(document, request);
-        documentRepository.save(document);
+        var newResume = updateResume(resume, request);
+        resumeRepository.save(newResume);
     }
 
-    protected abstract void updateDocument(DocumentEntity document, T request);
+    protected abstract ResumeModel updateResume(ResumeModel resume, T request);
 }

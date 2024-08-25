@@ -9,7 +9,7 @@ import com.example.whopper.interfaces.library.dto.request.DocumentIndexRequest;
 import com.example.whopper.interfaces.library.dto.response.LibraryDetailResponse;
 import com.example.whopper.interfaces.library.dto.response.LibraryResponse;
 import com.example.whopper.common.annotation.OnlyTeacher;
-import com.example.whopper.global.utils.DataResponseInfo;
+import com.example.whopper.common.http.response.DataResponseInfo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;

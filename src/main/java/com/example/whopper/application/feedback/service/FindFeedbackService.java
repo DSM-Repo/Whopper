@@ -4,9 +4,9 @@ import com.example.whopper.application.feedback.usecase.FindFeedbackUseCase;
 import com.example.whopper.application.teacher.component.TeacherComponent;
 import com.example.whopper.domain.feedback.FeedbackEntity;
 import com.example.whopper.domain.feedback.FeedbackMongoRepository;
-import com.example.whopper.domain.resume.DocumentEntity;
-import com.example.whopper.global.utils.DataResponseInfo;
+import com.example.whopper.common.http.response.DataResponseInfo;
 import com.example.whopper.application.student.component.CurrentStudent;
+import com.example.whopper.domain.resume.ResumeModel;
 import com.example.whopper.interfaces.feedback.dto.FeedbackResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -23,9 +23,9 @@ public class FindFeedbackService implements FindFeedbackUseCase {
 
     @Override
     public DataResponseInfo<FeedbackResponse.StudentResponse> getCurrentStudentFeedbackList() {
-        DocumentEntity document = currentStudent.getDocument();
+        var resume = currentStudent.getResume();
 
-        List<FeedbackResponse.StudentResponse> feedbackList = getFeedbackResponsesByDocumentId(document.getId())
+        var feedbackList = getFeedbackResponsesByDocumentId(resume.id())
                 .stream()
                 .map(FeedbackResponse.StudentResponse::fromFeedback)
                 .toList();
@@ -33,14 +33,14 @@ public class FindFeedbackService implements FindFeedbackUseCase {
         return DataResponseInfo.of(feedbackList);
     }
 
-    private List<FeedbackEntity> getFeedbackResponsesByDocumentId(String documentId) {
-        return feedbackMongoRepository.findAllByDocumentIdAndStatus(documentId, FeedbackEntity.Status.PENDING);
+    private List<FeedbackEntity> getFeedbackResponsesByDocumentId(String resumeId) {
+        return feedbackMongoRepository.findAllByDocumentIdAndStatus(resumeId, FeedbackEntity.Status.PENDING);
     }
 
     @Override
-    public DataResponseInfo<FeedbackResponse.TeacherResponse> getFeedbackListByDocumentId(String documentId) {
+    public DataResponseInfo<FeedbackResponse.TeacherResponse> getFeedbackListByDocumentId(String resumeId) {
         final var currentTeacher = teacherComponent.currentTeacher();
-        final var feedbackList =  feedbackMongoRepository.findAllByDocumentIdAndTeacherId(documentId, currentTeacher.getId())
+        final var feedbackList =  feedbackMongoRepository.findAllByDocumentIdAndTeacherId(resumeId, currentTeacher.getId())
                 .map(FeedbackResponse.TeacherResponse::fromFeedback)
                 .toList();
 

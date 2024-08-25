@@ -1,6 +1,6 @@
 package com.example.whopper.domain.resume.detail;
 
-import com.example.whopper.domain.resume.DocumentEntity;
+import com.example.whopper.domain.resume.ResumeModel;
 
 public record CompletionElementLevel(
         boolean writerInfo,
@@ -12,16 +12,16 @@ public record CompletionElementLevel(
 ) {
     private static final int TOTAL_ELEMENTS = 5;
 
-    public static CompletionElementLevel of(DocumentEntity document) {
-        var introduce = document.getIntroduce();
-        var writerInfo = document.getWriter();
+    public static CompletionElementLevel of(ResumeModel resume) {
+        var introduce = resume.introduce();
+        var writerInfo = resume.writer();
 
-        boolean isWriterInfoCompleted = !writerInfo.getEmail().isBlank() &&
-                !writerInfo.getSkillSet().isEmpty() && writerInfo.getGeneration() != null;
-        boolean isIntroduceCompleted = !introduce.getIntroduce().isBlank() && !introduce.getHeading().isBlank();
-        boolean isCertificateAndAwardCompleted = !document.getAchievementList().isEmpty();
-        boolean isActivityCompleted = !document.getActivityList().isEmpty();
-        boolean isProjectCompleted = !document.getProjectList().isEmpty();
+        boolean isWriterInfoCompleted = !writerInfo.email().isBlank() &&
+                !writerInfo.skillSet().isEmpty();
+        boolean isIntroduceCompleted = !introduce.introduce().isBlank() && !introduce.heading().isBlank();
+        boolean isCertificateAndAwardCompleted = !resume.achievementList().isEmpty();
+        boolean isActivityCompleted = !resume.activityList().isEmpty();
+        boolean isProjectCompleted = !resume.projectList().isEmpty();
 
         double completedElementsCount = (double)
                 (isWriterInfoCompleted ? 1 : 0) +

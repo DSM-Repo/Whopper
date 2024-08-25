@@ -12,7 +12,7 @@ import com.example.whopper.interfaces.feedback.dto.FeedbackResponse;
 import com.example.whopper.interfaces.feedback.dto.UpdateFeedbackRequest;
 import com.example.whopper.common.annotation.OnlyStudent;
 import com.example.whopper.common.annotation.OnlyTeacher;
-import com.example.whopper.global.utils.DataResponseInfo;
+import com.example.whopper.common.http.response.DataResponseInfo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
