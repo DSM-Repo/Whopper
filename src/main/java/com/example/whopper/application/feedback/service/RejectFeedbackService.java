@@ -16,8 +16,8 @@ public class RejectFeedbackService implements RejectFeedbackUseCase {
         final var feedback = feedbackRepository.findById(id)
                 .orElseThrow(() -> FeedbackNotFoundException.EXCEPTION);
 
-        feedback.reject();
+        var newFeedback = feedback.reject();
 
-        feedbackRepository.save(feedback);
+        feedbackRepository.save(newFeedback);
     }
 }

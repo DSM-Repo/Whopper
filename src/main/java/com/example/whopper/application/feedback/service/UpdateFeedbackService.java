@@ -18,7 +18,7 @@ public class UpdateFeedbackService implements UpdateFeedbackUseCase {
         final var feedback = feedbackRepository.findById(id)
                 .orElseThrow(()-> FeedbackNotFoundException.EXCEPTION);
 
-        feedback.update(request.comment());
-        feedbackRepository.save(feedback);
+        var newFeedback = feedback.update(request.comment());
+        feedbackRepository.save(newFeedback);
     }
 }

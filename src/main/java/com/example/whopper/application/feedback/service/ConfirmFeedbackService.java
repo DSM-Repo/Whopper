@@ -25,7 +25,7 @@ public class ConfirmFeedbackService implements ConfirmFeedbackUseCase {
             throw ForbiddenException.EXCEPTION;
         }
 
-        feedback.confirm();
-        feedbackRepository.save(feedback);
+        var newFeedback = feedback.confirm();
+        feedbackRepository.save(newFeedback);
     }
 }
