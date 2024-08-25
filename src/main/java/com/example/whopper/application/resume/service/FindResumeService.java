@@ -5,7 +5,7 @@ import com.example.whopper.application.teacher.component.TeacherComponent;
 import com.example.whopper.domain.feedback.FeedbackEntity;
 import com.example.whopper.domain.resume.ResumeModel;
 import com.example.whopper.domain.resume.ResumeRepository;
-import com.example.whopper.domain.resume.detail.CompletionElementLevel;
+import com.example.whopper.interfaces.resume.dto.response.CompletionElementLevelResponse;
 import com.example.whopper.interfaces.resume.dto.response.*;
 import com.example.whopper.common.exception.resume.ResumeNotFoundException;
 import com.example.whopper.domain.feedback.FeedbackMongoRepository;
@@ -87,10 +87,10 @@ class FindResumeService implements FindResumeUseCase {
     }
 
     @Override
-    public CompletionElementLevel getCurrentStudentResumeCompletionLevel() {
+    public CompletionElementLevelResponse getCurrentStudentResumeCompletionLevel() {
         var currentStudentResume = currentStudent.getResume();
 
-        return CompletionElementLevel.of(currentStudentResume);
+        return CompletionElementLevelResponse.of(currentStudentResume);
     }
 
     @Override

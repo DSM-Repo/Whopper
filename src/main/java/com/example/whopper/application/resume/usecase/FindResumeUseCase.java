@@ -1,6 +1,6 @@
 package com.example.whopper.application.resume.usecase;
 
-import com.example.whopper.domain.resume.detail.CompletionElementLevel;
+import com.example.whopper.interfaces.resume.dto.response.CompletionElementLevelResponse;
 import com.example.whopper.interfaces.resume.dto.response.ResumeResponse;
 import com.example.whopper.interfaces.resume.dto.response.FullResumeResponse;
 import com.example.whopper.interfaces.resume.dto.response.ReleasedResumeResponse;
@@ -12,7 +12,7 @@ public interface FindResumeUseCase {
     FullResumeResponse getCurrentStudentResume();
     FullResumeResponse getSubmittedResume(String resumeId);
     DataResponseInfo<SearchResumeResponse> searchResume(String name, Integer grade, Integer classNumber, String majorId, String status);
-    CompletionElementLevel getCurrentStudentResumeCompletionLevel();
+    CompletionElementLevelResponse getCurrentStudentResumeCompletionLevel();
     DataResponseInfo<ReleasedResumeResponse> getReleasedResumes();
     DataResponseInfo<FullResumeResponse> getReleasedResumesByGradeAndYear(int grade, int year);
 }
