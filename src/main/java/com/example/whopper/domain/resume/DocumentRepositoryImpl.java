@@ -6,6 +6,7 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
 
@@ -19,7 +20,7 @@ class DocumentRepositoryImpl extends AbstractDocumentRepository {
     }
 
     @Override
-    public Stream<DocumentEntity> searchDocuments(String name, Integer grade, Integer classNumber, String majorId, String status) {
+    public List<DocumentEntity> searchDocuments(String name, Integer grade, Integer classNumber, String majorId, String status) {
         Query query = searchQuery(name, grade, classNumber, majorId, status);
         query.with(getSort());
 

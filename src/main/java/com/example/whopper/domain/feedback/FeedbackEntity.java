@@ -15,10 +15,9 @@ public class FeedbackEntity {
     private String id;
     private String comment;
     private DocumentElementType type;
-
     private String documentId;
-
     private Status status;
+    private Boolean rejected;
 
     @DBRef(lazy = true)
     private TeacherEntity teacher;
@@ -30,6 +29,7 @@ public class FeedbackEntity {
         this.documentId = documentId;
         status = Status.PENDING;
         this.teacher = teacher;
+        this.rejected = false;
     }
 
     public void updateFeedback(String comment) {
@@ -40,7 +40,11 @@ public class FeedbackEntity {
         status = Status.CONFIRMED;
     }
 
-    enum Status {
+    public void rejected() {
+        rejected = true;
+    }
+
+    public enum Status {
         CONFIRMED,
         PENDING
     }

@@ -11,14 +11,7 @@ import com.example.whopper.interfaces.library.dto.response.LibraryResponse;
 import com.example.whopper.common.annotation.OnlyTeacher;
 import com.example.whopper.global.utils.DataResponseInfo;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestPart;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 @RestController
@@ -53,13 +46,15 @@ public class LibraryController {
     }
 
     @OnlyTeacher
-    @PatchMapping("/{libraryId}/access-right")
-    public void changeLibraryAccessRight(@PathVariable String libraryId, @RequestParam AccessRight accessRight) {
-        changeLibraryAccessRightUseCase.changeLibraryAccessRight(libraryId, accessRight);
+    @PatchMapping("/access-right")
+    public void changeLibraryAccessRight(@RequestBody AccessRightRequest request) {
+        changeLibraryAccessRightUseCase.changeLibraryAccessRight(request.libraryId(), request.accessRight());
     }
 
     @GetMapping("/{libraryId}/public")
     public LibraryDetailResponse findLibraryDetail(@PathVariable String libraryId) {
         return findLibraryUseCase.findLibraryDetail(libraryId);
     }
+
+    record AccessRightRequest(String libraryId, AccessRight accessRight) {}
 }
