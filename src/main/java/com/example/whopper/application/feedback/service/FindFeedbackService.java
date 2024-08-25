@@ -10,11 +10,13 @@ import com.example.whopper.interfaces.feedback.dto.FeedbackElementDto;
 import com.example.whopper.interfaces.feedback.dto.response.FeedbackResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.stream.Stream;
 
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class FindFeedbackService implements FindFeedbackUseCase {
 
     private final CurrentStudent currentStudent;
