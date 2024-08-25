@@ -1,15 +1,15 @@
 package com.example.whopper.application.feedback.service;
 
-import com.example.whopper.domain.resume.DocumentRepository;
-import com.example.whopper.domain.resume.DocumentEntity;
-import com.example.whopper.domain.resume.element.DocumentStatus;
-import com.example.whopper.common.exception.resume.DocumentIllegalStatusException;
-import com.example.whopper.common.exception.resume.DocumentNotFoundException;
+import com.example.whopper.domain.feedback.FeedbackModel;
+import com.example.whopper.domain.feedback.FeedbackRepository;
+import com.example.whopper.domain.resume.ResumeRepository;
+import com.example.whopper.common.exception.resume.ResumeIllegalStatusException;
+import com.example.whopper.common.exception.resume.ResumeNotFoundException;
 import com.example.whopper.application.feedback.usecase.AddFeedbackUseCase;
-import com.example.whopper.domain.feedback.FeedbackMongoRepository;
-import com.example.whopper.domain.feedback.FeedbackEntity;
-import com.example.whopper.interfaces.feedback.dto.FeedbackRequest;
+import com.example.whopper.interfaces.feedback.dto.FeedbackElementDto;
+import com.example.whopper.interfaces.feedback.dto.request.FeedbackRequest;
 import com.example.whopper.application.teacher.component.TeacherComponent;
+import com.example.whopper.interfaces.resume.dto.ResumeElementDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -17,25 +17,22 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class AddFeedbackService implements AddFeedbackUseCase {
 
-    private final FeedbackMongoRepository feedbackMongoRepository;
+    private final FeedbackRepository feedbackRepository;
 
-    private final DocumentRepository documentRepository;
+    private final ResumeRepository resumeRepository;
 
     private final TeacherComponent teacherComponent;
 
     @Override
     public void addFeedback(FeedbackRequest request) {
-        DocumentEntity document = documentRepository.findById(request.documentId())
-                        .orElseThrow(()-> DocumentNotFoundException.EXCEPTION);
+        final var resume = resumeRepository.findById(request.resumeId())
+                        .orElseThrow(()-> ResumeNotFoundException.EXCEPTION);
 
-        if(document.getStatus() != DocumentStatus.SUBMITTED) throw DocumentIllegalStatusException.EXCEPTION;
+        if(resume.status() != ResumeElementDto.Status.SUBMITTED) throw ResumeIllegalStatusException.EXCEPTION;
 
-        feedbackMongoRepository.save(
-                FeedbackEntity.builder()
-                        .comment(request.comment())
-                        .type(request.type())
-                        .documentId(document.getId())
-                        .teacher(teacherComponent.currentTeacher())
-                        .build());
+        final var teacher = teacherComponent.currentTeacher();
+
+        feedbackRepository.save(new FeedbackModel(null, request.comment(), FeedbackElementDto.Type.valueOf(request.type()), request.resumeId(),
+                FeedbackElementDto.Status.PENDING, false, new FeedbackElementDto.Writer(teacher.getId(), teacher.getName())));
     }
 }

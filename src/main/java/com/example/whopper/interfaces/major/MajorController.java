@@ -3,9 +3,9 @@ package com.example.whopper.interfaces.major;
 import com.example.whopper.application.major.usecase.AddMajorUseCase;
 import com.example.whopper.application.major.usecase.DeleteMajorUseCase;
 import com.example.whopper.application.major.usecase.FindMajorUseCase;
-import com.example.whopper.domain.major.MajorEntity;
 import com.example.whopper.common.annotation.OnlyTeacher;
-import com.example.whopper.global.utils.DataResponseInfo;
+import com.example.whopper.domain.major.MajorModel;
+import com.example.whopper.common.http.response.DataResponseInfo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,7 +26,7 @@ public class MajorController {
     }
 
     @GetMapping
-    public DataResponseInfo<MajorEntity> findAll() {
+    public DataResponseInfo<MajorModel> findAll() {
         return findMajorUseCase.findAll();
     }
 

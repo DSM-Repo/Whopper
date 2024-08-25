@@ -1,15 +1,15 @@
 package com.example.whopper.domain.student;
 
+import com.example.whopper.interfaces.resume.dto.ResumeElementDto;
+
 public record StudentInfo(
         String schoolNumber,
-        String name,
-        String profileImage
+        String name
 ) {
-    public static StudentInfo of(StudentEntity student) {
+    public static StudentInfo of(ResumeElementDto.Writer writer) {
         return new StudentInfo(
-                student.getClassInfo().schoolNumber(),
-                student.getName(),
-                student.getProfileImagePath()
+                writer.schoolInfo().schoolNumber(),
+                writer.name()
         );
     }
 }

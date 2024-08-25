@@ -2,45 +2,44 @@ package com.example.whopper.application.feedback.service;
 
 import com.example.whopper.application.feedback.usecase.FindFeedbackUseCase;
 import com.example.whopper.application.teacher.component.TeacherComponent;
-import com.example.whopper.domain.feedback.FeedbackEntity;
-import com.example.whopper.domain.feedback.FeedbackMongoRepository;
-import com.example.whopper.domain.resume.DocumentEntity;
-import com.example.whopper.global.utils.DataResponseInfo;
+import com.example.whopper.common.http.response.DataResponseInfo;
 import com.example.whopper.application.student.component.CurrentStudent;
-import com.example.whopper.interfaces.feedback.dto.FeedbackResponse;
+import com.example.whopper.domain.feedback.FeedbackModel;
+import com.example.whopper.domain.feedback.FeedbackRepository;
+import com.example.whopper.interfaces.feedback.dto.FeedbackElementDto;
+import com.example.whopper.interfaces.feedback.dto.response.FeedbackResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.stream.Stream;
 
 @Service
 @RequiredArgsConstructor
 public class FindFeedbackService implements FindFeedbackUseCase {
 
     private final CurrentStudent currentStudent;
-    private final FeedbackMongoRepository feedbackMongoRepository;
+    private final FeedbackRepository feedbackRepository;
     private final TeacherComponent teacherComponent;
 
     @Override
     public DataResponseInfo<FeedbackResponse.StudentResponse> getCurrentStudentFeedbackList() {
-        DocumentEntity document = currentStudent.getDocument();
+        final var resume = currentStudent.getResume();
 
-        List<FeedbackResponse.StudentResponse> feedbackList = getFeedbackResponsesByDocumentId(document.getId())
-                .stream()
+        final var feedbackList = getFeedbackResponsesByResumeId(resume.id())
                 .map(FeedbackResponse.StudentResponse::fromFeedback)
                 .toList();
 
         return DataResponseInfo.of(feedbackList);
     }
 
-    private List<FeedbackEntity> getFeedbackResponsesByDocumentId(String documentId) {
-        return feedbackMongoRepository.findAllByDocumentIdAndStatus(documentId, FeedbackEntity.Status.PENDING);
+    private Stream<FeedbackModel> getFeedbackResponsesByResumeId(String resumeId) {
+        return feedbackRepository.findAllByResumeIdAndStatus(resumeId, FeedbackElementDto.Status.PENDING);
     }
 
     @Override
-    public DataResponseInfo<FeedbackResponse.TeacherResponse> getFeedbackListByDocumentId(String documentId) {
+    public DataResponseInfo<FeedbackResponse.TeacherResponse> getFeedbackListByresumeId(String resumeId) {
         final var currentTeacher = teacherComponent.currentTeacher();
-        final var feedbackList =  feedbackMongoRepository.findAllByDocumentIdAndTeacherId(documentId, currentTeacher.getId())
+        final var feedbackList =  feedbackRepository.findAllByResumeIdAndWriterId(resumeId, currentTeacher.getId())
                 .map(FeedbackResponse.TeacherResponse::fromFeedback)
                 .toList();
 
@@ -49,9 +48,9 @@ public class FindFeedbackService implements FindFeedbackUseCase {
 
     @Override
     public DataResponseInfo<FeedbackResponse.TeacherResponse> getFeedbacksWrittenByTeacher() {
-        var teacher = teacherComponent.currentTeacher();
+        final var teacher = teacherComponent.currentTeacher();
 
-        var result = feedbackMongoRepository.findAllByTeacherId(teacher.getId())
+        final var result = feedbackRepository.findAllByWriterId(teacher.getId())
                 .map(FeedbackResponse.TeacherResponse::fromFeedback)
                 .toList();
 

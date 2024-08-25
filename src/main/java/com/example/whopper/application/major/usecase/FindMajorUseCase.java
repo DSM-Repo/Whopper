@@ -1,8 +1,8 @@
 package com.example.whopper.application.major.usecase;
 
-import com.example.whopper.domain.major.MajorEntity;
-import com.example.whopper.global.utils.DataResponseInfo;
+import com.example.whopper.domain.major.MajorModel;
+import com.example.whopper.common.http.response.DataResponseInfo;
 
 public interface FindMajorUseCase {
-    DataResponseInfo<MajorEntity> findAll();
+    DataResponseInfo<MajorModel> findAll();
 }

@@ -1,8 +1,8 @@
 package com.example.whopper.application.major.impl;
 
 import com.example.whopper.application.major.usecase.AddMajorUseCase;
+import com.example.whopper.domain.major.MajorModel;
 import com.example.whopper.domain.major.MajorRepository;
-import com.example.whopper.domain.major.MajorEntity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -23,7 +23,7 @@ public class AddMajorService implements AddMajorUseCase {
 
         if (!newMajors.isEmpty()) {
             var majorEntities = newMajors.stream()
-                    .map(MajorEntity::createEntity)
+                    .map(MajorModel::createNewMajor)
                     .toList();
 
             majorRepository.saveAll(majorEntities);

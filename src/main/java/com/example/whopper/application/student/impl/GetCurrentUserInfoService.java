@@ -15,8 +15,7 @@ public class GetCurrentUserInfoService implements GetCurrentUserInfoUseCase {
     public GetCurrentUserInfoResponse get() {
         var currentStudent = this.currentStudent.getStudent();
         return GetCurrentUserInfoResponse.fromStudentEntity(
-                currentStudent,
-                currentStudent.getMajor()
+                currentStudent
         );
     }
 }

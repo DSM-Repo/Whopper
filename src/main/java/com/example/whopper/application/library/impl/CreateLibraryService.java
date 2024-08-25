@@ -2,10 +2,10 @@ package com.example.whopper.application.library.impl;
 
 import com.example.whopper.application.library.usecase.CreateLibraryUseCase;
 import com.example.whopper.domain.library.LibraryMongoRepository;
-import com.example.whopper.domain.library.DocumentIndex;
+import com.example.whopper.domain.library.ResumeIndex;
 import com.example.whopper.domain.library.LibraryEntity;
 import com.example.whopper.domain.library.type.AccessRight;
-import com.example.whopper.global.utils.DataResponseInfo;
+import com.example.whopper.common.http.response.DataResponseInfo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +17,7 @@ public class CreateLibraryService implements CreateLibraryUseCase {
 
     private final LibraryMongoRepository libraryMongoRepository;
 
-    public void createLibrary(Integer grade, String filePath, DataResponseInfo<DocumentIndex> index) {
+    public void createLibrary(Integer grade, String filePath, DataResponseInfo<ResumeIndex> index) {
         LocalDateTime now = LocalDateTime.now();
 
         libraryMongoRepository.save(

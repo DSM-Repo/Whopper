@@ -1,11 +1,9 @@
 package com.example.whopper.domain.student;
 
-import com.example.whopper.domain.major.MajorEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
@@ -30,12 +28,16 @@ public class StudentEntity {
     private String profileImagePath;
 
     @Field("major")
-    @DBRef(lazy = true)
-    private MajorEntity major;
+    private Major major;
 
     protected StudentEntity() {}
 
-    public void updateMajor(MajorEntity major) {
+    public void updateMajor(Major major) {
         this.major = major;
     }
+
+    public record Major(
+            String id,
+            String name
+    ) {}
 }
