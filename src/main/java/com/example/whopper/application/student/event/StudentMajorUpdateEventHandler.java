@@ -1,6 +1,5 @@
 package com.example.whopper.application.student.event;
 
-import com.example.whopper.application.student.component.CurrentStudent;
 import com.example.whopper.common.exception.student.StudentNotFoundException;
 import com.example.whopper.domain.student.StudentRepository;
 import lombok.RequiredArgsConstructor;
@@ -10,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-class StudentMajorUpdateEventHandler {
+public class StudentMajorUpdateEventHandler {
     private final StudentRepository studentRepository;
 
     @Async
