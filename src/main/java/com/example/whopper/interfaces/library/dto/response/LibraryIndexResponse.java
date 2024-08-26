@@ -1,10 +1,10 @@
 package com.example.whopper.interfaces.library.dto.response;
 
-import com.example.whopper.domain.library.ResumeIndex;
+import com.example.whopper.domain.library.LibraryEntity;
 
 import java.util.List;
 
 public record LibraryIndexResponse(
-        List<ResumeIndex> index
+        List<LibraryEntity.ResumeIndex> index
 ) {
 }

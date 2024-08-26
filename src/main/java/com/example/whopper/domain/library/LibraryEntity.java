@@ -21,6 +21,14 @@ public class LibraryEntity {
     private AccessRight accessRight;
     private final List<ResumeIndex> index;
 
+    record ResumeIndex(
+            String name,
+            String major,
+            Integer studentNumber,
+            Integer pageNumber
+    ) {
+    }
+
     @Builder
     public LibraryEntity(Integer year, Integer grade, String filePath, LocalDateTime createAt,
                          AccessRight accessRight, List<ResumeIndex> index) {

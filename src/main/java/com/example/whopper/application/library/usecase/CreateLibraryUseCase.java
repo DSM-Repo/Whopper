@@ -1,6 +1,5 @@
 package com.example.whopper.application.library.usecase;
 
-import com.example.whopper.domain.library.ResumeIndex;
 import com.example.whopper.common.http.response.DataResponseInfo;
 
 public interface CreateLibraryUseCase {
