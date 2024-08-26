@@ -19,6 +19,13 @@ class StudentRepositoryImpl implements StudentRepository {
     }
 
     @Override
+    public Optional<StudentModel> findById(String id) {
+        var student = studentCrudRepository.findById(id);
+
+        return studentEntityMapper.toOptionalModel(student);
+    }
+
+    @Override
     public boolean existsByAccountId(String accountId) {
         return studentCrudRepository.existsByAccountId(accountId);
     }
