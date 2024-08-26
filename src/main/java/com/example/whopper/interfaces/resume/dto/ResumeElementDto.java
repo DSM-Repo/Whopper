@@ -42,6 +42,7 @@ public class ResumeElementDto {
     ) {}
 
     public record Project(
+            String elementId,
             String name,
             Logo logo,
             Type type,
@@ -56,6 +57,7 @@ public class ResumeElementDto {
         }
 
         public record Section(
+                String elementId,
                 String title,
                 String description
         ) {
@@ -69,6 +71,7 @@ public class ResumeElementDto {
     }
 
     public record Achievement(
+            String elementId,
             String name,
             String institution,
             String date,
@@ -80,6 +83,7 @@ public class ResumeElementDto {
     }
 
     public record Activity(
+            String elementId,
             String name,
             Date date,
             boolean isPeriod,
