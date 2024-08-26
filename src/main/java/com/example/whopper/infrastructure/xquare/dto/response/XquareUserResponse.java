@@ -1,6 +1,5 @@
 package com.example.whopper.infrastructure.xquare.dto.response;
 
-import com.example.whopper.domain.student.ClassInfo;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
