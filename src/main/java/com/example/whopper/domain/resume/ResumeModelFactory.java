@@ -17,6 +17,7 @@ public class ResumeModelFactory {
                 new ResumeElementDto.Writer.SchoolInfo(
                         classInfo.grade(),
                         classInfo.classNumber(),
+                        classInfo.number(),
                         classInfo.schoolNumber(),
                         Year.now().getValue() - 2013 - classInfo.grade()
                 ),
