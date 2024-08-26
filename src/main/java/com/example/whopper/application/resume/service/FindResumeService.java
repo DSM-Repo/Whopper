@@ -6,11 +6,11 @@ import com.example.whopper.domain.feedback.FeedbackModel;
 import com.example.whopper.domain.feedback.FeedbackRepository;
 import com.example.whopper.domain.resume.ResumeModel;
 import com.example.whopper.domain.resume.ResumeRepository;
+import com.example.whopper.interfaces.resume.dto.ResumeElementDto;
 import com.example.whopper.interfaces.resume.dto.response.CompletionElementLevelResponse;
 import com.example.whopper.interfaces.resume.dto.response.*;
 import com.example.whopper.common.exception.resume.ResumeNotFoundException;
 import com.example.whopper.domain.library.LibraryMongoRepository;
-import com.example.whopper.domain.library.ShardLibrary;
 import com.example.whopper.application.student.component.CurrentStudent;
 import com.example.whopper.common.http.response.DataResponseInfo;
 import lombok.RequiredArgsConstructor;
@@ -37,7 +37,7 @@ class FindResumeService implements FindResumeUseCase {
     public ResumeResponse getIntroduceRecentlySharedResumes() {
         var currentStudentResume = currentStudent.getResume();
         var libraries = libraryMongoRepository.findTop3ByOrderByCreateAtDesc()
-                .map(ShardLibrary::fromLibraryEntity)
+                .map(ResumeElementDto.ShardLibrary::fromLibraryEntity)
                 .toList();
 
         return ResumeResponse.of(

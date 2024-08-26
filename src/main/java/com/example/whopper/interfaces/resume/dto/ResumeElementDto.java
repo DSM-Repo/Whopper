@@ -1,5 +1,7 @@
 package com.example.whopper.interfaces.resume.dto;
 
+import com.example.whopper.domain.library.LibraryEntity;
+
 import java.util.List;
 import java.util.Set;
 
@@ -39,6 +41,23 @@ public class ResumeElementDto {
             String heading,
             String introduce
     ) {}
+
+    public record ShardLibrary(
+            String id,
+            Integer year,
+            Integer grade,
+            Integer generation
+    ) {
+        public static ShardLibrary fromLibraryEntity(LibraryEntity library) {
+            return new ShardLibrary(
+                    library.getId(),
+                    library.getYear(),
+                    library.getGrade(),
+                    library.getGeneration()
+            );
+        }
+    }
+
 
     public record Project(
             String name,
