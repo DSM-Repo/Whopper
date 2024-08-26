@@ -5,13 +5,12 @@ import lombok.Builder;
 import lombok.Getter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.Field;
 
 @Getter
-@Document(collection = "user_repo")
 @Builder
 @AllArgsConstructor
-public class StudentEntity {
+@Document(collection = "user_repo")
+class StudentEntity {
     @Id
     private String id;
 
@@ -19,25 +18,29 @@ public class StudentEntity {
 
     private String password;
 
-    @Field("name")
     private String name;
 
-    @Field("classInfo")
     private ClassInfo classInfo;
 
     private String profileImagePath;
 
-    @Field("major")
     private Major major;
 
-    protected StudentEntity() {}
+    /* value objects */
 
-    public void updateMajor(Major major) {
-        this.major = major;
+    record ClassInfo(
+            Integer grade,
+            Integer classNumber,
+            Integer number,
+            String schoolNumber
+    ) {
     }
 
-    public record Major(
+    record Major(
             String id,
             String name
     ) {}
+
+    /* constructor */
+    protected StudentEntity() {}
 }
