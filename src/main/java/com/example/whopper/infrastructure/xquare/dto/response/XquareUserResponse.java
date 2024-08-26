@@ -29,7 +29,4 @@ public class XquareUserResponse {
 
     private String clubName;
 
-    public ClassInfo toClassInfo() {
-        return ClassInfo.of(grade, classNum, num);
-    }
 }
