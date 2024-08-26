@@ -1,19 +1,19 @@
 package com.example.whopper.domain.resume;
 
-import com.example.whopper.domain.student.StudentEntity;
+import com.example.whopper.domain.student.StudentModel;
 import com.example.whopper.interfaces.resume.dto.ResumeElementDto;
 
 import java.time.Year;
 
 public class ResumeModelFactory {
 
-    public static ResumeModel createResumeModelFromStudentEntity(StudentEntity student) {
-        var classInfo = student.getClassInfo();
-        final var major = student.getMajor();
+    public static ResumeModel createResumeModelFromStudentEntity(StudentModel student) {
+        var classInfo = student.classInfo();
+        final var major = student.major();
 
         return ResumeModel.createInitialResume(
-                student.getId(),
-                student.getName(),
+                student.name(),
+                student.id(),
                 new ResumeElementDto.Writer.SchoolInfo(
                         classInfo.grade(),
                         classInfo.classNumber(),

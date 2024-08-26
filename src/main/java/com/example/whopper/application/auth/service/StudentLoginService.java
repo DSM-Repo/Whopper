@@ -2,6 +2,8 @@ package com.example.whopper.application.auth.service;
 
 import com.example.whopper.application.auth.usecase.StudentLoginUseCase;
 import com.example.whopper.domain.refreshtoken.type.UserRole;
+import com.example.whopper.domain.student.StudentModel;
+import com.example.whopper.domain.student.StudentRepository;
 import com.example.whopper.interfaces.auth.dto.request.LoginRequest;
 import com.example.whopper.interfaces.auth.dto.response.TokenResponse;
 import com.example.whopper.common.exception.auth.InvalidUserException;
@@ -9,8 +11,6 @@ import com.example.whopper.common.exception.auth.PasswordMismatchException;
 import com.example.whopper.application.resume.component.CreateResumeComponent;
 import com.example.whopper.domain.file.DefaultProfileImageProperties;
 import com.example.whopper.domain.major.DefaultMajorFacade;
-import com.example.whopper.domain.student.StudentMongoRepository;
-import com.example.whopper.domain.student.StudentEntity;
 import com.example.whopper.common.exception.student.StudentNotFoundException;
 import com.example.whopper.common.security.jwt.JwtTokenProvider;
 import com.example.whopper.infrastructure.xquare.XquareClient;
@@ -25,7 +25,7 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 class StudentLoginService implements StudentLoginUseCase {
 
-    private final StudentMongoRepository studentMongoRepository;
+    private final StudentRepository studentRepository;
     private final JwtTokenProvider jwtTokenProvider;
     private final XquareClient xquareClient;
     private final PasswordEncoder passwordEncoder;
@@ -36,20 +36,20 @@ class StudentLoginService implements StudentLoginUseCase {
     @Override
     @Transactional
     public TokenResponse studentLogin(LoginRequest request) {
-        return studentMongoRepository.existsByAccountId(request.accountId())
+        return studentRepository.existsByAccountId(request.accountId())
                 ? loginExistingStudent(request)
                 : registerAndLoginNewStudent(request);
     }
 
     private TokenResponse loginExistingStudent(LoginRequest request) {
-        StudentEntity student = studentMongoRepository.findFirstByAccountId(request.accountId())
+        var student = studentRepository.findByAccountId(request.accountId())
                 .orElseThrow(() -> StudentNotFoundException.EXCEPTION);
 
-        if (!passwordEncoder.matches(request.password(), student.getPassword())) {
+        if (!passwordEncoder.matches(request.password(), student.password())) {
             throw PasswordMismatchException.EXCEPTION;
         }
 
-        return getTokenResponse(student.getId());
+        return getTokenResponse(student.id());
     }
 
     private TokenResponse registerAndLoginNewStudent(LoginRequest request) {
@@ -62,27 +62,31 @@ class StudentLoginService implements StudentLoginUseCase {
         }
 
         if(!xquareUserResponse.getUserRole().equals("STU")) throw InvalidUserException.EXCEPTION;
-        StudentEntity newStudent = createAndSaveNewStudent(xquareUserResponse);
+        var newStudent = createAndSaveNewStudent(xquareUserResponse);
 
         createResumeComponent.create(newStudent);
-        return getTokenResponse(newStudent.getId());
+        return getTokenResponse(newStudent.id());
     }
 
     private TokenResponse getTokenResponse(String id) {
         return jwtTokenProvider.receiveToken(id, UserRole.STUDENT);
     }
 
-    private StudentEntity createAndSaveNewStudent(XquareUserResponse xquareUserResponse) {
+    private StudentModel createAndSaveNewStudent(XquareUserResponse xquareUserResponse) {
         var defaultMajor = defaultMajorFacade.getDefaultMajor();
 
-        return studentMongoRepository.save(
-                StudentEntity.builder()
-                        .accountId(xquareUserResponse.getAccountId())
-                        .password(xquareUserResponse.getPassword())
-                        .name(xquareUserResponse.getName())
-                        .classInfo(xquareUserResponse.toClassInfo())
-                        .profileImagePath(defaultProfileImageProperties.imageUrl())
-                        .major(new StudentEntity.Major(defaultMajor.id(), defaultMajor.name()))
-                        .build());
+        return studentRepository.save(
+                new StudentModel(
+                        xquareUserResponse.getAccountId(),
+                        xquareUserResponse.getPassword(),
+                        xquareUserResponse.getName(),
+                        xquareUserResponse.getGrade(),
+                        xquareUserResponse.getClassNum(),
+                        xquareUserResponse.getNum(),
+                        defaultProfileImageProperties.imageUrl(),
+                        defaultMajor.id(),
+                        defaultMajor.name()
+                )
+        );
     }
 }
