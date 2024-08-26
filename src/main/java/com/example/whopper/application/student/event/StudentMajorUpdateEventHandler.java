@@ -20,10 +20,7 @@ public class StudentMajorUpdateEventHandler {
         log.info("StudentMajorUpdateEvent 실행됌!!");
 
         var student = studentRepository.findById(event.studentId())
-                .orElseThrow(() -> {
-                    log.error("StudentMajorUpdateEvent 터짐 학생 못 찾음!!");
-                    return StudentNotFoundException.EXCEPTION;
-                });
+                .orElseThrow(() -> StudentNotFoundException.EXCEPTION);
         var newStudent = student.updateMajor(event.majorId(), event.majorName());
 
         studentRepository.save(newStudent);

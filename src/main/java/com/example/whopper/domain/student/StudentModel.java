@@ -15,7 +15,7 @@ public record StudentModel(
 ) {
 
     public StudentModel updateMajor(String majorId, String majorName) {
-        return new StudentModel(null, accountId, password, name, classInfo, profileImagePath, new StudentElementDto.Major(majorId, majorName));
+        return new StudentModel(id, accountId, password, name, classInfo, profileImagePath, new StudentElementDto.Major(majorId, majorName));
     }
 
     public StudentModel(String accountId, String password, String name, Integer grade, Integer classNumber, Integer number, String profileImagePath, String majorId, String majorName) {
