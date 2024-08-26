@@ -1,6 +1,5 @@
 package com.example.whopper.infrastructure.xquare.dto.response;
 
-import com.example.whopper.domain.student.ClassInfo;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -30,7 +29,4 @@ public class XquareUserResponse {
 
     private String clubName;
 
-    public ClassInfo toClassInfo() {
-        return ClassInfo.of(grade, classNum, num);
-    }
 }

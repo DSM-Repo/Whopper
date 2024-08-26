@@ -1,8 +1,8 @@
 package com.example.whopper.application.resume.component;
 
 import com.example.whopper.domain.resume.ResumeModel;
-import com.example.whopper.domain.student.StudentEntity;
+import com.example.whopper.domain.student.StudentModel;
 
 public interface CreateResumeComponent {
-    ResumeModel create(StudentEntity student);
+    ResumeModel create(StudentModel student);
 }
