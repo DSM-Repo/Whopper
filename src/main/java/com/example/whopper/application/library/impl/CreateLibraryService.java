@@ -8,6 +8,7 @@ import com.example.whopper.domain.library.type.AccessRight;
 import com.example.whopper.common.http.response.DataResponseInfo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 
@@ -17,6 +18,8 @@ public class CreateLibraryService implements CreateLibraryUseCase {
 
     private final LibraryMongoRepository libraryMongoRepository;
 
+    @Override
+    @Transactional
     public void createLibrary(Integer grade, String filePath, DataResponseInfo<ResumeIndex> index) {
         LocalDateTime now = LocalDateTime.now();
 

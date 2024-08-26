@@ -25,7 +25,7 @@ public class FeedbackResponse{
             Boolean rejected
     ) {
         public static TeacherResponse fromFeedback(FeedbackModel feedback) {
-            return new TeacherResponse(feedback.id(), feedback.comment(), feedback.type().name(), feedback.status().name(), feedback.rejected());
+            return new TeacherResponse(feedback.id(), feedback.type().name(), feedback.comment(), feedback.status().name(), feedback.rejected());
         }
     }
 }

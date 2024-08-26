@@ -10,8 +10,10 @@ import com.example.whopper.common.exception.library.LibraryNotFoundException;
 import com.example.whopper.common.http.response.DataResponseInfo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class FindLibraryService implements FindLibraryUseCase {
 
