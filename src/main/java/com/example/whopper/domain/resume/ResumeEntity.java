@@ -93,6 +93,7 @@ class ResumeEntity {
         record SchoolInfo(
                 Integer grade,
                 Integer classNumber,
+                Integer number,
                 String schoolNumber,
                 Integer generation
         ) {}
