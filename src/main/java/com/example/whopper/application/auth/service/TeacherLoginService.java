@@ -11,22 +11,23 @@ import com.example.whopper.common.exception.auth.PasswordMismatchException;
 import com.example.whopper.common.exception.teacher.TeacherNotFoundException;
 import com.example.whopper.common.security.jwt.JwtTokenProvider;
 import com.example.whopper.infrastructure.xquare.XquareClient;
-import com.example.whopper.infrastructure.xquare.dto.response.XquareUserResponse;
+import com.example.whopper.infrastructure.xquare.dto.XquareUserResponse;
 import com.example.whopper.infrastructure.xquare.exception.XquareException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
 class TeacherLoginService implements TeacherLoginUseCase {
-
     private final TeacherRepository teacherRepository;
     private final JwtTokenProvider jwtTokenProvider;
     private final PasswordEncoder passwordEncoder;
     private final XquareClient xquareClient;
 
     @Override
+    @Transactional
     public TokenResponse teacherLogin(LoginRequest request) {
         return teacherRepository.existsByAccountId(request.accountId())
                 ? loginExistingTeacher(request)
@@ -34,7 +35,7 @@ class TeacherLoginService implements TeacherLoginUseCase {
     }
 
     private TokenResponse loginExistingTeacher(LoginRequest request) {
-        var teacher = teacherRepository.findByAccountId(request.accountId())
+        final var teacher = teacherRepository.findByAccountId(request.accountId())
                 .orElseThrow(() -> TeacherNotFoundException.EXCEPTION);
 
         if (!passwordEncoder.matches(request.password(), teacher.password())) {
@@ -45,21 +46,21 @@ class TeacherLoginService implements TeacherLoginUseCase {
     }
 
     private TokenResponse registerAndLoginNewTeacher(LoginRequest request) {
-        XquareUserResponse xquareUserResponse;
+        XquareUserResponse xquareResponse;
 
         try {
-            xquareUserResponse = xquareClient.xquareUser(request);
+            xquareResponse = xquareClient.xquareUser(request);
         } catch (Exception e) {
             throw XquareException.EXCEPTION;
         }
 
-        if(!xquareUserResponse.getUserRole().equals("SCH")) throw InvalidUserException.EXCEPTION;
-        var newTeacher = createAndSaveNewTeacher(xquareUserResponse);
+        if(!xquareResponse.getUserRole().equals("SCH")) throw InvalidUserException.EXCEPTION;
+        final var newTeacher = createAndSaveNewTeacher(xquareResponse);
 
         return jwtTokenProvider.receiveToken(newTeacher.id(), UserRole.TEACHER);
     }
 
-    private TeacherModel createAndSaveNewTeacher(XquareUserResponse xquareUserResponse) {
-        return teacherRepository.save(new TeacherModel(xquareUserResponse));
+    private TeacherModel createAndSaveNewTeacher(XquareUserResponse xquareResponse) {
+        return teacherRepository.save(new TeacherModel(xquareResponse));
     }
 }

@@ -12,15 +12,15 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-@Transactional
 @RequiredArgsConstructor
 class ReleaseResumeService implements ReleaseResumeUseCase {
     private final ResumeRepository resumeRepository;
     private final FeedbackRepository feedbackRepository;
 
     @Override
+    @Transactional
     public void release(String resumeId) {
-        var resume = findById(resumeId);
+        final var resume = findById(resumeId);
 
         ResumeModel newResume;
         if (resume.status().equals(ResumeElementDto.Status.RELEASED)) {

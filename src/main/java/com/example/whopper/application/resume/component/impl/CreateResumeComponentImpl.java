@@ -7,6 +7,7 @@ import com.example.whopper.domain.resume.ResumeModelFactory;
 import com.example.whopper.domain.student.StudentModel;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 @Component
 @RequiredArgsConstructor
@@ -14,8 +15,9 @@ class CreateResumeComponentImpl implements CreateResumeComponent {
     private final ResumeRepository resumeRepository;
 
     @Override
+    @Transactional
     public ResumeModel create(StudentModel student) {
-        var resume = ResumeModelFactory.createResumeModelFromStudentEntity(student);
+        final var resume = ResumeModelFactory.createResumeModelFromStudentEntity(student);
 
         return resumeRepository.save(resume);
     }

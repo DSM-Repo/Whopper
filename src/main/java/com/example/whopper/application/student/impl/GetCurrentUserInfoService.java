@@ -13,7 +13,8 @@ public class GetCurrentUserInfoService implements GetCurrentUserInfoUseCase {
 
     @Override
     public GetCurrentUserInfoResponse get() {
-        var currentStudent = this.currentStudent.getStudent();
+        final var currentStudent = this.currentStudent.getStudent();
+
         return GetCurrentUserInfoResponse.fromStudentEntity(
                 currentStudent
         );

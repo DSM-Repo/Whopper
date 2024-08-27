@@ -34,8 +34,8 @@ class FindResumeService implements FindResumeUseCase {
 
     @Override
     public ResumeResponse getIntroduceRecentlySharedResumes() {
-        var currentStudentResume = currentStudent.getResume();
-        var libraries = libraryRepository.findTop3ByOrderByCreateAtDesc()
+        final var currentStudentResume = currentStudent.getResume();
+        final var libraries = libraryRepository.findTop3ByOrderByCreateAtDesc()
                 .map(ResumeResponse.ShardLibrary::toShardLibrary)
                 .toList();
 
@@ -47,14 +47,14 @@ class FindResumeService implements FindResumeUseCase {
 
     @Override
     public FullResumeResponse getCurrentStudentResume() {
-        var currentStudentResume = currentStudent.getResume();
+        final var currentStudentResume = currentStudent.getResume();
 
         return FullResumeResponse.of(currentStudentResume);
     }
 
     @Override
     public FullResumeResponse getSubmittedResume(String resumeId) {
-        var resume = resumeRepository.findById(resumeId)
+        final var resume = resumeRepository.findById(resumeId)
                 .orElseThrow(() -> ResumeNotFoundException.EXCEPTION);
 
         return FullResumeResponse.of(resume);
@@ -62,15 +62,15 @@ class FindResumeService implements FindResumeUseCase {
 
     @Override
     public DataResponseInfo<SearchResumeResponse> searchResume(String name, Integer grade, Integer classNumber, String majorId, String status) {
-        var WriterId = teacherComponent.currentTeacher().id();
+        final var WriterId = teacherComponent.currentTeacher().id();
 
-        var resumes = resumeRepository.searchResumes(name, grade, classNumber, majorId, status).toList();
-        var resumeIds = resumes.stream().map(ResumeModel::id).toList();
+        final var resumes = resumeRepository.searchResumes(name, grade, classNumber, majorId, status).toList();
+        final var resumeIds = resumes.stream().map(ResumeModel::id).toList();
 
         Map<String, List<FeedbackModel>> feedbackMap = feedbackRepository.findAllByResumeIdInAndWriterId(resumeIds, WriterId)
                 .collect(Collectors.groupingBy(FeedbackModel::resumeId));
 
-        var responses = resumes.stream()
+        final var responses = resumes.stream()
                 .map(resume -> SearchResumeResponse.of(
                         resume,
                         Optional.ofNullable(feedbackMap.get(resume.id()))
@@ -86,7 +86,7 @@ class FindResumeService implements FindResumeUseCase {
 
     @Override
     public CompletionElementLevelResponse getCurrentStudentResumeCompletionLevel() {
-        var currentStudentResume = currentStudent.getResume();
+        final var currentStudentResume = currentStudent.getResume();
 
         return CompletionElementLevelResponse.of(currentStudentResume);
     }
@@ -102,10 +102,10 @@ class FindResumeService implements FindResumeUseCase {
 
     @Override
     public DataResponseInfo<FullResumeResponse> getReleasedResumesByGradeAndYear(int grade, int year) {
-        var generation = (year - 2013) - grade;
-        var resume = resumeRepository.getReleasedResumesByGenerationAndYear(generation, year);
+        final var generation = (year - 2013) - grade;
+        final var resume = resumeRepository.getReleasedResumesByGenerationAndYear(generation, year);
 
-        var response = resume.map(FullResumeResponse::of)
+        final var response = resume.map(FullResumeResponse::of)
                 .toList();
 
         return DataResponseInfo.of(response);

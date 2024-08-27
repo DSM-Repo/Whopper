@@ -10,15 +10,15 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-@Transactional
 @RequiredArgsConstructor
 class SubmitMyResumeService implements SubmitMyResumeUseCase {
     private final ResumeRepository resumeRepository;
     private final CurrentStudent currentStudent;
 
     @Override
+    @Transactional
     public void submit() {
-        var resume = currentStudent.getResume();
+        final var resume = currentStudent.getResume();
 
         ResumeModel newResume;
         if (resume.status().equals(ResumeElementDto.Status.SUBMITTED)) {
