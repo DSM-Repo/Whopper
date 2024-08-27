@@ -41,7 +41,7 @@ public class FindFeedbackService implements FindFeedbackUseCase {
     @Override
     public DataResponseInfo<FeedbackResponse.TeacherResponse> getFeedbackListByresumeId(String resumeId) {
         final var currentTeacher = teacherComponent.currentTeacher();
-        final var feedbackList =  feedbackRepository.findAllByResumeIdAndWriterId(resumeId, currentTeacher.getId())
+        final var feedbackList =  feedbackRepository.findAllByResumeIdAndWriterId(resumeId, currentTeacher.id())
                 .map(FeedbackResponse.TeacherResponse::fromFeedback)
                 .toList();
 
@@ -52,7 +52,7 @@ public class FindFeedbackService implements FindFeedbackUseCase {
     public DataResponseInfo<FeedbackResponse.TeacherResponse> getFeedbacksWrittenByTeacher() {
         final var teacher = teacherComponent.currentTeacher();
 
-        final var result = feedbackRepository.findAllByWriterId(teacher.getId())
+        final var result = feedbackRepository.findAllByWriterId(teacher.id())
                 .map(FeedbackResponse.TeacherResponse::fromFeedback)
                 .toList();
 
