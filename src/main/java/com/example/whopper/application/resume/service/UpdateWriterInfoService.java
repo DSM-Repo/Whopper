@@ -31,7 +31,7 @@ class UpdateWriterInfoService extends AbstractUpdateElementServiceBase<UpdateWri
 
         final var newWriter = resume.writer().update(new ResumeElementDto.Writer.Major(major.id(), major.name()), request.email(), request.skillSet(), request.url());
 
-        eventPublisher.publishEvent(new StudentMajorUpdateEvent(major.id(), major.name()));
+        eventPublisher.publishEvent(new StudentMajorUpdateEvent(major.id(), major.name(), resume.writer().id()));
 
         return resume.updateWriterInfo(newWriter);
     }

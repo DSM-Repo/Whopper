@@ -23,7 +23,7 @@ public class ConfirmFeedbackService implements ConfirmFeedbackUseCase {
 
         final var resume = currentStudent.getResume();
 
-        if (!resume.id().equals(feedback.id())) {
+        if (!resume.id().equals(feedback.resumeId())) {
             throw ForbiddenException.EXCEPTION;
         }
 
