@@ -97,14 +97,14 @@ public class JwtTokenProvider {
         }
     }
 
-    public TokenResponse receiveToken(String id, AuthElementDto.UserRole userRole) {
+    public TokenResponse receiveToken(String id, AuthElementDto.UserRole role) {
 
         ZonedDateTime now = ZonedDateTime.now(ZoneId.of("Asia/Seoul"));
 
         return TokenResponse
                 .builder()
-                .accessToken(createAccessToken(id, userRole))
-                .refreshToken(createRefreshToken(id, userRole))
+                .accessToken(createAccessToken(id, role))
+                .refreshToken(createRefreshToken(id, role))
                 .accessExpiredAt(now.plusSeconds(jwtProperties.accessExpiration()).toEpochSecond())
                 .refreshExpiredAt(now.plusSeconds(jwtProperties.refreshExpiration()).toEpochSecond())
                 .build();

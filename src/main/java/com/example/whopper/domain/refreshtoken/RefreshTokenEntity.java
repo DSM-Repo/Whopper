@@ -1,6 +1,5 @@
 package com.example.whopper.domain.refreshtoken;
 
-import com.example.whopper.domain.refreshtoken.type.UserRole;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -19,7 +18,6 @@ import org.springframework.data.redis.core.index.Indexed;
 public class RefreshTokenEntity {
     @Id
     private String id;
-
     private UserRole userRole;
 
     @Indexed
@@ -27,4 +25,9 @@ public class RefreshTokenEntity {
 
     @TimeToLive
     private Long timeToLive;
+
+    enum UserRole {
+        STUDENT,
+        TEACHER
+    }
 }
