@@ -3,8 +3,6 @@ package com.example.whopper.application.library.impl;
 import com.example.whopper.application.file.usecase.PdfUseCase;
 import com.example.whopper.application.library.usecase.FindLibraryDetailUseCase;
 import com.example.whopper.domain.library.LibraryModel;
-import com.example.whopper.domain.library.LibraryMongoRepository;
-import com.example.whopper.domain.library.LibraryEntity;
 import com.example.whopper.domain.library.LibraryRepository;
 import com.example.whopper.interfaces.library.dto.response.LibraryDetailResponse;
 import com.example.whopper.common.exception.library.LibraryNotFoundException;
