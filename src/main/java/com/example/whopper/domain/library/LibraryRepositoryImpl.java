@@ -44,24 +44,20 @@ class LibraryRepositoryImpl implements LibraryRepository {
     public Stream<LibraryModel> findAll() {
         final var result = libraryMongoRepository.findAll().stream();
 
-        return toStreamLibraryModel(result);
+        return libraryEntityMapper.toStreamLibraryModel(result);
     }
 
     @Override
     public Stream<LibraryModel> findTop3ByOrderByCreateAtDesc() {
         final var result = libraryMongoRepository.findTop3ByOrderByCreateAtDesc();
 
-        return toStreamLibraryModel(result);
+        return libraryEntityMapper.toStreamLibraryModel(result);
     }
 
     @Override
     public Stream<LibraryModel> findAllByYear(int year) {
         final var result = libraryMongoRepository.findAllByYear(year);
 
-        return toStreamLibraryModel(result);
-    }
-
-    private Stream<LibraryModel> toStreamLibraryModel(Stream<LibraryEntity> entityStream) {
-        return entityStream.map(libraryEntityMapper::toModel);
+        return libraryEntityMapper.toStreamLibraryModel(result);
     }
 }
