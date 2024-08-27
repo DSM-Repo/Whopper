@@ -21,7 +21,6 @@ public class ChangeLibraryAccessRightService implements ChangeLibraryAccessRight
         LibraryModel library = libraryRepository.findById(libraryId)
                 .orElseThrow(() -> LibraryNotFoundException.EXCEPTION);
 
-        library.changeAccessRight(accessRight);
-        libraryRepository.save(library);
+        libraryRepository.save(library.changeAccessRight(accessRight));
     }
 }
