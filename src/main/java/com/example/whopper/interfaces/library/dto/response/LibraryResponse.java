@@ -1,22 +1,22 @@
 package com.example.whopper.interfaces.library.dto.response;
 
-import com.example.whopper.domain.library.LibraryModel;
-import com.example.whopper.interfaces.library.dto.LibraryElementDto;
+import com.example.whopper.domain.library.LibraryEntity;
+import com.example.whopper.domain.library.type.AccessRight;
 
 public record LibraryResponse(
         String id,
-        LibraryElementDto.AccessRight accessRight,
+        AccessRight accessRight,
         Integer year,
         Integer grade,
         Integer generation
 ) {
 
-    public static LibraryResponse fromEntity(LibraryModel entity) {
+    public static LibraryResponse fromEntity(LibraryEntity entity) {
         return new LibraryResponse(
-                entity.id(),
-                entity.accessRight(),
-                entity.year(),
-                entity.grade(),
+                entity.getId(),
+                entity.getAccessRight(),
+                entity.getYear(),
+                entity.getGrade(),
                 entity.getGeneration()
         );
     }

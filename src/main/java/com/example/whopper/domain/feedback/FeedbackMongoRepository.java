@@ -5,7 +5,7 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import java.util.List;
 import java.util.stream.Stream;
 
-interface FeedbackMongoRepository extends MongoRepository<FeedbackEntity, String> {
+public interface FeedbackMongoRepository extends MongoRepository<FeedbackEntity, String> {
     Stream<FeedbackEntity> findAllByResumeIdAndStatus(String resumeId, FeedbackEntity.Status status);
     int countByResumeId(String resumeId);
     void deleteAllByResumeId(String resumeId);

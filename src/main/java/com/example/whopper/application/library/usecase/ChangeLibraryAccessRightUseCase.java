@@ -1,7 +1,7 @@
 package com.example.whopper.application.library.usecase;
 
-import com.example.whopper.interfaces.library.dto.LibraryElementDto;
+import com.example.whopper.domain.library.type.AccessRight;
 
 public interface ChangeLibraryAccessRightUseCase {
-    void changeLibraryAccessRight(String libraryId, LibraryElementDto.AccessRight accessRight);
+    void changeLibraryAccessRight(String libraryId, AccessRight accessRight);
 }

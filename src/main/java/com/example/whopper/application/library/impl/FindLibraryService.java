@@ -2,8 +2,8 @@ package com.example.whopper.application.library.impl;
 
 import com.example.whopper.application.file.usecase.PdfUseCase;
 import com.example.whopper.application.library.usecase.FindLibraryUseCase;
-import com.example.whopper.domain.library.LibraryModel;
-import com.example.whopper.domain.library.LibraryRepository;
+import com.example.whopper.domain.library.LibraryMongoRepository;
+import com.example.whopper.domain.library.LibraryEntity;
 import com.example.whopper.interfaces.library.dto.response.LibraryDetailResponse;
 import com.example.whopper.interfaces.library.dto.response.LibraryResponse;
 import com.example.whopper.common.exception.library.LibraryNotFoundException;
@@ -17,24 +17,24 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class FindLibraryService implements FindLibraryUseCase {
 
-    private final LibraryRepository libraryRepository;
+    private final LibraryMongoRepository libraryMongoRepository;
     private final PdfUseCase pdfUseCase;
 
     @Override
-    public LibraryDetailResponse findLibraryDetail(String id) {
-        LibraryModel library = libraryRepository.findById(id)
+    public LibraryDetailResponse findLibraryDetail(String libraryId) {
+        LibraryEntity library =  libraryMongoRepository.findById(libraryId)
                 .orElseThrow(() -> LibraryNotFoundException.EXCEPTION);
 
-        return new LibraryDetailResponse(library, pdfUseCase.getPdfFileUrl(library.filePath()));
+        return new LibraryDetailResponse(library, pdfUseCase.getPdfFileUrl(library.getFilePath()));
     }
 
     @Override
     public DataResponseInfo<LibraryResponse> findLibrary(Integer year) {
         var library = (year == 0)
-                ? libraryRepository.findAll()
-                : libraryRepository.findAllByYear(year);
+                ? libraryMongoRepository.findAll()
+                : libraryMongoRepository.findAllByYear(year);
 
-        return DataResponseInfo.of(library
+        return DataResponseInfo.of(library.stream()
                 .map(LibraryResponse::fromEntity)
                 .toList());
     }

@@ -1,8 +1,8 @@
 package com.example.whopper.application.library.impl;
 
 import com.example.whopper.application.library.usecase.FindLibraryIndexUseCase;
-import com.example.whopper.domain.library.LibraryModel;
-import com.example.whopper.domain.library.LibraryRepository;
+import com.example.whopper.domain.library.LibraryMongoRepository;
+import com.example.whopper.domain.library.LibraryEntity;
 import com.example.whopper.interfaces.library.dto.response.LibraryIndexResponse;
 import com.example.whopper.common.exception.library.LibraryNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -13,14 +13,14 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class FindLibraryIndexService implements FindLibraryIndexUseCase {
 
-    private final LibraryRepository libraryRepository;
+    private final LibraryMongoRepository libraryMongoRepository;
 
     @Override
     @Transactional(readOnly = true)
-    public LibraryIndexResponse findLibraryIndex(String id) {
-        LibraryModel library = libraryRepository.findById(id)
+    public LibraryIndexResponse findLibraryIndex(String libraryId) {
+        LibraryEntity library = libraryMongoRepository.findById(libraryId)
                 .orElseThrow(() -> LibraryNotFoundException.EXCEPTION);
 
-        return new LibraryIndexResponse(library.index());
+        return new LibraryIndexResponse(library.getIndex());
     }
 }

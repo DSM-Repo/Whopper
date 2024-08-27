@@ -15,13 +15,13 @@ public abstract class AbstractUpdateElementServiceBase<T> {
 
     @Transactional
     public void update(T request) {
-        final var resume = currentStudent.getResume();
+        var resume = currentStudent.getResume();
 
         if (!resume.status().equals(ResumeElementDto.Status.ONGOING)) {
             throw ResumeModificationException.EXCEPTION;
         }
 
-        final var newResume = updateResume(resume, request);
+        var newResume = updateResume(resume, request);
         resumeRepository.save(newResume);
     }
 
