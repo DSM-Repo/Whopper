@@ -35,6 +35,6 @@ public class AddFeedbackService implements AddFeedbackUseCase {
         final var teacher = teacherComponent.currentTeacher();
 
         feedbackRepository.save(new FeedbackModel(null, request.comment(), FeedbackElementDto.Type.valueOf(request.type()), request.resumeId(),
-                FeedbackElementDto.Status.PENDING, false, new FeedbackElementDto.Writer(teacher.getId(), teacher.getName())));
+                FeedbackElementDto.Status.PENDING, false, new FeedbackElementDto.Writer(teacher.id(), teacher.name())));
     }
 }
