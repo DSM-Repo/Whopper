@@ -1,6 +1,5 @@
 package com.example.whopper.domain.library;
 
-import com.example.whopper.interfaces.library.dto.LibraryElementDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -14,30 +13,15 @@ class LibraryRepositoryImpl implements LibraryRepository {
     private final LibraryEntityMapper libraryEntityMapper;
 
     @Override
-    public LibraryModel save(LibraryModel library) {
-        final var entity =  libraryEntityMapper.toEntity(library);
+    public LibraryModel save(LibraryModel model) {
+        final var entity =  libraryEntityMapper.toEntity(model);
 
         return libraryEntityMapper.toModel(libraryMongoRepository.save(entity));
     }
 
     @Override
-    public Optional<LibraryModel> findById(String id) {
-        return libraryEntityMapper.toOptionalModel(libraryMongoRepository.findById(id));
-    }
-
-    @Override
-    public Optional<LibraryModel> findFirstByAccessRightNotAndYear(LibraryElementDto.AccessRight accessRight, int year) {
-        return libraryEntityMapper.toOptionalModel(libraryMongoRepository.findFirstByAccessRightNotAndYear(LibraryEntity.AccessRight.valueOf(accessRight.name()), year));
-    }
-
-    @Override
-    public Optional<LibraryModel> findFirstByAccessRightNot(LibraryElementDto.AccessRight accessRight) {
-        return libraryEntityMapper.toOptionalModel(libraryMongoRepository.findFirstByAccessRightNot(LibraryEntity.AccessRight.valueOf(accessRight.name())));
-    }
-
-    @Override
-    public Optional<LibraryModel> findFirstByYear(int year) {
-        return libraryEntityMapper.toOptionalModel(libraryMongoRepository.findFirstByYear(year));
+    public Optional<LibraryModel> findById(String libraryId) {
+        return libraryEntityMapper.toOptionalModel(libraryMongoRepository.findById(libraryId));
     }
 
     @Override
