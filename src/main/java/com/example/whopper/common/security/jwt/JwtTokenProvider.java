@@ -64,8 +64,8 @@ public class JwtTokenProvider {
         return refreshToken;
     }
 
-    private String getSecret(AuthElementDto.UserRole userRole) {
-        if (userRole.equals(AuthElementDto.UserRole.TEACHER)) {
+    private String getSecret(AuthElementDto.UserRole role) {
+        if (role.equals(AuthElementDto.UserRole.TEACHER)) {
             return jwtProperties.teacherSecret();
         }
 

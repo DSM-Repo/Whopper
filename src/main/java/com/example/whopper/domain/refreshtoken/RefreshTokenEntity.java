@@ -18,7 +18,7 @@ import org.springframework.data.redis.core.index.Indexed;
 public class RefreshTokenEntity {
     @Id
     private String id;
-    private UserRole userRole;
+    private UserRole role;
 
     @Indexed
     private String token;
