@@ -1,9 +1,9 @@
 package com.example.whopper.application.teacher.component;
 
 import com.example.whopper.common.exception.auth.NotAuthenticatedException;
-import com.example.whopper.domain.teacher.TeacherMongoRepository;
-import com.example.whopper.domain.teacher.TeacherEntity;
+import com.example.whopper.domain.teacher.TeacherModel;
 import com.example.whopper.common.exception.teacher.TeacherNotFoundException;
+import com.example.whopper.domain.teacher.TeacherRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -13,9 +13,9 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class TeacherComponent {
 
-    private final TeacherMongoRepository teacherMongoRepository;
+    private final TeacherRepository teacherRepository;
 
-    public TeacherEntity currentTeacher() {
+    public TeacherModel currentTeacher() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         if (authentication == null || !authentication.isAuthenticated()) {
@@ -24,7 +24,7 @@ public class TeacherComponent {
 
         String id = authentication.getName();
 
-        return teacherMongoRepository.findById(id)
+        return teacherRepository.findById(id)
                 .orElseThrow(() -> TeacherNotFoundException.EXCEPTION);
     }
 }
