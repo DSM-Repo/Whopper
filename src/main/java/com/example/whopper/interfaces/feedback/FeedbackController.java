@@ -7,9 +7,9 @@ import com.example.whopper.application.feedback.usecase.DeleteFeedbackUseCase;
 import com.example.whopper.application.feedback.usecase.FindFeedbackUseCase;
 import com.example.whopper.application.feedback.usecase.RejectFeedbackUseCase;
 import com.example.whopper.application.feedback.usecase.UpdateFeedbackUseCase;
-import com.example.whopper.interfaces.feedback.dto.FeedbackRequest;
-import com.example.whopper.interfaces.feedback.dto.FeedbackResponse;
-import com.example.whopper.interfaces.feedback.dto.UpdateFeedbackRequest;
+import com.example.whopper.interfaces.feedback.dto.request.FeedbackRequest;
+import com.example.whopper.interfaces.feedback.dto.response.FeedbackResponse;
+import com.example.whopper.interfaces.feedback.dto.request.UpdateFeedbackRequest;
 import com.example.whopper.common.annotation.OnlyStudent;
 import com.example.whopper.common.annotation.OnlyTeacher;
 import com.example.whopper.common.http.response.DataResponseInfo;
@@ -20,19 +20,12 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 @RequestMapping("/feedback")
 public class FeedbackController {
-
     private final AddFeedbackUseCase addFeedbackUseCase;
-
     private final AcceptFeedbackUseCase acceptFeedbackUseCase;
-
     private final RejectFeedbackUseCase rejectFeedbackUseCase;
-
     private final UpdateFeedbackUseCase updateFeedbackUseCase;
-
     private final DeleteFeedbackUseCase deleteFeedbackUseCase;
-
     private final FindFeedbackUseCase findFeedbackUseCase;
-
     private final ConfirmFeedbackUseCase confirmFeedbackUseCase;
 
     @OnlyStudent
@@ -60,9 +53,9 @@ public class FeedbackController {
     }
 
     @OnlyTeacher
-    @GetMapping("/{documentId}")
-    public DataResponseInfo<FeedbackResponse.TeacherResponse> getFeedbackListByDocumentId(@PathVariable String documentId) {
-        return findFeedbackUseCase.getFeedbackListByDocumentId(documentId);
+    @GetMapping("/{resumeId}")
+    public DataResponseInfo<FeedbackResponse.TeacherResponse> getFeedbackListByresumeId(@PathVariable String resumeId) {
+        return findFeedbackUseCase.getFeedbackListByresumeId(resumeId);
     }
 
     @OnlyTeacher

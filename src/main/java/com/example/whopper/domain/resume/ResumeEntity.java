@@ -31,6 +31,7 @@ class ResumeEntity {
     /* value objects */
 
     record Activity(
+            String elementId,
             String name,
             Date date,
             boolean isPeriod,
@@ -38,6 +39,7 @@ class ResumeEntity {
     ) {}
 
     record Achievement(
+            String elementId,
             String name,
             String institution,
             String date,
@@ -54,6 +56,7 @@ class ResumeEntity {
     ) {}
 
     record Project(
+            String elementId,
             String name,
             Logo logo,
             Type type,
@@ -63,6 +66,7 @@ class ResumeEntity {
             String url
     ) {
         record Section(
+                String elementId,
                 String title,
                 String description
         ) {}
@@ -89,6 +93,7 @@ class ResumeEntity {
         record SchoolInfo(
                 Integer grade,
                 Integer classNumber,
+                Integer number,
                 String schoolNumber,
                 Integer generation
         ) {}

@@ -1,8 +1,8 @@
 package com.example.whopper.common.security.auth;
 
 import com.example.whopper.domain.refreshtoken.type.UserRole;
-import com.example.whopper.domain.student.StudentMongoRepository;
 import com.example.whopper.common.exception.student.StudentNotFoundException;
+import com.example.whopper.domain.student.StudentRepository;
 import com.example.whopper.domain.teacher.TeacherMongoRepository;
 import com.example.whopper.common.exception.teacher.TeacherNotFoundException;
 import com.example.whopper.common.security.jwt.JwtProperties;
@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class CustomUserDetailsService implements UserDetailsService {
 
-    private final StudentMongoRepository studentMongoRepository;
+    private final StudentRepository studentRepository;
     private final TeacherMongoRepository teacherMongoRepository;
     private final JwtProperties jwtProperties;
 
@@ -47,7 +47,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     }
 
     private String handleStudent(String id) {
-        if (!studentMongoRepository.existsById(id)) {
+        if (!studentRepository.existsById(id)) {
             throw StudentNotFoundException.EXCEPTION;
         }
 

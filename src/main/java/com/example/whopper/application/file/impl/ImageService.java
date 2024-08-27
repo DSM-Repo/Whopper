@@ -6,11 +6,13 @@ import com.example.whopper.domain.file.type.ImageType;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.*;
 
 @Component
+@Transactional
 @RequiredArgsConstructor
 public class ImageService implements ImageUseCase {
     private static final Set<String> VALID_EXTENSIONS = Set.of(".jpg", ".jpeg", ".png", ".heic", ".svg", ".webp", ".gif");
@@ -52,7 +54,7 @@ public class ImageService implements ImageUseCase {
     }
 
     private String generateFileKey(ImageType imageType) {
-        String folder = imageType == ImageType.PROFILE ? awsS3Properties.profileFolder() : awsS3Properties.documentFolder();
+        String folder = imageType == ImageType.PROFILE ? awsS3Properties.profileFolder() : awsS3Properties.resumeFolder();
         return folder + "/" + UUID.randomUUID();
     }
 

@@ -6,10 +6,10 @@ import java.util.List;
 import java.util.stream.Stream;
 
 public interface FeedbackMongoRepository extends MongoRepository<FeedbackEntity, String> {
-    List<FeedbackEntity> findAllByDocumentIdAndStatus(String documentId, FeedbackEntity.Status status);
-    int countByDocumentId(String documentId);
-    void deleteAllByDocumentId(String documentId);
-    Stream<FeedbackEntity> findAllByTeacherId(String teacherId);
-    Stream<FeedbackEntity> findAllByDocumentIdAndTeacherId(String documentId, String teacherId);
-    List<FeedbackEntity> findAllByDocumentIdInAndTeacherId(List<String> documentIds, String teacherId);
+    Stream<FeedbackEntity> findAllByResumeIdAndStatus(String resumeId, FeedbackEntity.Status status);
+    int countByResumeId(String resumeId);
+    void deleteAllByResumeId(String resumeId);
+    Stream<FeedbackEntity> findAllByWriterId(String writerId);
+    Stream<FeedbackEntity> findAllByResumeIdAndWriterId(String resumeId, String writerId);
+    Stream<FeedbackEntity> findAllByResumeIdInAndWriterId(List<String> resumeIds, String writerId);
 }

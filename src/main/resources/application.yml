@@ -45,7 +45,7 @@ aws:
     url: ${AWS_S3_URL}
     bucket: ${AWS_S3_BUCKET}
     profile-folder: ${PROFILE_FOLDER}
-    document-folder: ${DOC_FOLDER}
+    resume-folder: ${DOC_FOLDER}
     pdf-folder: ${PDF_FOLDER}
 
 key:

@@ -7,7 +7,7 @@ public record AwsS3Properties(
         String url,
         String bucket,
         String profileFolder,
-        String documentFolder,
+        String resumeFolder,
         String pdfFolder
 ) {
 }

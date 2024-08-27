@@ -5,6 +5,7 @@ import com.example.whopper.domain.major.MajorModel;
 import com.example.whopper.domain.major.MajorRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
 import java.util.List;
@@ -15,6 +16,7 @@ public class AddMajorService implements AddMajorUseCase {
     private final MajorRepository majorRepository;
 
     @Override
+    @Transactional
     public void add(List<String> majors) {
         var uniqueMajors = new HashSet<>(majors);
         List<String> newMajors = uniqueMajors.stream()

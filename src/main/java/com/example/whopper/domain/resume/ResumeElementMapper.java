@@ -10,7 +10,6 @@ import java.util.List;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING, unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface ResumeElementMapper {
-
     ResumeElementDto.Status toStatusDto(ResumeEntity.Status status);
     ResumeEntity.Status toStatusEntity(ResumeElementDto.Status status);
 

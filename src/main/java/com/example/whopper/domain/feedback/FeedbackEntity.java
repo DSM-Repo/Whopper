@@ -1,54 +1,38 @@
 package com.example.whopper.domain.feedback;
 
-import com.example.whopper.domain.teacher.TeacherEntity;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Getter
+@Builder
+@AllArgsConstructor
 @Document(collection = "feedback_repo")
-public class FeedbackEntity {
+class FeedbackEntity {
     @Id
     private String id;
     private String comment;
     private Type type;
-    private String documentId;
+    private String resumeId;
     private Status status;
     private Boolean rejected;
+    private Writer writer;
 
-    @DBRef(lazy = true)
-    private TeacherEntity teacher;
+    record Writer(
+            String id,
+            String name
+    ) {}
 
-    @Builder
-    public FeedbackEntity(String comment, Type type, String documentId, TeacherEntity teacher) {
-        this.comment = comment;
-        this.type = type;
-        this.documentId = documentId;
-        status = Status.PENDING;
-        this.teacher = teacher;
-        this.rejected = false;
-    }
-
-    public void updateFeedback(String comment) {
-        this.comment = comment;
-    }
-
-    public void confirmed() {
-        status = Status.CONFIRMED;
-    }
-
-    public void rejected() {
-        rejected = true;
-    }
-
-    public enum Status {
+    enum Status {
         CONFIRMED,
         PENDING
     }
 
-    public enum Type {
+    enum Type {
         PROJECT, ACTIVITY, WRITER_INFO, INTRODUCE, ACHIEVEMENT
     }
+
+    protected FeedbackEntity() {}
 }

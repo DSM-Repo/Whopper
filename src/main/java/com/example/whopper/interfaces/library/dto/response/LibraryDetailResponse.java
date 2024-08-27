@@ -1,6 +1,6 @@
 package com.example.whopper.interfaces.library.dto.response;
 
-import com.example.whopper.domain.library.DocumentIndex;
+import com.example.whopper.domain.library.ResumeIndex;
 import com.example.whopper.domain.library.LibraryEntity;
 
 import java.util.List;
@@ -10,10 +10,10 @@ public record LibraryDetailResponse(
         Integer year,
         Integer grade,
         Integer generation,
-        String documentUrl,
-        List<DocumentIndex> index
+        String resumeUrl,
+        List<ResumeIndex> index
 ) {
-    public LibraryDetailResponse(LibraryEntity library, String documentUrl) {
-        this(library.getId(), library.getYear(), library.getGrade(), library.getGeneration(), documentUrl, library.getIndex());
+    public LibraryDetailResponse(LibraryEntity library, String resumeUrl) {
+        this(library.getId(), library.getYear(), library.getGrade(), library.getGeneration(), resumeUrl, library.getIndex());
     }
 }

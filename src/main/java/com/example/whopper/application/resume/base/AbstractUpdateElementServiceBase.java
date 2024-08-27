@@ -2,7 +2,7 @@ package com.example.whopper.application.resume.base;
 
 import com.example.whopper.domain.resume.ResumeRepository;
 import com.example.whopper.domain.resume.ResumeModel;
-import com.example.whopper.common.exception.resume.DocumentModificationException;
+import com.example.whopper.common.exception.resume.ResumeModificationException;
 import com.example.whopper.application.student.component.CurrentStudent;
 import com.example.whopper.interfaces.resume.dto.ResumeElementDto;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +18,7 @@ public abstract class AbstractUpdateElementServiceBase<T> {
         var resume = currentStudent.getResume();
 
         if (!resume.status().equals(ResumeElementDto.Status.ONGOING)) {
-            throw DocumentModificationException.EXCEPTION;
+            throw ResumeModificationException.EXCEPTION;
         }
 
         var newResume = updateResume(resume, request);

@@ -15,6 +15,7 @@ public class ChangeLibraryAccessRightService implements ChangeLibraryAccessRight
 
     private final LibraryMongoRepository libraryMongoRepository;
 
+    @Override
     @Transactional
     public void changeLibraryAccessRight(String libraryId, AccessRight accessRight) {
         LibraryEntity library = libraryMongoRepository.findById(libraryId)
