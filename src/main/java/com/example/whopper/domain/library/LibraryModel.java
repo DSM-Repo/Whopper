@@ -1,6 +1,7 @@
 package com.example.whopper.domain.library;
 
 import com.example.whopper.interfaces.library.dto.LibraryElementDto;
+import com.example.whopper.interfaces.resume.dto.response.ResumeResponse;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -20,5 +21,14 @@ public record LibraryModel(
 
     public LibraryModel changeAccessRight(LibraryElementDto.AccessRight accessRight) {
         return new LibraryModel(id, year, grade, filePath, createAt, accessRight, index);
+    }
+
+    public static ResumeResponse.ShardLibrary fromLibraryEntity(LibraryModel library) {
+        return new ResumeResponse.ShardLibrary(
+                library.id(),
+                library.year(),
+                library.grade(),
+                library.getGeneration()
+        );
     }
 }

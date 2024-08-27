@@ -7,12 +7,19 @@ import java.util.List;
 
 public record ResumeResponse(
         ResumeElementDto.Introduce introduce,
-        List<ResumeElementDto.ShardLibrary> recentlyShared
+        List<ShardLibrary> recentlyShared
 ) {
-    public static ResumeResponse of(ResumeModel model, List<ResumeElementDto.ShardLibrary> recentlyShared) {
+    public static ResumeResponse of(ResumeModel model, List<ShardLibrary> recentlyShared) {
         return new ResumeResponse(
                 model.introduce(),
                 recentlyShared
         );
     }
+
+    public record ShardLibrary(
+            String id,
+            Integer year,
+            Integer grade,
+            Integer generation
+    ) {}
 }
