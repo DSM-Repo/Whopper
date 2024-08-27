@@ -16,14 +16,13 @@ import java.util.stream.Stream;
 
 @Service
 @RequiredArgsConstructor
-@Transactional(readOnly = true)
 public class FindFeedbackService implements FindFeedbackUseCase {
-
     private final CurrentStudent currentStudent;
     private final FeedbackRepository feedbackRepository;
     private final TeacherComponent teacherComponent;
 
     @Override
+    @Transactional(readOnly = true)
     public DataResponseInfo<FeedbackResponse.StudentResponse> getCurrentStudentFeedbackList() {
         final var resume = currentStudent.getResume();
 
@@ -34,12 +33,13 @@ public class FindFeedbackService implements FindFeedbackUseCase {
         return DataResponseInfo.of(feedbackList);
     }
 
-    private Stream<FeedbackModel> getFeedbackResponsesByResumeId(String resumeId) {
-        return feedbackRepository.findAllByResumeIdAndStatus(resumeId, FeedbackElementDto.Status.PENDING);
+    private Stream<FeedbackModel> getFeedbackResponsesByResumeId(String id) {
+        return feedbackRepository.findAllByResumeIdAndStatus(id, FeedbackElementDto.Status.PENDING);
     }
 
     @Override
-    public DataResponseInfo<FeedbackResponse.TeacherResponse> getFeedbackListByresumeId(String resumeId) {
+    @Transactional(readOnly = true)
+    public DataResponseInfo<FeedbackResponse.TeacherResponse> getFeedbackListByResumeId(String resumeId) {
         final var currentTeacher = teacherComponent.currentTeacher();
         final var feedbackList =  feedbackRepository.findAllByResumeIdAndWriterId(resumeId, currentTeacher.id())
                 .map(FeedbackResponse.TeacherResponse::fromFeedback)
@@ -49,6 +49,7 @@ public class FindFeedbackService implements FindFeedbackUseCase {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public DataResponseInfo<FeedbackResponse.TeacherResponse> getFeedbacksWrittenByTeacher() {
         final var teacher = teacherComponent.currentTeacher();
 

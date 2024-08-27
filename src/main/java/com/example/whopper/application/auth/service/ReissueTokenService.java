@@ -8,15 +8,16 @@ import com.example.whopper.interfaces.auth.dto.response.TokenResponse;
 import com.example.whopper.common.security.jwt.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
 class ReissueTokenService implements ReissueTokenUseCase {
-
     private final RefreshTokenRepository refreshTokenRepository;
     private final JwtTokenProvider jwtTokenProvider;
 
     @Override
+    @Transactional
     public TokenResponse reissueToken(String token) {
         RefreshTokenEntity refreshToken = refreshTokenRepository.findByToken(token)
                 .orElseThrow(()-> InvalidTokenException.EXCEPTION);

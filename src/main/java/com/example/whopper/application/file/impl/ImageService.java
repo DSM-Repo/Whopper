@@ -12,7 +12,6 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.*;
 
 @Component
-@Transactional
 @RequiredArgsConstructor
 public class ImageService implements ImageUseCase {
     private static final Set<String> VALID_EXTENSIONS = Set.of(".jpg", ".jpeg", ".png", ".heic", ".svg", ".webp", ".gif");
@@ -22,6 +21,7 @@ public class ImageService implements ImageUseCase {
     private final FileDeleteService fileDeleteService;
 
     @Override
+    @Transactional
     public String saveImage(MultipartFile multipartFile, ImageType imageType) {
         String originalFileName = multipartFile.getOriginalFilename();
         if (originalFileName == null || !isValidExtension(getExtension(originalFileName))) {
@@ -38,11 +38,13 @@ public class ImageService implements ImageUseCase {
     }
 
     @Override
+    @Transactional
     public String getFileBaseUrl() {
         return awsS3Properties.url();
     }
 
     @Override
+    @Transactional
     public void deleteImage(String url) {
         final var key = url.substring(awsS3Properties.url().length());
 

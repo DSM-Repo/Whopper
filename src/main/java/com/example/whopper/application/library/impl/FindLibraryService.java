@@ -13,22 +13,22 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-@Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class FindLibraryService implements FindLibraryUseCase {
-
     private final LibraryRepository libraryRepository;
     private final PdfUseCase pdfUseCase;
 
     @Override
-    public LibraryDetailResponse findLibraryDetail(String id) {
-        LibraryModel library = libraryRepository.findById(id)
+    @Transactional(readOnly = true)
+    public LibraryDetailResponse findLibraryDetail(String libraryId) {
+        LibraryModel library = libraryRepository.findById(libraryId)
                 .orElseThrow(() -> LibraryNotFoundException.EXCEPTION);
 
         return new LibraryDetailResponse(library, pdfUseCase.getPdfFileUrl(library.filePath()));
     }
 
     @Override
+    @Transactional(readOnly = true)
     public DataResponseInfo<LibraryResponse> findLibrary(Integer year) {
         var library = (year == 0)
                 ? libraryRepository.findAll()

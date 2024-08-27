@@ -15,15 +15,14 @@ import java.time.format.DateTimeFormatter;
 import java.util.UUID;
 
 @Service
-@Transactional
 @RequiredArgsConstructor
 public class PdfService implements PdfUseCase {
-
     private final AwsS3Properties awsS3Properties;
     private final S3Operations s3Operations;
     private final FileUploadService fileUploadService;
 
     @Override
+    @Transactional
     public String savePdf(MultipartFile multipartFile) {
         String originalFileName = multipartFile.getOriginalFilename();
         if (originalFileName == null || !isValidExtension(getExtension(originalFileName))) {
@@ -40,6 +39,7 @@ public class PdfService implements PdfUseCase {
     }
 
     @Override
+    @Transactional
     public String getPdfFileUrl(String filePath) {
         return s3Operations.createSignedGetURL(awsS3Properties.bucket(), filePath, Duration.ofHours(4)).toString();
     }
