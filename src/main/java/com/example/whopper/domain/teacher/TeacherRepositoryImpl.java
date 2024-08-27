@@ -39,6 +39,6 @@ class TeacherRepositoryImpl implements TeacherRepository {
     public TeacherModel save(TeacherModel model) {
         final var savedEntity = teacherMongoRepository.save(teacherEntityMapper.toEntity(model));
 
-        return teacherEntityMapper.toModel(savedEntity)
+        return teacherEntityMapper.toModel(savedEntity);
     }
 }
