@@ -10,9 +10,9 @@ import java.util.Optional;
 public interface TeacherEntityMapper {
 
     TeacherEntity toEntity(TeacherModel model);
-    TeacherModel toEntity(TeacherEntity model);
+    TeacherModel toModel(TeacherEntity entity);
 
     default Optional<TeacherModel> toOptionalModel(Optional<TeacherEntity> optionalTeacherEntity) {
-        return optionalTeacherEntity.map(this::toEntity);
+        return optionalTeacherEntity.map(this::toModel);
     }
 }
