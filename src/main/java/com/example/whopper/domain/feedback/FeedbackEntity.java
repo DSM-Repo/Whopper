@@ -10,7 +10,6 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Builder
 @AllArgsConstructor
 @Document(collection = "feedback_repo")
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
 class FeedbackEntity {
     @Id
     private String id;
