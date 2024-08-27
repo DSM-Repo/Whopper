@@ -4,13 +4,12 @@ import com.example.whopper.application.resume.usecase.FindResumeUseCase;
 import com.example.whopper.application.teacher.component.TeacherComponent;
 import com.example.whopper.domain.feedback.FeedbackModel;
 import com.example.whopper.domain.feedback.FeedbackRepository;
+import com.example.whopper.domain.library.LibraryRepository;
 import com.example.whopper.domain.resume.ResumeModel;
 import com.example.whopper.domain.resume.ResumeRepository;
 import com.example.whopper.interfaces.resume.dto.response.CompletionElementLevelResponse;
 import com.example.whopper.interfaces.resume.dto.response.*;
 import com.example.whopper.common.exception.resume.ResumeNotFoundException;
-import com.example.whopper.domain.library.LibraryMongoRepository;
-import com.example.whopper.domain.library.ShardLibrary;
 import com.example.whopper.application.student.component.CurrentStudent;
 import com.example.whopper.common.http.response.DataResponseInfo;
 import lombok.RequiredArgsConstructor;
@@ -29,15 +28,15 @@ import java.util.stream.Collectors;
 class FindResumeService implements FindResumeUseCase {
     private final ResumeRepository resumeRepository;
     private final FeedbackRepository feedbackRepository;
-    private final LibraryMongoRepository libraryMongoRepository;
+    private final LibraryRepository libraryRepository;
     private final CurrentStudent currentStudent;
     private final TeacherComponent teacherComponent;
 
     @Override
     public ResumeResponse getIntroduceRecentlySharedResumes() {
         var currentStudentResume = currentStudent.getResume();
-        var libraries = libraryMongoRepository.findTop3ByOrderByCreateAtDesc()
-                .map(ShardLibrary::fromLibraryEntity)
+        var libraries = libraryRepository.findTop3ByOrderByCreateAtDesc()
+                .map(ResumeResponse.ShardLibrary::toShardLibrary)
                 .toList();
 
         return ResumeResponse.of(
