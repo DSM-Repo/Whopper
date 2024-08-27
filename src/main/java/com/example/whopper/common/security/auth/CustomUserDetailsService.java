@@ -1,11 +1,11 @@
 package com.example.whopper.common.security.auth;
 
-import com.example.whopper.domain.refreshtoken.type.UserRole;
 import com.example.whopper.common.exception.student.StudentNotFoundException;
 import com.example.whopper.domain.student.StudentRepository;
 import com.example.whopper.domain.teacher.TeacherMongoRepository;
 import com.example.whopper.common.exception.teacher.TeacherNotFoundException;
 import com.example.whopper.common.security.jwt.JwtProperties;
+import com.example.whopper.interfaces.auth.dto.AuthElementDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -43,7 +43,7 @@ public class CustomUserDetailsService implements UserDetailsService {
             throw TeacherNotFoundException.EXCEPTION;
         }
 
-        return UserRole.TEACHER.name();
+        return AuthElementDto.UserRole.TEACHER.name();
     }
 
     private String handleStudent(String id) {
@@ -51,6 +51,6 @@ public class CustomUserDetailsService implements UserDetailsService {
             throw StudentNotFoundException.EXCEPTION;
         }
 
-        return UserRole.STUDENT.name();
+        return AuthElementDto.UserRole.STUDENT.name();
     }
 }

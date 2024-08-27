@@ -17,7 +17,6 @@ import org.springframework.data.redis.core.index.Indexed;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class RefreshTokenEntity {
-
     @Id
     private String id;
 
