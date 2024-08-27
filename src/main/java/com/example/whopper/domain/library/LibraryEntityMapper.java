@@ -5,6 +5,7 @@ import org.mapstruct.MappingConstants;
 import org.mapstruct.ReportingPolicy;
 
 import java.util.Optional;
+import java.util.stream.Stream;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING, unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface LibraryEntityMapper {
@@ -13,5 +14,9 @@ public interface LibraryEntityMapper {
 
     default Optional<LibraryModel> toOptionalModel(Optional<LibraryEntity> entity) {
         return entity.map(this::toModel);
+    }
+
+    default Stream<LibraryModel> toStreamLibraryModel(Stream<LibraryEntity> entityStream) {
+        return entityStream.map(this::toModel);
     }
 }
