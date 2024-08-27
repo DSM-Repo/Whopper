@@ -1,7 +1,7 @@
 package com.example.whopper.application.resume.service;
 
 import com.example.whopper.application.resume.usecase.FindResumeUseCase;
-import com.example.whopper.application.teacher.component.TeacherComponent;
+import com.example.whopper.application.teacher.component.CurrentTeacher;
 import com.example.whopper.domain.feedback.FeedbackModel;
 import com.example.whopper.domain.feedback.FeedbackRepository;
 import com.example.whopper.domain.library.LibraryRepository;
@@ -30,7 +30,7 @@ class FindResumeService implements FindResumeUseCase {
     private final FeedbackRepository feedbackRepository;
     private final LibraryRepository libraryRepository;
     private final CurrentStudent currentStudent;
-    private final TeacherComponent teacherComponent;
+    private final CurrentTeacher currentTeacher;
 
     @Override
     public ResumeResponse getIntroduceRecentlySharedResumes() {
@@ -62,7 +62,7 @@ class FindResumeService implements FindResumeUseCase {
 
     @Override
     public DataResponseInfo<SearchResumeResponse> searchResume(String name, Integer grade, Integer classNumber, String majorId, String status) {
-        final var WriterId = teacherComponent.currentTeacher().id();
+        final var WriterId = currentTeacher.getTeacher().id();
 
         final var resumes = resumeRepository.searchResumes(name, grade, classNumber, majorId, status).toList();
         final var resumeIds = resumes.stream().map(ResumeModel::id).toList();
