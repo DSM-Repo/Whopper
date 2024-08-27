@@ -9,7 +9,7 @@ import java.util.List;
 
 @Getter
 @Document(collection = "library_repo")
-class LibraryEntity {
+public class LibraryEntity {
     @Id
     private String id;
     private Integer year;
