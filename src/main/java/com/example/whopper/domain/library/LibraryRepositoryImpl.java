@@ -21,20 +21,17 @@ class LibraryRepositoryImpl implements LibraryRepository {
 
     @Override
     public Optional<LibraryModel> findById(String id) {
-        return libraryMongoRepository.findById(id)
-                .map(libraryEntityMapper::toModel);
+        return libraryEntityMapper.toOptionalModel(libraryMongoRepository.findById(id));
     }
 
     @Override
     public Optional<LibraryModel> findFirstByAccessRightNotAndYear(LibraryElementDto.AccessRight accessRight, int year) {
-        return libraryMongoRepository.findFirstByAccessRightNotAndYear(accessRight, year)
-                .map(libraryEntityMapper::toModel);
+        return libraryEntityMapper.toOptionalModel(libraryMongoRepository.findFirstByAccessRightNotAndYear(accessRight, year));
     }
 
     @Override
     public Optional<LibraryModel> findFirstByAccessRightNot(LibraryElementDto.AccessRight accessRight) {
-        return libraryMongoRepository.findFirstByAccessRightNot(accessRight)
-                .map(libraryEntityMapper::toModel);
+        return libraryEntityMapper.toOptionalModel(libraryMongoRepository.findFirstByAccessRightNot(accessRight));
     }
 
     @Override
