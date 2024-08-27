@@ -1,7 +1,9 @@
 package com.example.whopper.domain.feedback;
 
 import com.example.whopper.interfaces.feedback.dto.FeedbackElementDto;
+import lombok.Builder;
 
+@Builder
 public record FeedbackModel(
         String id,
         String comment,

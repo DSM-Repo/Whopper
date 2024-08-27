@@ -12,6 +12,7 @@ import com.example.whopper.application.teacher.component.TeacherComponent;
 import com.example.whopper.interfaces.resume.dto.ResumeElementDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -24,6 +25,7 @@ public class AddFeedbackService implements AddFeedbackUseCase {
     private final TeacherComponent teacherComponent;
 
     @Override
+    @Transactional
     public void addFeedback(FeedbackRequest request) {
         final var resume = resumeRepository.findById(request.resumeId())
                         .orElseThrow(()-> ResumeNotFoundException.EXCEPTION);

@@ -19,7 +19,7 @@ public record SearchResumeResponse(
 
     public record Feedback(String id, String comment, String type, String status, boolean rejected) {
         public static SearchResumeResponse.Feedback fromFeedback(FeedbackModel feedback) {
-            return new SearchResumeResponse.Feedback(null, feedback.comment(), feedback.type().name(), feedback.status().name(), feedback.rejected());
+            return new SearchResumeResponse.Feedback(feedback.id(), feedback.comment(), feedback.type().name(), feedback.status().name(), feedback.rejected());
         }
     }
 }
