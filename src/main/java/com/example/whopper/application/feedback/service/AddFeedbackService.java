@@ -17,11 +17,8 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @RequiredArgsConstructor
 public class AddFeedbackService implements AddFeedbackUseCase {
-
     private final FeedbackRepository feedbackRepository;
-
     private final ResumeRepository resumeRepository;
-
     private final TeacherComponent teacherComponent;
 
     @Override

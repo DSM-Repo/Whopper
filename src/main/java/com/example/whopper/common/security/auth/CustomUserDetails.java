@@ -9,7 +9,6 @@ import java.util.Collection;
 import java.util.Collections;
 
 public record CustomUserDetails(String id, String role) implements UserDetails {
-
     @Override
     public String getUsername() {
         return id;

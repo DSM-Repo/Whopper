@@ -13,17 +13,11 @@ import org.springframework.data.mongodb.core.mapping.Document;
 class StudentEntity {
     @Id
     private String id;
-
     private String accountId;
-
     private String password;
-
     private String name;
-
     private ClassInfo classInfo;
-
     private String profileImagePath;
-
     private Major major;
 
     /* value objects */

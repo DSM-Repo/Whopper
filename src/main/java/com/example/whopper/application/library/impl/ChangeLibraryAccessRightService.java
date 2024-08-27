@@ -12,7 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @RequiredArgsConstructor
 public class ChangeLibraryAccessRightService implements ChangeLibraryAccessRightUseCase {
-
     private final LibraryRepository libraryRepository;
 
     @Override

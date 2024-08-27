@@ -3,7 +3,6 @@ package com.example.whopper.interfaces.feedback.dto.response;
 import com.example.whopper.domain.feedback.FeedbackModel;
 
 public class FeedbackResponse{
-
     public record StudentResponse(
             String id,
             String comment,

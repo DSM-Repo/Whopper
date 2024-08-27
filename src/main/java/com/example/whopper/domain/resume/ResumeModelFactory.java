@@ -6,7 +6,6 @@ import com.example.whopper.interfaces.resume.dto.ResumeElementDto;
 import java.time.Year;
 
 public class ResumeModelFactory {
-
     public static ResumeModel createResumeModelFromStudentEntity(StudentModel student) {
         var classInfo = student.classInfo();
         final var major = student.major();

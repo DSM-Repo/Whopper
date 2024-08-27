@@ -11,7 +11,6 @@ import org.springframework.web.multipart.MultipartFile;
 @Component
 @RequiredArgsConstructor
 class FileUploadService {
-
     private final S3Operations s3Operations;
     private final AwsS3Properties s3Properties;
 

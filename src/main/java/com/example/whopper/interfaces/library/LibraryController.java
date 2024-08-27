@@ -18,7 +18,6 @@ import org.springframework.web.multipart.MultipartFile;
 @RequiredArgsConstructor
 @RequestMapping("/library")
 public class LibraryController {
-
     private final CreateLibraryUseCase createLibraryUseCase;
     private final PdfUseCase pdfUseCase;
     private final ChangeLibraryAccessRightUseCase changeLibraryAccessRightUseCase;

@@ -29,8 +29,7 @@ public class LibraryEntity {
             String major,
             Integer studentNumber,
             Integer pageNumber
-    ) {
-    }
+    ) {}
 
     enum AccessRight {
         PUBLIC,

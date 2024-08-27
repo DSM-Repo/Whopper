@@ -1,6 +1,6 @@
 package com.example.whopper.domain.teacher;
 
-import com.example.whopper.infrastructure.xquare.dto.response.XquareUserResponse;
+import com.example.whopper.infrastructure.xquare.dto.XquareUserResponse;
 import lombok.Builder;
 
 @Builder

@@ -1,12 +1,9 @@
 package com.example.whopper.interfaces.resume.dto;
 
-import com.example.whopper.domain.library.LibraryEntity;
-
 import java.util.List;
 import java.util.Set;
 
 public class ResumeElementDto {
-
     public enum Status {
         ONGOING, DELETED, SUBMITTED, RELEASED
     }

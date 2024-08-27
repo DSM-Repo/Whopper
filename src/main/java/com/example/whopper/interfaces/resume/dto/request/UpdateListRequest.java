@@ -4,5 +4,4 @@ import java.util.List;
 
 public record UpdateListRequest<T>(
         List<T> list
-) {
-}
+) {}

@@ -14,7 +14,6 @@ import java.time.LocalDateTime;
 @Service
 @RequiredArgsConstructor
 public class CreateLibraryService implements CreateLibraryUseCase {
-
     private final LibraryRepository libraryRepository;
 
     @Override
