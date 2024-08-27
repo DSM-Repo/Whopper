@@ -9,14 +9,12 @@ import java.util.Optional;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING, unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface MajorEntityMapper {
-
     MajorModel toModel(MajorEntity entity);
-
-    default Optional<MajorModel> toOptionalModel(Optional<MajorEntity> entity) {
-        return entity.map(this::toModel);
-    }
-
     MajorEntity toEntity(MajorModel model);
+
+    default Optional<MajorModel> toOptionalModel(Optional<MajorEntity> optionalEntity) {
+        return optionalEntity.map(this::toModel);
+    }
 
     default List<MajorModel> toModelList(List<MajorEntity> entities) {
         return entities.stream()

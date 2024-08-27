@@ -12,8 +12,8 @@ public interface FeedbackEntityMapper {
     FeedbackModel toModel(FeedbackEntity entity);
     FeedbackEntity toEntity(FeedbackModel model);
 
-    default Optional<FeedbackModel> toOptionalModel(Optional<FeedbackEntity> entity) {
-        return entity.map(this::toModel);
+    default Optional<FeedbackModel> toOptionalModel(Optional<FeedbackEntity> optionalEntity) {
+        return optionalEntity.map(this::toModel);
     }
 
     default Stream<FeedbackModel> toStreamLibraryModel(Stream<FeedbackEntity> entityStream) {

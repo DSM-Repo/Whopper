@@ -12,8 +12,8 @@ public interface LibraryEntityMapper {
     LibraryModel toModel(LibraryEntity entity);
     LibraryEntity toEntity(LibraryModel model);
 
-    default Optional<LibraryModel> toOptionalModel(Optional<LibraryEntity> entity) {
-        return entity.map(this::toModel);
+    default Optional<LibraryModel> toOptionalModel(Optional<LibraryEntity> optionalEntity) {
+        return optionalEntity.map(this::toModel);
     }
 
     default Stream<LibraryModel> toStreamLibraryModel(Stream<LibraryEntity> entityStream) {
