@@ -8,9 +8,8 @@ import java.util.stream.Stream;
 
 public interface FeedbackRepository {
     FeedbackModel save(FeedbackModel feedback);
-    Optional<FeedbackModel> findById(String id);
-    int countByResumeId(String resumeId);
-    void deleteById(String id);
+    Optional<FeedbackModel> findById(String feedbackId);
+    void deleteById(String feedbackId);
     void deleteAllByResumeId(String resumeId);
     Stream<FeedbackModel> findAllByResumeIdAndStatus(String resumeId, FeedbackElementDto.Status status);
     Stream<FeedbackModel> findAllByWriterId(String WriterId);

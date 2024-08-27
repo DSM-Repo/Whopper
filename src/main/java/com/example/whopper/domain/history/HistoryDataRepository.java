@@ -7,5 +7,5 @@ import java.util.stream.Stream;
 interface HistoryDataRepository extends Repository<HistoryEntity, String> {
     Stream<HistoryEntity> findAll();
     void save(HistoryEntity entity);
-    void deleteById(String id);
+    void deleteById(String historyId);
 }

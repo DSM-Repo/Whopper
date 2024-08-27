@@ -28,20 +28,17 @@ import java.util.Date;
 @Component
 @RequiredArgsConstructor
 public class JwtTokenProvider {
-
     private final JwtProperties jwtProperties;
-
     private final UserDetailsService userDetailsService;
-
     private final RefreshTokenRepository refreshTokenRepository;
 
     // access token 생성
-    private String createAccessToken(String id, UserRole userRole) {
+    private String createAccessToken(String userId, UserRole userRole) {
 
         Date now = new Date();
 
         return Jwts.builder()
-                .setSubject(id)
+                .setSubject(userId)
                 .claim("type", "access")
                 .claim("user", getSecret(userRole))
                 .setIssuedAt(now)
@@ -50,7 +47,8 @@ public class JwtTokenProvider {
                 .compact();
     }
 
-    private String createRefreshToken(String id, UserRole userRole) {
+    // refresh token 생성
+    private String createRefreshToken(String userId, UserRole userRole) {
 
         Date now = new Date();
 
@@ -64,7 +62,7 @@ public class JwtTokenProvider {
 
         refreshTokenRepository.save(
                 RefreshTokenEntity.builder()
-                        .id(id)
+                        .id(userId)
                         .userRole(userRole)
                         .token(refreshToken)
                         .timeToLive(jwtProperties.refreshExpiration())
@@ -106,14 +104,14 @@ public class JwtTokenProvider {
         }
     }
 
-    public TokenResponse receiveToken(String id, UserRole userRole) {
+    public TokenResponse receiveToken(String userId, UserRole userRole) {
 
         ZonedDateTime now = ZonedDateTime.now(ZoneId.of("Asia/Seoul"));
 
         return TokenResponse
                 .builder()
-                .accessToken(createAccessToken(id, userRole))
-                .refreshToken(createRefreshToken(id, userRole))
+                .accessToken(createAccessToken(userId, userRole))
+                .refreshToken(createRefreshToken(userId, userRole))
                 .accessExpiredAt(now.plusSeconds(jwtProperties.accessExpiration()).toEpochSecond())
                 .refreshExpiredAt(now.plusSeconds(jwtProperties.refreshExpiration()).toEpochSecond())
                 .build();

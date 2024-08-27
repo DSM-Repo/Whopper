@@ -22,18 +22,14 @@ class FeedbackRepositoryImpl implements FeedbackRepository {
         return feedbackEntityMapper.toModel(feedbackMongoRepository.save(entity));
     }
 
-    public Optional<FeedbackModel> findById(String id) {
-        final var result = feedbackMongoRepository.findById(id);
+    public Optional<FeedbackModel> findById(String feedbackId) {
+        final var result = feedbackMongoRepository.findById(feedbackId);
 
         return feedbackEntityMapper.toOptionalModel(result);
     }
 
-    public int countByResumeId(String resumeId) {
-        return feedbackMongoRepository.countByResumeId(resumeId);
-    }
-
-    public void deleteById(String id) {
-        feedbackMongoRepository.deleteById(id);
+    public void deleteById(String feedbackId) {
+        feedbackMongoRepository.deleteById(feedbackId);
     }
 
     public void deleteAllByResumeId(String resumeId) {

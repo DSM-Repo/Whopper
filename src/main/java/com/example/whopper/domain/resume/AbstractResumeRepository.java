@@ -13,13 +13,13 @@ abstract class AbstractResumeRepository implements ResumeRepository {
     private final ResumeElementMapper resumeElementMapper;
 
     @Override
-    public Optional<ResumeModel> findById(String id) {
-        return resumeEntityMapper.toOptionalModel(resumeMongoRepository.findById(id));
+    public Optional<ResumeModel> findById(String resumeId) {
+        return resumeEntityMapper.toOptionalModel(resumeMongoRepository.findById(resumeId));
     }
 
     @Override
-    public Optional<ResumeModel> findByWriterId(String id) {
-        return resumeEntityMapper.toOptionalModel(resumeMongoRepository.findByWriterId(id));
+    public Optional<ResumeModel> findByWriterId(String writerId) {
+        return resumeEntityMapper.toOptionalModel(resumeMongoRepository.findByWriterId(writerId));
     }
 
     @Override
@@ -39,10 +39,5 @@ abstract class AbstractResumeRepository implements ResumeRepository {
         final var entity = resumeEntityMapper.toEntity(resume);
 
         return resumeEntityMapper.toModel(resumeMongoRepository.save(entity));
-    }
-
-    @Override
-    public Boolean existsByResumeId(String resumeId) {
-        return resumeMongoRepository.existsById(resumeId);
     }
 }

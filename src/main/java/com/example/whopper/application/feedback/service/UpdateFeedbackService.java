@@ -16,8 +16,8 @@ public class UpdateFeedbackService implements UpdateFeedbackUseCase {
 
     @Override
     @Transactional
-    public void updateFeedback(String id, UpdateFeedbackRequest request) {
-        final var feedback = feedbackRepository.findById(id)
+    public void updateFeedback(String feedbackId, UpdateFeedbackRequest request) {
+        final var feedback = feedbackRepository.findById(feedbackId)
                 .orElseThrow(()-> FeedbackNotFoundException.EXCEPTION);
 
         var newFeedback = feedback.update(request.comment());

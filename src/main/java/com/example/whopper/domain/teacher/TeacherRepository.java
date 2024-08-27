@@ -4,8 +4,8 @@ import java.util.Optional;
 
 public interface TeacherRepository {
     Optional<TeacherModel> findByAccountId(String accountId);
-    Optional<TeacherModel> findById(String id);
+    Optional<TeacherModel> findById(String teacherId);
     boolean existsByAccountId(String accountId);
-    boolean existsById(String id);
+    boolean existsById(String teacherId);
     TeacherModel save(TeacherModel model);
 }

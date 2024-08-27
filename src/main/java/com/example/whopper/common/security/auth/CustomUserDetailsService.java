@@ -10,16 +10,17 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 @Component
 @RequiredArgsConstructor
 public class CustomUserDetailsService implements UserDetailsService {
-
     private final StudentRepository studentRepository;
     private final TeacherRepository teacherRepository;
     private final JwtProperties jwtProperties;
 
     @Override
+    @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String username) {
         var parts = username.split(":");
 
@@ -38,16 +39,16 @@ public class CustomUserDetailsService implements UserDetailsService {
         return new CustomUserDetails(userId, type);
     }
 
-    private String handleTeacher(String id) {
-        if (!teacherRepository.existsById(id)) {
+    private String handleTeacher(String teacherId) {
+        if (!teacherRepository.existsById(teacherId)) {
             throw TeacherNotFoundException.EXCEPTION;
         }
 
         return UserRole.TEACHER.name();
     }
 
-    private String handleStudent(String id) {
-        if (!studentRepository.existsById(id)) {
+    private String handleStudent(String studentId) {
+        if (!studentRepository.existsById(studentId)) {
             throw StudentNotFoundException.EXCEPTION;
         }
 

@@ -19,8 +19,8 @@ class TeacherRepositoryImpl implements TeacherRepository {
     }
 
     @Override
-    public Optional<TeacherModel> findById(String id) {
-        final var result = teacherMongoRepository.findById(id);
+    public Optional<TeacherModel> findById(String teacherId) {
+        final var result = teacherMongoRepository.findById(teacherId);
 
         return teacherEntityMapper.toOptionalModel(result);
     }
@@ -31,8 +31,8 @@ class TeacherRepositoryImpl implements TeacherRepository {
     }
 
     @Override
-    public boolean existsById(String id) {
-        return teacherMongoRepository.existsById(id);
+    public boolean existsById(String teacherId) {
+        return teacherMongoRepository.existsById(teacherId);
     }
 
     @Override
