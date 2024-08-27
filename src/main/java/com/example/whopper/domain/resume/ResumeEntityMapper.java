@@ -14,4 +14,9 @@ public interface ResumeEntityMapper {
     default Optional<ResumeModel> toOptionalModel(Optional<ResumeEntity> entity) {
         return entity.map(this::toModel);
     }
+
+    default Optional<ResumeEntity> toOptionalEntity(Optional<ResumeModel> model) {
+        return model.map(this::toEntity);
+    }
+
 }

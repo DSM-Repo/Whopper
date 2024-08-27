@@ -23,9 +23,13 @@ class FeedbackRepositoryImpl implements FeedbackRepository {
     }
 
     public Optional<FeedbackModel> findById(String id) {
-        final var result = feedbackMongoRepository.findById(id);
+        return feedbackMongoRepository.findById(id)
+                .map(feedbackEntityMapper::toModel);
+    }
 
-        return feedbackEntityMapper.toOptionalModel(result);
+    public Stream<FeedbackModel> findAllByResumeIdAndStatus(String resumeId, FeedbackElementDto.Status status) {
+        return feedbackMongoRepository.findAllByResumeIdAndStatus(resumeId, feedbackElementMapper.toStatusEntity(status))
+                .map(feedbackEntityMapper::toModel);
     }
 
     public int countByResumeId(String resumeId) {
@@ -40,27 +44,18 @@ class FeedbackRepositoryImpl implements FeedbackRepository {
         feedbackMongoRepository.deleteAllByResumeId(resumeId);
     }
 
-    public Stream<FeedbackModel> findAllByResumeIdAndStatus(String resumeId, FeedbackElementDto.Status status) {
-        final var result = feedbackMongoRepository.findAllByResumeIdAndStatus(resumeId, feedbackElementMapper.toStatusEntity(status));
-
-        return feedbackEntityMapper.toStreamLibraryModel(result);
-    }
-
     public Stream<FeedbackModel> findAllByWriterId(String writerId) {
-        final var result = feedbackMongoRepository.findAllByWriterId(writerId);
-
-        return feedbackEntityMapper.toStreamLibraryModel(result);
+        return feedbackMongoRepository.findAllByWriterId(writerId)
+                .map(feedbackEntityMapper::toModel);
     }
 
     public Stream<FeedbackModel> findAllByResumeIdAndWriterId(String resumeId, String writerId) {
-        final var result = feedbackMongoRepository.findAllByResumeIdAndWriterId(resumeId, writerId);
-
-        return feedbackEntityMapper.toStreamLibraryModel(result);
+        return feedbackMongoRepository.findAllByResumeIdAndWriterId(resumeId, writerId)
+                .map(feedbackEntityMapper::toModel);
     }
 
     public Stream<FeedbackModel> findAllByResumeIdInAndWriterId(List<String> resumeIds, String writerId) {
-        final var result = feedbackMongoRepository.findAllByResumeIdInAndWriterId(resumeIds, writerId);
-
-        return feedbackEntityMapper.toStreamLibraryModel(result);
+        return feedbackMongoRepository.findAllByResumeIdInAndWriterId(resumeIds, writerId)
+                .map(feedbackEntityMapper::toModel);
     }
 }
