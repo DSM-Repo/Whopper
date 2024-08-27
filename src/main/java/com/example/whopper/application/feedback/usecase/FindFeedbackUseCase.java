@@ -5,6 +5,6 @@ import com.example.whopper.common.http.response.DataResponseInfo;
 
 public interface FindFeedbackUseCase {
     DataResponseInfo<FeedbackResponse.StudentResponse> getCurrentStudentFeedbackList();
-    DataResponseInfo<FeedbackResponse.TeacherResponse> getFeedbackListByresumeId(String resumeId);
+    DataResponseInfo<FeedbackResponse.TeacherResponse> getFeedbackListByResumeId(String resumeId);
     DataResponseInfo<FeedbackResponse.TeacherResponse> getFeedbacksWrittenByTeacher();
 }
