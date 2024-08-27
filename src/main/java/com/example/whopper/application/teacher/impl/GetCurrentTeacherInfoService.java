@@ -13,8 +13,8 @@ public class GetCurrentTeacherInfoService implements GetCurrentTeacherInfoUseCas
 
     @Override
     public GetCurrentTeacherInfoResponse get() {
-        var teacher = teacherComponent.currentTeacher();
+        final var teacher = teacherComponent.currentTeacher();
 
-        return new GetCurrentTeacherInfoResponse(teacher.getName());
+        return new GetCurrentTeacherInfoResponse(teacher.name());
     }
 }

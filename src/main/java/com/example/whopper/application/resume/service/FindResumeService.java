@@ -62,7 +62,7 @@ class FindResumeService implements FindResumeUseCase {
 
     @Override
     public DataResponseInfo<SearchResumeResponse> searchResume(String name, Integer grade, Integer classNumber, String majorId, String status) {
-        var WriterId = teacherComponent.currentTeacher().getId();
+        var WriterId = teacherComponent.currentTeacher().id();
 
         var resumes = resumeRepository.searchResumes(name, grade, classNumber, majorId, status).toList();
         var resumeIds = resumes.stream().map(ResumeModel::id).toList();
