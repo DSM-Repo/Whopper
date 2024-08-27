@@ -22,13 +22,4 @@ public record LibraryModel(
     public LibraryModel changeAccessRight(LibraryElementDto.AccessRight accessRight) {
         return new LibraryModel(id, year, grade, filePath, createAt, accessRight, index);
     }
-
-    public static ResumeResponse.ShardLibrary fromLibraryEntity(LibraryModel library) {
-        return new ResumeResponse.ShardLibrary(
-                library.id(),
-                library.year(),
-                library.grade(),
-                library.getGeneration()
-        );
-    }
 }

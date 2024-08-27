@@ -1,5 +1,6 @@
 package com.example.whopper.interfaces.resume.dto.response;
 
+import com.example.whopper.domain.library.LibraryModel;
 import com.example.whopper.domain.resume.ResumeModel;
 import com.example.whopper.interfaces.resume.dto.ResumeElementDto;
 
@@ -21,5 +22,14 @@ public record ResumeResponse(
             Integer year,
             Integer grade,
             Integer generation
-    ) {}
+    ) {
+        public static ResumeResponse.ShardLibrary toShardLibrary(LibraryModel library) {
+            return new ResumeResponse.ShardLibrary(
+                    library.id(),
+                    library.year(),
+                    library.grade(),
+                    library.getGeneration()
+            );
+        }
+    }
 }

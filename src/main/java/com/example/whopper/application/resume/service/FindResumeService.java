@@ -4,7 +4,6 @@ import com.example.whopper.application.resume.usecase.FindResumeUseCase;
 import com.example.whopper.application.teacher.component.TeacherComponent;
 import com.example.whopper.domain.feedback.FeedbackModel;
 import com.example.whopper.domain.feedback.FeedbackRepository;
-import com.example.whopper.domain.library.LibraryModel;
 import com.example.whopper.domain.library.LibraryRepository;
 import com.example.whopper.domain.resume.ResumeModel;
 import com.example.whopper.domain.resume.ResumeRepository;
@@ -37,7 +36,7 @@ class FindResumeService implements FindResumeUseCase {
     public ResumeResponse getIntroduceRecentlySharedResumes() {
         var currentStudentResume = currentStudent.getResume();
         var libraries = libraryRepository.findTop3ByOrderByCreateAtDesc()
-                .map(LibraryModel::fromLibraryEntity)
+                .map(ResumeResponse.ShardLibrary::toShardLibrary)
                 .toList();
 
         return ResumeResponse.of(
