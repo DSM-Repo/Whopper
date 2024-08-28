@@ -1,9 +1,9 @@
 package com.example.whopper.application.auth.service;
 
 import com.example.whopper.application.auth.usecase.StudentLoginUseCase;
-import com.example.whopper.domain.refreshtoken.type.UserRole;
 import com.example.whopper.domain.student.StudentModel;
 import com.example.whopper.domain.student.StudentRepository;
+import com.example.whopper.interfaces.auth.dto.AuthElementDto;
 import com.example.whopper.interfaces.auth.dto.request.LoginRequest;
 import com.example.whopper.interfaces.auth.dto.response.TokenResponse;
 import com.example.whopper.common.exception.auth.InvalidUserException;
@@ -67,8 +67,8 @@ class StudentLoginService implements StudentLoginUseCase {
         return getTokenResponse(newStudent.id());
     }
 
-    private TokenResponse getTokenResponse(String studentId) {
-        return jwtTokenProvider.receiveToken(studentId, UserRole.STUDENT);
+    private TokenResponse getTokenResponse(String id) {
+        return jwtTokenProvider.receiveToken(id, AuthElementDto.UserRole.STUDENT);
     }
 
     private StudentModel createAndSaveNewStudent(XquareUserResponse xquareUserResponse) {

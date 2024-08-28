@@ -1,8 +1,8 @@
 package com.example.whopper.common.security.jwt;
 
-import com.example.whopper.domain.refreshtoken.RefreshTokenEntity;
+import com.example.whopper.domain.refreshtoken.RefreshTokenModel;
 import com.example.whopper.domain.refreshtoken.RefreshTokenRepository;
-import com.example.whopper.domain.refreshtoken.type.UserRole;
+import com.example.whopper.interfaces.auth.dto.AuthElementDto;
 import com.example.whopper.interfaces.auth.dto.response.TokenResponse;
 import com.example.whopper.common.exception.auth.ExpiredTokenException;
 import com.example.whopper.common.exception.auth.InvalidTokenException;
@@ -33,46 +33,39 @@ public class JwtTokenProvider {
     private final RefreshTokenRepository refreshTokenRepository;
 
     // access token 생성
-    private String createAccessToken(String userId, UserRole userRole) {
+    private String createAccessToken(String id, AuthElementDto.UserRole role) {
 
         Date now = new Date();
 
         return Jwts.builder()
-                .setSubject(userId)
+                .setSubject(id)
                 .claim("type", "access")
-                .claim("user", getSecret(userRole))
+                .claim("user", getSecret(role))
                 .setIssuedAt(now)
                 .setExpiration(new Date(now.getTime() + jwtProperties.accessExpiration() * 1000))
                 .signWith(SignatureAlgorithm.HS256, jwtProperties.secret())
                 .compact();
     }
 
-    // refresh token 생성
-    private String createRefreshToken(String userId, UserRole userRole) {
+    private String createRefreshToken(String id, AuthElementDto.UserRole role) {
 
         Date now = new Date();
 
         String refreshToken = Jwts.builder()
                 .claim("type", "refresh")
-                .claim("user", getSecret(userRole))
+                .claim("user", getSecret(role))
                 .setIssuedAt(now)
                 .setExpiration(new Date(now.getTime() + jwtProperties.refreshExpiration() * 1000))
                 .signWith(SignatureAlgorithm.HS256, jwtProperties.secret())
                 .compact();
 
-        refreshTokenRepository.save(
-                RefreshTokenEntity.builder()
-                        .id(userId)
-                        .userRole(userRole)
-                        .token(refreshToken)
-                        .timeToLive(jwtProperties.refreshExpiration())
-                        .build());
+        refreshTokenRepository.save(new RefreshTokenModel(id, role, refreshToken, jwtProperties.refreshExpiration()));
 
         return refreshToken;
     }
 
-    private String getSecret(UserRole userRole) {
-        if (userRole.equals(UserRole.TEACHER)) {
+    private String getSecret(AuthElementDto.UserRole role) {
+        if (role.equals(AuthElementDto.UserRole.TEACHER)) {
             return jwtProperties.teacherSecret();
         }
 
@@ -104,14 +97,14 @@ public class JwtTokenProvider {
         }
     }
 
-    public TokenResponse receiveToken(String userId, UserRole userRole) {
+    public TokenResponse receiveToken(String id, AuthElementDto.UserRole role) {
 
         ZonedDateTime now = ZonedDateTime.now(ZoneId.of("Asia/Seoul"));
 
         return TokenResponse
                 .builder()
-                .accessToken(createAccessToken(userId, userRole))
-                .refreshToken(createRefreshToken(userId, userRole))
+                .accessToken(createAccessToken(id, role))
+                .refreshToken(createRefreshToken(id, role))
                 .accessExpiredAt(now.plusSeconds(jwtProperties.accessExpiration()).toEpochSecond())
                 .refreshExpiredAt(now.plusSeconds(jwtProperties.refreshExpiration()).toEpochSecond())
                 .build();

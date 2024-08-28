@@ -13,6 +13,8 @@ public interface FeedbackRepository {
     void deleteAllByResumeId(String resumeId);
     Stream<FeedbackModel> findAllByResumeIdAndStatus(String resumeId, FeedbackElementDto.Status status);
     Stream<FeedbackModel> findAllByWriterId(String WriterId);
+
     Stream<FeedbackModel> findAllByResumeIdAndWriterId(String resumeId, String WriterId);
+
     Stream<FeedbackModel> findAllByResumeIdInAndWriterId(List<String> resumeIds, String WriterId);
 }

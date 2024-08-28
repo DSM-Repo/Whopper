@@ -28,18 +28,17 @@ class FeedbackRepositoryImpl implements FeedbackRepository {
         return feedbackEntityMapper.toOptionalModel(result);
     }
 
+    public Stream<FeedbackModel> findAllByResumeIdAndStatus(String resumeId, FeedbackElementDto.Status status) {
+        return feedbackMongoRepository.findAllByResumeIdAndStatus(resumeId, feedbackElementMapper.toStatusEntity(status))
+                .map(feedbackEntityMapper::toModel);
+    }
+
     public void deleteById(String feedbackId) {
         feedbackMongoRepository.deleteById(feedbackId);
     }
 
     public void deleteAllByResumeId(String resumeId) {
         feedbackMongoRepository.deleteAllByResumeId(resumeId);
-    }
-
-    public Stream<FeedbackModel> findAllByResumeIdAndStatus(String resumeId, FeedbackElementDto.Status status) {
-        final var result = feedbackMongoRepository.findAllByResumeIdAndStatus(resumeId, feedbackElementMapper.toStatusEntity(status));
-
-        return feedbackEntityMapper.toStreamLibraryModel(result);
     }
 
     public Stream<FeedbackModel> findAllByWriterId(String writerId) {

@@ -24,7 +24,7 @@ public class LibraryController {
     private final FindLibraryUseCase findLibraryUseCase;
 
     @PostMapping
-    public void saveLibraryResume(
+    public void saveLibraryresume(
             @RequestParam(name = "grade") Integer grade,
             @RequestPart(name = "pdf") MultipartFile pdfPart,
             @RequestPart(name = "index") ResumeIndexRequest indexPart) {

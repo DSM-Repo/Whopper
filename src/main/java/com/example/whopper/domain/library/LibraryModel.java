@@ -1,7 +1,6 @@
 package com.example.whopper.domain.library;
 
 import com.example.whopper.interfaces.library.dto.LibraryElementDto;
-import com.example.whopper.interfaces.resume.dto.response.ResumeResponse;
 
 import java.time.LocalDateTime;
 import java.util.List;

@@ -2,7 +2,7 @@ package com.example.whopper.application.auth.service;
 
 import com.example.whopper.application.auth.usecase.ReissueTokenUseCase;
 import com.example.whopper.common.exception.auth.InvalidTokenException;
-import com.example.whopper.domain.refreshtoken.RefreshTokenEntity;
+import com.example.whopper.domain.refreshtoken.RefreshTokenModel;
 import com.example.whopper.domain.refreshtoken.RefreshTokenRepository;
 import com.example.whopper.interfaces.auth.dto.response.TokenResponse;
 import com.example.whopper.common.security.jwt.JwtTokenProvider;
@@ -19,9 +19,9 @@ class ReissueTokenService implements ReissueTokenUseCase {
     @Override
     @Transactional
     public TokenResponse reissueToken(String token) {
-        RefreshTokenEntity refreshToken = refreshTokenRepository.findByToken(token)
+        RefreshTokenModel refreshToken = refreshTokenRepository.findByToken(token)
                 .orElseThrow(()-> InvalidTokenException.EXCEPTION);
 
-        return jwtTokenProvider.receiveToken(refreshToken.getId(), refreshToken.getUserRole());
+        return jwtTokenProvider.receiveToken(refreshToken.id(), refreshToken.role());
     }
 }

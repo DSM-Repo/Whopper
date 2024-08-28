@@ -10,13 +10,14 @@ public record LibraryResponse(
         Integer grade,
         Integer generation
 ) {
-    public static LibraryResponse fromEntity(LibraryModel entity) {
+
+    public static LibraryResponse fromEntity(LibraryModel model) {
         return new LibraryResponse(
-                entity.id(),
-                entity.accessRight(),
-                entity.year(),
-                entity.grade(),
-                entity.getGeneration()
+                model.id(),
+                model.accessRight(),
+                model.year(),
+                model.grade(),
+                model.getGeneration()
         );
     }
 }
