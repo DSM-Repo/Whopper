@@ -3,7 +3,7 @@ package com.repo.whopper.application.library.service;
 import com.repo.whopper.application.library.usecase.CreateLibraryUseCase;
 import com.repo.whopper.domain.library.LibraryModel;
 import com.repo.whopper.domain.library.LibraryRepository;
-import com.repo.whopper.common.http.response.DataResponseInfo;
+import com.repo.whopper.common.http.dto.DataResponseInfo;
 import com.repo.whopper.interfaces.library.dto.LibraryElementDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

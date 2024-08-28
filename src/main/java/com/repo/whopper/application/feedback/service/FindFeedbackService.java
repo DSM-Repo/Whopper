@@ -2,7 +2,7 @@ package com.repo.whopper.application.feedback.service;
 
 import com.repo.whopper.application.feedback.usecase.FindFeedbackUseCase;
 import com.repo.whopper.application.teacher.component.CurrentTeacher;
-import com.repo.whopper.common.http.response.DataResponseInfo;
+import com.repo.whopper.common.http.dto.DataResponseInfo;
 import com.repo.whopper.application.student.component.CurrentStudent;
 import com.repo.whopper.domain.feedback.FeedbackModel;
 import com.repo.whopper.domain.feedback.FeedbackRepository;

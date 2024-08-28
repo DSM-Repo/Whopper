@@ -7,7 +7,7 @@ import com.repo.whopper.domain.library.LibraryRepository;
 import com.repo.whopper.interfaces.library.dto.response.LibraryDetailResponse;
 import com.repo.whopper.interfaces.library.dto.response.LibraryResponse;
 import com.repo.whopper.common.exception.library.LibraryNotFoundException;
-import com.repo.whopper.common.http.response.DataResponseInfo;
+import com.repo.whopper.common.http.dto.DataResponseInfo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

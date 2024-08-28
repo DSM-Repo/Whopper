@@ -1,4 +1,4 @@
-package com.repo.whopper.common.http.response;
+package com.repo.whopper.common.http.dto;
 
 import java.util.List;
 
