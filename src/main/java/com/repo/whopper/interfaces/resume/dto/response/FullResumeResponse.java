@@ -35,7 +35,7 @@ public record FullResumeResponse(
             ResumeElementDto.Writer.SchoolInfo classInfo,
             String department,
             String url,
-            Set<String> skillSet
+            List<String> skillSet
     ) {
         public static ResumeWriterResponse of(ResumeModel resume) {
             final var schoolInfo = resume.writer().schoolInfo();

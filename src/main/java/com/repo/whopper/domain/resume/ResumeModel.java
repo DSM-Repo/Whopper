@@ -23,7 +23,7 @@ public record ResumeModel(
                 null,
                 Year.now().getValue(),
                 ResumeElementDto.Status.ONGOING,
-                new ResumeElementDto.Writer(id, name, schoolInfo, major, "", Collections.emptySet(), ""),
+                new ResumeElementDto.Writer(id, name, schoolInfo, major, "", Collections.emptyList(), ""),
                 new ResumeElementDto.Introduce("", ""),
                 Collections.emptyList(),
                 Collections.emptyList(),
