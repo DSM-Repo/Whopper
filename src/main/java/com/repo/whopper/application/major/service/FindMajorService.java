@@ -1,9 +1,9 @@
-package com.repo.whopper.application.major.impl;
+package com.repo.whopper.application.major.service;
 
 import com.repo.whopper.application.major.usecase.FindMajorUseCase;
 import com.repo.whopper.domain.major.MajorModel;
 import com.repo.whopper.domain.major.MajorRepository;
-import com.repo.whopper.common.http.response.DataResponseInfo;
+import com.repo.whopper.common.http.dto.DataResponseInfo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

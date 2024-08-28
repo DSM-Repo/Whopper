@@ -1,4 +1,4 @@
-package com.repo.whopper.application.file.impl;
+package com.repo.whopper.application.file.service;
 
 import com.repo.whopper.common.exception.file.PdfUploadFailedException;
 import com.repo.whopper.infrastructure.aws.s3.AwsS3Properties;
