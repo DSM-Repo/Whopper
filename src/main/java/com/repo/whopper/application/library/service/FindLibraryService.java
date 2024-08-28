@@ -1,4 +1,4 @@
-package com.repo.whopper.application.library.impl;
+package com.repo.whopper.application.library.service;
 
 import com.repo.whopper.application.file.usecase.PdfUseCase;
 import com.repo.whopper.application.library.usecase.FindLibraryUseCase;

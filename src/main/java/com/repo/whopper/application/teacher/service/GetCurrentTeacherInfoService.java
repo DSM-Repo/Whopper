@@ -1,4 +1,4 @@
-package com.repo.whopper.application.teacher.impl;
+package com.repo.whopper.application.teacher.service;
 
 import com.repo.whopper.application.teacher.component.CurrentTeacher;
 import com.repo.whopper.application.teacher.usecase.GetCurrentTeacherInfoUseCase;

@@ -1,4 +1,4 @@
-package com.repo.whopper.application.library.impl;
+package com.repo.whopper.application.library.service;
 
 import com.repo.whopper.application.library.usecase.CreateLibraryUseCase;
 import com.repo.whopper.domain.library.LibraryModel;

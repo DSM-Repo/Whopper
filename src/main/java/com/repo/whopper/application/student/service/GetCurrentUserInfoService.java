@@ -1,4 +1,4 @@
-package com.repo.whopper.application.student.impl;
+package com.repo.whopper.application.student.service;
 
 import com.repo.whopper.application.student.usecase.GetCurrentUserInfoUseCase;
 import com.repo.whopper.interfaces.student.dto.GetCurrentUserInfoResponse;

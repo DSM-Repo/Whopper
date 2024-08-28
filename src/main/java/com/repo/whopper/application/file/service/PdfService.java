@@ -1,4 +1,4 @@
-package com.repo.whopper.application.file.impl;
+package com.repo.whopper.application.file.service;
 
 import com.repo.whopper.application.file.usecase.PdfUseCase;
 import com.repo.whopper.common.exception.file.ExtensionNotMatchException;

@@ -1,4 +1,4 @@
-package com.repo.whopper.application.history.impl;
+package com.repo.whopper.application.history.service;
 
 import com.repo.whopper.application.history.usecase.DeleteHistoryUseCase;
 import com.repo.whopper.domain.history.HistoryRepository;

@@ -1,4 +1,4 @@
-package com.repo.whopper.application.major.impl;
+package com.repo.whopper.application.major.service;
 
 import com.repo.whopper.application.major.usecase.DeleteMajorUseCase;
 import com.repo.whopper.domain.major.MajorRepository;
