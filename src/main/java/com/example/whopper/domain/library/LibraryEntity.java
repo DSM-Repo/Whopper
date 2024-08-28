@@ -1,6 +1,7 @@
 package com.example.whopper.domain.library;
 
-import com.example.whopper.domain.library.type.AccessRight;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import org.springframework.data.annotation.Id;
@@ -10,34 +11,30 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Getter
+@Builder
 @Document(collection = "library_repo")
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class LibraryEntity {
     @Id
     private String id;
-    private final Integer year;
-    private final Integer grade;
-    private final String filePath;
-    private final LocalDateTime createAt;
+    private Integer year;
+    private Integer grade;
+    private String filePath;
+    private LocalDateTime createAt;
     private AccessRight accessRight;
-    private final List<ResumeIndex> index;
+    private List<ResumeIndex> index;
 
-    @Builder
-    public LibraryEntity(Integer year, Integer grade, String filePath, LocalDateTime createAt,
-                         AccessRight accessRight, List<ResumeIndex> index) {
-        this.year = year;
-        this.grade = grade;
-        this.filePath = filePath;
-        this.createAt = createAt;
-        this.accessRight = accessRight;
-        this.index = index;
+    record ResumeIndex(
+            String name,
+            String major,
+            Integer studentNumber,
+            Integer pageNumber
+    ) {}
+
+    enum AccessRight {
+        PUBLIC,
+        PRIVATE
     }
 
-    public Integer getGeneration() {
-        return this.year - this.grade - 2013;
-    }
-
-    public void changeAccessRight(AccessRight accessRight) {
-        this.accessRight = accessRight;
-    }
-
+    protected LibraryEntity() {}
 }

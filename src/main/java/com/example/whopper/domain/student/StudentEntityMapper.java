@@ -11,7 +11,7 @@ public interface StudentEntityMapper {
     StudentEntity toEntity(StudentModel model);
     StudentModel toModel(StudentEntity entity);
 
-    default Optional<StudentModel> toOptionalModel(Optional<StudentEntity> entity) {
-        return entity.map(this::toModel);
+    default Optional<StudentModel> toOptionalModel(Optional<StudentEntity> optionalEntity) {
+        return optionalEntity.map(this::toModel);
     }
 }

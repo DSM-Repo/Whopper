@@ -14,7 +14,7 @@ import com.example.whopper.domain.major.DefaultMajorFacade;
 import com.example.whopper.common.exception.student.StudentNotFoundException;
 import com.example.whopper.common.security.jwt.JwtTokenProvider;
 import com.example.whopper.infrastructure.xquare.XquareClient;
-import com.example.whopper.infrastructure.xquare.dto.response.XquareUserResponse;
+import com.example.whopper.infrastructure.xquare.dto.XquareUserResponse;
 import com.example.whopper.infrastructure.xquare.exception.XquareException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -24,7 +24,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @RequiredArgsConstructor
 class StudentLoginService implements StudentLoginUseCase {
-
     private final StudentRepository studentRepository;
     private final JwtTokenProvider jwtTokenProvider;
     private final XquareClient xquareClient;
@@ -42,7 +41,7 @@ class StudentLoginService implements StudentLoginUseCase {
     }
 
     private TokenResponse loginExistingStudent(LoginRequest request) {
-        var student = studentRepository.findByAccountId(request.accountId())
+        final var student = studentRepository.findByAccountId(request.accountId())
                 .orElseThrow(() -> StudentNotFoundException.EXCEPTION);
 
         if (!passwordEncoder.matches(request.password(), student.password())) {
@@ -62,7 +61,7 @@ class StudentLoginService implements StudentLoginUseCase {
         }
 
         if(!xquareUserResponse.getUserRole().equals("STU")) throw InvalidUserException.EXCEPTION;
-        var newStudent = createAndSaveNewStudent(xquareUserResponse);
+        final var newStudent = createAndSaveNewStudent(xquareUserResponse);
 
         createResumeComponent.create(newStudent);
         return getTokenResponse(newStudent.id());
@@ -73,7 +72,7 @@ class StudentLoginService implements StudentLoginUseCase {
     }
 
     private StudentModel createAndSaveNewStudent(XquareUserResponse xquareUserResponse) {
-        var defaultMajor = defaultMajorFacade.getDefaultMajor();
+        final var defaultMajor = defaultMajorFacade.getDefaultMajor();
 
         return studentRepository.save(
                 new StudentModel(

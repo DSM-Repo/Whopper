@@ -13,7 +13,7 @@ public class AcceptFeedbackService implements AcceptFeedbackUseCase {
 
     @Override
     @Transactional
-    public void accept(String id) {
-        feedbackRepository.deleteById(id);
+    public void accept(String feedbackId) {
+        feedbackRepository.deleteById(feedbackId);
     }
 }

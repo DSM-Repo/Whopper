@@ -9,6 +9,7 @@ import com.example.whopper.domain.student.StudentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 @Component
 @RequiredArgsConstructor
@@ -17,8 +18,9 @@ public class CurrentStudentImpl implements CurrentStudent {
     private final ResumeRepository resumeRepository;
 
     @Override
+    @Transactional
     public StudentModel getStudent() {
-        var id = SecurityContextHolder.getContext()
+        final var id = SecurityContextHolder.getContext()
                 .getAuthentication()
                 .getName();
 
@@ -27,6 +29,7 @@ public class CurrentStudentImpl implements CurrentStudent {
     }
 
     @Override
+    @Transactional
     public ResumeModel getResume() {
         return resumeRepository.findByWriterId(getStudent().id())
                 .orElseThrow(() -> ResumeNotFoundException.EXCEPTION);

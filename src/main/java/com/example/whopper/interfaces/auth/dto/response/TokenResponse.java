@@ -8,5 +8,4 @@ public record TokenResponse(
         String refreshToken,
         Long accessExpiredAt,
         Long refreshExpiredAt
-) {
-}
+) {}

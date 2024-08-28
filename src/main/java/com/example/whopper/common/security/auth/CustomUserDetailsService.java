@@ -1,25 +1,27 @@
 package com.example.whopper.common.security.auth;
 
+import com.example.whopper.common.exception.auth.InvalidTokenException;
 import com.example.whopper.common.exception.student.StudentNotFoundException;
 import com.example.whopper.domain.student.StudentRepository;
-import com.example.whopper.domain.teacher.TeacherMongoRepository;
 import com.example.whopper.common.exception.teacher.TeacherNotFoundException;
 import com.example.whopper.common.security.jwt.JwtProperties;
+import com.example.whopper.domain.teacher.TeacherRepository;
 import com.example.whopper.interfaces.auth.dto.AuthElementDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 @Component
 @RequiredArgsConstructor
 public class CustomUserDetailsService implements UserDetailsService {
-
     private final StudentRepository studentRepository;
-    private final TeacherMongoRepository teacherMongoRepository;
+    private final TeacherRepository teacherRepository;
     private final JwtProperties jwtProperties;
 
     @Override
+    @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String username) {
         var parts = username.split(":");
 
@@ -32,22 +34,22 @@ public class CustomUserDetailsService implements UserDetailsService {
         } else if (userSecretId.equals(jwtProperties.studentSecret())) {
             type = handleStudent(userId);
         } else {
-            throw new RuntimeException();
+            throw InvalidTokenException.EXCEPTION;
         }
 
         return new CustomUserDetails(userId, type);
     }
 
-    private String handleTeacher(String id) {
-        if (!teacherMongoRepository.existsById(id)) {
+    private String handleTeacher(String teacherId) {
+        if (!teacherRepository.existsById(teacherId)) {
             throw TeacherNotFoundException.EXCEPTION;
         }
 
         return AuthElementDto.UserRole.TEACHER.name();
     }
 
-    private String handleStudent(String id) {
-        if (!studentRepository.existsById(id)) {
+    private String handleStudent(String studentId) {
+        if (!studentRepository.existsById(studentId)) {
             throw StudentNotFoundException.EXCEPTION;
         }
 

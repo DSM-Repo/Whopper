@@ -11,9 +11,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 class HistoryEntity {
     @Id
     private String id;
-
     private String date;
-
     private String content;
 
     protected HistoryEntity() {}

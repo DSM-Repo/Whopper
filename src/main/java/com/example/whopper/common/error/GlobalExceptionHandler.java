@@ -24,17 +24,6 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(response, HttpStatus.valueOf(errorCode.getStatusCode()));
     }
 
-    // validation 에러
-//    @ExceptionHandler(ConstraintViolationException.class)
-//    public ResponseEntity<ErrorResponse> handleConstraintViolationException(ConstraintViolationException e) {
-//
-//        ErrorCode errorCode = ErrorCode.BAD_REQUEST;
-//        ErrorResponse response = ErrorResponse.of(errorCode, errorCode.getMessage());
-//        e.printStackTrace();
-//
-//        return new ResponseEntity<>(response, HttpStatus.valueOf(errorCode.getStatusCode()));
-//    }
-
     //그 외 에러들
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponse> handleException(Exception e) {

@@ -54,8 +54,8 @@ public class FeedbackController {
 
     @OnlyTeacher
     @GetMapping("/{resumeId}")
-    public DataResponseInfo<FeedbackResponse.TeacherResponse> getFeedbackListByresumeId(@PathVariable String resumeId) {
-        return findFeedbackUseCase.getFeedbackListByresumeId(resumeId);
+    public DataResponseInfo<FeedbackResponse.TeacherResponse> getFeedbackListByResumeId(@PathVariable String resumeId) {
+        return findFeedbackUseCase.getFeedbackListByResumeId(resumeId);
     }
 
     @OnlyTeacher

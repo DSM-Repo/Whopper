@@ -13,7 +13,6 @@ public record FeedbackModel(
         Boolean rejected,
         FeedbackElementDto.Writer writer
 ) {
-
     public FeedbackModel update(String comment) {
         return new FeedbackModel(id, comment, type, resumeId, status, rejected, writer);
     }

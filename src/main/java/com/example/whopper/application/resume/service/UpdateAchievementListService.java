@@ -17,7 +17,7 @@ class UpdateAchievementListService extends AbstractUpdateElementServiceBase<List
     }
 
     @Override
-    protected ResumeModel updateResume(ResumeModel resume, List<ResumeElementDto.Achievement> list) {
-        return resume.updateAchievementList(list);
+    protected ResumeModel updateResume(ResumeModel resume, List<ResumeElementDto.Achievement> achievementList) {
+        return resume.updateAchievementList(achievementList);
     }
 }

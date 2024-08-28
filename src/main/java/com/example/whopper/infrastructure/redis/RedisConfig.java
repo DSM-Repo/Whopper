@@ -1,6 +1,5 @@
 package com.example.whopper.infrastructure.redis;
 
-import com.example.whopper.infrastructure.redis.RedisProperties;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,7 +15,6 @@ import org.springframework.data.redis.repository.configuration.EnableRedisReposi
 )
 @RequiredArgsConstructor
 public class RedisConfig {
-
     private final RedisProperties properties;
 
     @Bean

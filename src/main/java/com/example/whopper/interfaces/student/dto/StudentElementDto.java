@@ -1,7 +1,6 @@
 package com.example.whopper.interfaces.student.dto;
 
 public class StudentElementDto {
-
     public record ClassInfo(
             Integer grade,
             Integer classNumber,

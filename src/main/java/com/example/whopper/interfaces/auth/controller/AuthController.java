@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 @RequestMapping("/auth")
 class AuthController {
-
     private final StudentLoginUseCase studentLoginUseCase;
     private final TeacherLoginUseCase teacherLoginUseCase;
     private final ReissueTokenUseCase reissueTokenUseCase;

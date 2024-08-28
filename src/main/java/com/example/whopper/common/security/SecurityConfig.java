@@ -28,11 +28,8 @@ import java.util.List;
 @EnableMethodSecurity
 @RequiredArgsConstructor
 public class SecurityConfig {
-
     private final JwtTokenProvider jwtTokenProvider;
-
     private final ObjectMapper objectMapper;
-
     private final CorsProperties corsProperties;
 
     @Bean

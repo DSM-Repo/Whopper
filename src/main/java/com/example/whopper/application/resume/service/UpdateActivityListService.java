@@ -17,7 +17,7 @@ class UpdateActivityListService extends AbstractUpdateElementServiceBase<List<Re
     }
 
     @Override
-    protected ResumeModel updateResume(ResumeModel resume, List<ResumeElementDto.Activity> list) {
-        return resume.updateActivityList(list);
+    protected ResumeModel updateResume(ResumeModel resume, List<ResumeElementDto.Activity> activityList) {
+        return resume.updateActivityList(activityList);
     }
 }

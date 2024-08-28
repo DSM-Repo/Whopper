@@ -14,8 +14,8 @@ public class RejectFeedbackService implements RejectFeedbackUseCase {
 
     @Override
     @Transactional
-    public void reject(String id) {
-        final var feedback = feedbackRepository.findById(id)
+    public void reject(String feedbackId) {
+        final var feedback = feedbackRepository.findById(feedbackId)
                 .orElseThrow(() -> FeedbackNotFoundException.EXCEPTION);
 
         var newFeedback = feedback.reject();

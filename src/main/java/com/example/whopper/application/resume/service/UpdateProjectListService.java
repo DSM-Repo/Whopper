@@ -17,7 +17,7 @@ class UpdateProjectListService extends AbstractUpdateElementServiceBase<List<Res
     }
 
     @Override
-    protected ResumeModel updateResume(ResumeModel resume, List<ResumeElementDto.Project> list) {
-        return resume.updateProjectList(list);
+    protected ResumeModel updateResume(ResumeModel resume, List<ResumeElementDto.Project> projectList) {
+        return resume.updateProjectList(projectList);
     }
 }

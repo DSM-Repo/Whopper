@@ -4,7 +4,7 @@ import com.example.whopper.application.file.usecase.PdfUseCase;
 import com.example.whopper.application.library.usecase.ChangeLibraryAccessRightUseCase;
 import com.example.whopper.application.library.usecase.CreateLibraryUseCase;
 import com.example.whopper.application.library.usecase.FindLibraryUseCase;
-import com.example.whopper.domain.library.type.AccessRight;
+import com.example.whopper.interfaces.library.dto.LibraryElementDto;
 import com.example.whopper.interfaces.library.dto.request.ResumeIndexRequest;
 import com.example.whopper.interfaces.library.dto.response.LibraryDetailResponse;
 import com.example.whopper.interfaces.library.dto.response.LibraryResponse;
@@ -18,7 +18,6 @@ import org.springframework.web.multipart.MultipartFile;
 @RequiredArgsConstructor
 @RequestMapping("/library")
 public class LibraryController {
-
     private final CreateLibraryUseCase createLibraryUseCase;
     private final PdfUseCase pdfUseCase;
     private final ChangeLibraryAccessRightUseCase changeLibraryAccessRightUseCase;
@@ -28,9 +27,8 @@ public class LibraryController {
     public void saveLibraryresume(
             @RequestParam(name = "grade") Integer grade,
             @RequestPart(name = "pdf") MultipartFile pdfPart,
-            @RequestPart(name = "index") ResumeIndexRequest indexPart) {
-
-
+            @RequestPart(name = "index") ResumeIndexRequest indexPart
+    ) {
         String filePath = pdfUseCase.savePdf(pdfPart);
         createLibraryUseCase.createLibrary(grade, filePath, DataResponseInfo.of(indexPart.index()));
     }
@@ -56,5 +54,5 @@ public class LibraryController {
         return findLibraryUseCase.findLibraryDetail(libraryId);
     }
 
-    record AccessRightRequest(String libraryId, AccessRight accessRight) {}
+    record AccessRightRequest(String libraryId, LibraryElementDto.AccessRight accessRight) {}
 }

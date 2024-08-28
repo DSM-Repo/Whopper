@@ -1,5 +1,6 @@
 package com.example.whopper.domain.teacher;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Builder;
 import org.springframework.data.annotation.Id;
@@ -7,8 +8,10 @@ import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Getter
+@Builder
+@AllArgsConstructor
 @Document(collection = "teacher_repo")
-public class TeacherEntity {
+class TeacherEntity {
     @Id
     private String id;
     private String name;
@@ -16,11 +19,5 @@ public class TeacherEntity {
     private String accountId;
     private String password;
 
-    @Builder
-    public TeacherEntity(String name, String accountId, String password) {
-        this.name = name;
-        this.accountId = accountId;
-        this.password = password;
-    }
     protected TeacherEntity() {}
 }

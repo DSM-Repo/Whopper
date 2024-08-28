@@ -4,5 +4,4 @@ public record FeedbackRequest(
         String comment,
         String type,
         String resumeId
-) {
-}
+) {}

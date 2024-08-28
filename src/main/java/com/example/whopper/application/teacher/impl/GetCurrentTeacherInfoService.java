@@ -1,6 +1,6 @@
 package com.example.whopper.application.teacher.impl;
 
-import com.example.whopper.application.teacher.component.TeacherComponent;
+import com.example.whopper.application.teacher.component.CurrentTeacher;
 import com.example.whopper.application.teacher.usecase.GetCurrentTeacherInfoUseCase;
 import com.example.whopper.interfaces.teacher.dto.GetCurrentTeacherInfoResponse;
 import lombok.RequiredArgsConstructor;
@@ -9,12 +9,12 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class GetCurrentTeacherInfoService implements GetCurrentTeacherInfoUseCase {
-    private final TeacherComponent teacherComponent;
+    private final CurrentTeacher currentTeacher;
 
     @Override
     public GetCurrentTeacherInfoResponse get() {
-        var teacher = teacherComponent.currentTeacher();
+        final var teacher = currentTeacher.getTeacher();
 
-        return new GetCurrentTeacherInfoResponse(teacher.getName());
+        return new GetCurrentTeacherInfoResponse(teacher.name());
     }
 }

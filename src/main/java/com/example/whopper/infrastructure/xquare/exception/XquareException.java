@@ -9,5 +9,4 @@ public class XquareException extends WhopperException {
     private XquareException() {
         super(ErrorCode.XQUARE);
     }
-
 }

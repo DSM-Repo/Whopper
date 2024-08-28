@@ -12,9 +12,7 @@ import org.springframework.cloud.openfeign.FeignAutoConfiguration;
 @EnableFeignClients
 @ImportAutoConfiguration({FeignAutoConfiguration.class})
 public class WhopperApplication {
-
     public static void main(String[] args) {
         SpringApplication.run(WhopperApplication.class, args);
     }
-
 }

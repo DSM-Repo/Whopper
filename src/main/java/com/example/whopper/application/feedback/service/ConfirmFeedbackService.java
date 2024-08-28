@@ -17,8 +17,8 @@ public class ConfirmFeedbackService implements ConfirmFeedbackUseCase {
 
     @Override
     @Transactional
-    public void confirm(String id) {
-        final var feedback = feedbackRepository.findById(id)
+    public void confirm(String feedbackId) {
+        final var feedback = feedbackRepository.findById(feedbackId)
                 .orElseThrow(() -> FeedbackNotFoundException.EXCEPTION);
 
         final var resume = currentStudent.getResume();
@@ -27,7 +27,7 @@ public class ConfirmFeedbackService implements ConfirmFeedbackUseCase {
             throw ForbiddenException.EXCEPTION;
         }
 
-        var newFeedback = feedback.confirm();
+        final var newFeedback = feedback.confirm();
         feedbackRepository.save(newFeedback);
     }
 }

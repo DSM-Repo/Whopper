@@ -13,7 +13,6 @@ public record StudentModel(
         String profileImagePath,
         StudentElementDto.Major major
 ) {
-
     public StudentModel updateMajor(String majorId, String majorName) {
         return new StudentModel(id, accountId, password, name, classInfo, profileImagePath, new StudentElementDto.Major(majorId, majorName));
     }

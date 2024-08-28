@@ -14,7 +14,6 @@ import org.springframework.web.multipart.MultipartFile;
 @RequiredArgsConstructor
 @RequestMapping("/file")
 public class FileController {
-
     private final ImageUseCase imageUseCase;
 
     @OnlyStudent

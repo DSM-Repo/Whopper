@@ -19,8 +19,8 @@ class StudentRepositoryImpl implements StudentRepository {
     }
 
     @Override
-    public Optional<StudentModel> findById(String id) {
-        var student = studentCrudRepository.findById(id);
+    public Optional<StudentModel> findById(String studentId) {
+        var student = studentCrudRepository.findById(studentId);
 
         return studentEntityMapper.toOptionalModel(student);
     }
@@ -31,8 +31,8 @@ class StudentRepositoryImpl implements StudentRepository {
     }
 
     @Override
-    public boolean existsById(String id) {
-        return studentCrudRepository.existsById(id);
+    public boolean existsById(String studentId) {
+        return studentCrudRepository.existsById(studentId);
     }
 
     @Override

@@ -1,7 +1,6 @@
 package com.example.whopper.interfaces.feedback.dto;
 
 public class FeedbackElementDto {
-
     public record Writer(
             String id,
             String name

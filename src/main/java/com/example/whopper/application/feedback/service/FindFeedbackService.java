@@ -1,7 +1,7 @@
 package com.example.whopper.application.feedback.service;
 
 import com.example.whopper.application.feedback.usecase.FindFeedbackUseCase;
-import com.example.whopper.application.teacher.component.TeacherComponent;
+import com.example.whopper.application.teacher.component.CurrentTeacher;
 import com.example.whopper.common.http.response.DataResponseInfo;
 import com.example.whopper.application.student.component.CurrentStudent;
 import com.example.whopper.domain.feedback.FeedbackModel;
@@ -16,14 +16,13 @@ import java.util.stream.Stream;
 
 @Service
 @RequiredArgsConstructor
-@Transactional(readOnly = true)
 public class FindFeedbackService implements FindFeedbackUseCase {
-
     private final CurrentStudent currentStudent;
     private final FeedbackRepository feedbackRepository;
-    private final TeacherComponent teacherComponent;
+    private final CurrentTeacher currentTeacher;
 
     @Override
+    @Transactional(readOnly = true)
     public DataResponseInfo<FeedbackResponse.StudentResponse> getCurrentStudentFeedbackList() {
         final var resume = currentStudent.getResume();
 
@@ -34,14 +33,16 @@ public class FindFeedbackService implements FindFeedbackUseCase {
         return DataResponseInfo.of(feedbackList);
     }
 
-    private Stream<FeedbackModel> getFeedbackResponsesByResumeId(String resumeId) {
-        return feedbackRepository.findAllByResumeIdAndStatus(resumeId, FeedbackElementDto.Status.PENDING);
+    private Stream<FeedbackModel> getFeedbackResponsesByResumeId(String id) {
+        return feedbackRepository.findAllByResumeIdAndStatus(id, FeedbackElementDto.Status.PENDING);
     }
 
     @Override
-    public DataResponseInfo<FeedbackResponse.TeacherResponse> getFeedbackListByresumeId(String resumeId) {
-        final var currentTeacher = teacherComponent.currentTeacher();
-        final var feedbackList =  feedbackRepository.findAllByResumeIdAndWriterId(resumeId, currentTeacher.getId())
+    @Transactional(readOnly = true)
+    public DataResponseInfo<FeedbackResponse.TeacherResponse> getFeedbackListByResumeId(String resumeId) {
+        final var teacher = currentTeacher.getTeacher();
+
+        final var feedbackList =  feedbackRepository.findAllByResumeIdAndWriterId(resumeId, teacher.id())
                 .map(FeedbackResponse.TeacherResponse::fromFeedback)
                 .toList();
 
@@ -49,10 +50,11 @@ public class FindFeedbackService implements FindFeedbackUseCase {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public DataResponseInfo<FeedbackResponse.TeacherResponse> getFeedbacksWrittenByTeacher() {
-        final var teacher = teacherComponent.currentTeacher();
+        final var teacher = currentTeacher.getTeacher();
 
-        final var result = feedbackRepository.findAllByWriterId(teacher.getId())
+        final var result = feedbackRepository.findAllByWriterId(teacher.id())
                 .map(FeedbackResponse.TeacherResponse::fromFeedback)
                 .toList();
 
