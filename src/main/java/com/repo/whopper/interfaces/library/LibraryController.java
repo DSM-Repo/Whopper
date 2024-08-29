@@ -10,7 +10,6 @@ import com.repo.whopper.interfaces.library.dto.response.LibraryDetailResponse;
 import com.repo.whopper.interfaces.library.dto.response.LibraryResponse;
 import com.repo.whopper.common.annotation.OnlyTeacher;
 import com.repo.whopper.common.http.dto.DataResponseInfo;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
