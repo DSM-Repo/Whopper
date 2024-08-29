@@ -1,7 +1,6 @@
 package com.repo.whopper.interfaces.resume.dto;
 
 import java.util.List;
-import java.util.Set;
 
 public class ResumeElementDto {
     public enum Status {
