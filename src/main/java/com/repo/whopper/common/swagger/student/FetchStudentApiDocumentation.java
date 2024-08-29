@@ -1,7 +1,7 @@
 package com.repo.whopper.common.swagger.student;
 
 import com.repo.whopper.common.error.ErrorResponse;
-import com.repo.whopper.interfaces.student.dto.CurrentUserInfoResponse;
+import com.repo.whopper.interfaces.student.dto.CurrentStudentInfoResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -19,7 +19,7 @@ public interface FetchStudentApiDocumentation {
                     content = @Content(
                             mediaType = MediaType.APPLICATION_JSON_VALUE,
                             schema = @Schema(
-                                    implementation = CurrentUserInfoResponse.class
+                                    implementation = CurrentStudentInfoResponse.class
                             )
                     )
             ),
@@ -38,5 +38,5 @@ public interface FetchStudentApiDocumentation {
             summary = "현재 로그인된 학생 정보 조회 API",
             description = "클라이언트 요청 authorization 헤더의 토큰을 사용하여 id를 추출하고, 학생을 검색합니다."
     )
-    CurrentUserInfoResponse getCurrentUserInfoResponse();
+    CurrentStudentInfoResponse fetchCurrentUserInfoResponse();
 }
