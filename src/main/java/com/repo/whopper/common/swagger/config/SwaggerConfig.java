@@ -1,4 +1,4 @@
-package com.repo.whopper.infrastructure.swagger;
+package com.repo.whopper.common.swagger.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
