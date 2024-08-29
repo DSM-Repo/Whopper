@@ -14,10 +14,10 @@ public class ResumeElementDto {
             SchoolInfo schoolInfo,
             Major major,
             String email,
-            Set<String> skillSet,
+            List<String> skillSet,
             String url
     ) {
-        public Writer update(Major major, String email, Set<String> skillSet, String url) {
+        public Writer update(Major major, String email, List<String> skillSet, String url) {
             return new Writer(id, name, schoolInfo, major, email, skillSet, url);
         }
 
@@ -46,7 +46,7 @@ public class ResumeElementDto {
             Logo logo,
             Type type,
             Date date,
-            Set<String> skillSet,
+            List<String> skillSet,
             List<Section> sections,
             String url
     ) {

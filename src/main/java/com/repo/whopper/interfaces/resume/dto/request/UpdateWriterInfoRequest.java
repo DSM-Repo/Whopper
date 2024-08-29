@@ -1,10 +1,10 @@
 package com.repo.whopper.interfaces.resume.dto.request;
 
-import java.util.Set;
+import java.util.List;
 
 public record UpdateWriterInfoRequest(
         String email,
-        Set<String> skillSet,
+        List<String> skillSet,
         String url,
         String majorId
 ) {}

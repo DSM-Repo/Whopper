@@ -61,7 +61,7 @@ class ResumeEntity {
             Logo logo,
             Type type,
             Date date,
-            Set<String> skillSet,
+            List<String> skillSet,
             List<Section> sections,
             String url
     ) {
@@ -87,7 +87,7 @@ class ResumeEntity {
             SchoolInfo schoolInfo,
             Major major,
             String email,
-            Set<String> skillSet,
+            List<String> skillSet,
             String url
     ) {
         record SchoolInfo(
