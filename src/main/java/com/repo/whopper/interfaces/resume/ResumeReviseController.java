@@ -1,4 +1,4 @@
-package com.repo.whopper.interfaces.resume
+package com.repo.whopper.interfaces.resume;
 
 import com.repo.whopper.application.resume.usecase.ResumeReviseUseCase;
 import com.repo.whopper.common.annotation.OnlyStudent;
