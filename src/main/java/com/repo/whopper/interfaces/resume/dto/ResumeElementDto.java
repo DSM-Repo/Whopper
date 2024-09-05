@@ -1,9 +1,20 @@
 package com.repo.whopper.interfaces.resume.dto;
 
+import com.repo.whopper.interfaces.resume.dto.request.UpdateWriterInfoRequest;
+
 import java.util.List;
-import java.util.Set;
 
 public class ResumeElementDto {
+
+    public record ReviseRequest(
+            UpdateWriterInfoRequest writer,
+            Introduce introduce,
+            List<Project> projectList,
+            List<Achievement> achievementList,
+            List<Activity> activityList
+    ) {
+    }
+
     public enum Status {
         ONGOING, DELETED, SUBMITTED, RELEASED
     }
