@@ -47,6 +47,9 @@ public record ResumeModel(
         return new ResumeModel(id, year, ResumeElementDto.Status.DELETED, writer, introduce, projectList, achievementList, activityList);
     }
 
+    public ResumeModel replace(ResumeElementDto.Writer newWriter, List<ResumeElementDto.Project> newProjectList, ResumeElementDto.Introduce newIntroduce, List<ResumeElementDto.Achievement> newAchievementList, List<ResumeElementDto.Activity> newActivityList) {
+        return new ResumeModel(id, year, status, newWriter, newIntroduce, newProjectList, newAchievementList, newActivityList);
+    }
     public ResumeModel updateWriterInfo(ResumeElementDto.Writer newWriter) {
         return new ResumeModel(id, year, status, newWriter, introduce, projectList, achievementList, activityList);
     }
