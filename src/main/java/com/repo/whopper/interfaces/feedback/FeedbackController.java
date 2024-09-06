@@ -77,7 +77,7 @@ public class FeedbackController {
     }
 
     @OnlyTeacher
-    @PutMapping("/del")
+    @DeleteMapping
     public void deleteFeedback(@RequestBody IdRequest request) {
         deleteFeedbackUseCase.deleteFeedback(request.id());
     }
