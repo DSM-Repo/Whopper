@@ -28,12 +28,12 @@ class ResumeReviseService implements ResumeReviseUseCase {
         final var resume = currentStudent.getResume(student.id());
 
         reviseProcess(request, resume);
-        publishMajorUpdateEvent(request.writer().majorName(), student.id());
+        publishMajorUpdateEvent(request.writer().major(), student.id());
     }
 
     private void reviseProcess(final ResumeElementDto.ReviseRequest request, final ResumeModel resume) {
         final var writerReq = request.writer();
-        final var major = getMajor(writerReq.majorName());
+        final var major = getMajor(writerReq.major());
 
         final var newResume = createNewModel(request, resume, major, writerReq);
 
