@@ -14,18 +14,13 @@ public interface ResumeElementMapper {
     ResumeEntity.Status toStatusEntity(ResumeElementDto.Status status);
 
     @Mapping(target = "schoolInfo", source = "schoolInfo")
-    @Mapping(target = "major", source = "major")
     ResumeElementDto.Writer toWriterDto(ResumeEntity.Writer writer);
 
     @Mapping(target = "schoolInfo", source = "schoolInfo")
-    @Mapping(target = "major", source = "major")
     ResumeEntity.Writer toWriterEntity(ResumeElementDto.Writer writer);
 
     ResumeElementDto.Writer.SchoolInfo toSchoolInfoDto(ResumeEntity.Writer.SchoolInfo schoolInfo);
     ResumeEntity.Writer.SchoolInfo toSchoolInfoEntity(ResumeElementDto.Writer.SchoolInfo schoolInfo);
-
-    ResumeElementDto.Writer.Major toMajorDto(ResumeEntity.Writer.Major major);
-    ResumeEntity.Writer.Major toMajorEntity(ResumeElementDto.Writer.Major major);
 
     ResumeElementDto.Introduce toIntroduceDto(ResumeEntity.Introduce introduce);
     ResumeEntity.Introduce toIntroduceEntity(ResumeElementDto.Introduce introduce);

@@ -45,7 +45,7 @@ public record FullResumeResponse(
             return new ResumeWriterResponse(
                     writer.name(),
                     writer.email(),
-                    writer.major().majorName(),
+                    writer.major(),
                     schoolInfo,
                     SchoolDepartmentEnum.getBySchoolNumber(schoolNumber),
                     writer.url(),

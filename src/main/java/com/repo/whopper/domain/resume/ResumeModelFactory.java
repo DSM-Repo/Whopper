@@ -8,7 +8,6 @@ import java.time.Year;
 public class ResumeModelFactory {
     public static ResumeModel createResumeModelFromStudentEntity(StudentModel student) {
         var classInfo = student.classInfo();
-        final var major = student.major();
 
         return ResumeModel.createInitialResume(
                 student.id(),
@@ -20,10 +19,7 @@ public class ResumeModelFactory {
                         classInfo.schoolNumber(),
                         Year.now().getValue() - 2013 - classInfo.grade()
                 ),
-                new ResumeElementDto.Writer.Major(
-                        major.id(),
-                        major.name()
-                )
+                student.major()
         );
     }
 }

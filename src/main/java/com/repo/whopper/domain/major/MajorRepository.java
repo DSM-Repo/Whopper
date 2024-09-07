@@ -7,8 +7,6 @@ public interface MajorRepository {
     MajorModel save(MajorModel entity);
     void saveAll(List<MajorModel> entities);
     Optional<MajorModel> findByName(String name);
-    Optional<MajorModel> findById(String majorId);
     List<MajorModel> findAll();
     void delete(MajorModel entity);
-    boolean existsByName(String name);
 }
