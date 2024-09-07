@@ -6,9 +6,9 @@ public record GetCurrentUserInfoResponse(
         String name,
         StudentElementDto.ClassInfo classInfo,
         String profileImage,
-        String majorName
+        String major
 ) {
     public static GetCurrentUserInfoResponse fromStudentEntity(StudentModel model) {
-        return new GetCurrentUserInfoResponse(model.name(), model.classInfo(), model.profileImagePath(), model.major().name());
+        return new GetCurrentUserInfoResponse(model.name(), model.classInfo(), model.profileImagePath(), model.major());
     }
 }
