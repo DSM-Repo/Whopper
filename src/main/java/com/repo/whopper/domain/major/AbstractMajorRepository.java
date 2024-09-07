@@ -30,14 +30,7 @@ public class AbstractMajorRepository implements MajorRepository {
 
     @Override
     public Optional<MajorModel> findByName(String name) {
-        final var entity = majorMongoRepository.findByName(name);
-
-        return majorEntityMapper.toOptionalModel(entity);
-    }
-
-    @Override
-    public Optional<MajorModel> findById(String majorId) {
-        final var entity = majorMongoRepository.findById(majorId);
+        final var entity = majorMongoRepository.findById(name);
 
         return majorEntityMapper.toOptionalModel(entity);
     }
@@ -56,8 +49,4 @@ public class AbstractMajorRepository implements MajorRepository {
         );
     }
 
-    @Override
-    public boolean existsByName(String name) {
-        return majorMongoRepository.existsByName(name);
-    }
 }

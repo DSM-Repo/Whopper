@@ -18,7 +18,7 @@ public record ResumeModel(
         List<ResumeElementDto.Achievement> achievementList,
         List<ResumeElementDto.Activity> activityList
 ) {
-    public static ResumeModel createInitialResume(String id, String name, ResumeElementDto.Writer.SchoolInfo schoolInfo, ResumeElementDto.Writer.Major major) {
+    public static ResumeModel createInitialResume(String id, String name, ResumeElementDto.Writer.SchoolInfo schoolInfo, String major) {
         return new ResumeModel(
                 null,
                 Year.now().getValue(),

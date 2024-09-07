@@ -6,5 +6,5 @@ public record UpdateWriterInfoRequest(
         String email,
         List<String> skillSet,
         String url,
-        String majorId
+        String majorName
 ) {}

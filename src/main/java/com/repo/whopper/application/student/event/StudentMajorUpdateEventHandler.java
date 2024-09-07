@@ -19,7 +19,7 @@ public class StudentMajorUpdateEventHandler {
     public void handle(StudentMajorUpdateEvent event) {
         final var student = studentRepository.findById(event.studentId())
                 .orElseThrow(() -> StudentNotFoundException.EXCEPTION);
-        final var newStudent = student.updateMajor(event.majorId(), event.majorName());
+        final var newStudent = student.updateMajor(event.majorName());
 
         studentRepository.save(newStudent);
     }
