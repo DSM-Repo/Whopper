@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/feedback")
-public class FeedbackController {
+class FeedbackController {
     private final AddFeedbackUseCase addFeedbackUseCase;
     private final AcceptFeedbackUseCase acceptFeedbackUseCase;
     private final RejectFeedbackUseCase rejectFeedbackUseCase;
@@ -30,57 +30,56 @@ public class FeedbackController {
 
     @OnlyStudent
     @PostMapping("/confirm")
-    public void confirm(@RequestBody IdRequest request) {
-        confirmFeedbackUseCase.confirm(request.id);
+    void confirm(@RequestParam String id) {
+        confirmFeedbackUseCase.confirm(id);
     }
 
     @OnlyTeacher
     @PostMapping("/accept")
-    public void accept(@RequestBody IdRequest request) {
-        acceptFeedbackUseCase.accept(request.id);
+    void accept(@RequestParam String id) {
+        acceptFeedbackUseCase.accept(id);
     }
 
     @OnlyTeacher
     @PostMapping("/reject")
-    public void reject(@RequestBody IdRequest request) {
-        rejectFeedbackUseCase.reject(request.id);
+    void reject(@RequestParam String id) {
+        rejectFeedbackUseCase.reject(id);
     }
 
     @OnlyStudent
     @GetMapping
-    public DataResponseInfo<FeedbackResponse.StudentResponse> getMyFeedbackList() {
+    DataResponseInfo<FeedbackResponse.StudentResponse> getMyFeedbackList() {
         return findFeedbackUseCase.getCurrentStudentFeedbackList();
     }
 
     @OnlyTeacher
     @GetMapping("/{resumeId}")
-    public DataResponseInfo<FeedbackResponse.TeacherResponse> getFeedbackListByResumeId(@PathVariable String resumeId) {
+    DataResponseInfo<FeedbackResponse.TeacherResponse> getFeedbackListByResumeId(@PathVariable String resumeId) {
         return findFeedbackUseCase.getFeedbackListByResumeId(resumeId);
     }
 
     @OnlyTeacher
     @GetMapping("/teacher")
-    public DataResponseInfo<FeedbackResponse.TeacherResponse> getFeedbacksWrittenByTeacher() {
+    DataResponseInfo<FeedbackResponse.TeacherResponse> getFeedbacksWrittenByTeacher() {
         return findFeedbackUseCase.getFeedbacksWrittenByTeacher();
     }
 
     @OnlyTeacher
     @PostMapping
-    public void addFeedback(@RequestBody FeedbackRequest request) {
+    void addFeedback(@RequestBody FeedbackRequest request) {
         addFeedbackUseCase.addFeedback(request);
     }
 
     @OnlyTeacher
     @PatchMapping("/{feedbackId}")
-    public void updateFeedback(@PathVariable String feedbackId, @RequestBody UpdateFeedbackRequest request) {
+    void updateFeedback(@PathVariable String feedbackId, @RequestBody UpdateFeedbackRequest request) {
         updateFeedbackUseCase.updateFeedback(feedbackId, request);
     }
 
     @OnlyTeacher
-    @DeleteMapping
-    public void deleteFeedback(@RequestBody IdRequest request) {
-        deleteFeedbackUseCase.deleteFeedback(request.id());
+    @DeleteMapping("/{feedbackId}")
+    void deleteFeedback(@PathVariable String feedbackId) {
+        deleteFeedbackUseCase.deleteFeedback(feedbackId);
     }
 
-    record IdRequest(String id) {}
 }

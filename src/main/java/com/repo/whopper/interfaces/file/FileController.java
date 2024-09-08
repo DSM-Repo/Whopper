@@ -13,23 +13,22 @@ import org.springframework.web.multipart.MultipartFile;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/file")
-public class FileController {
+class FileController {
     private final ImageUseCase imageUseCase;
 
     @OnlyStudent
     @PostMapping(value = "/image", consumes = {
             MediaType.MULTIPART_FORM_DATA_VALUE
     })
-    public ImagePathResponse uploadImage(@RequestPart("file") MultipartFile filePart, @RequestParam("type") ImageType imageType) {
+    ImagePathResponse uploadImage(@RequestPart("file") MultipartFile filePart, @RequestParam("type") ImageType imageType) {
         String path = imageUseCase.saveImage(filePart, imageType);
         return new ImagePathResponse(imageUseCase.getFileBaseUrl() + path, filePart.getOriginalFilename());
     }
 
-    @DeleteMapping
+    @DeleteMapping("/{url}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    void deleteImage(@RequestBody UrlRequest request) {
-        imageUseCase.deleteImage(request.url);
+    void deleteImage(@PathVariable String url) {
+        imageUseCase.deleteImage(url);
     }
 
-    record UrlRequest(String url) {}
 }

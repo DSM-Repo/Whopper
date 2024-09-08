@@ -11,12 +11,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/user")
 @RequiredArgsConstructor
-public class StudentController {
+class StudentController {
     private final GetCurrentUserInfoUseCase getCurrentUserInfoUseCase;
 
     @OnlyStudent
     @GetMapping("/current/info")
-    public GetCurrentUserInfoResponse getCurrentUserInfoResponse() {
+    GetCurrentUserInfoResponse getCurrentUserInfoResponse() {
         return getCurrentUserInfoUseCase.get();
     }
 }

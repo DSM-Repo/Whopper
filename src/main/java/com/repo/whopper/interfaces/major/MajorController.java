@@ -9,33 +9,37 @@ import com.repo.whopper.common.http.response.DataResponseInfo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/major")
-public class MajorController {
+class MajorController {
     private final AddMajorUseCase addMajorUseCase;
     private final FindMajorUseCase findMajorUseCase;
     private final DeleteMajorUseCase deleteMajorUseCase;
 
     @OnlyTeacher
     @PostMapping
-    public void add(@RequestBody AddMajorRequest request) {
+    void add(@RequestBody AddMajorRequest request) {
         addMajorUseCase.add(request.majors());
     }
 
     @GetMapping
-    public DataResponseInfo<MajorModel> findAll() {
+    DataResponseInfo<MajorModel> findAll() {
         return findMajorUseCase.findAll();
     }
 
     @OnlyTeacher
-    @DeleteMapping
-    public void delete(@RequestBody DeleteMajorRequest request) {
-        deleteMajorUseCase.delete(request.name);
+    @DeleteMapping("/{name}")
+    void delete(@PathVariable String name)  {
+        final var decodedName = URLDecoder.decode(name, StandardCharsets.UTF_8);
+        final var replacedName = decodedName.replace("_", " ");
+
+        deleteMajorUseCase.delete(replacedName);
     }
 
     private record AddMajorRequest(List<String> majors) {}
-    private record DeleteMajorRequest(String name) {}
 }
