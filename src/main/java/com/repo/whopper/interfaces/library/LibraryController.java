@@ -39,7 +39,7 @@ class LibraryController {
     }
 
     @GetMapping
-    DataResponseInfo<LibraryResponse> studentFindLibrary(@RequestParam(defaultValue = "0") Integer year) {
+    DataResponseInfo<LibraryResponse> findLibrary(@RequestParam(defaultValue = "0") Integer year) {
         return findLibraryUseCase.findLibrary(year);
     }
 
