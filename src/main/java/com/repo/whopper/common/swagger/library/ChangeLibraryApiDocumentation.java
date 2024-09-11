@@ -36,7 +36,7 @@ public interface ChangeLibraryApiDocumentation {
             )
     })
     @Operation(
-            summary = "도서관 문서의 접근권한을 변경 API",
+            summary = "도서관 문서 접근권한 변경 API",
             description = "클라이언트에서 받은 id로 문서를 검색하고 문서의 접근권환을 변경합니다."
     )
     void changeLibraryAccessRight(String libraryId, LibraryElementDto.AccessRight accessRight);
