@@ -1,6 +1,6 @@
 package com.repo.whopper.application.library.service;
 
-import com.repo.whopper.application.library.usecase.CreateLibraryUseCase;
+import com.repo.whopper.application.library.usecase.SaveLibraryUseCase;
 import com.repo.whopper.domain.library.LibraryModel;
 import com.repo.whopper.domain.library.LibraryRepository;
 import com.repo.whopper.common.http.dto.DataResponseInfo;
@@ -13,12 +13,12 @@ import java.time.LocalDateTime;
 
 @Service
 @RequiredArgsConstructor
-public class CreateLibraryService implements CreateLibraryUseCase {
+public class SaveLibraryService implements SaveLibraryUseCase {
     private final LibraryRepository libraryRepository;
 
     @Override
     @Transactional
-    public void createLibrary(Integer grade, String filePath, DataResponseInfo<LibraryElementDto.ResumeIndex> index) {
+    public void saveLibrary(Integer grade, String filePath, DataResponseInfo<LibraryElementDto.ResumeIndex> index) {
         LocalDateTime now = LocalDateTime.now();
 
         libraryRepository.save(new LibraryModel(null, now.getYear(), grade, filePath, now, LibraryElementDto.AccessRight.PRIVATE, index.data()));
