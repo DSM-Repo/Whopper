@@ -9,6 +9,6 @@ public record CurrentStudentInfoResponse(
         String major
 ) {
     public static CurrentStudentInfoResponse fromStudentModel(StudentModel model) {
-        return new CurrentStudentInfoResponse(model.name(), model.classInfo(), model.profileImagePath(), model.major().name());
+        return new CurrentStudentInfoResponse(model.name(), model.classInfo(), model.profileImagePath(), model.major());
     }
 }
