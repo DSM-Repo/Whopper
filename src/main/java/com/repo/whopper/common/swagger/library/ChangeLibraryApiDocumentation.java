@@ -10,10 +10,8 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
 
-@Tag(name = "library", description = "도서관 문서 변경 API")
+@Tag(name = "library", description = "도서관 API")
 public interface ChangeLibraryApiDocumentation {
     @ApiResponses({
             @ApiResponse(
@@ -41,8 +39,5 @@ public interface ChangeLibraryApiDocumentation {
             summary = "도서관 문서의 접근권한을 변경 API",
             description = "클라이언트에서 받은 id로 문서를 검색하고 문서의 접근권환을 변경합니다."
     )
-    void changeLibraryAccessRight(
-            @PathVariable String libraryId,
-            @RequestParam(name = "access-right") LibraryElementDto.AccessRight accessRight
-    );
+    void changeLibraryAccessRight(String libraryId, LibraryElementDto.AccessRight accessRight);
 }

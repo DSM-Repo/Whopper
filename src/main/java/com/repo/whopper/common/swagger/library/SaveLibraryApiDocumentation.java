@@ -11,7 +11,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.MediaType;
 import org.springframework.web.multipart.MultipartFile;
 
-@Tag(name = "library", description = "도서관 문서 저장 API")
+@Tag(name = "library", description = "도서관 API")
 public interface SaveLibraryApiDocumentation {
     @ApiResponses({
             @ApiResponse(
