@@ -7,6 +7,7 @@ import java.util.List;
 
 public record LibraryDetailResponse(
         String id,
+        LibraryElementDto.AccessRight accessRight,
         Integer year,
         Integer grade,
         Integer generation,
@@ -14,6 +15,6 @@ public record LibraryDetailResponse(
         List<LibraryElementDto.ResumeIndex> index
 ) {
     public LibraryDetailResponse(LibraryModel library, String resumeUrl) {
-        this(library.id(), library.year(), library.grade(), library.getGeneration(), resumeUrl, library.index());
+        this(library.id(), library.accessRight(), library.year(), library.grade(), library.getGeneration(), resumeUrl, library.index());
     }
 }

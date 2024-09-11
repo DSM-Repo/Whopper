@@ -1,8 +1,20 @@
 package com.repo.whopper.interfaces.resume.dto;
 
+import com.repo.whopper.interfaces.resume.dto.request.UpdateWriterInfoRequest;
+
 import java.util.List;
 
 public class ResumeElementDto {
+
+    public record ReviseRequest(
+            UpdateWriterInfoRequest writer,
+            Introduce introduce,
+            List<Project> projectList,
+            List<Achievement> achievementList,
+            List<Activity> activityList
+    ) {
+    }
+
     public enum Status {
         ONGOING, DELETED, SUBMITTED, RELEASED
     }
@@ -11,12 +23,12 @@ public class ResumeElementDto {
             String id,
             String name,
             SchoolInfo schoolInfo,
-            Major major,
+            String major,
             String email,
             List<String> skillSet,
             String url
     ) {
-        public Writer update(Major major, String email, List<String> skillSet, String url) {
+        public Writer update(String major, String email, List<String> skillSet, String url) {
             return new Writer(id, name, schoolInfo, major, email, skillSet, url);
         }
 
@@ -26,11 +38,6 @@ public class ResumeElementDto {
                 Integer number,
                 String schoolNumber,
                 Integer generation
-        ) {}
-
-        public record Major(
-                String majorId,
-                String majorName
         ) {}
     }
 
