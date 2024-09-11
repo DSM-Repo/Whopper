@@ -1,6 +1,5 @@
 package com.repo.whopper.common.swagger.library;
 
-import com.repo.whopper.common.error.ErrorResponse;
 import com.repo.whopper.interfaces.library.dto.request.ResumeIndexRequest;
 import com.repo.whopper.interfaces.student.dto.CurrentStudentInfoResponse;
 import io.swagger.v3.oas.annotations.Operation;
@@ -24,21 +23,14 @@ public interface SaveLibraryApiDocumentation {
                                     implementation = CurrentStudentInfoResponse.class
                             )
                     )
-            ),
-            @ApiResponse(
-                    responseCode = "404",
-                    description = "학생을 찾지 못했습니다.",
-                    content = @Content(
-                            mediaType = MediaType.APPLICATION_JSON_VALUE,
-                            schema = @Schema(
-                                    implementation = ErrorResponse.class
-                            )
-                    )
             )
     })
     @Operation(
             summary = "현재 로그인된 학생 정보 조회 API",
-            description = "클라이언트 요청 authorization 헤더의 토큰을 사용하여 id를 추출하고, 학생을 검색합니다."
+            description = "클라이언트 요청 authorization 헤더의 토큰을 사용하여 id를 추출하고, 학생을 검색합니다.",
+            parameters = {
+
+            }
     )
     void saveLibrary(Integer grade, MultipartFile pdfPart, ResumeIndexRequest indexPart);
 }
