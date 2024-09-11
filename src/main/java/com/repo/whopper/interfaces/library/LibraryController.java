@@ -1,11 +1,8 @@
 package com.repo.whopper.interfaces.library;
 
-import com.repo.whopper.application.library.usecase.ChangeLibraryAccessRightUseCase;
 import com.repo.whopper.application.library.usecase.FindLibraryUseCase;
-import com.repo.whopper.interfaces.library.dto.LibraryElementDto;
 import com.repo.whopper.interfaces.library.dto.response.LibraryDetailResponse;
 import com.repo.whopper.interfaces.library.dto.response.LibraryResponse;
-import com.repo.whopper.common.annotation.OnlyTeacher;
 import com.repo.whopper.common.http.dto.DataResponseInfo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -14,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 @RequestMapping("/library")
 public class LibraryController {
-    private final ChangeLibraryAccessRightUseCase changeLibraryAccessRightUseCase;
     private final FindLibraryUseCase findLibraryUseCase;
 
     @GetMapping("/{libraryId}")
@@ -25,15 +21,6 @@ public class LibraryController {
     @GetMapping
     DataResponseInfo<LibraryResponse> findLibrary(@RequestParam(defaultValue = "0") Integer year) {
         return findLibraryUseCase.findLibrary(year);
-    }
-
-    @OnlyTeacher
-    @PatchMapping("/{libraryId}")
-    void changeLibraryAccessRight(
-            @PathVariable String libraryId,
-            @RequestParam(name = "access-right") LibraryElementDto.AccessRight accessRight
-    ) {
-        changeLibraryAccessRightUseCase.changeLibraryAccessRight(libraryId, accessRight);
     }
 
     @GetMapping("/{libraryId}/public")
