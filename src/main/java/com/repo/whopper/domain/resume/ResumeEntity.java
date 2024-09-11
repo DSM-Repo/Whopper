@@ -22,7 +22,6 @@ class ResumeEntity {
     private Integer year;
     private Status status;
     private Writer writer;
-
     private Introduce introduce;
     private List<Project> projectList;
     private List<Achievement> achievementList;
@@ -85,7 +84,7 @@ class ResumeEntity {
             String id,
             String name,
             SchoolInfo schoolInfo,
-            Major major,
+            String major,
             String email,
             List<String> skillSet,
             String url
@@ -96,11 +95,6 @@ class ResumeEntity {
                 Integer number,
                 String schoolNumber,
                 Integer generation
-        ) {}
-
-        record Major(
-                String majorId,
-                String majorName
         ) {}
     }
 

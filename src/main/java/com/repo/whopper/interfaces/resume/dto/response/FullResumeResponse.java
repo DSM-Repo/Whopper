@@ -31,7 +31,7 @@ public record FullResumeResponse(
     record ResumeWriterResponse(
             String name,
             String email,
-            String majorName,
+            String major,
             ResumeElementDto.Writer.SchoolInfo classInfo,
             String department,
             String url,
@@ -45,7 +45,7 @@ public record FullResumeResponse(
             return new ResumeWriterResponse(
                     writer.name(),
                     writer.email(),
-                    writer.major().majorName(),
+                    writer.major(),
                     schoolInfo,
                     SchoolDepartmentEnum.getBySchoolNumber(schoolNumber),
                     writer.url(),

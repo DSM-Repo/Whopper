@@ -18,7 +18,7 @@ class StudentEntity {
     private String name;
     private ClassInfo classInfo;
     private String profileImagePath;
-    private Major major;
+    private String major;
 
     /* value objects */
 
@@ -29,11 +29,6 @@ class StudentEntity {
             String schoolNumber
     ) {
     }
-
-    record Major(
-            String id,
-            String name
-    ) {}
 
     /* constructor */
     protected StudentEntity() {}

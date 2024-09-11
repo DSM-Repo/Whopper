@@ -8,9 +8,4 @@ public class StudentElementDto {
             String schoolNumber
     ) {
     }
-
-    public record Major(
-            String id,
-            String name
-    ) {}
 }

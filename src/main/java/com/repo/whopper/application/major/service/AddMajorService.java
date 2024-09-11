@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
@@ -18,13 +19,10 @@ public class AddMajorService implements AddMajorUseCase {
     @Override
     @Transactional
     public void add(List<String> majors) {
-        var uniqueMajors = new HashSet<>(majors);
-        List<String> newMajors = uniqueMajors.stream()
-                .filter(major -> !majorRepository.existsByName(major))
-                .toList();
+        Set<String> uniqueMajors = Set.copyOf(majors);
 
-        if (!newMajors.isEmpty()) {
-            var majorEntities = newMajors.stream()
+        if (!uniqueMajors.isEmpty()) {
+            var majorEntities = uniqueMajors.stream()
                     .map(MajorModel::createNewMajor)
                     .toList();
 

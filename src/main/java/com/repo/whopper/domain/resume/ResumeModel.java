@@ -18,7 +18,7 @@ public record ResumeModel(
         List<ResumeElementDto.Achievement> achievementList,
         List<ResumeElementDto.Activity> activityList
 ) {
-    public static ResumeModel createInitialResume(String id, String name, ResumeElementDto.Writer.SchoolInfo schoolInfo, ResumeElementDto.Writer.Major major) {
+    public static ResumeModel createInitialResume(String id, String name, ResumeElementDto.Writer.SchoolInfo schoolInfo, String major) {
         return new ResumeModel(
                 null,
                 Year.now().getValue(),
@@ -47,6 +47,9 @@ public record ResumeModel(
         return new ResumeModel(id, year, ResumeElementDto.Status.DELETED, writer, introduce, projectList, achievementList, activityList);
     }
 
+    public ResumeModel replace(ResumeElementDto.Writer newWriter, List<ResumeElementDto.Project> newProjectList, ResumeElementDto.Introduce newIntroduce, List<ResumeElementDto.Achievement> newAchievementList, List<ResumeElementDto.Activity> newActivityList) {
+        return new ResumeModel(id, year, status, newWriter, newIntroduce, newProjectList, newAchievementList, newActivityList);
+    }
     public ResumeModel updateWriterInfo(ResumeElementDto.Writer newWriter) {
         return new ResumeModel(id, year, status, newWriter, introduce, projectList, achievementList, activityList);
     }

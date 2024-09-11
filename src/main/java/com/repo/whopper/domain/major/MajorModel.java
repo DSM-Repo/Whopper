@@ -1,10 +1,12 @@
 package com.repo.whopper.domain.major;
 
+import lombok.Builder;
+
+@Builder
 public record MajorModel(
-        String id,
-        String name
+        String id
 ) {
-    public static MajorModel createNewMajor(String newName) {
-        return new MajorModel(null, newName);
+    public static MajorModel createNewMajor(String name) {
+        return new MajorModel(name);
     }
 }
