@@ -6,4 +6,5 @@ import com.repo.whopper.domain.student.StudentModel;
 public interface CurrentStudent {
     StudentModel getStudent();
     ResumeModel getResume();
+    ResumeModel getResume(String studentId);
 }

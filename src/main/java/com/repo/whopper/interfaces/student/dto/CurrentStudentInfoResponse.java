@@ -6,7 +6,7 @@ public record CurrentStudentInfoResponse(
         String name,
         StudentElementDto.ClassInfo classInfo,
         String profileImage,
-        String majorName
+        String major
 ) {
     public static CurrentStudentInfoResponse fromStudentModel(StudentModel model) {
         return new CurrentStudentInfoResponse(model.name(), model.classInfo(), model.profileImagePath(), model.major().name());

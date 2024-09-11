@@ -83,8 +83,7 @@ class StudentLoginService implements StudentLoginUseCase {
                         xquareUserResponse.getClassNum(),
                         xquareUserResponse.getNum(),
                         defaultProfileImageProperties.imageUrl(),
-                        defaultMajor.id(),
-                        defaultMajor.name()
+                        defaultMajor.id()
                 )
         );
     }

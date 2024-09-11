@@ -17,7 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/library")
-public class LibraryController {
+class LibraryController {
     private final CreateLibraryUseCase createLibraryUseCase;
     private final PdfUseCase pdfUseCase;
     private final ChangeLibraryAccessRightUseCase changeLibraryAccessRightUseCase;
@@ -34,25 +34,27 @@ public class LibraryController {
     }
 
     @GetMapping("/{libraryId}")
-    public LibraryDetailResponse getLibraryDetailResponse(@PathVariable String libraryId) {
+    LibraryDetailResponse getLibraryDetailResponse(@PathVariable String libraryId) {
         return findLibraryUseCase.findLibraryDetail(libraryId);
     }
 
     @GetMapping
-    public DataResponseInfo<LibraryResponse> studentFindLibrary(@RequestParam(defaultValue = "0") Integer year) {
+    DataResponseInfo<LibraryResponse> findLibrary(@RequestParam(defaultValue = "0") Integer year) {
         return findLibraryUseCase.findLibrary(year);
     }
 
     @OnlyTeacher
-    @PatchMapping("/access-right")
-    public void changeLibraryAccessRight(@RequestBody AccessRightRequest request) {
-        changeLibraryAccessRightUseCase.changeLibraryAccessRight(request.libraryId(), request.accessRight());
+    @PatchMapping("/{libraryId}")
+    void changeLibraryAccessRight(
+            @PathVariable String libraryId,
+            @RequestParam(name = "access-right") LibraryElementDto.AccessRight accessRight
+    ) {
+        changeLibraryAccessRightUseCase.changeLibraryAccessRight(libraryId, accessRight);
     }
 
     @GetMapping("/{libraryId}/public")
-    public LibraryDetailResponse findLibraryDetail(@PathVariable String libraryId) {
+    LibraryDetailResponse findLibraryDetail(@PathVariable String libraryId) {
         return findLibraryUseCase.findLibraryDetail(libraryId);
     }
 
-    record AccessRightRequest(String libraryId, LibraryElementDto.AccessRight accessRight) {}
 }

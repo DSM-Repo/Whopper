@@ -11,13 +11,13 @@ public record StudentModel(
         String name,
         StudentElementDto.ClassInfo classInfo,
         String profileImagePath,
-        StudentElementDto.Major major
+        String major
 ) {
-    public StudentModel updateMajor(String majorId, String majorName) {
-        return new StudentModel(id, accountId, password, name, classInfo, profileImagePath, new StudentElementDto.Major(majorId, majorName));
+    public StudentModel updateMajor(String majorName) {
+        return new StudentModel(id, accountId, password, name, classInfo, profileImagePath, majorName);
     }
 
-    public StudentModel(String accountId, String password, String name, Integer grade, Integer classNumber, Integer number, String profileImagePath, String majorId, String majorName) {
+    public StudentModel(String accountId, String password, String name, Integer grade, Integer classNumber, Integer number, String profileImagePath, String majorName) {
         this(null,
                 accountId,
                 password,
@@ -29,7 +29,7 @@ public record StudentModel(
                         String.format("%1d%1d%02d", grade, classNumber, number)
                 ),
                 profileImagePath,
-                new StudentElementDto.Major(majorId, majorName)
+                majorName
         );
     }
 }
