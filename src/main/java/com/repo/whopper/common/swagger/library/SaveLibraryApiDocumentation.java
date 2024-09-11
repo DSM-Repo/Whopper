@@ -26,11 +26,8 @@ public interface SaveLibraryApiDocumentation {
             )
     })
     @Operation(
-            summary = "현재 로그인된 학생 정보 조회 API",
-            description = "클라이언트 요청 authorization 헤더의 토큰을 사용하여 id를 추출하고, 학생을 검색합니다.",
-            parameters = {
-
-            }
+            summary = "기수별 도서관 문서 저장 API",
+            description = "학년과 pdf 파일, 문서의 index를 받아서 library의 형태로 저장합니다."
     )
     void saveLibrary(Integer grade, MultipartFile pdfPart, ResumeIndexRequest indexPart);
 }
