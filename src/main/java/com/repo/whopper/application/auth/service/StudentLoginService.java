@@ -12,7 +12,7 @@ import com.repo.whopper.common.exception.auth.InvalidUserException;
 import com.repo.whopper.common.exception.auth.PasswordMismatchException;
 import com.repo.whopper.application.resume.component.CreateResumeComponent;
 import com.repo.whopper.domain.file.DefaultProfileImageProperties;
-import com.repo.whopper.domain.major.MajorFacade;
+import com.repo.whopper.domain.major.DefaultMajorFacade;
 import com.repo.whopper.common.exception.student.StudentNotFoundException;
 import com.repo.whopper.common.security.jwt.JwtTokenProvider;
 import com.repo.whopper.infrastructure.xquare.XquareClient;
@@ -31,7 +31,7 @@ class StudentLoginService implements StudentLoginUseCase {
     private final JwtTokenProvider jwtTokenProvider;
     private final XquareClient xquareClient;
     private final PasswordEncoder passwordEncoder;
-    private final MajorFacade defaultMajorFacade;
+    private final DefaultMajorFacade defaultMajorFacade;
     private final CreateResumeComponent createResumeComponent;
     private final DefaultProfileImageProperties defaultProfileImageProperties;
 
