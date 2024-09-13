@@ -1,6 +1,8 @@
 package com.repo.whopper.application.auth.service;
 
 import com.repo.whopper.application.auth.usecase.StudentLoginUseCase;
+import com.repo.whopper.common.error.exception.ErrorCode;
+import com.repo.whopper.common.exception.external.ExternalException;
 import com.repo.whopper.domain.student.StudentModel;
 import com.repo.whopper.domain.student.StudentRepository;
 import com.repo.whopper.interfaces.auth.dto.AuthElementDto;
@@ -10,12 +12,13 @@ import com.repo.whopper.common.exception.auth.InvalidUserException;
 import com.repo.whopper.common.exception.auth.PasswordMismatchException;
 import com.repo.whopper.application.resume.component.CreateResumeComponent;
 import com.repo.whopper.domain.file.DefaultProfileImageProperties;
-import com.repo.whopper.domain.major.DefaultMajorFacade;
+import com.repo.whopper.domain.major.MajorFacade;
 import com.repo.whopper.common.exception.student.StudentNotFoundException;
 import com.repo.whopper.common.security.jwt.JwtTokenProvider;
 import com.repo.whopper.infrastructure.xquare.XquareClient;
 import com.repo.whopper.infrastructure.xquare.dto.XquareUserResponse;
 import com.repo.whopper.infrastructure.xquare.exception.XquareException;
+import feign.FeignException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -28,7 +31,7 @@ class StudentLoginService implements StudentLoginUseCase {
     private final JwtTokenProvider jwtTokenProvider;
     private final XquareClient xquareClient;
     private final PasswordEncoder passwordEncoder;
-    private final DefaultMajorFacade defaultMajorFacade;
+    private final MajorFacade defaultMajorFacade;
     private final CreateResumeComponent createResumeComponent;
     private final DefaultProfileImageProperties defaultProfileImageProperties;
 
@@ -56,8 +59,14 @@ class StudentLoginService implements StudentLoginUseCase {
 
         try {
             xquareUserResponse = xquareClient.xquareUser(request);
-        } catch (Exception e) {
-            throw XquareException.EXCEPTION;
+        } catch (FeignException e) {
+            final var status = e.status();
+            if (status == 401) {
+                throw new ExternalException(ErrorCode.LOGIN_FAILED);
+            }
+            else {
+                throw new ExternalException(ErrorCode.XQUARE);
+            }
         }
 
         if(!xquareUserResponse.getUserRole().equals("STU")) throw InvalidUserException.EXCEPTION;
