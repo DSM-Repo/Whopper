@@ -38,7 +38,6 @@ public class ImageService implements ImageUseCase {
     }
 
     @Override
-    @Transactional
     public String getFileBaseUrl() {
         return awsS3Properties.url();
     }
