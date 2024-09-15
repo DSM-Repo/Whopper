@@ -22,7 +22,7 @@ public record FeedbackModel(
     }
 
     public FeedbackModel reject() {
-        return new FeedbackModel(id, comment, type, resumeId, status, true, writer);
+        return new FeedbackModel(id, comment, type, resumeId, FeedbackElementDto.Status.PENDING, true, writer);
     }
 }
 
