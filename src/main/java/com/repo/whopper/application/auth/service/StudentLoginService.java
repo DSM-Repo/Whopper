@@ -38,7 +38,7 @@ class StudentLoginService implements StudentLoginUseCase {
     @Override
     @Transactional
     public TokenResponse studentLogin(LoginRequest request) {
-        return studentRepository.existsByAccountId(request.accountId())
+        return studentRepository.existsByAccountId(request.accountId().trim())
                 ? loginExistingStudent(request)
                 : registerAndLoginNewStudent(request);
     }
