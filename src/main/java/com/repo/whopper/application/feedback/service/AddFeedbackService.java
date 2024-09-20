@@ -27,7 +27,7 @@ public class AddFeedbackService implements AddFeedbackUseCase {
         final var resume = resumeRepository.findById(request.resumeId())
                         .orElseThrow(()-> ResumeNotFoundException.EXCEPTION);
 
-        if(resume.status() != ResumeElementDto.Status.SUBMITTED) throw ResumeIllegalStatusException.EXCEPTION;
+        if(resume.status() == ResumeElementDto.Status.RELEASED) throw ResumeIllegalStatusException.EXCEPTION;
 
         final var teacher = currentTeacher.getTeacher();
 
