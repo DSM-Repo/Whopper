@@ -5,7 +5,7 @@ import com.repo.whopper.infrastructure.xquare.dto.XquareUserResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 
-@FeignClient(name = "xquare-client", url = "${key.login-api-url}")
+@FeignClient(name = "xquare-client", url = "${key.login-api-url}", configuration = XquareRetryConfiguration.class)
 public interface XquareClient {
     @PostMapping("/user-data")
     XquareUserResponse xquareUser(@RequestBody LoginRequest request);
