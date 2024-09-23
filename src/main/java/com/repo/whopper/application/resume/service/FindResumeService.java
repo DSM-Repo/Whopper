@@ -11,7 +11,7 @@ import com.repo.whopper.interfaces.resume.dto.response.CompletionElementLevelRes
 import com.repo.whopper.interfaces.resume.dto.response.*;
 import com.repo.whopper.common.exception.resume.ResumeNotFoundException;
 import com.repo.whopper.application.student.component.CurrentStudent;
-import com.repo.whopper.common.http.response.DataResponseInfo;
+import com.repo.whopper.common.http.dto.DataResponseInfo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

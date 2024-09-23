@@ -10,7 +10,7 @@ import com.repo.whopper.interfaces.resume.dto.response.ReleasedResumeResponse;
 import com.repo.whopper.interfaces.resume.dto.response.SearchResumeResponse;
 import com.repo.whopper.common.annotation.OnlyStudent;
 import com.repo.whopper.common.annotation.OnlyTeacher;
-import com.repo.whopper.common.http.response.DataResponseInfo;
+import com.repo.whopper.common.http.dto.DataResponseInfo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
