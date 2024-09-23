@@ -7,7 +7,6 @@ import java.util.stream.Stream;
 
 public interface FeedbackMongoRepository extends MongoRepository<FeedbackEntity, String> {
     Stream<FeedbackEntity> findAllByResumeIdAndStatus(String resumeId, FeedbackEntity.Status status);
-    int countByResumeId(String resumeId);
     void deleteAllByResumeId(String resumeId);
     Stream<FeedbackEntity> findAllByWriterId(String writerId);
     Stream<FeedbackEntity> findAllByResumeIdAndWriterId(String resumeId, String writerId);

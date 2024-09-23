@@ -9,5 +9,4 @@ import org.mapstruct.ReportingPolicy;
 public interface StudentElementMapper {
     StudentElementDto.ClassInfo toClassInfoDto(StudentEntity.ClassInfo classInfo);
     StudentEntity.ClassInfo toClassInfoEntity(StudentElementDto.ClassInfo classInfo);
-
 }
