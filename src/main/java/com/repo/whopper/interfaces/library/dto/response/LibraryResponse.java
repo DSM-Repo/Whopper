@@ -10,7 +10,6 @@ public record LibraryResponse(
         Integer grade,
         Integer generation
 ) {
-
     public static LibraryResponse fromModel(LibraryModel model) {
         return new LibraryResponse(
                 model.id(),

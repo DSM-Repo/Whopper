@@ -13,6 +13,13 @@ public class NoticeRepositoryImpl implements NoticeRepository {
     private final NoticeEntityMapper noticeEntityMapper;
 
     @Override
+    public NoticeModel save(NoticeModel model) {
+        final var entity =  noticeEntityMapper.toEntity(model);
+
+        return noticeEntityMapper.toModel(noticeMongoRepository.save(entity));
+    }
+
+    @Override
     public Optional<NoticeModel> findById(String noticeId) {
         return noticeEntityMapper.toOptionalModel(noticeMongoRepository.findById(noticeId));
     }

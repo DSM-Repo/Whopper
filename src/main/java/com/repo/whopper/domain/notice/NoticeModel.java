@@ -13,4 +13,7 @@ public record NoticeModel(
         LocalDateTime createdAt,
         Boolean checked
 ) {
+    public NoticeModel checkNotice() {
+        return new NoticeModel(id, title, content, writerName, createdAt, true);
+    }
 }

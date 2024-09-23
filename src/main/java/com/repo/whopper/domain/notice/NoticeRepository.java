@@ -4,6 +4,7 @@ import java.util.Optional;
 import java.util.stream.Stream;
 
 public interface NoticeRepository {
-    Optional<NoticeModel> findById(String libraryId);
+    NoticeModel save(NoticeModel model);
+    Optional<NoticeModel> findById(String noticeId);
     Stream<NoticeModel> findAll();
 }
