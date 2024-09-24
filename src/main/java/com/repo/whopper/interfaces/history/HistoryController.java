@@ -32,8 +32,8 @@ class HistoryController {
     }
 
     @OnlyTeacher
-    @PutMapping("/del")
-    void deleteById(@RequestBody String historyId) {
+    @DeleteMapping("/{historyId}")
+    void deleteById(@PathVariable String historyId) {
         deleteHistoryUseCase.deleteById(historyId);
     }
     
