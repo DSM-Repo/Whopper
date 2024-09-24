@@ -5,7 +5,7 @@ import com.repo.whopper.interfaces.resume.dto.response.ResumeResponse;
 import com.repo.whopper.interfaces.resume.dto.response.FullResumeResponse;
 import com.repo.whopper.interfaces.resume.dto.response.ReleasedResumeResponse;
 import com.repo.whopper.interfaces.resume.dto.response.SearchResumeResponse;
-import com.repo.whopper.common.http.response.DataResponseInfo;
+import com.repo.whopper.common.http.dto.DataResponseInfo;
 
 public interface FindResumeUseCase {
     ResumeResponse getIntroduceRecentlySharedResumes();
