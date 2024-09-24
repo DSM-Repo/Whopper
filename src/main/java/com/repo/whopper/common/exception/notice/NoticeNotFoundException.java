@@ -7,6 +7,6 @@ public class NoticeNotFoundException extends WhopperException {
     public static final WhopperException EXCEPTION = new NoticeNotFoundException();
 
     private NoticeNotFoundException() {
-        super(ErrorCode.LIBRARY_NOT_FOUND);
+        super(ErrorCode.NOTICE_NOT_FOUND);
     }
 }
