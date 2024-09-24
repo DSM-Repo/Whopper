@@ -11,7 +11,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.MediaType;
 
-@Tag(name = "library", description = "도서관 API")
+@Tag(name = "Change_library", description = "도서관 변경 API")
 public interface ChangeLibraryApiDocumentation {
     @ApiResponses({
             @ApiResponse(

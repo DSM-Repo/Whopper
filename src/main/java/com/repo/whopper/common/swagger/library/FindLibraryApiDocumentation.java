@@ -13,7 +13,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.MediaType;
 
-@Tag(name = "library", description = "도서관 API")
+@Tag(name = "Find_library", description = "도서관 조회 API")
 public interface FindLibraryApiDocumentation {
     @ApiResponses({
             @ApiResponse(
