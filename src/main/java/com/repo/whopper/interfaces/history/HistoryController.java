@@ -33,10 +33,9 @@ class HistoryController {
 
     @OnlyTeacher
     @PutMapping("/del")
-    void deleteById(@RequestBody DeleteHistoryRequest request) {
-        deleteHistoryUseCase.deleteById(request.id());
+    void deleteById(@RequestBody String historyId) {
+        deleteHistoryUseCase.deleteById(historyId);
     }
-
-    record DeleteHistoryRequest(String id) {}
+    
     record CreateHistoryRequest(String date, String content) {}
 }
