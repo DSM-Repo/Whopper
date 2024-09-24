@@ -2,7 +2,6 @@ package com.repo.whopper.common.swagger.library;
 
 import com.repo.whopper.common.error.ErrorResponse;
 import com.repo.whopper.interfaces.library.dto.LibraryElementDto;
-import com.repo.whopper.interfaces.student.dto.CurrentStudentInfoResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
