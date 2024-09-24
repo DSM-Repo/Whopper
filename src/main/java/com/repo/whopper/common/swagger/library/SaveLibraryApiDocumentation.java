@@ -16,13 +16,7 @@ public interface SaveLibraryApiDocumentation {
     @ApiResponses({
             @ApiResponse(
                     responseCode = "200",
-                    description = "OK, 성공!",
-                    content = @Content(
-                            mediaType = MediaType.APPLICATION_JSON_VALUE,
-                            schema = @Schema(
-                                    implementation = CurrentStudentInfoResponse.class
-                            )
-                    )
+                    description = "OK, 성공!"
             )
     })
     @Operation(

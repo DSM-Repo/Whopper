@@ -22,7 +22,7 @@ public interface FindLibraryApiDocumentation {
                     content = @Content(
                             mediaType = MediaType.APPLICATION_JSON_VALUE,
                             schema = @Schema(
-                                    implementation = CurrentStudentInfoResponse.class
+                                    implementation = LibraryDetailResponse.class
                             )
                     )
             ),
@@ -50,7 +50,7 @@ public interface FindLibraryApiDocumentation {
                     content = @Content(
                             mediaType = MediaType.APPLICATION_JSON_VALUE,
                             schema = @Schema(
-                                    implementation = CurrentStudentInfoResponse.class
+                                    implementation = LibraryResponse.class
                             )
                     )
             )
