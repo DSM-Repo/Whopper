@@ -18,7 +18,7 @@ public class EditNoticeService implements EditNoticeUseCase {
         final var notice = noticeRepository.findById(noticeId)
                 .orElseThrow(()-> NoticeNotFoundException.EXCEPTION);
 
-        notice.editNotice(title, content);
-        noticeRepository.save(notice);
+        var newNotice = notice.editNotice(title, content);
+        noticeRepository.save(newNotice);
     }
 }
