@@ -6,7 +6,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
-@Tag(name = "Edit_notice", description = "공지 수정 API")
+@Tag(name = "Change_notice", description = "공지 변경 API")
 public interface ChangeNoticeApiDocumentation {
     @ApiResponses({
             @ApiResponse(
