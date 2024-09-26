@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 public record NoticeResponse(
         String id,
         String title,
+        String content,
         String writerName,
         LocalDateTime createdAt,
         Boolean checked
@@ -15,6 +16,7 @@ public record NoticeResponse(
         return new NoticeResponse(
                 model.id(),
                 model.title(),
+                model.content(),
                 model.writerName(),
                 model.createdAt(),
                 model.checked()
