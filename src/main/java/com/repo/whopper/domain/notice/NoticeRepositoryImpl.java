@@ -13,10 +13,10 @@ public class NoticeRepositoryImpl implements NoticeRepository {
     private final NoticeEntityMapper noticeEntityMapper;
 
     @Override
-    public NoticeModel save(NoticeModel model) {
+    public void save(NoticeModel model) {
         final var entity =  noticeEntityMapper.toEntity(model);
 
-        return noticeEntityMapper.toModel(noticeMongoRepository.save(entity));
+        noticeMongoRepository.save(entity);
     }
 
     @Override
@@ -29,5 +29,10 @@ public class NoticeRepositoryImpl implements NoticeRepository {
         final var result = noticeMongoRepository.findAll().stream();
 
         return noticeEntityMapper.toStreamLibraryModel(result);
+    }
+
+    @Override
+    public void deleteById(String noticeId) {
+        noticeMongoRepository.deleteById(noticeId);
     }
 }

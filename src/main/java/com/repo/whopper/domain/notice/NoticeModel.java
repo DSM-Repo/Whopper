@@ -16,4 +16,8 @@ public record NoticeModel(
     public NoticeModel checkNotice() {
         return new NoticeModel(id, title, content, writerName, createdAt, true);
     }
+
+    public NoticeModel editNotice(String title, String content) {
+        return new NoticeModel(id, title, content, writerName, createdAt, checked);
+    }
 }
