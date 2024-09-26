@@ -1,6 +1,6 @@
 package com.repo.whopper.application.teacher.component;
 
-import com.repo.whopper.common.exception.student.StudentNotFoundException;
+import com.repo.whopper.common.exception.teacher.TeacherNotFoundException;
 import com.repo.whopper.domain.teacher.TeacherModel;
 import com.repo.whopper.domain.teacher.TeacherRepository;
 import lombok.RequiredArgsConstructor;
@@ -21,6 +21,6 @@ public class CurrentTeacherImpl implements CurrentTeacher {
                 .getName();
 
         return teacherRepository.findById(id)
-                .orElseThrow(() -> StudentNotFoundException.EXCEPTION);
+                .orElseThrow(() -> TeacherNotFoundException.EXCEPTION);
     }
 }
