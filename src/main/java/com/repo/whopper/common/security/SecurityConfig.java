@@ -64,7 +64,7 @@ public class SecurityConfig {
 
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/auth/**", "/swagger-ui/**", "/v3/**").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/library/{libraryId}/public").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/library/{libraryId}/public", "/resume/student/{resumeId}").permitAll()
                         .anyRequest().authenticated()
                 )
 
