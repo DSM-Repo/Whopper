@@ -23,7 +23,7 @@ class SubmitMyResumeService implements SubmitMyResumeUseCase {
         ResumeModel newResume;
         if (resume.status().equals(ResumeElementDto.Status.SUBMITTED)) {
             newResume =cancelSubmit(resume);
-        } else {
+        } if else(resume.status().equals(ResumeElementDto.Status.ONGOING)) {
             newResume = submit(resume);
         }
 
