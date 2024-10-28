@@ -61,7 +61,6 @@ class ResumeController {
         return findResumeUseCase.getReleasedResumesByGradeAndYear(grade, year);
     }
 
-    @OnlyTeacher
     @GetMapping("/student/{resumeId}")
     FullResumeResponse getSubmittedResume(@PathVariable String resumeId) {
         return findResumeUseCase.getSubmittedResume(resumeId);
