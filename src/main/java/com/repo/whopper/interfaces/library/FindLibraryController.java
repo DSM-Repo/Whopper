@@ -26,6 +26,6 @@ public class FindLibraryController implements FindLibraryApiDocumentation {
 
     @GetMapping("/{libraryId}/public")
     public LibraryDetailResponse findLibraryDetail(@PathVariable String libraryId) {
-        return findLibraryUseCase.findLibraryDetail(libraryId);
+        return findLibraryUseCase.findPublicLibrary(libraryId);
     }
 }

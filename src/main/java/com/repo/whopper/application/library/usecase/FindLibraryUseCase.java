@@ -6,5 +6,6 @@ import com.repo.whopper.common.http.dto.DataResponseInfo;
 
 public interface FindLibraryUseCase {
     LibraryDetailResponse findLibraryDetail(String libraryId);
+    LibraryDetailResponse findPublicLibrary(String libraryId);
     DataResponseInfo<LibraryResponse> findLibrary(Integer year);
 }

@@ -8,6 +8,7 @@ import java.util.stream.Stream;
 
 @Repository
 @RequiredArgsConstructor
+
 class LibraryRepositoryImpl implements LibraryRepository {
     private final LibraryMongoRepository libraryMongoRepository;
     private final LibraryEntityMapper libraryEntityMapper;
@@ -22,6 +23,12 @@ class LibraryRepositoryImpl implements LibraryRepository {
     @Override
     public Optional<LibraryModel> findById(String libraryId) {
         return libraryEntityMapper.toOptionalModel(libraryMongoRepository.findById(libraryId));
+    }
+
+    @Override
+    public Optional<LibraryModel> findPublicById(final String libraryId) {
+        final var entity = libraryMongoRepository.findByIdAndAccessRight(libraryId, LibraryEntity.AccessRight.PUBLIC);
+        return libraryEntityMapper.toOptionalModel(entity);
     }
 
     @Override

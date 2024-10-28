@@ -29,6 +29,15 @@ public class FindLibraryService implements FindLibraryUseCase {
 
     @Override
     @Transactional(readOnly = true)
+    public LibraryDetailResponse findPublicLibrary(final String libraryId) {
+        LibraryModel library = libraryRepository.findPublicById(libraryId)
+                .orElseThrow(() -> LibraryNotFoundException.EXCEPTION);
+
+        return new LibraryDetailResponse(library, pdfUseCase.getPdfFileUrl(library.filePath()));
+    }
+
+    @Override
+    @Transactional(readOnly = true)
     public DataResponseInfo<LibraryResponse> findLibrary(Integer year) {
         var library = (year == 0)
                 ? libraryRepository.findAll()
