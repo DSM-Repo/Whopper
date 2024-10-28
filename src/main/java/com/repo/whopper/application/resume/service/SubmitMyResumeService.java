@@ -1,6 +1,7 @@
 package com.repo.whopper.application.resume.service;
 
 import com.repo.whopper.application.resume.usecase.SubmitMyResumeUseCase;
+import com.repo.whopper.common.error.exception.ForbiddenException;
 import com.repo.whopper.domain.resume.ResumeModel;
 import com.repo.whopper.domain.resume.ResumeRepository;
 import com.repo.whopper.application.student.component.CurrentStudent;
@@ -22,9 +23,11 @@ class SubmitMyResumeService implements SubmitMyResumeUseCase {
 
         ResumeModel newResume;
         if (resume.status().equals(ResumeElementDto.Status.SUBMITTED)) {
-            newResume =cancelSubmit(resume);
+            newResume = cancelSubmit(resume);
         } else if(resume.status().equals(ResumeElementDto.Status.ONGOING)) {
             newResume = submit(resume);
+        } else {
+            throw ForbiddenException.EXCEPTION;
         }
 
         save(newResume);
