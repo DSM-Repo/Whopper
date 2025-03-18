@@ -14,7 +14,7 @@ class StudentEntity {
     @Id
     private String id;
     private String accountId;
-    private String password;
+//    private String password;
     private String name;
     private ClassInfo classInfo;
     private String profileImagePath;

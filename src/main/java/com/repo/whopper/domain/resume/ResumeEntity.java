@@ -8,7 +8,6 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;
-import java.util.Set;
 
 @Getter
 @Builder
@@ -81,7 +80,7 @@ class ResumeEntity {
     }
 
     record Writer(
-            String id,
+            String accountId, //todo 현재 유저 고유 아이디 저장 중 -> 변경후 -> 유저
             String name,
             SchoolInfo schoolInfo,
             String major,

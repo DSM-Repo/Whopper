@@ -73,7 +73,7 @@ class StudentLoginService implements StudentLoginUseCase {
         final var newStudent = createAndSaveNewStudent(xquareUserResponse);
 
         createResumeComponent.create(newStudent);
-        return getTokenResponse(newStudent.id());
+        return getTokenResponse(newStudent.accountId());
     }
 
     private TokenResponse getTokenResponse(String id) {

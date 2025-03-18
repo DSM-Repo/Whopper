@@ -7,12 +7,17 @@ import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.cloud.openfeign.FeignAutoConfiguration;
 
+@EnableFeignClients
 @SpringBootApplication
 @ConfigurationPropertiesScan
-@EnableFeignClients
 @ImportAutoConfiguration({FeignAutoConfiguration.class})
-public class WhopperApplication {
-    public static void main(String[] args) {
-        SpringApplication.run(WhopperApplication.class, args);
+class Application {
+
+    public static void main(final String[] args) {
+        SpringApplication.run(
+                Application.class,
+                args
+        );
     }
+
 }

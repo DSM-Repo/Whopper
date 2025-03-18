@@ -20,7 +20,7 @@ public class ResumeElementDto {
     }
 
     public record Writer(
-            String id,
+            String accountId,
             String name,
             SchoolInfo schoolInfo,
             String major,
@@ -29,7 +29,7 @@ public class ResumeElementDto {
             String url
     ) {
         public Writer update(String major, String email, List<String> skillSet, String url) {
-            return new Writer(id, name, schoolInfo, major, email, skillSet, url);
+            return new Writer(accountId, name, schoolInfo, major, email, skillSet, url);
         }
 
         public record SchoolInfo(

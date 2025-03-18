@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 @FeignClient(name = "xquare-client", url = "${key.login-api-url}", configuration = XquareRetryConfiguration.class)
 public interface XquareClient {
     @PostMapping("/user-data")
-    XquareUserResponse xquareUser(@RequestBody LoginRequest request);
+    XquareUserResponse xquareUser(@RequestBody LoginRequest request); // TODO: 3/18/25 200 -> login 성공
 
     @PatchMapping("/modify-profile")
     void modifyProfile(@RequestParam("account_id") String account_id, @RequestParam("profile_img_url") String profileImgUrl);
