@@ -37,7 +37,7 @@ class StudentLoginService implements StudentLoginUseCase {
     @Override
     @Transactional
     public TokenResponse studentLogin(LoginRequest request) {
-        return studentRepository.existsByAccountId(request.accountId().trim())
+        return studentRepository.existsByAccountId(request.accountId())
                 ? loginExistingStudent(request)
                 : registerAndLoginNewStudent(request);
     }
@@ -72,7 +72,7 @@ class StudentLoginService implements StudentLoginUseCase {
         final var newStudent = createAndSaveNewStudent(xquareUserResponse);
 
         createResumeComponent.create(newStudent);
-        return getTokenResponse(newStudent.accountId());
+        return getTokenResponse(newStudent.id());
     }
 
     private TokenResponse getTokenResponse(String id) {
