@@ -1,6 +1,7 @@
 package com.dsm.repo.internal.core.domain.service.auth;
 
 import com.dsm.repo.external.exception.domain.resume.ResumeNotFoundException;
+import com.dsm.repo.external.web.rest.resume.dto.ResumeElementDto;
 import com.dsm.repo.external.web.rest.student.dto.StudentElementDto;
 import com.dsm.repo.internal.core.domain.model.resume.ResumeModel;
 import com.dsm.repo.internal.core.usecase.auth.StudentLoginUseCase;
@@ -66,16 +67,17 @@ class StudentLoginService implements StudentLoginUseCase {
         ) {
             final XquareUserResponse xquareUserResponse = xquareClient.xquareUser(request);
 
-            final StudentModel updatedStudent = student.updateClassInfo(
-                    new StudentElementDto.ClassInfo(
-                        xquareUserResponse.getGrade(),
-                        xquareUserResponse.getClassNum(),
-                        xquareUserResponse.getNum()
-                    )
+            final StudentElementDto.ClassInfo classInfo = new StudentElementDto.ClassInfo(
+                    xquareUserResponse.getGrade(),
+                    xquareUserResponse.getClassNum(),
+                    xquareUserResponse.getNum()
             );
+
+            final StudentModel updatedStudent = student.updateClassInfo(classInfo);
             studentRepository.save(updatedStudent);
 
-            final ResumeModel updatedResume = resume.updateYear();
+            final ResumeElementDto.Writer.SchoolInfo schoolInfo =  resume.writer().schoolInfo().updateInfo(classInfo);
+            final ResumeModel updatedResume = resume.updateYearAndSchoolInfo(schoolInfo);
             resumeRepository.save(updatedResume);
         }
 

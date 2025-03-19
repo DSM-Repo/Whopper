@@ -1,6 +1,7 @@
 package com.dsm.repo.external.web.rest.resume.dto;
 
 import com.dsm.repo.external.web.rest.resume.dto.request.UpdateWriterInfoRequest;
+import com.dsm.repo.external.web.rest.student.dto.StudentElementDto;
 
 import java.util.List;
 
@@ -28,6 +29,10 @@ public class ResumeElementDto {
             List<String> skillSet,
             String url
     ) {
+
+        public Writer updateSchoolInfo(SchoolInfo schoolInfo) {
+            return new Writer(id, name, schoolInfo, major, email, skillSet, url);
+        }
         public Writer update(String major, String email, List<String> skillSet, String url) {
             return new Writer(id, name, schoolInfo, major, email, skillSet, url);
         }
@@ -38,7 +43,11 @@ public class ResumeElementDto {
                 Integer number,
                 String schoolNumber,
                 Integer generation
-        ) {}
+        ) {
+            public SchoolInfo updateInfo(StudentElementDto.ClassInfo classInfo) {
+                return new SchoolInfo(classInfo.grade(), classInfo.classNumber(), classInfo.number(), classInfo.schoolNumber(), generation);
+            }
+        }
     }
 
     public record Introduce(
