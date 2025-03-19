@@ -31,6 +31,10 @@ public record ResumeModel(
         );
     }
 
+    public ResumeModel updateYear() {
+        return new ResumeModel(id, Year.now().getValue(), status, writer, introduce, projectList, achievementList, activityList);
+    }
+
     public ResumeModel release() {
         return new ResumeModel(id, year, ResumeElementDto.Status.RELEASED, writer, introduce, projectList, achievementList, activityList);
     }

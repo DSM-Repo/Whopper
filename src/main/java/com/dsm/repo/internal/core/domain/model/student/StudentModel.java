@@ -17,6 +17,10 @@ public record StudentModel(
         return new StudentModel(id, accountId, password, name, classInfo, profileImagePath, majorName);
     }
 
+    public StudentModel updateClassInfo(StudentElementDto.ClassInfo classInfo) {
+        return new StudentModel(id, accountId, password, name, classInfo, profileImagePath, major);
+    }
+
     public StudentModel(String accountId, String password, String name, Integer grade, Integer classNumber, Integer number, String profileImagePath, String majorName) {
         this(null,
                 accountId,
@@ -25,8 +29,7 @@ public record StudentModel(
                 new StudentElementDto.ClassInfo(
                         grade,
                         classNumber,
-                        number,
-                        String.format("%1d%1d%02d", grade, classNumber, number)
+                        number
                 ),
                 profileImagePath,
                 majorName

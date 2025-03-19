@@ -80,7 +80,7 @@ class ResumeEntity {
     }
 
     record Writer(
-            String accountId, //todo 현재 유저 고유 아이디 저장 중 -> 변경후 -> 유저
+            String id,
             String name,
             SchoolInfo schoolInfo,
             String major,

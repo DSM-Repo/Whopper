@@ -32,14 +32,14 @@ public class CurrentStudentImpl implements CurrentStudent {
     @Override
     @Transactional
     public ResumeModel getResume() {
-        return resumeRepository.findByWriterAccountId(getStudent().accountId())
+        return resumeRepository.findByWriterId(getStudent().accountId())
                 .orElseThrow(() -> ResumeNotFoundException.EXCEPTION);
     }
 
     @Override
     @Transactional
-    public ResumeModel getResume(String accountId) {
-        return resumeRepository.findByWriterAccountId(accountId)
+    public ResumeModel getResume(String studentId) {
+        return resumeRepository.findById(studentId)
                 .orElseThrow(() -> ResumeNotFoundException.EXCEPTION);
     }
 

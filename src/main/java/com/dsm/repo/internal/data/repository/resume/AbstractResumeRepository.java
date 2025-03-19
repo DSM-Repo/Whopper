@@ -19,8 +19,8 @@ abstract class AbstractResumeRepository implements ResumeRepository {
     }
 
     @Override
-    public Optional<ResumeModel> findByWriterAccountId(String accountId) {
-        return resumeEntityMapper.toOptionalModel(resumeMongoRepository.findByWriterAccountId(accountId));
+    public Optional<ResumeModel> findByWriterId(String accountId) {
+        return resumeEntityMapper.toOptionalModel(resumeMongoRepository.findByWriterId(accountId));
     }
 
     @Override

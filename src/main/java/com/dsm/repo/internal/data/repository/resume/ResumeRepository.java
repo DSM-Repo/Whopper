@@ -7,7 +7,7 @@ import java.util.stream.Stream;
 
 public interface ResumeRepository {
     Optional<ResumeModel> findById(String resumeId);
-    Optional<ResumeModel> findByWriterAccountId(String accountId);
+    Optional<ResumeModel> findByWriterId(String accountId);
     Stream<ResumeModel> searchResumes(String name, Integer grade, Integer classNumber, String majorId, String status);
     Stream<ResumeModel> getReleasedResumes();
     ResumeModel save(ResumeModel resume);

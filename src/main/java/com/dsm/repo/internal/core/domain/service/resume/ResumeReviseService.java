@@ -25,7 +25,7 @@ class ResumeReviseService implements ResumeReviseUseCase {
     @Override
     public void revise(final ResumeElementDto.ReviseRequest request) {
         final var student = currentStudent.getStudent();
-        final var resume = currentStudent.getResume(student.accountId());
+        final var resume = currentStudent.getResume(student.id());
 
         reviseProcess(request, resume);
         publishMajorUpdateEvent(request.writer().major(), student.id());

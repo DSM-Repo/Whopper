@@ -1,9 +1,13 @@
 package com.dsm.repo.internal.core.domain.service.auth;
 
+import com.dsm.repo.external.exception.domain.resume.ResumeNotFoundException;
+import com.dsm.repo.external.web.rest.student.dto.StudentElementDto;
+import com.dsm.repo.internal.core.domain.model.resume.ResumeModel;
 import com.dsm.repo.internal.core.usecase.auth.StudentLoginUseCase;
 import com.dsm.repo.external.exception.error.ErrorCode;
 import com.dsm.repo.external.exception.ExternalException;
 import com.dsm.repo.internal.core.domain.model.student.StudentModel;
+import com.dsm.repo.internal.data.repository.resume.ResumeRepository;
 import com.dsm.repo.internal.data.repository.student.StudentRepository;
 import com.dsm.repo.external.web.rest.auth.dto.AuthElementDto;
 import com.dsm.repo.external.web.rest.auth.dto.request.LoginRequest;
@@ -23,6 +27,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.Year;
+
 @Service
 @RequiredArgsConstructor
 class StudentLoginService implements StudentLoginUseCase {
@@ -34,6 +40,8 @@ class StudentLoginService implements StudentLoginUseCase {
     private final CreateResumeComponent createResumeComponent;
     private final DefaultProfileImageProperties defaultProfileImageProperties;
 
+    private final ResumeRepository resumeRepository; // TODO: 3/19/25 안티패턴
+
     @Override
     @Transactional
     public TokenResponse studentLogin(LoginRequest request) {
@@ -43,11 +51,32 @@ class StudentLoginService implements StudentLoginUseCase {
     }
 
     private TokenResponse loginExistingStudent(LoginRequest request) {
-        final var student = studentRepository.findByAccountId(request.accountId())
+        final StudentModel student = studentRepository.findByAccountId(request.accountId())
                 .orElseThrow(() -> StudentNotFoundException.EXCEPTION);
 
         if (!passwordEncoder.matches(request.password(), student.password())) {
             throw PasswordMismatchException.EXCEPTION;
+        }
+
+        final ResumeModel resume = resumeRepository.findByWriterId(student.id())
+                .orElseThrow(() -> ResumeNotFoundException.EXCEPTION);
+
+        if ( // TODO: 3/19/25 안티패턴
+            resume.year() != Year.now().getValue() // 현재 년도와 다르면 xquare 요청 후 유저 정보 업데이트
+        ) {
+            final XquareUserResponse xquareUserResponse = xquareClient.xquareUser(request);
+
+            final StudentModel updatedStudent = student.updateClassInfo(
+                    new StudentElementDto.ClassInfo(
+                        xquareUserResponse.getGrade(),
+                        xquareUserResponse.getClassNum(),
+                        xquareUserResponse.getNum()
+                    )
+            );
+            studentRepository.save(updatedStudent);
+
+            final ResumeModel updatedResume = resume.updateYear();
+            resumeRepository.save(updatedResume);
         }
 
         return getTokenResponse(student.id());
