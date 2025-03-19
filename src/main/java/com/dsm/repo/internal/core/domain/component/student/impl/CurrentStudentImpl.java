@@ -31,7 +31,7 @@ public class CurrentStudentImpl implements CurrentStudent {
 
     @Override
     @Transactional
-    public ResumeModel getResume() { // TODO: 3/18/25 내용 중복 메서드
+    public ResumeModel getResume() {
         return resumeRepository.findByWriterAccountId(this.getStudent().accountId())
                 .orElseThrow(() -> ResumeNotFoundException.EXCEPTION);
     }
@@ -39,7 +39,7 @@ public class CurrentStudentImpl implements CurrentStudent {
     @Override
     @Transactional
     public ResumeModel getResume(String studentId) {
-        return resumeRepository.findByWriterAccountId(studentId)
+        return resumeRepository.findById(studentId)
                 .orElseThrow(() -> ResumeNotFoundException.EXCEPTION);
     }
 
