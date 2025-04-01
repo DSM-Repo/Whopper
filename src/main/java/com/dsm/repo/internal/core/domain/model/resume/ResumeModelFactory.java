@@ -10,7 +10,7 @@ public class ResumeModelFactory {
         var classInfo = student.classInfo();
 
         return ResumeModel.createInitialResume(
-                student.accountId(),
+                student.id(),
                 student.name(),
                 new ResumeElementDto.Writer.SchoolInfo(
                         classInfo.grade(),
