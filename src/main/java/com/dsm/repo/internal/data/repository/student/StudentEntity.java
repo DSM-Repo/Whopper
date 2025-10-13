@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Getter
@@ -13,6 +14,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 class StudentEntity {
     @Id
     private String id;
+    @Indexed(unique = true)
     private String accountId;
     private String password;
     private String name;
