@@ -101,7 +101,8 @@ public class ResumeElementDto {
             String name,
             Date date,
             boolean isPeriod,
-            String description
+            String description,
+            String sectionName
     ) {}
 
     public record Date(
