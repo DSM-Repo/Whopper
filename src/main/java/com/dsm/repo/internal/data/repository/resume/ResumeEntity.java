@@ -33,7 +33,8 @@ class ResumeEntity {
             String name,
             Date date,
             boolean isPeriod,
-            String description
+            String description,
+            String sectionName
     ) {}
 
     record Achievement(
